@@ -246,8 +246,8 @@
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="<?php echo $site_url ?>assets/images/users/2.jpg" alt="user" class="rounded-circle" width="40">
-                                <span class="m-l-5 font-medium d-none d-sm-inline-block">Jonathan Doe <i class="mdi mdi-chevron-down"></i></span>
+                                <img src="<?php echo $site_url ?>assets/img/user/<?php echo $_SESSION['user_details']['id'] ?>/<?php echo $_SESSION['user_details']['image_url'] ?>" alt="user" class="rounded-circle" width="40">
+                                <span class="m-l-5 font-medium d-none d-sm-inline-block"><?php echo $_SESSION['user_details']['nama'] ?> <i class="mdi mdi-chevron-down"></i></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
                                 <span class="with-arrow">
@@ -255,11 +255,11 @@
                                 </span>
                                 <div class="d-flex no-block align-items-center p-15 bg-primary text-white m-b-10">
                                     <div class="">
-                                        <img src="<?php echo $site_url ?>assets/images/users/2.jpg" alt="user" class="rounded-circle" width="60">
+                                        <img src="<?php echo $site_url ?>assets/img/user/<?php echo $_SESSION['user_details']['id'] ?>/<?php echo $_SESSION['user_details']['image_url'] ?>" alt="user" class="rounded-circle" width="60">
                                     </div>
                                     <div class="m-l-10">
-                                        <h4 class="m-b-0">Jonathan Doe</h4>
-                                        <p class=" m-b-0">jon@gmail.com</p>
+                                        <h4 class="m-b-0"><?php echo $_SESSION['user_details']['nama'] ?></h4>
+                                        <p class=" m-b-0"><?php echo $_SESSION['user_details']['email'] ?></p>
                                     </div>
                                 </div>
                                 <div class="profile-dis scrollable">
