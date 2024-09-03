@@ -95,10 +95,10 @@ else if (str_contains($request, 'logout'))
 	logout();
 
 else {
-	echo $request;
+	// echo $request;
 
-	http_response_code(404);
-	page404();
+	// http_response_code(404);
+	// page404();
 }
 
 
