@@ -507,9 +507,8 @@
                     waves-effect waves-dark
                     pro-pic
                   " href="index.html" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <img src=" <?php echo $site_url ?>assets/images/users/2.jpg" alt="user" class="rounded-circle"
-              width="40" />
-            <span class="ms-1 font-weight-medium d-none d-sm-inline-block">Jonathan Doe
+            <img src="<?php echo $site_url ?>assets/images/user/<?php echo $_SESSION['user_details']['id']?>/<?php echo $_SESSION['user_details']['image_url']?>" alt="user" class="rounded-circle" width="40" />
+            <span class="ms-1 font-weight-medium d-none d-sm-inline-block"><?php echo $_SESSION['user_details']['nama'] ?>
               <i data-feather="chevron-down" class="feather-sm"></i></span>
           </a>
           <div class="
@@ -531,12 +530,12 @@
                       mb-2
                     ">
               <div class="">
-                <img src=" <?php echo $site_url ?>assets/images/users/5.jpg" alt="user" class="rounded-circle"
+                <img src="<?php echo $site_url ?>assets/images/user/<?php echo $_SESSION['user_details']['id']?>/<?php echo $_SESSION['user_details']['image_url']?>" alt="user" class="rounded-circle"
                   width="60" />
               </div>
               <div class="ms-2">
-                <h4 class="mb-0 text-white">Marken Doe</h4>
-                <p class="mb-0">deo@gmail.com</p>
+                <h4 class="mb-0 text-white"><?php echo $_SESSION['user_details']['nama'] ?></h4>
+                <p class="mb-0"><?php echo $_SESSION['user_details']['email'] ?></p>
               </div>
             </div>
             <a class="dropdown-item" href="index.html#"><i data-feather="user"

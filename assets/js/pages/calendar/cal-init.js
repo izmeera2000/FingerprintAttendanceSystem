@@ -5,16 +5,16 @@ document.addEventListener("DOMContentLoaded", function () {
   /*=================*/
   //  Calender Date variable
   /*=================*/
-  var newDate = new Date();
-  function getDynamicMonth() {
-    getMonthValue = newDate.getMonth();
-    _getUpdatedMonthValue = getMonthValue + 1;
-    if (_getUpdatedMonthValue < 10) {
-      return `0${_getUpdatedMonthValue}`;
-    } else {
-      return `${_getUpdatedMonthValue}`;
-    }
-  }
+  // var newDate = new Date();
+  // function getDynamicMonth() {
+  //   getMonthValue = newDate.getMonth();
+  //   _getUpdatedMonthValue = getMonthValue + 1;
+  //   if (_getUpdatedMonthValue < 10) {
+  //     return `0${_getUpdatedMonthValue}`;
+  //   } else {
+  //     return `${_getUpdatedMonthValue}`;
+  //   }
+  // }
   /*=================*/
   // Calender Modal Elements
   /*=================*/
@@ -41,77 +41,77 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   };
   var calendarHeaderToolbar = {
-    left: "prev next addEventButton",
+    left: "prev next",
     center: "title",
-    right: "dayGridMonth,timeGridWeek,timeGridDay",
+    right: "resourceTimeline,dayGridMonth",
   };
-  var calendarEventsList = [
-    {
-      id: 1,
-      title: "Event Conf.",
-      start: `${newDate.getFullYear()}-${getDynamicMonth()}-01`,
-      extendedProps: { calendar: "Danger" },
-    },
-    {
-      id: 2,
-      title: "Seminar #4",
-      start: `${newDate.getFullYear()}-${getDynamicMonth()}-07`,
-      end: `${newDate.getFullYear()}-${getDynamicMonth()}-10`,
-      extendedProps: { calendar: "Success" },
-    },
-    {
-      groupId: "999",
-      id: 3,
-      title: "Meeting #5",
-      start: `${newDate.getFullYear()}-${getDynamicMonth()}-09T16:00:00`,
-      extendedProps: { calendar: "Primary" },
-    },
-    {
-      groupId: "999",
-      id: 4,
-      title: "Submission #1",
-      start: `${newDate.getFullYear()}-${getDynamicMonth()}-16T16:00:00`,
-      extendedProps: { calendar: "Warning" },
-    },
-    {
-      id: 5,
-      title: "Seminar #6",
-      start: `${newDate.getFullYear()}-${getDynamicMonth()}-11`,
-      end: `${newDate.getFullYear()}-${getDynamicMonth()}-13`,
-      extendedProps: { calendar: "Danger" },
-    },
-    {
-      id: 6,
-      title: "Meeting 3",
-      start: `${newDate.getFullYear()}-${getDynamicMonth()}-12T10:30:00`,
-      end: `${newDate.getFullYear()}-${getDynamicMonth()}-12T12:30:00`,
-      extendedProps: { calendar: "Success" },
-    },
-    {
-      id: 7,
-      title: "Meetup #",
-      start: `${newDate.getFullYear()}-${getDynamicMonth()}-12T12:00:00`,
-      extendedProps: { calendar: "Primary" },
-    },
-    {
-      id: 8,
-      title: "Submission",
-      start: `${newDate.getFullYear()}-${getDynamicMonth()}-12T14:30:00`,
-      extendedProps: { calendar: "Warning" },
-    },
-    {
-      id: 9,
-      title: "Attend event",
-      start: `${newDate.getFullYear()}-${getDynamicMonth()}-13T07:00:00`,
-      extendedProps: { calendar: "Success" },
-    },
-    {
-      id: 10,
-      title: "Project submission #2",
-      start: `${newDate.getFullYear()}-${getDynamicMonth()}-28`,
-      extendedProps: { calendar: "Primary" },
-    },
-  ];
+  // var calendarEventsList = [
+  //   {
+  //     id: 1,
+  //     title: "Event Conf.",
+  //     start: `${newDate.getFullYear()}-${getDynamicMonth()}-01`,
+  //     extendedProps: { calendar: "Danger" },
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "Seminar #4",
+  //     start: `${newDate.getFullYear()}-${getDynamicMonth()}-07`,
+  //     end: `${newDate.getFullYear()}-${getDynamicMonth()}-10`,
+  //     extendedProps: { calendar: "Success" },
+  //   },
+  //   {
+  //     groupId: "999",
+  //     id: 3,
+  //     title: "Meeting #5",
+  //     start: `${newDate.getFullYear()}-${getDynamicMonth()}-09T16:00:00`,
+  //     extendedProps: { calendar: "Primary" },
+  //   },
+  //   {
+  //     groupId: "999",
+  //     id: 4,
+  //     title: "Submission #1",
+  //     start: `${newDate.getFullYear()}-${getDynamicMonth()}-16T16:00:00`,
+  //     extendedProps: { calendar: "Warning" },
+  //   },
+  //   {
+  //     id: 5,
+  //     title: "Seminar #6",
+  //     start: `${newDate.getFullYear()}-${getDynamicMonth()}-11`,
+  //     end: `${newDate.getFullYear()}-${getDynamicMonth()}-13`,
+  //     extendedProps: { calendar: "Danger" },
+  //   },
+  //   {
+  //     id: 6,
+  //     title: "Meeting 3",
+  //     start: `${newDate.getFullYear()}-${getDynamicMonth()}-12T10:30:00`,
+  //     end: `${newDate.getFullYear()}-${getDynamicMonth()}-12T12:30:00`,
+  //     extendedProps: { calendar: "Success" },
+  //   },
+  //   {
+  //     id: 7,
+  //     title: "Meetup #",
+  //     start: `${newDate.getFullYear()}-${getDynamicMonth()}-12T12:00:00`,
+  //     extendedProps: { calendar: "Primary" },
+  //   },
+  //   {
+  //     id: 8,
+  //     title: "Submission",
+  //     start: `${newDate.getFullYear()}-${getDynamicMonth()}-12T14:30:00`,
+  //     extendedProps: { calendar: "Warning" },
+  //   },
+  //   {
+  //     id: 9,
+  //     title: "Attend event",
+  //     start: `${newDate.getFullYear()}-${getDynamicMonth()}-13T07:00:00`,
+  //     extendedProps: { calendar: "Success" },
+  //   },
+  //   {
+  //     id: 10,
+  //     title: "Project submission #2",
+  //     start: `${newDate.getFullYear()}-${getDynamicMonth()}-28`,
+  //     extendedProps: { calendar: "Primary" },
+  //   },
+  // ];
   /*=====================*/
   // Calendar Select fn.
   /*=====================*/
@@ -142,28 +142,28 @@ document.addEventListener("DOMContentLoaded", function () {
   /*=====================*/
   var calendarEventClick = function (info) {
     var eventObj = info.event;
+    console.log(info.event);
+    // if (eventObj.url) {
+    //   window.open(eventObj.url);
 
-    if (eventObj.url) {
-      window.open(eventObj.url);
+    //   info.jsEvent.preventDefault();
+    // } else {
+    //   var getModalEventId = eventObj._def.publicId;
+    //   var getModalEventLevel = eventObj._def.extendedProps["calendar"];
+    //   var getModalCheckedRadioBtnEl = document.querySelector(
+    //     `input[value="${getModalEventLevel}"]`
+    //   );
 
-      info.jsEvent.preventDefault();
-    } else {
-      var getModalEventId = eventObj._def.publicId;
-      var getModalEventLevel = eventObj._def.extendedProps["calendar"];
-      var getModalCheckedRadioBtnEl = document.querySelector(
-        `input[value="${getModalEventLevel}"]`
-      );
-
-      getModalTitleEl.value = eventObj.title;
-      getModalCheckedRadioBtnEl.checked = true;
-      getModalUpdateBtnEl.setAttribute(
-        "data-fc-event-public-id",
-        getModalEventId
-      );
-      getModalAddBtnEl.style.display = "none";
-      getModalUpdateBtnEl.style.display = "block";
-      myModal.show();
-    }
+    //   getModalTitleEl.value = eventObj.title;
+    //   getModalCheckedRadioBtnEl.checked = true;
+    //   getModalUpdateBtnEl.setAttribute(
+    //     "data-fc-event-public-id",
+    //     getModalEventId
+    //   );
+    //   getModalAddBtnEl.style.display = "none";
+    //   getModalUpdateBtnEl.style.display = "block";
+    //   myModal.show();
+    // }
   };
 
   /*=====================*/
@@ -171,39 +171,50 @@ document.addEventListener("DOMContentLoaded", function () {
   /*=====================*/
   var calendar = new FullCalendar.Calendar(calendarEl, {
     selectable: true,
-    height: checkWidowWidth() ? 900 : 1052,
+    // height: checkWidowWidth() ? 900 : 1052,
     initialView: "resourceTimeline",
     // initialDate: `${newDate.getFullYear()}-${getDynamicMonth()}-07`,
     headerToolbar: calendarHeaderToolbar,
     // events: calendarEventsList,
-    select: calendarSelect,
+    // select: calendarSelect,
     unselect: function () {
       console.log("unselected");
     },
-    customButtons: {
-      addEventButton: {
-        text: "Add Event",
-        click: calendarAddEvent,
-      },
-    },
+    // customButtons: {
+    //   addEventButton: {
+    //     text: "Add Event",
+    //     click: calendarAddEvent,
+    //   },
+    // },
+    slotMinTime: "08:00:00", // Start of the day
+    slotMaxTime: "18:00:00", // Start of the day
+    slotDuration: "01:00:00",
+    nowIndicator: true,
     events: getAllEvents,
     resources: getResources,
-    eventClassNames: function ({ event: calendarEvent }) {
-      const getColorValue =
-        calendarsEvents[calendarEvent._def.extendedProps.calendar];
-      return ["event-fc-color fc-bg-" + getColorValue];
-    },
-
+    lazyFetching: true,
+    selectable: true,
+    selectHelper: true,
+    // height: 650,
     eventClick: calendarEventClick,
-    windowResize: function (arg) {
-      if (checkWidowWidth()) {
-        calendar.changeView("listWeek");
-        calendar.setOption("height", 900);
-      } else {
-        calendar.changeView("dayGridMonth");
-        calendar.setOption("height", 1052);
-      }
-    },
+    contentHeight: "auto",
+    height: "auto",
+    // eventClassNames: function ({ event: calendarEvent }) {
+    //   const getColorValue =
+    //     calendarsEvents[calendarEvent._def.extendedProps.calendar];
+    //   return ["event-fc-color fc-bg-" + getColorValue];
+    // },
+
+    // eventClick: calendarEventClick,
+    // windowResize: function (arg) {
+    //   if (checkWidowWidth()) {
+    //     calendar.changeView("listWeek");
+    //     calendar.setOption("height", 900);
+    //   } else {
+    //     calendar.changeView("dayGridMonth");
+    //     calendar.setOption("height", 1052);
+    //   }
+    // },
   });
 
   /*=====================*/
@@ -254,21 +265,21 @@ document.addEventListener("DOMContentLoaded", function () {
   // Calendar Init
   /*=====================*/
   calendar.render();
-  var myModal = new bootstrap.Modal(document.getElementById("eventModal"));
-  var modalToggle = document.querySelector(".fc-addEventButton-button ");
-  document
-    .getElementById("eventModal")
-    .addEventListener("hidden.bs.modal", function (event) {
-      getModalTitleEl.value = "";
-      getModalStartDateEl.value = "";
-      getModalEndDateEl.value = "";
-      var getModalIfCheckedRadioBtnEl = document.querySelector(
-        'input[name="event-level"]:checked'
-      );
-      if (getModalIfCheckedRadioBtnEl !== null) {
-        getModalIfCheckedRadioBtnEl.checked = false;
-      }
-    });
+  // var myModal = new bootstrap.Modal(document.getElementById("eventModal"));
+  // var modalToggle = document.querySelector(".fc-addEventButton-button ");
+  // document
+  //   .getElementById("eventModal")
+  //   .addEventListener("hidden.bs.modal", function (event) {
+  //     getModalTitleEl.value = "";
+  //     getModalStartDateEl.value = "";
+  //     getModalEndDateEl.value = "";
+  //     var getModalIfCheckedRadioBtnEl = document.querySelector(
+  //       'input[name="event-level"]:checked'
+  //     );
+  //     if (getModalIfCheckedRadioBtnEl !== null) {
+  //       getModalIfCheckedRadioBtnEl.checked = false;
+  //     }
+  //   });
 });
 
 function getAllEvents(info, successCallback, failureCallback) {
