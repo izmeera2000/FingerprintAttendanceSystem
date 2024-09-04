@@ -26,6 +26,7 @@ function server()
 
 function register()
 {
+
 	require_once('views/register.php');
 }
 
@@ -55,6 +56,15 @@ function page404()
 }
 
 
+function attendance_view()
+{
+	check_session($site_url);
+
+	require_once('views/attendance/timeline.php');
+
+}
+
+
 
 
 function check_session(&$site_url, $admin = 0)
@@ -64,19 +74,19 @@ function check_session(&$site_url, $admin = 0)
 
 		header("location: " . $site_url . "login");
 
-	}
-	if ($admin) {
-		// var_dump($_SESSION['user_details']['role']);
+		if ($admin) {
+			// var_dump($_SESSION['user_details']['role']);
 
-		if (($_SESSION['user_details']['role'] != 1)) {
-			// header("location: " . $site_url . "login");
-			// session_destroy();
-			// unset($_SESSION['user_details']);
-			header("location: " . $site_url . "logout");
+			if (($_SESSION['user_details']['role'] != 1)) {
+				// header("location: " . $site_url . "login");
+				// session_destroy();
+				// unset($_SESSION['user_details']);
+				header("location: " . $site_url . "logout");
+
+			}
+
 
 		}
-
-
 	}
 
 }
@@ -93,7 +103,12 @@ else if (str_contains($request, 'login'))
 	login();
 else if (str_contains($request, 'logout'))
 	logout();
-
+else if (str_contains($request, 'attendance/view'))
+	attendance_view();
+	else if (str_contains($request, 'fetchresource'))
+	server();
+	else if (str_contains($request, 'fetchevent'))
+	server();
 else {
 	// echo $request;
 

@@ -1,517 +1,816 @@
-/*
-Template Name: Admin Pro Admin
-Author: Wrappixel
-Email: niravjoshi87@gmail.com
-File: js
-*/
-$(function() {
-    "use strict";   
-    // ============================================================== 
-    // sales ratio
-    // ============================================================== 
+// -------------------------------------------------------------------------------------------------------------------------------------------
+// Dashboard 2 : Chart Init Js
+// -------------------------------------------------------------------------------------------------------------------------------------------
+$(function () {
+  "use strict";
+  // -----------------------------------------------------------------------
+  // sales ratio
+  // -----------------------------------------------------------------------
 
-    var chart = new Chartist.Line('.sales-ratio', {
-        labels: [1, 2, 3, 4, 5, 6, 7, 8],
-        series: [
-            [12.5, 23.3, 34.7, 28.5, 21.4, 30.6, 44.5, 34],
-        ]
-    }, {
-        low: 0,
-        high: 48,
-        showArea: true,
-        fullWidth: true,
-        plugins: [
-            Chartist.plugins.tooltip()
-        ],
-        axisY: {
-            onlyInteger: true,
-            scaleMinSpace: 40,
-            offset: 20,
-            labelInterpolationFnc: function(value) {
-                return (value / 10) + 'k';
-            }
+  var option_sales_ratio = {
+    series: [
+      {
+        name: "Sales Ratio ",
+        data: [28, 40, 36, 52, 38, 60, 55],
+      },
+    ],
+    chart: {
+      fontFamily: "Rubik,sans-serif",
+      height: 210,
+      type: "area",
+      toolbar: {
+        show: false,
+      },
+      dropShadow: {
+        enabled: true,
+        top: 2,
+        left: 0,
+        blur: 5,
+        color: "#000",
+        opacity: 0.2,
+      },
+    },
+    grid: {
+      show: true,
+      borderColor: "rgba(0,0,0,.1)",
+      strokeDashArray: 2,
+      xaxis: {
+        lines: {
+          show: true,
         },
-            
-    });
-
-    // Offset x1 a tiny amount so that the straight stroke gets a bounding box
-    // Straight lines don't get a bounding box 
-    // Last remark on -> http://www.w3.org/TR/SVG11/coords.html#ObjectBoundingBox
-    chart.on('draw', function(ctx) {
-        if (ctx.type === 'area') {
-            ctx.element.attr({
-                x1: ctx.x1 + 0.001
-            });
-        }
-    });
-
-    // Create the gradient definition on created event (always after chart re-render)
-    chart.on('created', function(ctx) {
-        var defs = ctx.svg.elem('defs');
-        defs.elem('linearGradient', {
-            id: 'gradient',
-            x1: 0,
-            y1: 1,
-            x2: 0,
-            y2: 0
-        }).elem('stop', {
-            offset: 0,
-            'stop-color': 'rgba(255, 255, 255, 1)'
-        }).parent().elem('stop', {
-            offset: 1,
-            'stop-color': 'rgba(64, 196, 255, 1)'
-        });
-    });
-
-    var chart = [chart];
-
-    // ============================================================== 
-    // sales 2
-    // ============================================================== 
-    var chart = new Chartist.Line('.sales2', {
-        labels: [1, 2, 3, 4, 5, 6, 7, 8],
-        series: [
-            [22.5, 34.3, 24.7, 28.5, 11.4, 30.6, 44.5, 34],
-        ]
-    }, {
-        low: 0,
-        high: 48,
-        showArea: true,
-        fullWidth: true,
-        plugins: [
-            Chartist.plugins.tooltip()
-        ],
-        axisY: {
-            onlyInteger: true,
-            scaleMinSpace: 40,
-            offset: 0,
-            labelInterpolationFnc: function(value) {
-                return (value / 10) + 'k';
-            }
+      },
+      yaxis: {
+        lines: {
+          show: true,
         },
-        chartPadding: {
-            right: 0,
-            left:0
+      },
+    },
+    colors: ["#137eff"],
+    dataLabels: {
+      enabled: false,
+    },
+    stroke: {
+      curve: "smooth",
+      width: 3,
+    },
+    markers: {
+      size: 3,
+      strokeColors: "transparent",
+    },
+    xaxis: {
+      categories: ["1", "2", "3", "4", "5", "6", "7", "8"],
+      labels: {
+        style: {
+          colors: "#a1aab2",
         },
-       lineSmooth: Chartist.Interpolation.simple({
-            divisor: 2
-        }),     
-    });
-
-    // Offset x1 a tiny amount so that the straight stroke gets a bounding box
-    // Straight lines don't get a bounding box 
-    // Last remark on -> http://www.w3.org/TR/SVG11/coords.html#ObjectBoundingBox
-    chart.on('draw', function(ctx) {
-        if (ctx.type === 'area') {
-            ctx.element.attr({
-                x1: ctx.x1 + 0.001
-            });
-        }
-    });
-
-    // Create the gradient definition on created event (always after chart re-render)
-    chart.on('created', function(ctx) {
-        var defs = ctx.svg.elem('defs');
-        defs.elem('linearGradient', {
-            id: 'gradient',
-            x1: 0,
-            y1: 1,
-            x2: 0,
-            y2: 0
-        }).elem('stop', {
-            offset: 0,
-            'stop-color': 'rgba(255, 255, 255, 1)'
-        }).parent().elem('stop', {
-            offset: 1,
-            'stop-color': 'rgba(64, 196, 255, 1)'
-        });
-    });
-
-    var chart = [chart];
-
-
-     // ==============================================================    
-    //weather cards
-    // ============================================================== 
-    var chart = new Chartist.Line('#weather', {
-        labels: [1, 2, 3, 4, 5, 6, 7, 8],
-        series: [
-            [22.5, 34.3, 24.7, 28.5, 11.4, 30.6, 44.5, 34],
-        ]
-    }, {
-        low: -10,
-        high: 42,
-        showArea: true,
-        fullWidth: true,
-        plugins: [
-            Chartist.plugins.tooltip()
-        ],
-        axisY: {
-            onlyInteger: true,
-            scaleMinSpace: 40,
-            offset: 0,
-            labelInterpolationFnc: function(value) {
-                return (value / 10) + 'k';
-            }
+      },
+    },
+    yaxis: {
+      labels: {
+        style: {
+          colors: "#a1aab2",
         },
-        chartPadding: {
-            right: 0,
-            left:0
+      },
+    },
+    fill: {
+      type: "solid",
+      opacity: 0.1,
+      gradient: {
+        shade: "light",
+        type: "vertical",
+        gradientToColors: ["#40c4ff", "#fff"],
+        opacityFrom: 0.2,
+        opacityTo: 0,
+      },
+    },
+    tooltip: {
+      x: {
+        format: "dd/MM/yy HH:mm",
+      },
+      theme: "dark",
+    },
+    legend: {
+      show: false,
+    },
+  };
+
+  var chart_area_spline = new ApexCharts(
+    document.querySelector("#sales-ratio"),
+    option_sales_ratio
+  );
+  chart_area_spline.render();
+
+  // -----------------------------------------------------------------------
+  // sales 2
+  // -----------------------------------------------------------------------
+  var option_sales2_report = {
+    series: [
+      {
+        name: "Day 1 ",
+        data: [22.5, 34.3, 24.7, 28.5, 11.4, 30.6, 44.5, 34],
+      },
+    ],
+    chart: {
+      type: "line",
+      height: 150,
+      zoom: {
+        enabled: false,
+      },
+      toolbar: {
+        show: false,
+      },
+      sparkline: {
+        enabled: true,
+      },
+      dropShadow: {
+        enabled: true,
+        top: 3,
+        left: 0,
+        blur: 5,
+        color: "#000",
+        opacity: 0.2,
+      },
+    },
+    grid: {
+      show: false,
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    stroke: {
+      curve: "smooth",
+      width: 3,
+      colors: ["#fff"],
+    },
+    xaxis: {
+      axisBorder: {
+        show: false,
+      },
+      axisTicks: {
+        show: false,
+      },
+      labels: {
+        show: false,
+      },
+    },
+    yaxis: {
+      labels: {
+        show: false,
+      },
+    },
+    markers: {
+      show: false,
+    },
+    tooltip: {
+      theme: "dark",
+      style: {
+        fontSize: "13px",
+        fontFamily: "Rubik,sans-serif",
+      },
+      x: {
+        show: false,
+      },
+      y: {
+        formatter: undefined,
+      },
+      marker: {
+        show: false,
+      },
+      followCursor: true,
+    },
+    legend: {
+      show: false,
+    },
+  };
+
+  var chart_area_basic = new ApexCharts(
+    document.querySelector("#sales2"),
+    option_sales2_report
+  );
+  chart_area_basic.render();
+
+  //  // -----------------------------------------------------------------------
+  // //weather cards
+  // -----------------------------------------------------------------------
+
+  var option_weather_report = {
+    series: [
+      {
+        name: "Day 1 ",
+        data: [22.5, 34.3, 24.7, 28.5, 11.4, 30.6, 44.5, 34],
+      },
+    ],
+    chart: {
+      type: "line",
+      height: 85,
+      zoom: {
+        enabled: false,
+      },
+      toolbar: {
+        show: false,
+      },
+      sparkline: {
+        enabled: true,
+      },
+      dropShadow: {
+        enabled: true,
+        top: 3,
+        left: 0,
+        blur: 5,
+        color: "#000",
+        opacity: 0.2,
+      },
+    },
+    grid: {
+      show: false,
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    stroke: {
+      curve: "smooth",
+      width: 3,
+      colors: ["#fff"],
+    },
+    xaxis: {
+      axisBorder: {
+        show: false,
+      },
+      axisTicks: {
+        show: false,
+      },
+      labels: {
+        show: false,
+      },
+    },
+    yaxis: {
+      labels: {
+        show: false,
+      },
+    },
+    markers: {
+      show: true,
+      colors: "#fa5838",
+    },
+    tooltip: {
+      theme: "dark",
+      style: {
+        fontSize: "13px",
+        fontFamily: "Rubik,sans-serif",
+      },
+      x: {
+        show: false,
+      },
+      y: {
+        formatter: undefined,
+      },
+      marker: {
+        show: false,
+      },
+      followCursor: true,
+    },
+    legend: {
+      show: false,
+    },
+  };
+
+  var chart_area_basic = new ApexCharts(
+    document.querySelector("#weather"),
+    option_weather_report
+  );
+  chart_area_basic.render();
+
+  // -----------------------------------------------------------------------
+  // sales 4
+  // -----------------------------------------------------------------------
+  var sales_line = {
+    series: [
+      {
+        name: "Sale % ",
+        labels: ["2012", "2013", "2014", "2015"],
+        data: [12, 19, 3, 5],
+      },
+    ],
+    chart: {
+      height: 40,
+      type: "line",
+      toolbar: {
+        show: false,
+      },
+      sparkline: {
+        enabled: true,
+      },
+    },
+    grid: {
+      show: false,
+    },
+    stroke: {
+      curve: "smooth",
+      colors: ["#8b5edd"],
+      width: 2.3,
+    },
+    markers: {
+      size: 3,
+      colors: ["#8b5edd"],
+      strokeColors: "transparent",
+    },
+    xaxis: {
+      categories: ["2012", "2013", "2014", "2015"],
+      axisBorder: {
+        show: false,
+      },
+      axisTicks: {
+        show: false,
+      },
+      labels: {
+        show: false,
+      },
+    },
+    fill: {
+      type: "solid",
+      colors: ["#FDD835"],
+    },
+    yaxis: {
+      labels: {
+        show: false,
+      },
+    },
+    tooltip: {
+      theme: "dark",
+      style: {
+        fontSize: "10px",
+        fontFamily: "Rubik,sans-serif",
+      },
+      x: {
+        show: true,
+      },
+      y: {
+        formatter: undefined,
+      },
+      marker: {
+        show: false,
+      },
+      followCursor: true,
+    },
+  };
+
+  var chart_line_basic = new ApexCharts(
+    document.querySelector("#sales-line"),
+    sales_line
+  );
+  chart_line_basic.render();
+
+  // -----------------------------------------------------------------------
+  // balance
+  // -----------------------------------------------------------------------
+
+  var main_balance = {
+    series: [
+      {
+        name: "A ",
+        data: [3, 8, 3.5, 5, 3.5, 5, 9, 6],
+      },
+      {
+        name: "B ",
+        data: [7, 6, 5, 8, 6, 7, 5, 9],
+      },
+    ],
+    chart: {
+      height: 50,
+      type: "area",
+      fontFamily: "Rubik,sans-serif",
+      zoom: {
+        enabled: false,
+      },
+      toolbar: {
+        show: false,
+      },
+      sparkline: {
+        enabled: true,
+      },
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    colors: ["#137eff", "#e9ecef"],
+    stroke: {
+      curve: "smooth",
+      colors: ["#137eff", "#e9ecef"],
+      opacity: [1, 0.2],
+      width: 0,
+    },
+    markers: {
+      size: 1,
+      colors: ["#137eff", "#e9ecef"],
+      strokeColors: "transparent",
+    },
+    fill: {
+      type: "solid",
+      colors: ["#137eff", "#e9ecef"],
+      opacity: [1, 0.2],
+    },
+    grid: {
+      show: false,
+    },
+    xaxis: {
+      show: false,
+    },
+    yaxis: {
+      show: false,
+    },
+    tooltip: {
+      theme: "dark",
+    },
+  };
+
+  var chart_line_basic = new ApexCharts(
+    document.querySelector("#main-balance"),
+    main_balance
+  );
+  chart_line_basic.render();
+
+  // -----------------------------------------------------------------------
+  // sales 3
+  // -----------------------------------------------------------------------
+
+  var sales_bar = {
+    series: [
+      {
+        name: "",
+        data: [0.2, 9, 7, 10, 7, 9, 12],
+      },
+    ],
+    chart: {
+      type: "bar",
+      height: 55,
+      toolbar: {
+        show: false,
+      },
+      sparkline: {
+        enabled: true,
+      },
+      offsetX: 15,
+    },
+    colors: ["#5ac146"],
+    grid: {
+      show: false,
+    },
+    plotOptions: {
+      bar: {
+        horizontal: false,
+        startingShape: "flat",
+        endingShape: "flat",
+        columnWidth: "100%",
+        barHeight: "100%",
+      },
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    stroke: {
+      show: true,
+      width: 10,
+      colors: ["transparent"],
+    },
+    xaxis: {
+      axisBorder: {
+        show: false,
+      },
+      axisTicks: {
+        show: false,
+      },
+      labels: {
+        show: false,
+      },
+    },
+    yaxis: {
+      labels: {
+        show: false,
+      },
+    },
+    axisBorder: {
+      show: false,
+    },
+    fill: {
+      opacity: 1,
+    },
+    tooltip: {
+      theme: "dark",
+      style: {
+        fontSize: "12px",
+        fontFamily: "Rubik,sans-serif",
+      },
+      x: {
+        show: false,
+      },
+      y: {
+        formatter: undefined,
+      },
+    },
+  };
+
+  var chart_column_basic = new ApexCharts(
+    document.querySelector("#sales-bar"),
+    sales_bar
+  );
+  chart_column_basic.render();
+
+  // -----------------------------------------------------------------------
+  // Revenue
+  // -----------------------------------------------------------------------
+
+  var option_statistics_year = {
+    series: [45, 27, 18, 15],
+    labels: ["Email", "Mobile", "Other", "Website"],
+    chart: {
+      type: "donut",
+      height: 430,
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    stroke: {
+      width: 0,
+    },
+    plotOptions: {
+      pie: {
+        expandOnClick: true,
+        donut: {
+          size: "80",
+          labels: {
+            show: true,
+            name: {
+              show: true,
+              offsetY: 10,
+            },
+            value: {
+              show: false,
+            },
+            total: {
+              show: true,
+              color: "#a1aab2",
+              fontSize: "13px",
+              label: "Yearly Visit",
+            },
+          },
         },
-            lineSmooth: Chartist.Interpolation.simple({
-            divisor: 2
-        }),
-    });
-
-    // Offset x1 a tiny amount so that the straight stroke gets a bounding box
-    // Straight lines don't get a bounding box 
-    // Last remark on -> http://www.w3.org/TR/SVG11/coords.html#ObjectBoundingBox
-    chart.on('draw', function(ctx) {
-        if (ctx.type === 'area') {
-            ctx.element.attr({
-                x1: ctx.x1 + 0.001
-            });
-        }
-    });
-
-    var chart = [chart];
-
-    
-
-    
-     
-    
-
-    // ============================================================== 
-    // sales 4
-    // ============================================================== 
-    var ctx = document.getElementById("sales4");
-    var salesChart = new Chart(ctx, {
-        type: 'line',
-        
-        data: {
-            labels: ["2012", "2013", "2014", "2015"],
-            datasets: [{
-                label: 'Sale %',
-                data: [12, 19, 3, 5],
-                backgroundColor: [
-                    'transparent'
-                ],
-                borderColor: [
-                    '#8b5edd'
-                ],
-                borderWidth: 2,
-                
-                pointBorderWidth: 2,
-                pointBackgroundColor: '#8b5edd',
-                pointHoverBackgroundColor: '#8b5edd',
-                pointHoverBorderColor: '#8b5edd'
-            }]
-        },
+      },
+    },
+    colors: ["#8b5edd", "#137eff", "#eceff1", "#5ac146"],
+    tooltip: {
+      show: true,
+      fillSeriesColor: false,
+    },
+    legend: {
+      show: true,
+      position: "bottom",
+      labels: {
+        colors: "#a1aab2",
+      },
+    },
+    responsive: [
+      {
+        breakpoint: 426,
         options: {
-            elements: {
-                point: {
-                    radius: 2
-                }
-            },
-            layout: {
-                padding: {
-                    left: 10,
-                    right: 10,
-                    top: 10,
-                    bottom: 10
-                }
-            },
-            tooltips: {
-                enabled: true,
-                intersect: false,
-                titleMarginBottom : 1,
-                bodySpacing : 1,
-                yPadding : 2,
-                
-            },
-
-            scales: {
-                xAxes: [{
-                    gridLines: {
-                        display: false,
-                        drawBorder: false,
-                    },
-                    ticks: {
-                        display: false
-                    }
-                }],
-                yAxes: [{
-                    gridLines: {
-                        display: false,
-                        drawBorder: false,
-                    },
-                    ticks: {
-                        display: false
-                    }
-                }]
-            },
-            legend: {
-                display: false,
-                labels: {
-                    fontColor: 'rgb(255, 99, 132)'
-                }
-            }
-        }
-    });
-
-    // ============================================================== 
-    // balance
-    // ============================================================== 
-    new Chart(document.getElementById("balance"), {
-        type: 'line',
-        data: {
-            labels: [1, 2, 3, 4, 5, 6, 7, 8],
-            datasets: [{
-                data: [3, 8, 2, 3, 2, 5, 9, 6],
-                label: "A",
-                borderColor: "#137eff",
-                borderWidth: 1,
-                backgroundColor: "rgb(19,126,255)",
-                pointBackgroundColor: "#137eff",
-            }, {
-                data: [7, 6, 5, 8, 6, 7, 5, 9],
-                label: "B",
-                borderColor: "rgba(233,236,239, 0.2)",
-                borderWidth: 1,
-                backgroundColor: "rgba(233,236,239, 0.2)",
-                pointBackgroundColor: "#e9ecef",
-            }]
+          chart: {
+            height: 300,
+          },
         },
+      },
+    ],
+  };
+
+  var chart_pie_donut = new ApexCharts(
+    document.querySelector("#statistics_year"),
+    option_statistics_year
+  );
+  chart_pie_donut.render();
+
+  // -----------------------------------------------------------------------
+  // product-sales
+  // -----------------------------------------------------------------------
+  // -----------------------------------------------------------------------
+  // Overview
+  // -----------------------------------------------------------------------
+  var options_statistics_week = {
+    series: [
+      {
+        name: "Page views",
+        data: [0, 130, 80, 70, 180, 105, 250],
+      },
+      {
+        name: "Referrals",
+        data: [0, 100, 60, 200, 150, 90, 150],
+      },
+    ],
+    chart: {
+      height: 400,
+      type: "area",
+      stacked: false,
+      fontFamily: "Rubik,sans-serif",
+      zoom: {
+        enabled: false,
+      },
+      toolbar: {
+        show: false,
+      },
+    },
+    colors: ["#b5b5b5", "#137eff"],
+    dataLabels: {
+      enabled: false,
+    },
+    stroke: {
+      show: true,
+      width: 0,
+      curve: "straight",
+    },
+    fill: {
+      type: "solid",
+      colors: ["#b5b5b5", "#137eff"],
+      opacity: 0.3,
+    },
+    grid: {
+      borderColor: "rgba(0,0,0,0.1)",
+    },
+    xaxis: {
+      categories: ["2010", "2011", "2012", "2013", "2014", "2015", "2016"],
+      labels: {
+        style: {
+          colors: "#a1aab2",
+        },
+      },
+    },
+    yaxis: {
+      labels: {
+        style: {
+          colors: "#a1aab2",
+        },
+      },
+    },
+    legend: {
+      show: false,
+    },
+    tooltip: {
+      theme: "dark",
+    },
+  };
+
+  var chart_line_overview = new ApexCharts(
+    document.querySelector("#statistics_week"),
+    options_statistics_week
+  );
+  chart_line_overview.render();
+
+  // -----------------------------------------------------------------------
+  // Conversation Rate
+  // -----------------------------------------------------------------------
+  var option_statistics_month = {
+    chart: {
+      height: 400,
+      type: "radialBar",
+      fontFamily: "Rubik,sans-serif",
+      sparkline: {
+        enabled: true,
+      },
+    },
+    series: [85],
+    colors: ["#137eff"],
+    fill: {
+      opacity: 1,
+    },
+    plotOptions: {
+      radialBar: {
+        hollow: {
+          margin: 15,
+          size: "85%",
+        },
+        track: {
+          show: true,
+          background: "#dadada",
+          opacity: 1,
+        },
+        dataLabels: {
+          showOn: "always",
+          name: {
+            show: true,
+            offsetY: 10,
+          },
+          value: {
+            show: false,
+          },
+          total: {
+            show: true,
+            fontSize: "13px",
+            fontWeight: 300,
+            color: "#a1aab2",
+            label: "Monthly Visit",
+          },
+        },
+      },
+    },
+    responsive: [
+      {
+        breakpoint: 426,
         options: {
-            elements: {
-                point: {
-                    radius: 1
-                }
-            },
-            tooltips: {
-                enabled: true,
-                intersect: false,
-                titleMarginBottom : 1,
-                bodySpacing : 1,
-                yPadding : 2,
-                
-            },
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                xAxes: [{
-                    gridLines: {
-                        display: false,
-                        drawBorder: false,
-                    },
-                    ticks: {
-                        display: false
-                    }
-                }],
-                yAxes: [{
-                    gridLines: {
-                        display: false,
-                        drawBorder: false,
-                    },
-                    ticks: {
-                        display: false
-                    }
-                }]
-            },
-            layout: {
-                padding: {
-                    left: -10,
-                    right: 0,
-                    top: 0,
-                    bottom: -10
-                }
-            },
-            legend: {
-                display: false,
-                labels: {
-                    fontColor: 'rgb(255, 99, 132)'
-                }
-            }
-        }
-    });
-
-    // ============================================================== 
-    // sales 3
-    // ============================================================== 
-    var sparklineLogin = function() {
-        $('#sales3').sparkline([6, 10, 9, 11, 9, 10, 12], {
-            type: 'bar',
-            height: '55',
-            barWidth: '4',
-            width: '100%',
-            resize: true,
-            barSpacing: '11',
-            barColor: '#5ac146'
-        });
-    };
-    var sparkResize;
-
-    $(window).resize(function(e) {
-        clearTimeout(sparkResize);
-        sparkResize = setTimeout(sparklineLogin, 500);
-    });
-    sparklineLogin();
-
-    // ============================================================== 
-    // Revenue
-    // ============================================================== 
-
-    var chart = c3.generate({
-        bindto: '.yearlyvisit',
-        data: {
-            columns: [
-                ['Email', 45],
-                ['Website', 15],
-                ['Mobile', 27],
-                ['Other', 18],
-            ],
-
-            type: 'donut'
+          chart: {
+            height: 250,
+          },
         },
+      },
+    ],
+    stroke: {
+      lineCap: "sqare",
+    },
+    tooltip: {
+      enabled: true,
+      theme: "dark",
+    },
+  };
+
+  var chart_radial = new ApexCharts(
+    document.querySelector("#statistics_month"),
+    option_statistics_month
+  );
+
+  chart_radial.render();
+
+  // -----------------------------------------------------------------------
+  // Our Visitor
+  // -----------------------------------------------------------------------
+  var option_campaign = {
+    series: [35, 18, 15, 10],
+    labels: ["Un-opened", "Bounced", "Clicked", "Open"],
+    chart: {
+      type: "donut",
+      fontFamily: "Rubik,sans-serif",
+      height: 170,
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    stroke: {
+      width: 0,
+    },
+    plotOptions: {
+      pie: {
+        expandOnClick: true,
         donut: {
-            label: {
-                show: false
+          size: "70",
+          labels: {
+            show: true,
+            name: {
+              show: true,
+              offsetY: 8,
             },
-            title: "Yearly Visit",
-            width: 35,
-
-        },
-
-        legend: {
-            hide: false
-                //or hide: 'data1'
-                //or hide: ['data1', 'data2']
-        },
-        color: {
-            pattern: ['#8b5edd', '#5ac146', '#137eff', '#eceff1']
-        }
-    });
-
-    // ============================================================== 
-    // product-sales
-    // ============================================================== 
-    // ============================================================== 
-    // Overview
-    // ============================================================== 
-    Morris.Area({
-        element: 'morris-area-chart2'
-        , data: [{
-                period: '2010'
-                , SiteA: 0
-                , SiteB: 0
-        , }, {
-                period: '2011'
-                , SiteA: 130
-                , SiteB: 100
-        , }, {
-                period: '2012'
-                , SiteA: 80
-                , SiteB: 60
-        , }, {
-                period: '2013'
-                , SiteA: 70
-                , SiteB: 200
-        , }, {
-                period: '2014'
-                , SiteA: 180
-                , SiteB: 150
-        , }, {
-                period: '2015'
-                , SiteA: 105
-                , SiteB: 90
-        , }
-            , {
-                period: '2016'
-                , SiteA: 250
-                , SiteB: 150
-        , }]
-        , xkey: 'period'
-        , ykeys: ['SiteA', 'SiteB']
-        , labels: ['Site A', 'Site B']
-        , pointSize: 0
-        , fillOpacity: 0.4
-        , pointStrokeColors: ['rgba(223,226,233, 0.3)', '#137eff']
-        , behaveLikeLine: true
-        , gridLineColor: 'rgba(0,0,0, 0.2)'
-        , lineWidth: 0
-        , smooth: false
-        , hideHover: 'auto'
-        , lineColors: ['#b5b5b5', '#137eff']
-        , resize: true
-    });
-    // ============================================================== 
-    // Conversation Rate
-    // ============================================================== 
-    var chart = c3.generate({
-        bindto: '.monthlyvisit',
-        data: {
-            columns: [
-                ['Conversation', 85],
-                ['other', 15],
-            ],
-
-            type: 'donut'
-        },
-        donut: {
-            label: {
-                show: false
+            value: {
+              show: false,
             },
-            title: "Monthly Visit",
-            width: 10,
-
-        },
-        padding: {
-            top: 10,
-            bottom: -20
-
-            ,
-        },
-        legend: {
-            hide: true
-                //or hide: 'data1'
-                //or hide: ['data1', 'data2']
-        },
-        color: {
-            pattern: ['#137eff', '#eceff1']
-        }
-    });
-
-    // ============================================================== 
-    // Our Visitor
-    // ============================================================== 
-    var chart = c3.generate({
-        bindto: '#campaign',
-        data: {
-            columns: [
-                ['Un-opened', 35],
-                ['Clicked', 15],
-                ['Open', 10],
-                ['Bounced', 18],
-            ],
-
-            type: 'donut',
-            tooltip: {
-                show: true
-            }
-        },
-        donut: {
-            label: {
-                show: false
+            total: {
+              show: false,
             },
-            width: 20,
+          },
         },
+      },
+    },
+    colors: ["#137eff", "#eceff1", "#8b5edd", "#5ac146"],
+    tooltip: {
+      show: true,
+      fillSeriesColor: false,
+    },
+    legend: {
+      show: false,
+    },
+    responsive: [
+      {
+        breakpoint: 1025,
+        options: {
+          chart: {
+            height: 150,
+          },
+        },
+      },
+      {
+        breakpoint: 769,
+        options: {
+          chart: {
+            height: 110,
+          },
+        },
+      },
+      {
+        breakpoint: 426,
+        options: {
+          chart: {
+            height: 140,
+          },
+        },
+      },
+    ],
+  };
 
-        legend: {
-            hide: true
-        },
-        color: {
-            pattern: ['#137eff', '#8b5edd', '#5ac146', '#eceff1']
-        }
-    });
+  var chart_pie_donut = new ApexCharts(
+    document.querySelector("#campaign"),
+    option_campaign
+  );
+  chart_pie_donut.render();
 });

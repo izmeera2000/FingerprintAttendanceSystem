@@ -749,7 +749,7 @@ if (isset($_POST['order'])) {
     mysqli_query($db, $query);
 
   }
-die();
+  die();
 
 }
 
@@ -784,6 +784,44 @@ if (isset($_POST['senaraisoalan'])) {
 
 }
 
+if (isset($_POST['fetchresource'])) {
+  $query =
+    "SELECT * FROM user";
+  $results = mysqli_query($db, $query);
+  $resources = array();
+
+  while ($row = $results->fetch_assoc()) {
+    $resources[] = array(
+      'id' => $row['id'],       // Unique identifier for the resource
+      'title' => $row['nama'],  // Name or title for the resource
+    );
+  }
+
+  echo json_encode($resources);
+  die();
+
+}
 
 
+if (isset($_POST['fetchevent'])) {
+
+  $query = "SELECT * FROM attendance";
+  $results = mysqli_query($db, $query);
+  $events = array();
+
+  while ($row = $results->fetch_assoc()) {
+    $events[] = array(
+      'id' => $row['user_id'],                       // Unique identifier for the event
+      'resourceId' => $row['user_id'],          // ID of the user (resource)
+      'title' => "asdasd",                // Status or description of the event
+      'start' => $row['masa_mula'],       // Date of the attendance
+      'end' => $row['masa_tamat'],       // Date of the attendance
+      // Optionally add 'end' or other event properties here
+    );
+  }
+
+  echo json_encode($events);
+  die();
+
+}
 ?>

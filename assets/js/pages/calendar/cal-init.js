@@ -1,215 +1,312 @@
-! function($) {
-    "use strict";
+/*========Calender Js=========*/
+/*==========================*/
 
-    var CalendarApp = function() {
-        this.$body = $("body")
-        this.$calendar = $('#calendar'),
-            this.$event = ('#calendar-events div.calendar-events'),
-            this.$categoryForm = $('#add-new-event form'),
-            this.$extEvents = $('#calendar-events'),
-            this.$modal = $('#my-event'),
-            this.$saveCategoryBtn = $('.save-category'),
-            this.$calendarObj = null
-    };
+document.addEventListener("DOMContentLoaded", function () {
+  /*=================*/
+  //  Calender Date variable
+  /*=================*/
+  var newDate = new Date();
+  function getDynamicMonth() {
+    getMonthValue = newDate.getMonth();
+    _getUpdatedMonthValue = getMonthValue + 1;
+    if (_getUpdatedMonthValue < 10) {
+      return `0${_getUpdatedMonthValue}`;
+    } else {
+      return `${_getUpdatedMonthValue}`;
+    }
+  }
+  /*=================*/
+  // Calender Modal Elements
+  /*=================*/
+  var getModalTitleEl = document.querySelector("#event-title");
+  var getModalStartDateEl = document.querySelector("#event-start-date");
+  var getModalEndDateEl = document.querySelector("#event-end-date");
+  var getModalAddBtnEl = document.querySelector(".btn-add-event");
+  var getModalUpdateBtnEl = document.querySelector(".btn-update-event");
+  var calendarsEvents = {
+    Danger: "danger",
+    Success: "success",
+    Primary: "primary",
+    Warning: "warning",
+  };
+  /*=====================*/
+  // Calendar Elements and options
+  /*=====================*/
+  var calendarEl = document.querySelector("#calendar");
+  var checkWidowWidth = function () {
+    if (window.innerWidth <= 1199) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+  var calendarHeaderToolbar = {
+    left: "prev next addEventButton",
+    center: "title",
+    right: "dayGridMonth,timeGridWeek,timeGridDay",
+  };
+  var calendarEventsList = [
+    {
+      id: 1,
+      title: "Event Conf.",
+      start: `${newDate.getFullYear()}-${getDynamicMonth()}-01`,
+      extendedProps: { calendar: "Danger" },
+    },
+    {
+      id: 2,
+      title: "Seminar #4",
+      start: `${newDate.getFullYear()}-${getDynamicMonth()}-07`,
+      end: `${newDate.getFullYear()}-${getDynamicMonth()}-10`,
+      extendedProps: { calendar: "Success" },
+    },
+    {
+      groupId: "999",
+      id: 3,
+      title: "Meeting #5",
+      start: `${newDate.getFullYear()}-${getDynamicMonth()}-09T16:00:00`,
+      extendedProps: { calendar: "Primary" },
+    },
+    {
+      groupId: "999",
+      id: 4,
+      title: "Submission #1",
+      start: `${newDate.getFullYear()}-${getDynamicMonth()}-16T16:00:00`,
+      extendedProps: { calendar: "Warning" },
+    },
+    {
+      id: 5,
+      title: "Seminar #6",
+      start: `${newDate.getFullYear()}-${getDynamicMonth()}-11`,
+      end: `${newDate.getFullYear()}-${getDynamicMonth()}-13`,
+      extendedProps: { calendar: "Danger" },
+    },
+    {
+      id: 6,
+      title: "Meeting 3",
+      start: `${newDate.getFullYear()}-${getDynamicMonth()}-12T10:30:00`,
+      end: `${newDate.getFullYear()}-${getDynamicMonth()}-12T12:30:00`,
+      extendedProps: { calendar: "Success" },
+    },
+    {
+      id: 7,
+      title: "Meetup #",
+      start: `${newDate.getFullYear()}-${getDynamicMonth()}-12T12:00:00`,
+      extendedProps: { calendar: "Primary" },
+    },
+    {
+      id: 8,
+      title: "Submission",
+      start: `${newDate.getFullYear()}-${getDynamicMonth()}-12T14:30:00`,
+      extendedProps: { calendar: "Warning" },
+    },
+    {
+      id: 9,
+      title: "Attend event",
+      start: `${newDate.getFullYear()}-${getDynamicMonth()}-13T07:00:00`,
+      extendedProps: { calendar: "Success" },
+    },
+    {
+      id: 10,
+      title: "Project submission #2",
+      start: `${newDate.getFullYear()}-${getDynamicMonth()}-28`,
+      extendedProps: { calendar: "Primary" },
+    },
+  ];
+  /*=====================*/
+  // Calendar Select fn.
+  /*=====================*/
+  var calendarSelect = function (info) {
+    getModalAddBtnEl.style.display = "block";
+    getModalUpdateBtnEl.style.display = "none";
+    myModal.show();
+    getModalStartDateEl.value = info.startStr;
+    getModalEndDateEl.value = info.endStr;
+  };
+  /*=====================*/
+  // Calendar AddEvent fn.
+  /*=====================*/
+  var calendarAddEvent = function () {
+    var currentDate = new Date();
+    var dd = String(currentDate.getDate()).padStart(2, "0");
+    var mm = String(currentDate.getMonth() + 1).padStart(2, "0"); //January is 0!
+    var yyyy = currentDate.getFullYear();
+    var combineDate = `${yyyy}-${mm}-${dd}T00:00:00`;
+    getModalAddBtnEl.style.display = "block";
+    getModalUpdateBtnEl.style.display = "none";
+    myModal.show();
+    getModalStartDateEl.value = combineDate;
+  };
 
+  /*=====================*/
+  // Calender Event Function
+  /*=====================*/
+  var calendarEventClick = function (info) {
+    var eventObj = info.event;
 
-    /* on drop */
-    CalendarApp.prototype.onDrop = function(eventObj, date) {
-            var $this = this;
-            // retrieve the dropped element's stored Event Object
-            var originalEventObject = eventObj.data('eventObject');
-            var $categoryClass = eventObj.attr('data-class');
-            // we need to copy it, so that multiple events don't have a reference to the same object
-            var copiedEventObject = $.extend({}, originalEventObject);
-            // assign it the date that was reported
-            copiedEventObject.start = date;
-            if ($categoryClass)
-                copiedEventObject['className'] = [$categoryClass];
-            // render the event on the calendar
-            $this.$calendar.fullCalendar('renderEvent', copiedEventObject, true);
-            // is the "remove after drop" checkbox checked?
-            if ($('#drop-remove').is(':checked')) {
-                // if so, remove the element from the "Draggable Events" list
-                eventObj.remove();
-            }
-        },
-        /* on click on event */
-        CalendarApp.prototype.onEventClick = function(calEvent, jsEvent, view) {
-            var $this = this;
-            var form = $("<form></form>");
-            form.append("<label>Change event name</label>");
-            form.append("<div class='input-group'><input class='form-control' type=text value='" + calEvent.title + "' /><span class='input-group-btn'><button type='submit' class='btn btn-success waves-effect waves-light'><i class='fa fa-check'></i> Save</button></span></div>");
-            $this.$modal.modal({
-                backdrop: 'static'
-            });
-            $this.$modal.find('.delete-event').show().end().find('.save-event').hide().end().find('.modal-body').empty().prepend(form).end().find('.delete-event').unbind('click').click(function() {
-                $this.$calendarObj.fullCalendar('removeEvents', function(ev) {
-                    return (ev._id == calEvent._id);
-                });
-                $this.$modal.modal('hide');
-            });
-            $this.$modal.find('form').on('submit', function() {
-                calEvent.title = form.find("input[type=text]").val();
-                $this.$calendarObj.fullCalendar('updateEvent', calEvent);
-                $this.$modal.modal('hide');
-                return false;
-            });
-        },
-        /* on select */
-        CalendarApp.prototype.onSelect = function(start, end, allDay) {
-            var $this = this;
-            $this.$modal.modal({
-                backdrop: 'static'
-            });
-            var form = $("<form></form>");
-            form.append("<div class='row'></div>");
-            form.find(".row")
-                .append("<div class='col-md-6'><div class='form-group'><label class='control-label'>Event Name</label><input class='form-control' placeholder='Insert Event Name' type='text' name='title'/></div></div>")
-                .append("<div class='col-md-6'><div class='form-group'><label class='control-label'>Category</label><select class='form-control' name='category'></select></div></div>")
-                .find("select[name='category']")
-                .append("<option value='bg-danger'>Danger</option>")
-                .append("<option value='bg-success'>Success</option>")
-                .append("<option value='bg-primary'>Primary</option>")
-                .append("<option value='bg-info'>Info</option>")
-                .append("<option value='bg-warning'>Warning</option></div></div>");
-            $this.$modal.find('.delete-event').hide().end().find('.save-event').show().end().find('.modal-body').empty().prepend(form).end().find('.save-event').unbind('click').click(function() {
-                form.submit();
-            });
-            $this.$modal.find('form').on('submit', function() {
-                var title = form.find("input[name='title']").val();
-                var beginning = form.find("input[name='beginning']").val();
-                var ending = form.find("input[name='ending']").val();
-                var categoryClass = form.find("select[name='category'] option:checked").val();
-                if (title !== null && title.length != 0) {
-                    $this.$calendarObj.fullCalendar('renderEvent', {
-                        title: title,
-                        start: start,
-                        end: end,
-                        allDay: false,
-                        className: categoryClass
-                    }, true);
-                    $this.$modal.modal('hide');
-                } else {
-                    alert('You have to give a title to your event');
-                }
-                return false;
+    if (eventObj.url) {
+      window.open(eventObj.url);
 
-            });
-            $this.$calendarObj.fullCalendar('unselect');
-        },
-        CalendarApp.prototype.enableDrag = function() {
-            //init events
-            $(this.$event).each(function() {
-                // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
-                // it doesn't need to have a start or end
-                var eventObject = {
-                    title: $.trim($(this).text()) // use the element's text as the event title
-                };
-                // store the Event Object in the DOM element so we can get to it later
-                $(this).data('eventObject', eventObject);
-                // make the event draggable using jQuery UI
-                $(this).draggable({
-                    zIndex: 999,
-                    revert: true, // will cause the event to go back to its
-                    revertDuration: 0 //  original position after the drag
-                });
-            });
-        }
-    /* Initializing */
-    CalendarApp.prototype.init = function() {
-            this.enableDrag();
-            /*  Initialize the calendar  */
-            var date = new Date();
-            var d = date.getDate();
-            var m = date.getMonth();
-            var y = date.getFullYear();
-            var form = '';
-            var today = new Date($.now());
+      info.jsEvent.preventDefault();
+    } else {
+      var getModalEventId = eventObj._def.publicId;
+      var getModalEventLevel = eventObj._def.extendedProps["calendar"];
+      var getModalCheckedRadioBtnEl = document.querySelector(
+        `input[value="${getModalEventLevel}"]`
+      );
 
-            var defaultEvents = [{
-                    title: 'Meeting #3',
-                    start: new Date($.now() + 506800000),
-                    className: 'bg-info'
-                }, {
-                    title: 'Submission #1',
-                    start: today,
-                    end: today,
-                    className: 'bg-danger'
-                }, {
-                    title: 'Meetup #6',
-                    start: new Date($.now() + 848000000),
-                    className: 'bg-info'
-                }, {
-                    title: 'Seminar #4',
-                    start: new Date($.now() - 1099000000),
-                    end: new Date($.now() - 919000000),
-                    className: 'bg-warning'
-                }, {
-                    title: 'Event Conf.',
-                    start: new Date($.now() - 1199000000),
-                    end: new Date($.now() - 1199000000),
-                    className: 'bg-purple'
-                }, {
-                    title: 'Meeting #5',
-                    start: new Date($.now() - 399000000),
-                    end: new Date($.now() - 219000000),
-                    className: 'bg-info'
-                },
-                {
-                    title: 'Submission #2',
-                    start: new Date($.now() + 868000000),
-                    className: 'bg-danger'
-                }, {
-                    title: 'Seminar #5',
-                    start: new Date($.now() + 348000000),
-                    className: 'bg-success'
-                }
-            ];
+      getModalTitleEl.value = eventObj.title;
+      getModalCheckedRadioBtnEl.checked = true;
+      getModalUpdateBtnEl.setAttribute(
+        "data-fc-event-public-id",
+        getModalEventId
+      );
+      getModalAddBtnEl.style.display = "none";
+      getModalUpdateBtnEl.style.display = "block";
+      myModal.show();
+    }
+  };
 
-            var $this = this;
-            $this.$calendarObj = $this.$calendar.fullCalendar({
-                slotDuration: '00:15:00',
-                /* If we want to split day time each 15minutes */
-                minTime: '08:00:00',
-                maxTime: '19:00:00',
-                defaultView: 'month',
-                handleWindowResize: true,
+  /*=====================*/
+  // Active Calender
+  /*=====================*/
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+    selectable: true,
+    height: checkWidowWidth() ? 900 : 1052,
+    initialView: "resourceTimeline",
+    // initialDate: `${newDate.getFullYear()}-${getDynamicMonth()}-07`,
+    headerToolbar: calendarHeaderToolbar,
+    // events: calendarEventsList,
+    select: calendarSelect,
+    unselect: function () {
+      console.log("unselected");
+    },
+    customButtons: {
+      addEventButton: {
+        text: "Add Event",
+        click: calendarAddEvent,
+      },
+    },
+    events: getAllEvents,
+    resources: getResources,
+    eventClassNames: function ({ event: calendarEvent }) {
+      const getColorValue =
+        calendarsEvents[calendarEvent._def.extendedProps.calendar];
+      return ["event-fc-color fc-bg-" + getColorValue];
+    },
 
-                header: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'month,agendaWeek,agendaDay'
-                },
-                events: defaultEvents,
-                editable: true,
-                droppable: true, // this allows things to be dropped onto the calendar !!!
-                eventLimit: true, // allow "more" link when too many events
-                selectable: true,
-                drop: function(date) { $this.onDrop($(this), date); },
-                select: function(start, end, allDay) { $this.onSelect(start, end, allDay); },
-                eventClick: function(calEvent, jsEvent, view) { $this.onEventClick(calEvent, jsEvent, view); }
+    eventClick: calendarEventClick,
+    windowResize: function (arg) {
+      if (checkWidowWidth()) {
+        calendar.changeView("listWeek");
+        calendar.setOption("height", 900);
+      } else {
+        calendar.changeView("dayGridMonth");
+        calendar.setOption("height", 1052);
+      }
+    },
+  });
 
-            });
+  /*=====================*/
+  // Update Calender Event
+  /*=====================*/
+  getModalUpdateBtnEl.addEventListener("click", function () {
+    var getPublicID = this.dataset.fcEventPublicId;
+    var getTitleUpdatedValue = getModalTitleEl.value;
+    var getEvent = calendar.getEventById(getPublicID);
+    var getModalUpdatedCheckedRadioBtnEl = document.querySelector(
+      'input[name="event-level"]:checked'
+    );
 
-            //on new event
-            this.$saveCategoryBtn.on('click', function() {
-                var categoryName = $this.$categoryForm.find("input[name='category-name']").val();
-                var categoryColor = $this.$categoryForm.find("select[name='category-color']").val();
-                if (categoryName !== null && categoryName.length != 0) {
-                    $this.$extEvents.append('<div class="calendar-events m-b-20" data-class="bg-' + categoryColor + '" style="position: relative;"><i class="fa fa-circle text-' + categoryColor + ' m-r-10" ></i>' + categoryName + '</div>')
-                    $this.enableDrag();
-                }
+    var getModalUpdatedCheckedRadioBtnValue =
+      getModalUpdatedCheckedRadioBtnEl !== null
+        ? getModalUpdatedCheckedRadioBtnEl.value
+        : "";
 
-            });
-        },
+    getEvent.setProp("title", getTitleUpdatedValue);
+    getEvent.setExtendedProp("calendar", getModalUpdatedCheckedRadioBtnValue);
+    myModal.hide();
+  });
+  /*=====================*/
+  // Add Calender Event
+  /*=====================*/
+  getModalAddBtnEl.addEventListener("click", function () {
+    var getModalCheckedRadioBtnEl = document.querySelector(
+      'input[name="event-level"]:checked'
+    );
 
-        //init CalendarApp
-        $.CalendarApp = new CalendarApp, $.CalendarApp.Constructor = CalendarApp
+    var getTitleValue = getModalTitleEl.value;
+    var setModalStartDateValue = getModalStartDateEl.value;
+    var setModalEndDateValue = getModalEndDateEl.value;
+    var getModalCheckedRadioBtnValue =
+      getModalCheckedRadioBtnEl !== null ? getModalCheckedRadioBtnEl.value : "";
 
-}(window.jQuery),
-
-//initializing CalendarApp
-$(window).on('load', function() {
-
-    $.CalendarApp.init()
+    calendar.addEvent({
+      id: 12,
+      title: getTitleValue,
+      start: setModalStartDateValue,
+      end: setModalEndDateValue,
+      allDay: true,
+      extendedProps: { calendar: getModalCheckedRadioBtnValue },
+    });
+    myModal.hide();
+  });
+  /*=====================*/
+  // Calendar Init
+  /*=====================*/
+  calendar.render();
+  var myModal = new bootstrap.Modal(document.getElementById("eventModal"));
+  var modalToggle = document.querySelector(".fc-addEventButton-button ");
+  document
+    .getElementById("eventModal")
+    .addEventListener("hidden.bs.modal", function (event) {
+      getModalTitleEl.value = "";
+      getModalStartDateEl.value = "";
+      getModalEndDateEl.value = "";
+      var getModalIfCheckedRadioBtnEl = document.querySelector(
+        'input[name="event-level"]:checked'
+      );
+      if (getModalIfCheckedRadioBtnEl !== null) {
+        getModalIfCheckedRadioBtnEl.checked = false;
+      }
+    });
 });
+
+function getAllEvents(info, successCallback, failureCallback) {
+  // console.log((info.startStr));
+  // console.log((info.endStr));
+
+  $.ajax({
+    type: "POST",
+    url: "fetchevent",
+    data: {
+      fetchevent: {
+        start: "info.startStr",
+        end: "info.endStr",
+      },
+    },
+    success: function (response) {
+      console.log(JSON.parse(response));
+
+      successCallback(JSON.parse(response));
+    },
+  });
+  // console.log((data));
+  // successCallback((data));
+}
+function getResources(info, successCallback, failureCallback) {
+  $.ajax({
+    type: "POST",
+    url: "fetchresource",
+    data: {
+      fetchresource: {
+        start: "info.startStr",
+        end: "info.endStr",
+      },
+    },
+    success: function (response) {
+      console.log(JSON.parse(response));
+
+      successCallback(JSON.parse(response));
+    },
+  });
+}
