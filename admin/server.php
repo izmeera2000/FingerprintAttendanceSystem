@@ -529,7 +529,7 @@ if (isset($_POST['eventcheck'])) {
   $todaysDate = date("Y-m-d");
   $query = "SELECT a.*, b.email FROM `attendance` a INNER JOIN user b ON b.id=a.user_id WHERE (DATE(masa_mula)='$todaysDate')";
   $results = mysqli_query($db, $query);
-  $masa_tamat = date("Y-m-d H:i:s", strtotime("today 18:00"));
+  $masa_tamat = date("Y-m-d H:i:s", strtotime("today 17:00"));
   $now = date("Y-m-d H:i:s", strtotime("now"));
 
 
