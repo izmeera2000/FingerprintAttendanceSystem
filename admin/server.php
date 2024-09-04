@@ -11,7 +11,9 @@ require __DIR__ . '/../route.php';
 
 $site_url = $_ENV['site2'];
 // debug_to_console2($site_url);
-
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 // $username = "";
 // $email = "";
 // global $$errors;
@@ -21,6 +23,7 @@ $toast = array();
 // connect to the database
 $db = mysqli_connect($_ENV['host'], $_ENV['user'], $_ENV['pass'], $_ENV['database2']);
 
+date_default_timezone_set('Asia/Kuala_Lumpur');
 
 
 // REGISTER USER
@@ -244,7 +247,7 @@ if (isset($_POST['user_login'])) {
 
 }
 
- 
+
 
 function debug_to_console($data)
 {
@@ -445,14 +448,30 @@ if (isset($_POST['fetchevent'])) {
   $results = mysqli_query($db, $query);
   $events = array();
 
+
+
   while ($row = $results->fetch_assoc()) {
+
+    if ($row['event_status'] == 1) {
+      $color = "blue";
+    } else {
+      $color = "red";
+
+    }
+    if (empty($row['masa_tamat'])) {
+
+      $masa_tamat = date("Y-m-d H:i:s", strtotime("now"));
+    } else {
+      $masa_tamat = $row['masa_tamat'];
+    }
     $events[] = array(
       'id' => $row['user_id'],                       // Unique identifier for the event
       'resourceId' => $row['user_id'],          // ID of the user (resource)
-      'title' => "asdasd",                // Status or description of the event
+      // 'title' => "asdasd",                // Status or description of the event
       'start' => $row['masa_mula'],       // Date of the attendance
-      'end' => $row['masa_tamat'],       // Date of the attendance
-      'color' => "blue",       // Date of the attendance
+      'end' => $masa_tamat,       // Date of the attendance
+      // 'masa' => date("Y-m-d H:i:s", strtotime("now")),
+      'color' => $color,       // Date of the attendance
       // Optionally add 'end' or other event properties here
     );
   }
@@ -460,5 +479,111 @@ if (isset($_POST['fetchevent'])) {
   echo json_encode($events);
   die();
 
+}
+
+
+if (isset($_POST['eventmasuk'])) {
+
+  $user_id = $_SESSION['user_details']['id'];
+
+  $date_now = date("Y-m-d H:i:s", strtotime("now"));
+
+  $query = "INSERT INTO attendance (user_id, event_status, masa_mula)
+VALUES ('$user_id','1','$date_now ');";
+  $results = mysqli_query($db, $query);
+
+
+
+}
+if (isset($_POST['eventkeluar'])) {
+
+
+}
+
+
+if (isset($_POST['eventcheck'])) {
+
+  //run every hour ( first 15min)
+  $todaysDate = date("Y-m-d");
+  $query = "SELECT a.*, b.email FROM `attendance` a INNER JOIN user b ON b.id=a.user_id WHERE (DATE(masa_mula)='$todaysDate')";
+  $results = mysqli_query($db, $query);
+  $masa_tamat = date("Y-m-d H:i:s", strtotime("today 18:00"));
+  $now = date("Y-m-d H:i:s", strtotime("now"));
+
+
+  while ($row = $results->fetch_assoc()) {
+
+    $masa_keluar = strtotime("+15 minutes", strtotime($row['masa_mula']));
+
+
+    var_dump($row);
+
+    if ($row['event_status'] == 0) {
+      if ($row['masa_tamat'] == "" && ($masa_keluar < $now)) {
+        sendmail($row['email'], "Lambat", "Anda Lambat masuk kelas");
+
+
+      }
+    } else {
+      if ($row['masa_tamat'] == "" && ($masa_tamat < $now)) {
+        sendmail($row['email'], "anda x kelaur lagi", "gpa 4.3");
+
+      }
+    }
+  }
+}
+
+
+
+function sendmail($receiver ,$title ,$message ="")
+{
+
+
+  //Load Composer's autoloader
+
+  //Create an instance; passing `true` enables exceptions
+  $mail = new PHPMailer(true);
+
+  try {
+    //Server settings
+    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+    $mail->isSMTP();                                            //Send using SMTP
+    $mail->Host = 'fingerprint.kaunselingadtectaiping.com.my';                     //Set the SMTP server to send through
+    $mail->SMTPAuth = true;                                   //Enable SMTP authentication
+    $mail->Username = 'attendance@fingerprint.kaunselingadtectaiping.com.my';                     //SMTP username
+    $mail->Password = 'attendance@33';                               //SMTP password
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+    $mail->Port = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+    //Recipients
+    $mail->setFrom('attendance@fingerprint.kaunselingadtectaiping.com.my', 'Attendance');
+    $mail->addAddress($receiver);     //Add a recipient
+    // $mail->addAddress('ellen@example.com');               //Name is optional
+    // $mail->addReplyTo('info@example.com', 'Information');
+    // $mail->addCC('cc@example.com');
+    // $mail->addBCC('bcc@example.com');
+
+    //Attachments
+    // $mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
+    // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
+
+    //Content
+    $mail->isHTML(true);                                  //Set email format to HTML
+
+    $mail->Subject = $title;
+    if (!$message){
+      
+  
+    $mail->Body = 'This is the HTML message body <b>in bold!</b>';
+    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+  }else{
+    $mail->Body = $message;
+    $mail->AltBody = $message;
+  }
+    $mail->send();
+    echo 'Message has been sent';
+  } catch (Exception $e) {
+    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+  }
 }
 ?>

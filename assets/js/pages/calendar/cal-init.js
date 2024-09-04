@@ -141,8 +141,9 @@ document.addEventListener("DOMContentLoaded", function () {
   // Calender Event Function
   /*=====================*/
   var calendarEventClick = function (info) {
-    var eventObj = info.event;
-    console.log(info.event);
+    // var eventObj = info.event;
+    console.log(info.event.start);
+    console.log(info.event.end);
     // if (eventObj.url) {
     //   window.open(eventObj.url);
 

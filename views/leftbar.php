@@ -6,7 +6,7 @@
             <ul id="sidebarnav">
               <li class="nav-small-cap">
                 <i class="mdi mdi-dots-horizontal"></i>
-                <span class="hide-menu">Personal</span>
+                <span class="hide-menu">Attendance</span>
               </li>
               <li class="sidebar-item">
                 <a
@@ -14,7 +14,7 @@
                   href="<?php echo $site_url ?>attendance/view"
                   aria-expanded="false"
                   ><i class="mdi mdi-comment-processing-outline"></i
-                  ><span class="hide-menu">Chat Apps</span></a
+                  ><span class="hide-menu">View</span></a
                 >
               </li>
 
