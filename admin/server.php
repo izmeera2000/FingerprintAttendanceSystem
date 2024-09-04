@@ -498,6 +498,28 @@ VALUES ('7','1','$date_now');";
 if (isset($_POST['eventkeluar'])) {
 
 
+  $query = "SELECT * FROM attendance WHERE event_status = '1' AND user_id ='7' AND masa_tamat IS NULL";
+  $results = mysqli_query($db, $query);
+  while ($row = $results->fetch_assoc()) {
+    $id = $row['id'];
+
+  }
+
+  $now = date("Y-m-d H:i:s", strtotime("now"));
+  $masa_tamat = date("Y-m-d H:i:s", strtotime("today 18:00"));
+
+  $query = "UPDATE attendance SET masa_tamat='$now' WHERE id='$id'";
+  $results = mysqli_query($db, $query);
+
+
+  if ( ($masa_tamat > $now)) {
+    $query = "INSERT INTO attendance (user_id, event_status, masa_mula)
+    VALUES ('7','1','$now');";
+      $results = mysqli_query($db, $query);
+    
+
+  }
+
 }
 
 
@@ -532,6 +554,26 @@ if (isset($_POST['eventcheck'])) {
     }
   }
 }
+
+
+function getTimeInRange($start, $end, $rangeStart = "08:00:00", $rangeEnd = "09:00:00") {
+  $eventStart = max($start, $rangeStart);
+  $eventEnd = min($end, $rangeEnd);
+
+  // Convert times to timestamps
+  $eventStartTimestamp = strtotime($eventStart);
+  $eventEndTimestamp = strtotime($eventEnd);
+
+  // Calculate the difference in seconds
+  $differenceInSeconds = max(0, $eventEndTimestamp - $eventStartTimestamp);
+
+  // Convert seconds to minutes and seconds
+  $minutes = floor($differenceInSeconds / 60);
+  $seconds = $differenceInSeconds % 60;
+
+  return array('minutes' => $minutes, 'seconds' => $seconds);
+}
+
 
 
 

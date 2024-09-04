@@ -64,8 +64,29 @@ function attendance_view()
 
 }
 
+function emasuk()
+{
+	check_session($site_url);
 
+	require_once('views/attendance/eventmasuk.php');
 
+}
+
+function ekeluar()
+{
+	check_session($site_url);
+
+	require_once('views/attendance/eventkeluar.php');
+
+}
+
+function echecktime()
+{
+	check_session($site_url);
+
+	require_once('views/attendance/eventchecktime.php');
+
+}
 
 function check_session(&$site_url, $admin = 0)
 {
@@ -109,6 +130,12 @@ else if (str_contains($request, 'attendance/view'))
 	server();
 	else if (str_contains($request, 'fetchevent'))
 	server();
+	else if (str_contains($request, 'eventmasuk'))
+	emasuk();
+	else if (str_contains($request, 'eventkeluar'))
+	ekeluar();
+	else if (str_contains($request, 'eventchecktime'))
+	echecktime();
 	else if (str_contains($request, 'arduino'))
 	server();
 else {

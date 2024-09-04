@@ -69,46 +69,11 @@
         <div class="row">
           <div class="col-md-12">
             <div class="card">
-              <div>
-                <div class="row gx-0">
-                  <div class="col-lg-12">
-                    <div class="p-4 calender-sidebar app-calendar">
-                      <div id="calendar"></div>
-                    </div>
-                  </div>
-                </div>
-
-                <?php
-                // $todaysDate = date("Y-m-d");
-                // $query = "SELECT a.*, b.email FROM `attendance` a INNER JOIN user b ON b.id=a.user_id WHERE (DATE(masa_mula)='$todaysDate')";
-                // $results = mysqli_query($db, $query);
-                // $masa_tamat = date("Y-m-d H:i:s", strtotime("today 18:00"));
-                // $now = date("Y-m-d H:i:s", strtotime("now"));
+              <form action="eventkeluar" method="POST"> 
 
 
-                // while ($row = $results->fetch_assoc()) {
-
-                //   $masa_keluar = strtotime("+15 minutes", strtotime($row['masa_mula']));
-
-
-                //   var_dump($row);
-
-                //   if ($row['event_status'] == 0) {
-                //     if ($row['masa_tamat'] == "" && ($masa_keluar < $now)) {
-                //       sendmail($row['email'], "Lambat", "Anda Lambat masuk kelas");
-
-
-                //     }
-                //   } else {
-                //     if ($row['masa_tamat'] == "" && ($masa_tamat < $now)) {
-                //       sendmail($row['email'], "anda x kelaur lagi", "gpa 4.3");
-
-                //     }
-                //   }
-                // }
-
-                ?>
-              </div>
+              <button type="submit" name="eventkeluar">asdasd</button>
+              </form>
             </div>
             <!-- BEGIN MODAL -->
             <div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">

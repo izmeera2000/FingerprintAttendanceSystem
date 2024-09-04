@@ -1,24 +1,35 @@
 <aside class="left-sidebar">
-        <!-- Sidebar scroll-->
-        <div class="scroll-sidebar">
-          <!-- Sidebar navigation-->
-          <nav class="sidebar-nav">
-            <ul id="sidebarnav">
-              <li class="nav-small-cap">
-                <i class="mdi mdi-dots-horizontal"></i>
-                <span class="hide-menu">Attendance</span>
-              </li>
-              <li class="sidebar-item">
-                <a
-                  class="sidebar-link waves-effect waves-dark sidebar-link"
-                  href="<?php echo $site_url ?>attendance/view"
-                  aria-expanded="false"
-                  ><i class="mdi mdi-comment-processing-outline"></i
-                  ><span class="hide-menu">View</span></a
-                >
-              </li>
+  <!-- Sidebar scroll-->
+  <div class="scroll-sidebar">
+    <!-- Sidebar navigation-->
+    <nav class="sidebar-nav">
+      <ul id="sidebarnav">
+        <li class="nav-small-cap">
+          <i class="mdi mdi-dots-horizontal"></i>
+          <span class="hide-menu">Attendance</span>
+        </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>attendance/view"
+            aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
+              class="hide-menu">View</span></a>
+        </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>attendance/eventmasuk"
+            aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
+              class="hide-menu">Test Masuk</span></a>
+        </li>
 
-              <!-- <li class="sidebar-item">
+        <li class="sidebar-item">
+          <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>attendance/eventkeluar"
+            aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
+              class="hide-menu">Test Keluar</span></a>
+        </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>attendance/eventchecktime"
+            aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
+              class="hide-menu">Test Check Time</span></a>
+        </li>
+        <!-- <li class="sidebar-item">
                 <a
                   class="sidebar-link has-arrow waves-effect waves-dark"
                   href="javascript:void(0)"
@@ -1617,7 +1628,7 @@
               <li class="sidebar-item">
                 <a
                   class="sidebar-link waves-effect waves-dark sidebar-link"
-                  href=" <?php  echo $site_url ?> <?php  echo $site_url ?> <?php  echo $site_url ?>docs/documentation.html"
+                  href=" <?php echo $site_url ?> <?php echo $site_url ?> <?php echo $site_url ?>docs/documentation.html"
                   aria-expanded="false"
                 >
                   <i class="mdi mdi-content-paste"></i>
@@ -1634,9 +1645,9 @@
                   <span class="hide-menu">Log Out</span>
                 </a>
               </li> -->
-            </ul>
-          </nav>
-          <!-- End Sidebar navigation -->
-        </div>
-        <!-- End Sidebar scroll-->
-      </aside>
+      </ul>
+    </nav>
+    <!-- End Sidebar navigation -->
+  </div>
+  <!-- End Sidebar scroll-->
+</aside>
