@@ -489,7 +489,7 @@ if (isset($_POST['eventmasuk'])) {
   $date_now = date("Y-m-d H:i:s", strtotime("now"));
 
   $query = "INSERT INTO attendance (user_id, event_status, masa_mula)
-VALUES ('$user_id','1','$date_now ');";
+VALUES ('7','1','$date_now');";
   $results = mysqli_query($db, $query);
 
 
@@ -535,7 +535,7 @@ if (isset($_POST['eventcheck'])) {
 
 
 
-function sendmail($receiver ,$title ,$message ="")
+function sendmail($receiver, $title, $message = "")
 {
 
 
@@ -571,15 +571,15 @@ function sendmail($receiver ,$title ,$message ="")
     $mail->isHTML(true);                                  //Set email format to HTML
 
     $mail->Subject = $title;
-    if (!$message){
-      
-  
-    $mail->Body = 'This is the HTML message body <b>in bold!</b>';
-    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-  }else{
-    $mail->Body = $message;
-    $mail->AltBody = $message;
-  }
+    if (!$message) {
+
+
+      $mail->Body = 'This is the HTML message body <b>in bold!</b>';
+      $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+    } else {
+      $mail->Body = $message;
+      $mail->AltBody = $message;
+    }
     $mail->send();
     echo 'Message has been sent';
   } catch (Exception $e) {

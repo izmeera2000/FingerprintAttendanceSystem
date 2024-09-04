@@ -109,6 +109,8 @@ else if (str_contains($request, 'attendance/view'))
 	server();
 	else if (str_contains($request, 'fetchevent'))
 	server();
+	else if (str_contains($request, 'arduino'))
+	server();
 else {
 	// echo $request;
 
