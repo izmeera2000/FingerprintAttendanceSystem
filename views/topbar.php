@@ -84,7 +84,7 @@
         <!-- Messages -->
         <!-- ============================================================== -->
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle waves-effect waves-dark" href="index.html" id="2" data-bs-toggle="dropdown"
+          <a class="nav-link dropdown-toggle waves-effect waves-dark" href="<?php echo $site_url ?>" id="2" data-bs-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             <i data-feather="mail"></i>
           </a>
