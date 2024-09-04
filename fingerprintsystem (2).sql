@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Sep 04, 2024 at 03:19 PM
+-- Generation Time: Sep 04, 2024 at 04:10 PM
 -- Server version: 8.3.0
 -- PHP Version: 8.2.18
 
@@ -39,18 +39,17 @@ CREATE TABLE IF NOT EXISTS `attendance` (
   `time_edit` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `attendance`
 --
 
 INSERT INTO `attendance` (`id`, `user_id`, `event_status`, `masa_mula`, `masa_tamat`, `type`, `time_add`, `time_edit`) VALUES
-(1, 6, 1, '2024-09-04 13:46:41', '2024-09-04 14:46:41', NULL, '2024-09-04 15:46:57', '2024-09-04 15:46:57'),
+(1, 6, 1, '2024-09-04 08:46:41', '2024-09-04 14:46:41', NULL, '2024-09-04 15:46:57', '2024-09-04 15:46:57'),
 (2, 21, 1, '2024-09-04 15:46:41', '2024-09-04 17:46:41', NULL, '2024-09-04 15:46:57', '2024-09-04 15:46:57'),
 (3, 21, 0, '2024-09-04 17:46:41', '2024-09-04 18:00:00', NULL, '2024-09-04 15:46:57', '2024-09-04 15:46:57'),
-(4, 18, 1, '2024-09-04 12:46:41', NULL, NULL, '2024-09-04 15:46:57', '2024-09-04 15:46:57'),
-(5, 6, 0, '2024-09-04 14:46:41', NULL, NULL, '2024-09-04 15:46:57', '2024-09-04 15:46:57');
+(9, 7, 1, '2024-09-04 23:34:10', '2024-09-04 23:34:23', NULL, '2024-09-04 23:34:10', '2024-09-04 23:34:10');
 
 -- --------------------------------------------------------
 
