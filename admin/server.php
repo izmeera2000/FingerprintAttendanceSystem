@@ -3,20 +3,13 @@ require __DIR__ . '/../route.php';
 
 
 
-// require __DIR__ . '/vendor/autoload.php';
 
-// $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
-// $dotenv->load();
-// initializing variables
 
 $site_url = $_ENV['site2'];
-// debug_to_console2($site_url);
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
-// $username = "";
-// $email = "";
-// global $$errors;
+
 $errors = array();
 $toast = array();
 // $GLOBALS['$errors']= array();
@@ -28,21 +21,6 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
 
 // REGISTER USER
 if (isset($_POST['user_register'])) {
-  // receive all input values from the form
-  // $username = mysqli_real_escape_string($db, $_POST['username']);
-
-
-  // Check if image file is a actual image or fake image
-  // if (isset($_POST["submit"])) {
-  //   $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
-  //   if ($check !== false) {
-  //     echo "File is an image - " . $check["mime"] . ".";
-  //     $uploadOk = 1;
-  //   } else {
-  //     echo "File is not an image.";
-  //     $uploadOk = 0;
-  //   }
-  // }
 
 
   if (empty($_POST['ndp'])) {
@@ -115,7 +93,7 @@ if (isset($_POST['user_register'])) {
 
 
 
-  $role = 2;
+  $role = 3;
 
 
 
@@ -131,7 +109,6 @@ if (isset($_POST['user_register'])) {
 
 
 
-  // var_dump($_POST);
   //error handlng utk check data
   if (isset($ndp) && isset($email) && isset($phone) && isset($kp)) {
 
@@ -141,11 +118,8 @@ if (isset($_POST['user_register'])) {
 
     if ($user) { // if user exists
       if ($user['ndp'] === $ndp) {
-        // $arrndp = array(
-        //   "ndp" => "NDP already registered"
-        // );
+
         $errors['ndp'] = "NDP already registered";
-        // array_push($errors['ndp'], "NDP already registered");
       }
 
       if ($user['email'] === $email) {
@@ -180,7 +154,7 @@ if (isset($_POST['user_register'])) {
 
 
     //verify
-    $query = "SELECT * FROM user WHERE (ndp='$ndp' OR email='$email') AND password='$password'";
+    $query = "SELECT a.*, b.name as role_name FROM `user` a INNER JOIN user_role b ON a.role = b.id WHERE (ndp='$ndp' OR email='$email') AND password='$password'";
     $results = mysqli_query($db, $query);
     $user = mysqli_fetch_assoc($results);
 
@@ -206,14 +180,7 @@ if (isset($_POST['user_register'])) {
 if (isset($_POST['user_login'])) {
   $login = mysqli_real_escape_string($db, $_POST['login']);
   $password = mysqli_real_escape_string($db, $_POST['password']);
-  // debug_to_console("test");
 
-  // if (empty($username)) {
-  //       array_push($errors, "Username is required");
-  // }
-  // if (empty($password)) {
-  //       array_push($errors, "Password is required");
-  // }
 
   if (count($errors) == 0) {
 
@@ -225,7 +192,7 @@ if (isset($_POST['user_login'])) {
     $password = md5($password);
 
 
-    $query = "SELECT * FROM user WHERE (ndp='$login' or email='$login') AND password='$password'";
+    $query = "SELECT a.*, b.name as role_name FROM `user` a INNER JOIN user_role b ON a.role = b.id WHERE (ndp='$login' or email='$login') AND password='$password'";
     $results = mysqli_query($db, $query);
 
     if (mysqli_num_rows($results) == 1) {
@@ -273,12 +240,11 @@ function debug_to_console($data)
 
 
 
-
+//validation on label
 
 function formvalidatelabel($key, $arr)
 {
-  // global $errors;
-  // var_dump($arr);
+ 
   if ($arr) {
     $error = "";
     if (array_key_exists($key, $arr)) {
@@ -296,10 +262,11 @@ function formvalidatelabel($key, $arr)
 
     }
   }
-  // debug_to_console($arr[$key]);
-  // $arr[$key] = "NDP requred";
+
 
 }
+//validation on label
+
 function formvalidateerr($key, $arr)
 {
   if ($arr) {
@@ -313,6 +280,7 @@ function formvalidateerr($key, $arr)
     }
   }
 }
+//check pic by id
 
 function checkuploadpid($id, &$err)
 {
@@ -341,6 +309,7 @@ function checkuploadpid($id, &$err)
   }
 
 }
+//upload pic by id
 
 function uploadpic_id($id, &$err)
 {
@@ -382,7 +351,6 @@ function uploadpic_id($id, &$err)
 
 function showtoast($message, &$toast)
 {
-  // $toasted = "asd";
   array_push($toast, $message);
 
 
@@ -405,22 +373,7 @@ function showmodal($modal_name)
 
 
 
-if (isset($_POST['order'])) {
-  // echo json_encode($_POST);
-  $order = $_POST['order'];
 
-  foreach ($order as $row) {
-    $id = $row['id'];
-    $re_order = $row['re_order'];
-
-
-    $query = "UPDATE borang_psikologi SET re_order = '$re_order' WHERE id = '$id'";
-    mysqli_query($db, $query);
-
-  }
-  die();
-
-}
 
 
 if (isset($_POST['fetchresource'])) {
@@ -481,6 +434,86 @@ if (isset($_POST['fetchevent'])) {
 
 }
 
+if (isset($_POST['fetchevent2'])) {
+
+  //slot
+
+  $query = "SELECT a.*,b.masa_mula,b.masa_tamat FROM attendance_slot a INNER JOIN time_slot b ON  a.slot = b.slot";
+  $results = mysqli_query($db, $query);
+  $events = array();
+
+
+
+
+  while ($row = $results->fetch_assoc()) {
+
+
+
+
+    $slot_statuses = [
+      0 => "Unattended / Unexcused Absence",
+      1 => "Present",
+      2 => "Late",
+      3 => "Pending Excuse of Absence",
+      4 => "Excused Absence",
+      5 => "Left Early",
+      6 => "Break",
+      7 => "Not Yet",
+
+    ];
+
+    switch (true) {
+      case ($row['slot_status'] == 0):
+        $color = 'red';
+        break;
+      case ($row['slot_status'] == 2):
+        $color = 'red';
+        break;
+      case ($row['slot_status'] == 3):
+        $color = 'red';
+        break;
+      case ($row['slot_status'] == 4):
+        $color = 'red';
+        break;
+      case ($row['slot_status'] == 5):
+        $color = 'red';
+        break;
+      case ($row['slot_status'] == 6):
+        $color = 'red';
+        break;
+
+
+
+
+      default:
+        break;
+
+
+    }
+
+    $start = new DateTime($row['tarikh'] . " " . $row['masa_mula']);
+    // $start->format('Y-m-d H:i:s');
+
+    $end = new DateTime($row['tarikh'] . " " . $row['masa_tamat']);
+    // $end->format('Y-m-d H:i:s');
+
+    $events[] = array(
+      'id' => $row['user_id'],                       // Unique identifier for the event
+      'resourceId' => $row['user_id'],          // ID of the user (resource)
+      'title' => "a",                // Status or description of the event
+      'start' => $start->format('Y-m-d H:i:s'),       // Date of the attendance
+      'end' => $end->format('Y-m-d H:i:s'),       // Date of the attendance
+      'status' => $row['slot_status'],       // Date of the attendance
+      // 'masa' => date("Y-m-d H:i:s", strtotime("now")),
+      'color' => $color,       // Date of the attendance
+      // Optionally add 'end' or other event properties here
+    );
+  }
+
+  echo json_encode($events);
+  die();
+
+}
 
 if (isset($_POST['eventmasuk'])) {
 
@@ -488,13 +521,17 @@ if (isset($_POST['eventmasuk'])) {
 
   $date_now = date("Y-m-d H:i:s", strtotime("now"));
 
-  $query = "INSERT INTO attendance (user_id, event_status, masa_mula)
-VALUES ('7','1','$date_now');";
+  $query = "INSERT INTO attendance (user_id, event_status, masa_mula) VALUES ('7','1','$date_now');";
   $results = mysqli_query($db, $query);
 
+  // $query = "INSERT INTO attendance_slot  (user_id, slot,slot_status,tarikh) VALUES ('7','1','1','$date_now');";
+  // $results = mysqli_query($db, $query);
 
 
 }
+
+
+
 if (isset($_POST['eventkeluar'])) {
 
 
@@ -512,118 +549,68 @@ if (isset($_POST['eventkeluar'])) {
   $results = mysqli_query($db, $query);
 
 
-  if ( ($masa_tamat > $now)) {
+  if (($masa_tamat > $now)) {
     $query = "INSERT INTO attendance (user_id, event_status, masa_mula)
     VALUES ('7','1','$now');";
-      $results = mysqli_query($db, $query);
-    
+    $results = mysqli_query($db, $query);
+
 
   }
 
 }
 
 
-if (isset($_POST['eventcheck'])) {
-
-  //run every hour ( first 15min)
-  $todaysDate = date("Y-m-d");
-  $query = "SELECT a.*, b.email FROM `attendance` a INNER JOIN user b ON b.id=a.user_id WHERE (DATE(masa_mula)='$todaysDate')";
-  $results = mysqli_query($db, $query);
-  $masa_tamat = date("Y-m-d H:i:s", strtotime("today 17:00"));
-  $now = date("Y-m-d H:i:s", strtotime("now"));
-
-
-  while ($row = $results->fetch_assoc()) {
-
-    $masa_keluar = strtotime("+15 minutes", strtotime($row['masa_mula']));
-
-
-    var_dump($row);
-
-    if ($row['event_status'] == 0) {
-      if ($row['masa_tamat'] == "" && ($masa_keluar < $now)) {
-        sendmail($row['email'], "Lambat", "Anda Lambat masuk kelas");
-
-
-      }
-    } else {
-      if ($row['masa_tamat'] == "" && ($masa_tamat < $now)) {
-        sendmail($row['email'], "anda x kelaur lagi", "gpa 4.3");
-
-      }
-    }
-  }
-}
-
-
-function getTimeInRange($start, $end, $rangeStart = "08:00:00", $rangeEnd = "09:00:00") {
-  $eventStart = max($start, $rangeStart);
-  $eventEnd = min($end, $rangeEnd);
-
-  // Convert times to timestamps
-  $eventStartTimestamp = strtotime($eventStart);
-  $eventEndTimestamp = strtotime($eventEnd);
-
-  // Calculate the difference in seconds
-  $differenceInSeconds = max(0, $eventEndTimestamp - $eventStartTimestamp);
-
-  // Convert seconds to minutes and seconds
-  $minutes = floor($differenceInSeconds / 60);
-  $seconds = $differenceInSeconds % 60;
-
-  return array('minutes' => $minutes, 'seconds' => $seconds);
-}
 
 
 
-
-function sendmail($receiver, $title, $message = "")
+function sendmail($receiver, $title, $filepath, $var = "")
 {
 
 
-  //Load Composer's autoloader
 
-  //Create an instance; passing `true` enables exceptions
+
+
   $mail = new PHPMailer(true);
 
   try {
-    //Server settings
-    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
-    $mail->isSMTP();                                            //Send using SMTP
-    $mail->Host = 'fingerprint.kaunselingadtectaiping.com.my';                     //Set the SMTP server to send through
-    $mail->SMTPAuth = true;                                   //Enable SMTP authentication
-    $mail->Username = 'attendance@fingerprint.kaunselingadtectaiping.com.my';                     //SMTP username
-    $mail->Password = 'attendance@33';                               //SMTP password
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-    $mail->Port = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
-    //Recipients
-    $mail->setFrom('attendance@fingerprint.kaunselingadtectaiping.com.my', 'Attendance');
-    $mail->addAddress($receiver);     //Add a recipient
-    // $mail->addAddress('ellen@example.com');               //Name is optional
-    // $mail->addReplyTo('info@example.com', 'Information');
-    // $mail->addCC('cc@example.com');
-    // $mail->addBCC('bcc@example.com');
+    $mail->isSMTP();
+    $mail->SMTPDebug = SMTP::DEBUG_OFF;
+    $mail->Host = 'kaunselingadtectaiping.com.my';
+    $mail->SMTPAuth = true;
+    $mail->Username = $_ENV['email2_username'];
+    $mail->Password = $_ENV['email2_password'];
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+    $mail->Port = 465; // Adjust as needed (e.g., 465 for SSL)
 
-    //Attachments
-    // $mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
-    // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
 
-    //Content
-    $mail->isHTML(true);                                  //Set email format to HTML
+    $mail->setFrom('appointment@kaunselingadtectaiping.com.my', 'Temu Janji');
+    $mail->addAddress($receiver);
+
+
+    $emailBodyContent = getEmailContent($filepath, $var);
+
+
+    // $mail->addEmbeddedImage(getcwd() . '/assets/img/logo3.png', 'logo_cid'); // 'logo_cid' is a unique ID
+
+
+
+
+
+    $mail->isHTML(true);
 
     $mail->Subject = $title;
-    if (!$message) {
+    if (!$var) {
 
 
       $mail->Body = 'This is the HTML message body <b>in bold!</b>';
       $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
     } else {
-      $mail->Body = $message;
-      $mail->AltBody = $message;
+      $mail->Body = $emailBodyContent;         // Set the body with the content from the .php file
+      $mail->AltBody = $title;
     }
     $mail->send();
-    echo 'Message has been sent';
+    // echo 'Message has been sent';
   } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
   }

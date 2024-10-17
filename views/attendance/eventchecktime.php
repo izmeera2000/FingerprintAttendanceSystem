@@ -71,19 +71,141 @@
             <div class="card">
 
 
+              <!-- <form action="eventchecktime" method="POST">
+
+
+                <button type="submit" name="eventcheck">asdasd</button>
+              </form> -->
+
+
               <?php
 
-              // Example usage with event start and end times
-              $eventStart = "2024-09-04 08:30:30";  // Example event start time
-              $eventEnd = "2024-09-04 09:15:45";    // Example event end time
+
+              $slot_statuses = [
+                0 => "Unattended / Unexcused Absence",
+                1 => "Present",
+                2 => "Late",
+                3 => "Pending Excuse of Absence",
+                4 => "Excused Absence",
+                5 => "Left Early",
+                6 => "Break",
+                7 => "Not Yet",
+
+              ];
+
+              // $start_timeb = microtime(true);
               
-              // Extract only the time part
-              $eventStartTime = date("H:i:s", strtotime($eventStart));
-              $eventEndTime = date("H:i:s", strtotime($eventEnd));
+              $time_slots = []; // Initialize an empty array
+              $time_limit = 50;
 
-              $timeInRange = getTimeInRange($eventStartTime, $eventEndTime);
+              $query = "SELECT * FROM time_slot ORDER BY id ASC";
+              $results = mysqli_query($db, $query);
+              while ($row = mysqli_fetch_assoc($results)) {
+                $time_slots[] = $row;
+              }
 
-              echo "Total time within ".$eventStartTime." to ".$eventEndTime.": " . $timeInRange['minutes'] . " minutes and " . $timeInRange['seconds'] . " seconds.";
+
+
+              $query = "SELECT * FROM attendance WHERE DATE(masa_mula) = CURDATE();";
+              $results = mysqli_query($db, $query);
+
+              while ($row = $results->fetch_assoc()) {
+                $id = $row['user_id'];
+
+                $masa_mula = new DateTime($row['masa_mula']);
+                $masa_tamat = !empty($row['masa_tamat']) ? new DateTime($row['masa_tamat']) : new DateTime(); // Use current time if masa_tamat is empty
+              
+                // Loop through the time slots
+                foreach ($time_slots as $time_slot) {
+                  $start_time = new DateTime($time_slot['masa_mula']);
+                  $end_time = new DateTime($time_slot['masa_tamat']);
+                  $slot_name = $time_slot['slot'];
+
+
+                  $late_time = clone $start_time; // Clone the start time to avoid modifying the original
+                  $late_time->modify('+10 minutes'); // Add 10 minutes to the start time
+                  $nowdate = date('Y-m-d');
+
+                  // Check for overlap
+                  if ($masa_mula < $end_time && $masa_tamat > $start_time) {
+                    $overlap_start = max($masa_mula->getTimestamp(), $start_time->getTimestamp());
+                    $overlap_end = min($masa_tamat->getTimestamp(), $end_time->getTimestamp());
+
+                    // Calculate duration in minutes
+                    $overlap_duration = ceil(($overlap_end - $overlap_start) / 60); // Convert seconds to minutes
+              
+                    $interval = $start_time->diff($end_time);
+
+                    $supposed_time = ($interval->h * 60) + $interval->i;
+
+
+                    // Switch case to determine slot status
+                    switch (true) {
+                      case ($masa_mula > $late_time):
+                        // Attendance is more than 10 minutes past the start time
+                        // echo "Attendance from {$row['masa_mula']} to {$masa_tamat->format('Y-m-d H:i:s')} .<br>";
+              
+                        $slot_status = 2; // Late
+                        break;
+
+                      case ($overlap_duration < ($supposed_time - 10)):
+                        $slot_status = 5; // Early
+                        break;
+
+                      // case ($masa_tamat < $end_time):
+                      //   // Attendance ends before the time slot ends
+                      //   $slot_status = 5; // Leave or another appropriate status
+                      //   break;
+              
+                      case ($slot_name == "rehat1" || $slot_name == "rehat2"):
+                        $slot_status = 6; // rehat
+                        break;
+
+                      default:
+                        // Default case for on-time attendance
+                        $slot_status = 1; // Present
+                        break;
+                    }
+
+
+
+                  } else {
+                    // No overlap case
+                    $slot_status = 0; // Unattended
+                  }
+
+                  $query2 = "INSERT INTO attendance_slot (user_id, slot, slot_status, tarikh)
+        VALUES ('$id', '$slot_name', '$slot_status', '$nowdate')
+        ON DUPLICATE KEY UPDATE
+        slot_status = VALUES(slot_status), 
+        tarikh = VALUES(tarikh)";
+                  $results2 = mysqli_query($db, $query2);
+
+                  echo "$slot_status  $slot_name <br> ";
+                  // echo " $supposed_time min<br>";
+              
+                }
+
+              }
+
+              $query = "SELECT s.id FROM user s LEFT JOIN attendance a ON s.id = a.user_id AND DATE(a.masa_mula) = CURDATE() WHERE a.user_id IS NULL;";
+              $results = mysqli_query($db, $query);
+
+              while ($row = $results->fetch_assoc()) {
+
+
+                foreach ($time_slots as $time_slot) {
+                  $slot_name = $time_slot['slot'];
+                  $slot_status = 0; // Present
+                  $id = $row['id'];
+
+                  $query2 = "INSERT INTO attendance_slot (user_id, slot, slot_status,tarikh)
+                  VALUES ('$id','$slot_name','$slot_status','$nowdate')";
+                  $results2 = mysqli_query($db, $query2);
+
+                }
+
+              }
 
 
               ?>
