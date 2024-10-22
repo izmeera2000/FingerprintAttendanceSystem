@@ -244,7 +244,7 @@ function debug_to_console($data)
 
 function formvalidatelabel($key, $arr)
 {
- 
+
   if ($arr) {
     $error = "";
     if (array_key_exists($key, $arr)) {
@@ -378,7 +378,7 @@ function showmodal($modal_name)
 
 if (isset($_POST['fetchresource'])) {
   $query =
-    "SELECT * FROM user";
+    "SELECT * FROM user WHERE role = 3";
   $results = mysqli_query($db, $query);
   $resources = array();
 
@@ -397,7 +397,20 @@ if (isset($_POST['fetchresource'])) {
 
 if (isset($_POST['fetchevent'])) {
 
-  $query = "SELECT * FROM attendance";
+  $start_date = new DateTime($_POST['fetchevent']['start']);
+  $start_date2 = $start_date->format('Y-m-d');
+
+  $end_date = new DateTime($_POST['fetchevent']['end']);
+  $end_date2 = $end_date->format('Y-m-d');
+
+
+  $query = "SELECT *
+FROM attendance
+WHERE 
+    (DATE(masa_mula) BETWEEN '$start_date2' AND '$end_date2')
+    OR 
+    (DATE(masa_tamat) BETWEEN '$start_date2' AND '$end_date2')
+";
   $results = mysqli_query($db, $query);
   $events = array();
 
@@ -436,9 +449,22 @@ if (isset($_POST['fetchevent'])) {
 
 if (isset($_POST['fetchevent2'])) {
 
-  //slot
 
-  $query = "SELECT a.*,b.masa_mula,b.masa_tamat FROM attendance_slot a INNER JOIN time_slot b ON  a.slot = b.slot";
+  $start_date = new DateTime($_POST['fetchevent2']['start']);
+  $start_date2 = $start_date->format('Y-m-d');
+
+  $end_date = new DateTime($_POST['fetchevent2']['end']);
+  $end_date2 = $end_date->format('Y-m-d');
+  //slot
+  ;
+
+
+  $query = "SELECT a.*, b.masa_mula, b.masa_tamat, c.role
+FROM attendance_slot a
+INNER JOIN time_slot b ON a.slot = b.slot
+INNER JOIN user c ON c.id = a.user_id
+WHERE c.role = 3
+AND DATE(a.tarikh) BETWEEN '$start_date2' AND '$end_date2' ";
   $results = mysqli_query($db, $query);
   $events = array();
 
@@ -448,7 +474,10 @@ if (isset($_POST['fetchevent2'])) {
   while ($row = $results->fetch_assoc()) {
 
 
-
+    $sebab = $row['reason'];
+    $file_path = $row['file_path'];
+    $tarikh2 = $row['tarikh2'];
+    $verify = $row['verify'];
 
     $slot_statuses = [
       0 => "Unattended / Unexcused Absence",
@@ -465,27 +494,40 @@ if (isset($_POST['fetchevent2'])) {
     switch (true) {
       case ($row['slot_status'] == 0):
         $color = 'red';
+        $textC = "white";
+
         break;
       case ($row['slot_status'] == 2):
-        $color = 'red';
+        $color = 'yellow';
+        $textC = "black";
         break;
       case ($row['slot_status'] == 3):
         $color = 'red';
+        $textC = "white";
+
         break;
       case ($row['slot_status'] == 4):
         $color = 'red';
+        $textC = "blue";
+
         break;
       case ($row['slot_status'] == 5):
-        $color = 'red';
-        break;
-      case ($row['slot_status'] == 6):
-        $color = 'red';
-        break;
+        $color = 'yellow';
+        $textC = "black";
 
+        break;
+      case ($row['slot_status'] == 7):
+        $color = 'grey';
+        $textC = "black";
+
+        break;
 
 
 
       default:
+        $color = 'green';
+        $textC = "white";
+
         break;
 
 
@@ -497,17 +539,25 @@ if (isset($_POST['fetchevent2'])) {
     $end = new DateTime($row['tarikh'] . " " . $row['masa_tamat']);
     // $end->format('Y-m-d H:i:s');
 
-    $events[] = array(
-      'id' => $row['user_id'],                       // Unique identifier for the event
-      'resourceId' => $row['user_id'],          // ID of the user (resource)
-      'title' => "a",                // Status or description of the event
-      'start' => $start->format('Y-m-d H:i:s'),       // Date of the attendance
-      'end' => $end->format('Y-m-d H:i:s'),       // Date of the attendance
-      'status' => $row['slot_status'],       // Date of the attendance
-      // 'masa' => date("Y-m-d H:i:s", strtotime("now")),
-      'color' => $color,       // Date of the attendance
-      // Optionally add 'end' or other event properties here
-    );
+    if ($row['slot_status'] != 6) {
+      $events[] = array(
+        'id' => $row['user_id'],                       // Unique identifier for the event
+        'resourceId' => $row['user_id'],          // ID of the user (resource)
+        'title' => $row['slot_status'],
+        'start' => $start->format('Y-m-d H:i:s'),       // Date of the attendance
+        'end' => $end->format(format: 'Y-m-d H:i:s'),       // Date of the attendance
+        'status' => $row['slot_status'],        // Status or description of the event
+        'status_description' => $slot_statuses[$row['slot_status']],
+        'tarikh' => $row['tarikh'],
+        'textColor' => $textC,
+        'sebab' => $sebab,
+        'file_path' => $file_path,
+        'tarikh2' => $tarikh2,
+        'verify' => $verify,
+        'color' => $color,
+      );
+    }
+
   }
 
   echo json_encode($events);
@@ -614,5 +664,50 @@ function sendmail($receiver, $title, $filepath, $var = "")
   } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
   }
+}
+
+
+
+
+
+if (isset($_POST['class_findall'])) {
+
+  $class = array();
+
+  $limit = $_POST['class_findall']['limit'];  // Records per page
+  $offset = $_POST['class_findall']['offset'];  // Record starting point
+  $draw = $_POST['class_findall']['draw'];
+
+  // Query to get total number of records in the 'kelas' table
+  $queryTotal = "SELECT COUNT(*) as total FROM kelas";
+  $resultTotal = mysqli_query($db, $queryTotal);
+  $rowTotal = mysqli_fetch_assoc($resultTotal);
+  $recordsTotal = $rowTotal['total'];
+
+  // Query to get paginated records
+  $query = "SELECT * FROM kelas LIMIT $limit OFFSET $offset";
+  $results = mysqli_query($db, $query);
+
+  if (mysqli_num_rows($results) > 0) {
+    while ($row = mysqli_fetch_assoc($results)) {
+      $class[] = array(
+        "a" => $row['nama_kelas'],
+        "b" => $row['nama_kelas'],
+        "c" => $row['nama_kelas'],
+        "d" => $row['nama_kelas'],
+      );
+    }
+  }
+
+  // Create the response with proper record counts
+  $response = [
+    "draw" => $draw,
+    "recordsTotal" => $recordsTotal,  // Total records in the table
+    "recordsFiltered" => $recordsTotal,  // No filtering applied in this case
+    "data" => $class
+  ];
+
+  echo json_encode($response);
+  die();
 }
 ?>

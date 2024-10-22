@@ -71,6 +71,8 @@
             <div class="card">
 
 
+            
+<p>function to check time (8:10)</p>
               <!-- <form action="eventchecktime" method="POST">
 
 
@@ -97,6 +99,9 @@
               
               $time_slots = []; // Initialize an empty array
               $time_limit = 50;
+              $nowdate = date('Y-m-d');
+              $now = new DateTime();
+              $now2= $now->format('Y-m-d H:i:s');
 
               $query = "SELECT * FROM time_slot ORDER BY id ASC";
               $results = mysqli_query($db, $query);
@@ -117,15 +122,14 @@
               
                 // Loop through the time slots
                 foreach ($time_slots as $time_slot) {
-                  $start_time = new DateTime($time_slot['masa_mula']);
-                  $end_time = new DateTime($time_slot['masa_tamat']);
+                  $start_time = new DateTime($nowdate . ' ' . $time_slot['masa_mula']);
+                  $end_time = new DateTime($nowdate . ' ' . $time_slot['masa_tamat']);
                   $slot_name = $time_slot['slot'];
 
 
                   $late_time = clone $start_time; // Clone the start time to avoid modifying the original
                   $late_time->modify('+10 minutes'); // Add 10 minutes to the start time
-                  $nowdate = date('Y-m-d');
-
+              
                   // Check for overlap
                   if ($masa_mula < $end_time && $masa_tamat > $start_time) {
                     $overlap_start = max($masa_mula->getTimestamp(), $start_time->getTimestamp());
@@ -149,7 +153,7 @@
                         break;
 
                       case ($overlap_duration < ($supposed_time - 10)):
-                        $slot_status = 5; // Early
+                        $slot_status = 5; // Left  Early
                         break;
 
                       // case ($masa_tamat < $end_time):
@@ -171,19 +175,41 @@
 
                   } else {
                     // No overlap case
-                    $slot_status = 0; // Unattended
+
+                    if ($now < $start_time) {
+                      $slot_status = 7; // rehat
+              
+                    }  else {
+
+                      $slot_status = 0; // Unattended
+                    }
+
+                    if ($slot_name == "rehat1" || $slot_name == "rehat2") {
+                      $slot_status = 6; // rehat
+                
+                    }
                   }
 
                   $query2 = "INSERT INTO attendance_slot (user_id, slot, slot_status, tarikh)
-        VALUES ('$id', '$slot_name', '$slot_status', '$nowdate')
-        ON DUPLICATE KEY UPDATE
-        slot_status = VALUES(slot_status), 
-        tarikh = VALUES(tarikh)";
+                              VALUES ('$id', '$slot_name', '$slot_status', '$nowdate')
+                              ON DUPLICATE KEY UPDATE
+                                  slot_status = VALUES(slot_status),
+                                  tarikh = VALUES(tarikh)";
                   $results2 = mysqli_query($db, $query2);
 
-                  echo "$slot_status  $slot_name <br> ";
                   // echo " $supposed_time min<br>";
-              
+                  if (!$results2) {
+                    // Query failed, output the error message
+                    die("Error in query: " . mysqli_error($db));
+                  } else {
+                    $start_time2=$start_time->format('Y-m-d H:i:s');
+                    $end_time2=$end_time->format('Y-m-d H:i:s');
+                    $masa_tamat2 =$masa_tamat->format('Y-m-d H:i:s');
+                    $masa_mula2= $masa_mula->format('Y-m-d H:i:s');
+                    echo " $slot_status  $slot_name  ($masa_mula2 < $end_time2 && $masa_tamat2 > $start_time2 ) <br> ";
+                  }
+
+
                 }
 
               }
@@ -195,12 +221,33 @@
 
 
                 foreach ($time_slots as $time_slot) {
+                  $start_time = new DateTime($nowdate . ' ' . $time_slot['masa_mula']);
+                  $end_time = new DateTime($nowdate . ' ' . $time_slot['masa_tamat']);
                   $slot_name = $time_slot['slot'];
-                  $slot_status = 0; // Present
+                  if ($now < $start_time) {
+                    // $start_time2=$start_time->format('Y-m-d H:i:s');
+
+                    // echo " $slot_status  $slot_name  ($now2 < $start_time2) <br> ";
+
+                    $slot_status = 7;  //not yet
+            
+                  } 
+                    else {
+
+                    $slot_status = 0; // Unattended
+                  }
+
+                  if ($slot_name == "rehat1" || $slot_name == "rehat2") {
+                    $slot_status = 6; // rehat
+              
+                  }
                   $id = $row['id'];
 
-                  $query2 = "INSERT INTO attendance_slot (user_id, slot, slot_status,tarikh)
-                  VALUES ('$id','$slot_name','$slot_status','$nowdate')";
+                  $query2 = "INSERT INTO attendance_slot (user_id, slot, slot_status, tarikh)
+                              VALUES ('$id', '$slot_name', '$slot_status', '$nowdate')
+                              ON DUPLICATE KEY UPDATE
+                                  slot_status = VALUES(slot_status),
+                                  tarikh = VALUES(tarikh)";
                   $results2 = mysqli_query($db, $query2);
 
                 }

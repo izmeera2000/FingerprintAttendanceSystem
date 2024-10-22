@@ -23,3 +23,6 @@
     <script src="<?php  echo $site_url ?>assets/libs/moment/min/moment.min.js"></script>
     <script src="<?php  echo $site_url ?>assets/libs/fullcalendar/index.global.min.js"></script>
     <script src="<?php  echo $site_url ?>assets/js/pages/calendar/cal-init.js"></script>
+    <script src="<?php  echo $site_url ?>assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="<?php  echo $site_url ?>assets/js/pages/datatable/custom-datatable.js"></script>
+    

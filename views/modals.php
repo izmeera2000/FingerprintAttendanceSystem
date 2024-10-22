@@ -12,10 +12,25 @@
                       <div class="col-md-12">
                         <div class="">
                           <label class="form-label">Tarikh</label>
-                          <input id="event-title" type="text" class="form-control" />
+                          <input id="event-tarikh" type="text" class="form-control"   readonly/>
                         </div>
                       </div>
-                      <div class="col-md-12 mt-4">
+
+                      <div class="col-md-12">
+                        <div class="">
+                          <label class="form-label">Status</label>
+                          <input id="event-status" type="text" class="form-control"  readonly/>
+                        </div>
+                      </div>
+
+                      <div class="col-md-12" id="event-reason">
+                        <div class="">
+                          <label class="form-label">Sebab</label>
+                          <input  type="text" class="form-control" />
+                        </div>
+                      </div>
+
+                      <!-- <div class="col-md-12 mt-4">
                         <div><label class="form-label">Event Color</label></div>
                         <div class="d-flex">
                           <div class="n-chk">
@@ -47,21 +62,22 @@
                             </div>
                           </div>
                         </div>
-                      </div>
-
+                      </div> -->
+<!-- 
                       <div class="col-md-12 d-none">
                         <div class="">
                           <label class="form-label">Enter Start Date</label>
                           <input id="event-start-date" type="text" class="form-control" />
                         </div>
-                      </div>
+                      </div> -->
 
-                      <div class="col-md-12 d-none">
+                      <!-- <div class="col-md-12 d-none">
                         <div class="">
                           <label class="form-label">Enter End Date</label>
                           <input id="event-end-date" type="text" class="form-control" />
                         </div>
-                      </div>
+                      </div> -->
+
                     </div>
                   </div>
                   <div class="modal-footer">

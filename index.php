@@ -105,6 +105,14 @@ function attendance_pdf()
 
 }
 
+function class_create()
+{
+	check_session($site_url, 1);
+
+	require_once('views/class/createclass.php');
+
+}
+
 function check_session(&$site_url, $admin = 0)
 {
 	if (!isset($_SESSION['user_details'])) {
@@ -163,6 +171,9 @@ switch (true) {
 	case (str_contains($request, 'fetchevent')):
 	case (str_contains($request, 'fetchevent2')):
 	case (str_contains($request, 'arduino')):
+	case (str_contains($request, 'class_findall')):
+
+
 		server();
 		break;
 
@@ -181,7 +192,9 @@ switch (true) {
 		attendance_pdf();
 		break;
 
-
+	case ($request == 'class/create'):
+		class_create();
+		break;
 	default:
 		// echo $request;
 		// http_response_code(404);

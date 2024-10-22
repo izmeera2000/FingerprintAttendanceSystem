@@ -30,6 +30,13 @@
             aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
               class="hide-menu">Test Keluar</span></a>
         </li>
+
+
+
+
+
+
+
         <li class="sidebar-item">
           <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>attendance/eventchecktime"
             aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
@@ -41,6 +48,51 @@
             aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
               class="hide-menu">Test PDF</span></a>
         </li>
+
+
+        <li class="nav-small-cap">
+          <i class="mdi mdi-dots-horizontal"></i>
+          <span class="hide-menu">Class</span>
+        </li>
+
+        <li class="sidebar-item">
+          <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>class/create"
+            aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
+              class="hide-menu">Test Create Class</span></a>
+        </li>
+
+        <li class="sidebar-item">
+          <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>attendance/org"
+            aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
+              class="hide-menu">Test Org Student And Class</span></a>
+        </li>
+
+        <li class="nav-small-cap">
+          <i class="mdi mdi-dots-horizontal"></i>
+          <span class="hide-menu">Subjek</span>
+        </li>
+
+
+        <li class="sidebar-item">
+          <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>subjek/create"
+            aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
+              class="hide-menu">Test Create Subjek</span></a>
+        </li>
+
+
+        <li class="nav-small-cap">
+          <i class="mdi mdi-dots-horizontal"></i>
+          <span class="hide-menu">Fingerprint</span>
+        </li>
+
+
+        <li class="sidebar-item">
+          <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>fp/create"
+            aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
+              class="hide-menu">Test Create Device</span></a>
+        </li>
+
+
         <!-- <li class="sidebar-item">
                 <a
                   class="sidebar-link has-arrow waves-effect waves-dark"

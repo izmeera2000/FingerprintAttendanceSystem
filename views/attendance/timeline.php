@@ -272,7 +272,7 @@
       var calendarHeaderToolbar = {
         left: "prev next",
         center: "title",
-        right: "resourceTimeline,dayGridMonth",
+        right: "resourceTimelineDay,resourceTimelineWeek,resourceTimelineMonth",
       };
       // var calendarEventsList = [
       //   {
@@ -521,8 +521,8 @@
         url: "fetchevent",
         data: {
           fetchevent: {
-            start: "info.startStr",
-            end: "info.endStr",
+            start: info.startStr,
+            end: info.endStr,
           },
         },
         success: function (response) {

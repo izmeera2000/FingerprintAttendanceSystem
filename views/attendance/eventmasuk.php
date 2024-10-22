@@ -75,7 +75,7 @@
                 <button type="submit" name="eventmasuk">asdasd</button>
               </form>
 
-
+ 
             </div>
             <!-- BEGIN MODAL -->
             <div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">

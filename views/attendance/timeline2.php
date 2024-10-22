@@ -111,7 +111,7 @@
               </div>
             </div>
             <!-- BEGIN MODAL -->
-           <?php include(getcwd() . '/views/modals.php'); ?>
+            <?php include(getcwd() . '/views/modals.php'); ?>
 
             <!-- END MODAL -->
           </div>
@@ -129,7 +129,7 @@
       <!-- End footer -->
       <!-- ============================================================== -->
     </div>
-    
+
     <!-- ============================================================== -->
     <!-- End Page wrapper  -->
     <!-- ============================================================== -->
@@ -200,7 +200,7 @@
       var calendarHeaderToolbar = {
         left: "prev next",
         center: "title",
-        right: "resourceTimeline,dayGridMonth",
+        right: "resourceTimelineDay,resourceTimelineWeek,resourceTimelineMonth",
       };
       // var calendarEventsList = [
       //   {
@@ -299,12 +299,26 @@
       /*=====================*/
       var calendarEventClick = function (info) {
         // var eventObj = info.event;
-        console.log(info.event.start);
-        console.log(info.event.end);
-      var myModal = new bootstrap.Modal(document.getElementById("UpdateAttendance"));
+        // console.log(info.event.start);
+        // console.log(info.event.end);
+        var myModal = new bootstrap.Modal(document.getElementById("UpdateAttendance"));
+
+        const tarikh = document.getElementById("event-tarikh");
+        const status = document.getElementById("event-status");
+        const sebab = document.getElementById("event-reason");
+
+        tarikh.value = info.event.extendedProps.tarikh;
+        status.value = info.event.extendedProps.status_description;
+
+        if (info.event.extendedProps.status == "0" || info.event.extendedProps.status == "5" ){
+          sebab.classList.remove("d-none")
+        } else{
+          sebab.classList.add("d-none")
+
+        }
 
         myModal.show();
-        
+
         // if (eventObj.url) {
         //   window.open(eventObj.url);
 
@@ -334,7 +348,7 @@
       var calendar = new FullCalendar.Calendar(calendarEl, {
         selectable: true,
         // height: checkWidowWidth() ? 900 : 1052,
-        initialView: "resourceTimeline",
+        initialView: "resourceTimelineDay",
         // initialDate: `${newDate.getFullYear()}-${getDynamicMonth()}-07`,
         headerToolbar: calendarHeaderToolbar,
         // events: calendarEventsList,
@@ -349,8 +363,8 @@
         //     click: calendarAddEvent,
         //   },
         // },
-        slotMinTime: "07:00:00", // Start of the day
-        slotMaxTime: "18:00:00", // Start of the day
+        slotMinTime: "08:00:00", // Start of the day
+        slotMaxTime: "17:00:00", // Start of the day
         slotDuration: "00:30:00",
         nowIndicator: true,
         events: getAllEvents,
@@ -454,13 +468,13 @@
         url: "fetchevent2",
         data: {
           fetchevent2: {
-            start: "info.startStr",
-            end: "info.endStr",
+            start: info.startStr,
+            end: info.endStr,
           },
         },
         success: function (response) {
           console.log(JSON.parse(response));
-
+          // console.log(info.startStr);
           successCallback(JSON.parse(response));
         },
       });
