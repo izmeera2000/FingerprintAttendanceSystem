@@ -30,6 +30,12 @@ function register()
 	require_once('views/register.php');
 }
 
+
+function admin_register()
+{
+
+	require_once('views/register2.php');
+}
 function login()
 {
 	require_once('views/login.php');
@@ -113,6 +119,36 @@ function class_create()
 
 }
 
+function class_enrollment(){
+	check_session($site_url, 1);
+
+	require_once('views/class/enrollment.php');
+
+}
+
+
+function fp_create()
+{
+	check_session($site_url, 1);
+
+	require_once('views/fp/createfp.php');
+}
+
+function subjek_create()
+{
+	check_session($site_url, 1);
+
+	require_once('views/subjek/createsubjek.php');
+}
+
+function sem_create()
+{
+	check_session($site_url, 1);
+
+	require_once('views/sem/createsem.php');
+}
+
+
 function check_session(&$site_url, $admin = 0)
 {
 	if (!isset($_SESSION['user_details'])) {
@@ -150,6 +186,11 @@ switch (true) {
 		register();
 		break;
 
+		
+	case ($request == 'admin/register'):
+		admin_register();
+		break;
+
 	case ($request == 'login'):
 		login();
 		break;
@@ -171,7 +212,12 @@ switch (true) {
 	case (str_contains($request, 'fetchevent')):
 	case (str_contains($request, 'fetchevent2')):
 	case (str_contains($request, 'arduino')):
+	case (str_contains($request, 'slot_checktime')):
 	case (str_contains($request, 'class_findall')):
+	case (str_contains($request, 'fp_findall')):
+	case (str_contains($request, 'subjek_findall')):
+		case (str_contains($request, 'sem_findall')):
+		// case (str_contains($request, 'class_createf')):
 
 
 		server();
@@ -195,6 +241,21 @@ switch (true) {
 	case ($request == 'class/create'):
 		class_create();
 		break;
+		case ($request == 'class/enrollment'):
+			class_enrollment();
+			break;
+
+	case ($request == 'fp/create'):
+		fp_create();
+		break;
+
+	case ($request == 'subjek/create'):
+		subjek_create();
+		break;
+
+		case ($request == 'sem/create'):
+			sem_create();
+			break;
 	default:
 		// echo $request;
 		// http_response_code(404);

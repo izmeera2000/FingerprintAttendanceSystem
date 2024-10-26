@@ -304,16 +304,38 @@
         var myModal = new bootstrap.Modal(document.getElementById("UpdateAttendance"));
 
         const tarikh = document.getElementById("event-tarikh");
+        const masa = document.getElementById("event-masa");
         const status = document.getElementById("event-status");
         const sebab = document.getElementById("event-reason");
+        const proof = document.getElementById("event-proof");
+
+
+        let starttime = new Date(info.event.start);
+        let starttime2 = starttime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+        let endtime = new Date(info.event.end);
+        let endtime2 = endtime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
         tarikh.value = info.event.extendedProps.tarikh;
+        masa.value = starttime2 + " - " + endtime2;
         status.value = info.event.extendedProps.status_description;
 
-        if (info.event.extendedProps.status == "0" || info.event.extendedProps.status == "5" ){
-          sebab.classList.remove("d-none")
-        } else{
-          sebab.classList.add("d-none")
+        if (info.event.extendedProps.status == "0" || info.event.extendedProps.status == "5") {
+          sebab.classList.remove("d-none");
+          proof.classList.add("d-none");
+
+        } 
+        else if (info.event.extendedProps.status == "3")
+        {
+          sebab.classList.remove("d-none");
+          proof.classList.remove("d-none");
+          let link = document.querySelector('#event-proof a');
+          link.innerHTML = "test";
+
+        }
+        else {
+          sebab.classList.add("d-none");
+          proof.classList.add("d-none");
 
         }
 

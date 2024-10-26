@@ -19,6 +19,9 @@
             aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
               class="hide-menu">Slot View</span></a>
         </li>
+
+
+<!-- 
         <li class="sidebar-item">
           <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>attendance/eventmasuk"
             aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
@@ -29,19 +32,19 @@
           <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>attendance/eventkeluar"
             aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
               class="hide-menu">Test Keluar</span></a>
-        </li>
+        </li> -->
 
 
 
 
 
-
+<!-- 
 
         <li class="sidebar-item">
           <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>attendance/eventchecktime"
             aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
               class="hide-menu">Test Check Time</span></a>
-        </li>
+        </li> -->
 
         <li class="sidebar-item">
           <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>attendance/pdf"
@@ -58,14 +61,23 @@
         <li class="sidebar-item">
           <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>class/create"
             aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
-              class="hide-menu">Test Create Class</span></a>
+              class="hide-menu">Create Class</span></a>
         </li>
 
         <li class="sidebar-item">
-          <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>attendance/org"
+          <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>class/enrollment"
+            aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
+              class="hide-menu">Enrollment</span></a>
+        </li>
+
+
+        <li class="sidebar-item">
+          <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>class/org"
             aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
               class="hide-menu">Test Org Student And Class</span></a>
         </li>
+
+        
 
         <li class="nav-small-cap">
           <i class="mdi mdi-dots-horizontal"></i>
@@ -76,9 +88,20 @@
         <li class="sidebar-item">
           <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>subjek/create"
             aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
-              class="hide-menu">Test Create Subjek</span></a>
+              class="hide-menu">Create Subjek</span></a>
         </li>
 
+        
+        <li class="nav-small-cap">
+          <i class="mdi mdi-dots-horizontal"></i>
+          <span class="hide-menu">Semester</span>
+        </li>
+
+        <li class="sidebar-item">
+          <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>sem/create"
+            aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
+              class="hide-menu">Create Semester</span></a>
+        </li>
 
         <li class="nav-small-cap">
           <i class="mdi mdi-dots-horizontal"></i>
@@ -89,8 +112,13 @@
         <li class="sidebar-item">
           <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>fp/create"
             aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
-              class="hide-menu">Test Create Device</span></a>
+              class="hide-menu">Create Device</span></a>
         </li>
+
+
+
+
+
 
 
         <!-- <li class="sidebar-item">

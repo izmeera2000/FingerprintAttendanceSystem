@@ -71,8 +71,8 @@
             <div class="card">
 
 
-            
-<p>function to check time (8:10)</p>
+
+              <p>function to check time (8:10)</p>
               <!-- <form action="eventchecktime" method="POST">
 
 
@@ -101,7 +101,7 @@
               $time_limit = 50;
               $nowdate = date('Y-m-d');
               $now = new DateTime();
-              $now2= $now->format('Y-m-d H:i:s');
+              $now2 = $now->format('Y-m-d H:i:s');
 
               $query = "SELECT * FROM time_slot ORDER BY id ASC";
               $results = mysqli_query($db, $query);
@@ -111,7 +111,7 @@
 
 
 
-              $query = "SELECT * FROM attendance WHERE DATE(masa_mula) = CURDATE();";
+              $query = "SELECT a.*,b.role FROM attendance a INNER JOIN user b ON b.id = a.user_id WHERE DATE(masa_mula) = CURDATE()  AND `role`='4'";
               $results = mysqli_query($db, $query);
 
               while ($row = $results->fetch_assoc()) {
@@ -175,26 +175,32 @@
 
                   } else {
                     // No overlap case
-
+              
                     if ($now < $start_time) {
                       $slot_status = 7; // rehat
               
-                    }  else {
+                    } else {
 
                       $slot_status = 0; // Unattended
                     }
 
                     if ($slot_name == "rehat1" || $slot_name == "rehat2") {
                       $slot_status = 6; // rehat
-                
+              
                     }
                   }
 
                   $query2 = "INSERT INTO attendance_slot (user_id, slot, slot_status, tarikh)
-                              VALUES ('$id', '$slot_name', '$slot_status', '$nowdate')
-                              ON DUPLICATE KEY UPDATE
-                                  slot_status = VALUES(slot_status),
-                                  tarikh = VALUES(tarikh)";
+                       VALUES ('$id', '$slot_name', '$slot_status', '$nowdate')
+                       ON DUPLICATE KEY UPDATE
+                           slot_status = CASE 
+                               WHEN slot_status NOT IN (1,2,3, 4,5) THEN VALUES(slot_status)
+                               ELSE slot_status
+                           END,
+                           tarikh = CASE 
+                               WHEN slot_status NOT IN (1,2,3, 4,5) THEN VALUES(tarikh)
+                               ELSE tarikh
+                           END";
                   $results2 = mysqli_query($db, $query2);
 
                   // echo " $supposed_time min<br>";
@@ -202,10 +208,10 @@
                     // Query failed, output the error message
                     die("Error in query: " . mysqli_error($db));
                   } else {
-                    $start_time2=$start_time->format('Y-m-d H:i:s');
-                    $end_time2=$end_time->format('Y-m-d H:i:s');
-                    $masa_tamat2 =$masa_tamat->format('Y-m-d H:i:s');
-                    $masa_mula2= $masa_mula->format('Y-m-d H:i:s');
+                    $start_time2 = $start_time->format('Y-m-d H:i:s');
+                    $end_time2 = $end_time->format('Y-m-d H:i:s');
+                    $masa_tamat2 = $masa_tamat->format('Y-m-d H:i:s');
+                    $masa_mula2 = $masa_mula->format('Y-m-d H:i:s');
                     echo " $slot_status  $slot_name  ($masa_mula2 < $end_time2 && $masa_tamat2 > $start_time2 ) <br> ";
                   }
 
@@ -214,49 +220,55 @@
 
               }
 
-              $query = "SELECT s.id FROM user s LEFT JOIN attendance a ON s.id = a.user_id AND DATE(a.masa_mula) = CURDATE() WHERE a.user_id IS NULL;";
+              $query = "SELECT s.id, s.role 
+              FROM user s 
+              LEFT JOIN attendance a 
+              ON s.id = a.user_id 
+              AND DATE(a.masa_mula) = CURDATE() 
+              WHERE a.user_id IS NULL 
+              AND s.role = '4'";
+
               $results = mysqli_query($db, $query);
 
               while ($row = $results->fetch_assoc()) {
-
-
                 foreach ($time_slots as $time_slot) {
                   $start_time = new DateTime($nowdate . ' ' . $time_slot['masa_mula']);
                   $end_time = new DateTime($nowdate . ' ' . $time_slot['masa_tamat']);
                   $slot_name = $time_slot['slot'];
+
                   if ($now < $start_time) {
-                    // $start_time2=$start_time->format('Y-m-d H:i:s');
-
-                    // echo " $slot_status  $slot_name  ($now2 < $start_time2) <br> ";
-
-                    $slot_status = 7;  //not yet
-            
-                  } 
-                    else {
-
-                    $slot_status = 0; // Unattended
+                    $slot_status = 7;  // Not yet
+                  } else {
+                    $slot_status = 0;  // Unattended
                   }
 
                   if ($slot_name == "rehat1" || $slot_name == "rehat2") {
-                    $slot_status = 6; // rehat
-              
+                    $slot_status = 6;  // Break
                   }
+
                   $id = $row['id'];
 
                   $query2 = "INSERT INTO attendance_slot (user_id, slot, slot_status, tarikh)
-                              VALUES ('$id', '$slot_name', '$slot_status', '$nowdate')
-                              ON DUPLICATE KEY UPDATE
-                                  slot_status = VALUES(slot_status),
-                                  tarikh = VALUES(tarikh)";
+                       VALUES ('$id', '$slot_name', '$slot_status', '$nowdate')
+                       ON DUPLICATE KEY UPDATE
+                           slot_status = CASE 
+                               WHEN slot_status NOT IN (1,2,3, 4,5) THEN VALUES(slot_status)
+                               ELSE slot_status
+                           END,
+                           tarikh = CASE 
+                               WHEN slot_status NOT IN (1,2,3, 4,5) THEN VALUES(tarikh)
+                               ELSE tarikh
+                           END";
+
                   $results2 = mysqli_query($db, $query2);
-
                 }
-
               }
 
 
+
               ?>
-            </div>
+            
+          </div>
             <!-- BEGIN MODAL -->
             <div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
               <div class="modal-dialog">

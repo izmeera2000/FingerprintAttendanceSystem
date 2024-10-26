@@ -41,7 +41,7 @@
       <div class="page-breadcrumb">
         <div class="row">
           <div class="col-5 align-self-center">
-            <h4 class="page-title">Create Class</h4>
+            <h4 class="page-title">Enrollment</h4>
           </div>
           <div class="col-7 align-self-center">
             <div class="d-flex align-items-center justify-content-end">
@@ -54,7 +54,7 @@
                     Class
                   </li>
                   <li class="breadcrumb-item active" aria-current="page">
-                    Create
+                    Enrollment
                   </li>
                 </ol>
               </nav>
@@ -83,9 +83,11 @@
                     can refer full documentation from here
                     <a href="https://datatables.net/">Datatables</a>
                   </h6> -->
+
+
                 <div class="d-flex flex-row-reverse p-2 ">
-                  <button type="button" class="btn waves-effect waves-light btn-rounded btn-primary "
-                    id="buttoncreateclass">Create Class</button>
+                  <!-- <button type="button" class="btn waves-effect waves-light btn-rounded btn-primary "
+                    id="buttoncreateclass">Create Class</button> -->
                   <!-- <button type="button"
                     class="btn waves-effect waves-light btn-rounded btn-secondary">Secondary</button>
                   <button type="button" class="btn waves-effect waves-light btn-rounded btn-success">Success</button>
@@ -99,14 +101,15 @@
                 <div class="row">
 
                   <div class="table-responsive">
-                    <table id="class_create" class="table table-striped table-bordered text-nowrap">
+                    <table id="enrollment" class="table table-striped table-bordered text-nowrap">
                       <thead>
                         <!-- start row -->
                         <tr>
-                          <th>Nama Kelas</th>
-                          <th>Lokasi</th>
-                          <th>FP Masuk</th>
-                          <th>FP Keluar</th>
+                          <th>Nama</th>
+                          <th>Semester</th>
+                          <th>Kelas</th>
+                          <th>Status</th>
+                          <th>Bukti</th>
                           <th>Action</th>
                           <!-- <th>Start date</th>
                           <th>Salary</th> -->
@@ -114,7 +117,21 @@
                         <!-- end row -->
                       </thead>
                       <tbody>
-
+                        <td>
+                          <div class="d-flex no-block align-items-center">
+                            <div class="m-r-10"><img src="../../assets/images/users/d1.jpg" alt="user"
+                                class="rounded-circle" width="45"></div>
+                            <div class="">
+                              <h5 class="m-b-0 font-16 font-medium">Hanna Gover</h5><span
+                                class="text-muted">hgover@gmail.com</span>
+                            </div>
+                          </div>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                       </tbody>
 
                     </table>
@@ -181,8 +198,6 @@
                 limit: d.length,
                 offset: d.start,
                 draw: d.draw,
-                search: d.search.value,
-
               },
             };
           },

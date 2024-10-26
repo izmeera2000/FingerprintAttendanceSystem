@@ -32,7 +32,7 @@
         <div>
           <div class="logo text-center">
             <span class="db"><img src="../assets/images/logo-icon.png" alt="logo" /></span>
-            <h5 class="font-weight-medium mb-3 mt-1">Sign Up to Admin</h5>
+            <h5 class="font-weight-medium mb-3 mt-1">Sign Up Student</h5>
           </div>
           <!-- Form -->
           <div class="row">

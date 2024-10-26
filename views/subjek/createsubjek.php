@@ -41,7 +41,7 @@
       <div class="page-breadcrumb">
         <div class="row">
           <div class="col-5 align-self-center">
-            <h4 class="page-title">Create Class</h4>
+            <h4 class="page-title">Create Subjek</h4>
           </div>
           <div class="col-7 align-self-center">
             <div class="d-flex align-items-center justify-content-end">
@@ -51,7 +51,7 @@
                     <a href="index.html#">Home</a>
                   </li>
                   <li class="breadcrumb-item ">
-                    Class
+                    Subjek
                   </li>
                   <li class="breadcrumb-item active" aria-current="page">
                     Create
@@ -85,7 +85,7 @@
                   </h6> -->
                 <div class="d-flex flex-row-reverse p-2 ">
                   <button type="button" class="btn waves-effect waves-light btn-rounded btn-primary "
-                    id="buttoncreateclass">Create Class</button>
+                    id="buttoncreatesubjek">Create Device</button>
                   <!-- <button type="button"
                     class="btn waves-effect waves-light btn-rounded btn-secondary">Secondary</button>
                   <button type="button" class="btn waves-effect waves-light btn-rounded btn-success">Success</button>
@@ -99,14 +99,12 @@
                 <div class="row">
 
                   <div class="table-responsive">
-                    <table id="class_create" class="table table-striped table-bordered text-nowrap">
+                    <table id="subjek_create" class="table table-striped table-bordered text-nowrap">
                       <thead>
                         <!-- start row -->
                         <tr>
-                          <th>Nama Kelas</th>
-                          <th>Lokasi</th>
-                          <th>FP Masuk</th>
-                          <th>FP Keluar</th>
+                          <th>Nama</th>
+                          <th>Kod</th>
                           <th>Action</th>
                           <!-- <th>Start date</th>
                           <th>Salary</th> -->
@@ -165,7 +163,7 @@
     document.addEventListener("DOMContentLoaded", function () {
 
       // Initialize DataTable
-      var dt1 = $('#class_create').DataTable({
+      var dt1 = $('#subjek_create').DataTable({
         scrollY: 600,  // Adjust table height
         fixedHeader: {
           header: true,
@@ -173,16 +171,15 @@
         },
         ajax: {
           type: "POST",
-          url: "class_findall",
+          url: "subjek_findall",
           data: function (d) {
             console.log(d);
             return {
-              class_findall: {
+              subjek_findall: {
                 limit: d.length,
                 offset: d.start,
                 draw: d.draw,
                 search: d.search.value,
-
               },
             };
           },
@@ -190,14 +187,12 @@
         columns: [
           { data: "a", className: "text-center" },
           { data: "b", responsivePriority: 1 },
-          { data: "c", className: "text-center" },
-          { data: "d", className: "text-center" },
           {
             data: "id",
             className: "text-center",
             responsivePriority: 1,
             render: function (data, type, row, meta) {
-              return '<button type="button" class="btn btn-primary edit-class" data-id="' + row.id + '">Show Details</button>';
+              return '<button type="button" class="btn btn-primary edit-subjek" data-id="' + row.id + '">Show Details</button>';
             }
           },
         ],
@@ -208,34 +203,30 @@
       });
 
       // Button to open "Create Class" modal
-      document.getElementById('buttoncreateclass').onclick = function () {
-        var myModal = new bootstrap.Modal(document.getElementById('CreateClassModal'));
+      document.getElementById('buttoncreatesubjek').onclick = function () {
+        var myModal = new bootstrap.Modal(document.getElementById('CreateSubjekModal'));
         myModal.show();
         console.log("Create class button clicked");
       };
 
       // Handle row button click to open "Edit Class" modal and populate with data
-      $('#class_create').on('click', '.edit-class', function () {
+      $('#subjek_create').on('click', '.edit-subjek', function () {
         var id = $(this).data('id');  // Get the ID from the button's data attribute
-        var myModal = new bootstrap.Modal(document.getElementById('EditClassModal'));
+        var myModal = new bootstrap.Modal(document.getElementById('EditSubjekModal'));
         myModal.show();
 
         // Get row data
         var rowData = dt1.row($(this).closest('tr')).data();
 
-        if (rowData.d == "Not Assigned") {
-          rowData.d = "NULL";
-        }
-        if (rowData.c == "Not Assigned") {
-          rowData.c = "NULL";
-        }
+ 
+ 
 
         // Populate modal fields with row data
         $('#id').val(id);
         $('#nama').val(rowData.a);
-        $('#location').val(rowData.b);
-        $('#fpin').val(rowData.c);
-        $('#fpout').val(rowData.d);
+        $('#kod').val(rowData.b);
+        console.log(rowData.b);
+
 
         // console.log("Row data:", rowData);
       });
