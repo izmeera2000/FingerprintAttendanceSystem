@@ -395,6 +395,7 @@
         selectable: true,
         selectHelper: true,
         // height: 650,
+        hiddenDays: [ 0,6 ],
         eventClick: calendarEventClick,
         contentHeight: "auto",
         height: "auto",

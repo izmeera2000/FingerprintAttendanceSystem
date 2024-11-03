@@ -403,6 +403,7 @@
         selectable: true,
         // height: checkWidowWidth() ? 900 : 1052,
         initialView: "resourceTimeline",
+        hiddenDays: [ 0,6 ],
         // initialDate: `${newDate.getFullYear()}-${getDynamicMonth()}-07`,
         headerToolbar: calendarHeaderToolbar,
         // events: calendarEventsList,

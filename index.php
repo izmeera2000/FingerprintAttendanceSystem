@@ -110,6 +110,14 @@ function attendance_pdf()
 	require_once('views/attendance/pdf.php');
 
 }
+function attendance_pdf2()
+{
+	check_session($site_url, 1);
+
+	require_once('views/attendance/pdf2.php');
+
+}
+
 
 function class_create()
 {
@@ -234,6 +242,10 @@ switch (true) {
 	case (str_contains($request, 'eventchecktime')):
 		echecktime();
 		break;
+		
+		case (str_contains($request, 'pdf2')):
+			attendance_pdf2();
+			break;
 	case (str_contains($request, 'pdf')):
 		attendance_pdf();
 		break;

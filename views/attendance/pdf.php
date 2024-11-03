@@ -24,7 +24,7 @@ $query =
     INNER JOIN user c ON c.id = a.user_id
     WHERE c.role = 4
     AND a.slot NOT IN ('rehat1', 'rehat2')
-    AND a.tarikh BETWEEN '2024-10-21' AND '2024-10-25'
+    AND a.tarikh BETWEEN '2024-10-31' AND '2024-11-02'
     ORDER BY a.slot ASC
 ";
 
@@ -60,8 +60,8 @@ function getDatesFromRange($start, $end)
     return $dates;
 }
 
-$startDate = "2024-10-21";
-$endDate = "2024-10-25";
+$startDate = "2024-10-31";
+$endDate = "2024-11-02";
 
 $dates = getDatesFromRange($startDate, $endDate);
 

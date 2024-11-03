@@ -187,7 +187,12 @@
           },
         },
         columns: [
-          { data: "a", className: "text-center" },
+          {
+            data: "a", className: "text-center",
+            render: function (data, type, row, meta) {
+              return '<input type="checkbox" class="select-row" value="' + data + '">';
+            }
+          },
           { data: "b", responsivePriority: 1 },
           { data: "c", responsivePriority: 1 },
           {
@@ -203,42 +208,43 @@
         serverSide: true,
         stateSave: true,
         responsive: true,
+          select: true,
       });
+      $('#sem_create tbody').on('change', '.select-row', function() { var rowData = dt1.row($(this).closest('tr')).data(); if ($(this).is(':checked')) { console.log('Selected row data:', rowData); } else { console.log('Deselected row data:', rowData); } });
+    // Button to open "Create Class" modal
+    document.getElementById('buttoncreatesem').onclick = function () {
+      var myModal = new bootstrap.Modal(document.getElementById('CreateSemModal'));
+      myModal.show();
+      console.log("Create class button clicked");
+    };
 
-      // Button to open "Create Class" modal
-      document.getElementById('buttoncreatesem').onclick = function () {
-        var myModal = new bootstrap.Modal(document.getElementById('CreateSemModal'));
-        myModal.show();
-        console.log("Create class button clicked");
-      };
+    // Handle row button click to open "Edit Class" modal and populate with data
+    $('#sem_create').on('click', '.edit-sem', function () {
+      var id = $(this).data('id');  // Get the ID from the button's data attribute
+      var myModal = new bootstrap.Modal(document.getElementById('EditSemModal'));
+      myModal.show();
 
-      // Handle row button click to open "Edit Class" modal and populate with data
-      $('#sem_create').on('click', '.edit-sem', function () {
-        var id = $(this).data('id');  // Get the ID from the button's data attribute
-        var myModal = new bootstrap.Modal(document.getElementById('EditSemModal'));
-        myModal.show();
+      // Get row data
+      var rowData = dt1.row($(this).closest('tr')).data();
 
-        // Get row data
-        var rowData = dt1.row($(this).closest('tr')).data();
+      var date1 = new Date(rowData.b);
+      var date2 = new Date(rowData.c);
 
-        var date1 = new Date(rowData.b);
-        var date2 = new Date(rowData.c);
-
-        var formattedDate1 = date1.toLocaleDateString('en-GB'); // en-GB format gives 'dd/mm/yyyy'
-        var formattedDate2 = date2.toLocaleDateString('en-GB'); // en-GB format gives 'dd/mm/yyyy'
-
-
-
-        // Populate modal fields with row data
-        $('#id').val(id);
-        $('#nama').val(rowData.a);
-        $('#mula').val(rowData.b);
-        $('#tamat').val(rowData.c);
-        console.log(rowData.b);
+      var formattedDate1 = date1.toLocaleDateString('en-GB'); // en-GB format gives 'dd/mm/yyyy'
+      var formattedDate2 = date2.toLocaleDateString('en-GB'); // en-GB format gives 'dd/mm/yyyy'
 
 
-        // console.log("Row data:", rowData);
-      });
+
+      // Populate modal fields with row data
+      $('#id').val(id);
+      $('#nama').val(rowData.a);
+      $('#mula').val(rowData.b);
+      $('#tamat').val(rowData.c);
+      console.log(rowData.b);
+
+
+      // console.log("Row data:", rowData);
+    });
     });
 
   </script>

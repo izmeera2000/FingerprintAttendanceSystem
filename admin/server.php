@@ -154,7 +154,7 @@ if (isset($_POST['user_register'])) {
 
 
     //verify
-    $query = "SELECT a.*, b.name as role_name FROM `user` a INNER JOIN user_role b ON a.role = b.id WHERE (ndp='$ndp' OR email='$email') AND password='$password'";
+    $query = "SELECT a.*, b.nama as role_name FROM `user` a INNER JOIN user_role b ON a.role = b.id WHERE (ndp='$ndp' OR email='$email') AND password='$password'";
     $results = mysqli_query($db, $query);
     $user = mysqli_fetch_assoc($results);
 
@@ -192,7 +192,7 @@ if (isset($_POST['user_login'])) {
     $password = md5($password);
 
 
-    $query = "SELECT a.*, b.name as role_name FROM `user` a INNER JOIN user_role b ON a.role = b.id WHERE (ndp='$login' or email='$login') AND password='$password'";
+    $query = "SELECT a.*, b.nama as role_name FROM `user` a INNER JOIN user_role b ON a.role = b.id WHERE (ndp='$login' or email='$login') AND password='$password'";
     $results = mysqli_query($db, $query);
 
     if (mysqli_num_rows($results) == 1) {
@@ -398,7 +398,7 @@ if (isset($_GET['admin_token'])) {
   } else {
     echo "Invalid or expired token.";
   }
-}  
+}
 
 
 function validateAdminEmail($email)
@@ -451,12 +451,13 @@ if (isset($_POST['fetchevent'])) {
   $end_date2 = $end_date->format('Y-m-d');
 
 
-  $query = "SELECT *
-FROM attendance
-WHERE 
+  $query = "SELECT a.*,b.role
+FROM attendance a 
+INNER JOIN user b ON a.user_id = b.id
+WHERE (
     (DATE(masa_mula) BETWEEN '$start_date2' AND '$end_date2')
     OR 
-    (DATE(masa_tamat) BETWEEN '$start_date2' AND '$end_date2')
+    (DATE(masa_tamat) BETWEEN '$start_date2' AND '$end_date2') ) AND role= '4'
 ";
   $results = mysqli_query($db, $query);
   $events = array();
@@ -1352,20 +1353,99 @@ if (isset($_POST['slot_checktime'])) {
       $id = $row['id'];
 
       $query2 = "INSERT INTO attendance_slot (user_id, slot, slot_status, tarikh)
-           VALUES ('$id', '$slot_name', '$slot_status', '$nowdate')
-           ON DUPLICATE KEY UPDATE
-               slot_status = CASE 
-                   WHEN slot_status NOT IN (1,2,3, 4,5) THEN VALUES(slot_status)
-                   ELSE slot_status
-               END,
-               tarikh = CASE 
-                   WHEN slot_status NOT IN (1,2,3, 4,5) THEN VALUES(tarikh)
-                   ELSE tarikh
-               END";
+                  VALUES ('$id', '$slot_name', '$slot_status', '$nowdate')
+                  ON DUPLICATE KEY UPDATE
+                      slot_status = CASE 
+                          WHEN slot_status NOT IN (1,2,3, 4,5) THEN VALUES(slot_status)
+                          ELSE slot_status
+                      END,
+                      tarikh = CASE 
+                          WHEN slot_status NOT IN (1,2,3, 4,5) THEN VALUES(tarikh)
+                          ELSE tarikh
+                      END";
 
       $results2 = mysqli_query($db, $query2);
     }
   }
+
+
+
+
+}
+
+
+if (isset($_POST['fetch_holiday_o'])) {
+
+
+
+  $url = "https://www.perak.gov.my/index.php/rakyat/info-umum/hari-kelepasan-am-negeri-perak";
+  $html = file_get_contents($url);
+  $dom = new DOMDocument();
+  @$dom->loadHTML($html);
+  $tables = $dom->getElementsByTagName('table');
+
+  // Assuming the holidays are in the first table
+  $table = $tables->item(0);
+  $rows = $table->getElementsByTagName('tr');
+
+  $holidays = [];
+  $monthNames = ["Januari" => "01", "Februari" => "02", "Mac" => "03", "April" => "04", "Mei" => "05", "Jun" => "06", "Julai" => "07", "Ogos" => "08", "September" => "09", "Oktober" => "10", "November" => "11", "Disember" => "12"];
+  foreach ($rows as $row) {
+    $cols = $row->getElementsByTagName('td');
+    if ($cols->length > 0) {
+      if (!empty($cols->item(1)->nodeValue)) {
+
+        $name = preg_replace('/\s*\([^)]*\)/', '', ($cols->item(1)->nodeValue));
+
+        $date = trim($cols->item(2)->nodeValue);
+
+        $dateParts = explode(" ", $date);
+        if (strpos($date, 'dan') !== false) {
+          $day1 = str_pad($dateParts[0], 2, "0", STR_PAD_LEFT);
+          $day2 = str_pad($dateParts[2], 2, "0", STR_PAD_LEFT);
+          $month = $monthNames[$dateParts[3]];
+
+          $year = trim($cols->item(3)->nodeValue);
+          $day = trim($cols->item(4)->nodeValue);
+          $holidays[] = [
+            'formatdate' => "$year-$month-$day1",
+            'name' => $name,
+            'day' => $day,
+          ];
+          $holidays[] = [
+            'formatdate' => "$year-$month-$day2",
+            'name' => $name,
+            'day' => $day,
+          ];
+        } else {
+          $day2 = str_pad($dateParts[0], 2, "0", STR_PAD_LEFT);
+          $month = $monthNames[$dateParts[1]];
+
+          $year = trim($cols->item(3)->nodeValue);
+          $day = trim($cols->item(4)->nodeValue);
+          $holidays[] = [
+            'formatdate' => "$year-$month-$day2",
+
+            'name' => $name,
+            'day' => $day,
+          ];
+        }
+
+      }
+    }
+  }
+  // 
+  // var_dump($holidays);
+
+  foreach ($holidays as $holiday) {
+    $formatdate = $holiday['formatdate'];
+    $name = $holiday['name'];
+
+    $query = "INSERT IGNORE INTO holiday (tarikh, nama) VALUES ('$formatdate', '$name') ";
+    $results = mysqli_query($db, $query);
+
+  }
+
 
 
 

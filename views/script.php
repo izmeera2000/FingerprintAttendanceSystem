@@ -19,7 +19,7 @@
     <script src="<?php  echo $site_url ?>assets/extra-libs/jvectormap/jquery-jvectormap-2.0.2.min.js"></script>
     <script src="<?php  echo $site_url ?>assets/extra-libs/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
     <script src="<?php  echo $site_url ?>assets/libs/apexcharts/dist/apexcharts.min.js"></script>
-    <script src="<?php  echo $site_url ?>assets/js/pages/dashboards/dashboard1.js"></script>
+    <!-- <script src="<?php  echo $site_url ?>assets/js/pages/dashboards/dashboard1.js"></script> -->
     <script src="<?php  echo $site_url ?>assets/libs/moment/min/moment.min.js"></script>
     <script src="<?php  echo $site_url ?>assets/libs/fullcalendar/index.global.min.js"></script>
     <script src="<?php  echo $site_url ?>assets/js/pages/calendar/cal-init.js"></script>
