@@ -2,5 +2,5 @@
 
 
 <footer class="footer text-center">
-          All Rights Reserved by Nice admin.
+          All Rights Reserved by ADTEC Taiping.
         </footer>

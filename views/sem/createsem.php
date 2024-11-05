@@ -188,11 +188,8 @@
         },
         columns: [
           {
-            data: "a", className: "text-center",
-            render: function (data, type, row, meta) {
-              return '<input type="checkbox" class="select-row" value="' + data + '">';
-            }
-          },
+            data: "a", className: "text-center", 
+           },
           { data: "b", responsivePriority: 1 },
           { data: "c", responsivePriority: 1 },
           {
