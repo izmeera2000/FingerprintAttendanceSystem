@@ -29,7 +29,7 @@
           </span>
         </a>
         <a class="sidebartoggler d-none d-md-block" href="javascript:void(0)" data-sidebartype="mini-sidebar">
-          <i class="mdi mdi-toggle-switch mdi-toggle-switch-off fs-6"></i>
+          <i class="mdi mdi-toggle-switch mdi-toggle-switch-on fs-6"></i>
         </a>
       </div>
       <!-- ============================================================== -->
