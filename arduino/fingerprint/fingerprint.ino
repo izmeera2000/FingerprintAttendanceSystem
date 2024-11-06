@@ -8,7 +8,7 @@ const int touchPin1 = 4;  // Touch pin for Sensor 1 (IN)
 const int touchPin2 = 5;  // Touch pin for Sensor 2 (OUT)
 
 void setup() {
-  Serial.begin(115200);  // Debug serial
+  Serial.begin(115200);                       // Debug serial
   mySerial.begin(57600, SERIAL_8N1, 16, 17);  // UART2 for fingerprint sensors
 
   pinMode(touchPin1, INPUT);
@@ -24,8 +24,8 @@ void loop() {
     } else {
       Serial.println("Sensor 1 not detected.");
     }
-  } 
-  else if (digitalRead(touchPin2) == HIGH) {
+  }
+  if (digitalRead(touchPin2) == HIGH) {
     Serial.println("Sensor 2 (OUT) activated.");
     finger.begin(57600);
     if (finger.verifyPassword()) {
@@ -34,6 +34,7 @@ void loop() {
       Serial.println("Sensor 2 not detected.");
     }
   }
+
   delay(100);  // Small delay to debounce touch sensors
 }
 
