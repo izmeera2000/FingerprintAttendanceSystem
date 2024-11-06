@@ -127,7 +127,8 @@ function class_create()
 
 }
 
-function class_enrollment(){
+function class_enrollment()
+{
 	check_session($site_url, 1);
 
 	require_once('views/class/enrollment.php');
@@ -156,6 +157,13 @@ function sem_create()
 	require_once('views/sem/createsem.php');
 }
 
+
+function holiday_create()
+{
+	check_session($site_url, 1);
+
+	require_once('views/holiday/createholiday.php');
+}
 
 function check_session(&$site_url, $admin = 0)
 {
@@ -194,7 +202,7 @@ switch (true) {
 		register();
 		break;
 
-		
+
 	case ($request == 'admin/register'):
 		admin_register();
 		break;
@@ -224,7 +232,8 @@ switch (true) {
 	case (str_contains($request, 'class_findall')):
 	case (str_contains($request, 'fp_findall')):
 	case (str_contains($request, 'subjek_findall')):
-		case (str_contains($request, 'sem_findall')):
+	case (str_contains($request, 'sem_findall')):
+	case (str_contains($request, 'holiday_findall')):
 		// case (str_contains($request, 'class_createf')):
 
 
@@ -242,10 +251,10 @@ switch (true) {
 	case (str_contains($request, 'eventchecktime')):
 		echecktime();
 		break;
-		
-		case (str_contains($request, 'pdf2')):
-			attendance_pdf2();
-			break;
+
+	case (str_contains($request, 'pdf2')):
+		attendance_pdf2();
+		break;
 	case (str_contains($request, 'pdf')):
 		attendance_pdf();
 		break;
@@ -253,9 +262,9 @@ switch (true) {
 	case ($request == 'class/create'):
 		class_create();
 		break;
-		case ($request == 'class/enrollment'):
-			class_enrollment();
-			break;
+	case ($request == 'class/enrollment'):
+		class_enrollment();
+		break;
 
 	case ($request == 'fp/create'):
 		fp_create();
@@ -265,9 +274,16 @@ switch (true) {
 		subjek_create();
 		break;
 
-		case ($request == 'sem/create'):
-			sem_create();
-			break;
+	case ($request == 'sem/create'):
+		sem_create();
+		break;
+
+	case ($request == 'cuti/create'):
+		holiday_create();
+		break;
+
+
+
 	default:
 		// echo $request;
 		// http_response_code(404);

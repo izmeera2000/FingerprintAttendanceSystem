@@ -1,75 +1,65 @@
+#include <Adafruit_Fingerprint.h>
 
-#include <WiFi.h>
-#include <HTTPClient.h>
+HardwareSerial mySerial(2);  // UART2 on GPIO16 (RX) and GPIO17 (TX)
+Adafruit_Fingerprint finger = Adafruit_Fingerprint(&mySerial);
 
-const char* ssid = "REPLACE_WITH_YOUR_SSID";
-const char* password = "REPLACE_WITH_YOUR_PASSWORD";
-
-//Your Domain name with URL path or IP address with path
-const char* serverName = "https://fingerprint.kaunselingadtectaiping.com.my/arduino";
-
-// the following variables are unsigned longs because the time, measured in
-// milliseconds, will quickly become a bigger number than can be stored in an int.
-unsigned long lastTime = 0;
-// Timer set to 10 minutes (600000)
-//unsigned long timerDelay = 600000;
-// Set timer to 5 seconds (5000)
-unsigned long timerDelay = 5000;
+// Define GPIO pins for touch sensors
+const int touchPin1 = 4;  // Touch pin for Sensor 1 (IN)
+const int touchPin2 = 5;  // Touch pin for Sensor 2 (OUT)
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(115200);  // Debug serial
+  mySerial.begin(57600, SERIAL_8N1, 16, 17);  // UART2 for fingerprint sensors
 
-  WiFi.begin(ssid, password);
-  Serial.println("Connecting");
-  while(WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-  Serial.println("");
-  Serial.print("Connected to WiFi network with IP Address: ");
-  Serial.println(WiFi.localIP());
- 
-  Serial.println("Timer set to 5 seconds (timerDelay variable), it will take 5 seconds before publishing the first reading.");
+  pinMode(touchPin1, INPUT);
+  pinMode(touchPin2, INPUT);
 }
 
 void loop() {
-  //Send an HTTP POST request every 10 minutes
-  if ((millis() - lastTime) > timerDelay) {
-    //Check WiFi connection status
-    if(WiFi.status()== WL_CONNECTED){
-      WiFiClient client;
-      HTTPClient http;
-    
-      // Your Domain name with URL path or IP address with path
-      http.begin(client, serverName);
-      
-      // If you need Node-RED/server authentication, insert user and password below
-      //http.setAuthorization("REPLACE_WITH_SERVER_USERNAME", "REPLACE_WITH_SERVER_PASSWORD");
-      
-      // Specify content-type header
-      http.addHeader("Content-Type", "application/x-www-form-urlencoded");
-      // Data to send with HTTP POST
-      String httpRequestData = "eventmasuk=eventmasuk&sensor=BME280&value1=24.25&value2=49.54&value3=1005.14";           
-      // Send HTTP POST request
-      int httpResponseCode = http.POST(httpRequestData);
-      
-      // If you need an HTTP request with a content type: application/json, use the following:
-      //http.addHeader("Content-Type", "application/json");
-      //int httpResponseCode = http.POST("{\"api_key\":\"tPmAT5Ab3j7F9\",\"sensor\":\"BME280\",\"value1\":\"24.25\",\"value2\":\"49.54\",\"value3\":\"1005.14\"}");
+  if (digitalRead(touchPin1) == HIGH) {
+    Serial.println("Sensor 1 (IN) activated.");
+    finger.begin(57600);
+    if (finger.verifyPassword()) {
+      checkFingerprint("IN");
+    } else {
+      Serial.println("Sensor 1 not detected.");
+    }
+  } 
+  else if (digitalRead(touchPin2) == HIGH) {
+    Serial.println("Sensor 2 (OUT) activated.");
+    finger.begin(57600);
+    if (finger.verifyPassword()) {
+      checkFingerprint("OUT");
+    } else {
+      Serial.println("Sensor 2 not detected.");
+    }
+  }
+  delay(100);  // Small delay to debounce touch sensors
+}
 
-      // If you need an HTTP request with a content type: text/plain
-      //http.addHeader("Content-Type", "text/plain");
-      //int httpResponseCode = http.POST("Hello, World!");
-     
-      Serial.print("HTTP Response code: ");
-      Serial.println(httpResponseCode);
-        
-      // Free resources
-      http.end();
+void checkFingerprint(String action) {
+  Serial.print("Place your finger on the ");
+  Serial.print(action);
+  Serial.println(" sensor...");
+
+  int result = finger.getImage();
+  if (result == FINGERPRINT_OK) {
+    Serial.print(action);
+    Serial.println(" fingerprint image taken");
+
+    result = finger.image2Tz();
+    if (result == FINGERPRINT_OK) {
+      Serial.print("Fingerprint image converted for ");
+      Serial.println(action);
+    } else {
+      Serial.print(action);
+      Serial.println(" fingerprint conversion failed.");
     }
-    else {
-      Serial.println("WiFi Disconnected");
-    }
-    lastTime = millis();
+  } else if (result == FINGERPRINT_NOFINGER) {
+    Serial.println("No finger detected");
+  } else {
+    Serial.print("Error on ");
+    Serial.print(action);
+    Serial.println(" sensor.");
   }
 }

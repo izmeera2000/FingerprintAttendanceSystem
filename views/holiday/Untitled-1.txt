@@ -1,0 +1,4 @@
+  data: "a", className: "text-center",
+            render: function (data, type, row, meta) {
+              return '<input type="checkbox" class="select-row" value="' + data + '">';
+            }
