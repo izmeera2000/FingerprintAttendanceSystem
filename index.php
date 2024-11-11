@@ -3,14 +3,11 @@ session_start();
 
 require('route.php');
 
-// require __DIR__ . '/admin/vendor/autoload.php';
 
-// echo __DIR__ . '/../';
-// $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
-// $dotenv->load();
-// $site_url = $_ENV['site1'];
-
-
+function index2()
+{
+	require_once('views/index2.php');
+}
 function index()
 {
 	check_session($site_url);
@@ -194,6 +191,10 @@ function check_session(&$site_url, $admin = 0)
 //If url is http://localhost/route/home or user is at the maion page(http://localhost/route/)
 switch (true) {
 	case ($request == '' || $request == '/'):
+		// echo $request;
+		index2();
+		break;
+	case ($request == 'dashboard'):
 		// echo $request;
 		index();
 		break;

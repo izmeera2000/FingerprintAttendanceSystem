@@ -173,7 +173,7 @@ if (isset($_POST['user_register'])) {
     // $_SESSION['user_details']['password'] = "";
 
 
-    header('location:' . $site_url . '');
+    header('location:' . $site_url . 'dashboard');
   }
 }
 
@@ -206,7 +206,7 @@ if (isset($_POST['user_login'])) {
       // $user_id = $user['id'];
       // var_dump($_SESSION['username2']);
 
-      header('location:' . $site_url . '');
+      header('location:' . $site_url . 'dashboard');
     } else {
       $errors['login'] = "User doesn't exist or wrong password";
     }

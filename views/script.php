@@ -25,3 +25,18 @@
 <script src="<?php echo $site_url ?>assets/js/pages/calendar/cal-init.js"></script>
 <script src="<?php echo $site_url ?>assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo $site_url ?>assets/js/pages/datatable/custom-datatable.js"></script>
+<!-- <script>
+    $(document).ready(function () {
+        // Initial state setup from localStorage
+        if (localStorage.getItem("sidebarState") == "collapsed") {
+            $("#main-wrapper").attr("data-sidebartype", "mini-sidebar");
+            console.log("mini");
+            $("#main-wrapper").addClass("mini-sidebar");
+        } else {
+            $("#main-wrapper").attr("data-sidebartype", "full");
+        }
+
+
+    });
+
+</script> -->
