@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 03, 2024 at 12:07 PM
+-- Generation Time: Nov 11, 2024 at 06:31 AM
 -- Server version: 8.3.0
 -- PHP Version: 8.2.18
 
@@ -63,18 +63,18 @@ DROP TABLE IF EXISTS `attendance_slot`;
 CREATE TABLE IF NOT EXISTS `attendance_slot` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int DEFAULT NULL,
-  `slot` varchar(30) DEFAULT NULL,
+  `slot` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `slot_status` int DEFAULT NULL,
   `tarikh` date DEFAULT NULL,
-  `reason` text,
-  `file_path` text,
+  `reason` text COLLATE utf8mb4_unicode_ci,
+  `file_path` text COLLATE utf8mb4_unicode_ci,
   `tarikh2` date DEFAULT NULL,
   `verify` int DEFAULT NULL,
   `lect_id` int DEFAULT NULL,
   `time_add` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `time_edit` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `attendance_slot`
@@ -133,12 +133,12 @@ INSERT INTO `attendance_slot` (`id`, `user_id`, `slot`, `slot_status`, `tarikh`,
 DROP TABLE IF EXISTS `fp_device`;
 CREATE TABLE IF NOT EXISTS `fp_device` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nama` text,
+  `nama` text COLLATE utf8mb4_unicode_ci,
   `entrance` int NOT NULL DEFAULT '0',
   `time_add` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `time_edit` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `fp_device`
@@ -158,13 +158,13 @@ DROP TABLE IF EXISTS `holiday`;
 CREATE TABLE IF NOT EXISTS `holiday` (
   `id` int NOT NULL AUTO_INCREMENT,
   `tarikh` date DEFAULT NULL,
-  `nama` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `nama` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `verify` int NOT NULL DEFAULT '0',
   `time_add` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `time_edit` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_holiday` (`nama`,`tarikh`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `holiday`
@@ -199,14 +199,14 @@ INSERT INTO `holiday` (`id`, `tarikh`, `nama`, `verify`, `time_add`, `time_edit`
 DROP TABLE IF EXISTS `kelas`;
 CREATE TABLE IF NOT EXISTS `kelas` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nama_kelas` text,
-  `location` text,
+  `nama_kelas` text COLLATE utf8mb4_unicode_ci,
+  `location` text COLLATE utf8mb4_unicode_ci,
   `fp_entrance` int DEFAULT NULL,
   `fp_exit` int DEFAULT NULL,
   `time_add` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `time_edit` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `kelas`
@@ -224,23 +224,20 @@ INSERT INTO `kelas` (`id`, `nama_kelas`, `location`, `fp_entrance`, `fp_exit`, `
 DROP TABLE IF EXISTS `sem`;
 CREATE TABLE IF NOT EXISTS `sem` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nama` text,
+  `nama` text COLLATE utf8mb4_unicode_ci,
   `start_date` date DEFAULT NULL,
   `end_date` date DEFAULT NULL,
   `time_add` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `time_edit` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `sem`
 --
 
 INSERT INTO `sem` (`id`, `nama`, `start_date`, `end_date`, `time_add`, `time_edit`) VALUES
-(1, '1/2024', '2024-01-01', '2024-06-06', '2024-11-02 17:57:50', '2024-11-02 17:57:50'),
-(2, '2/2024', '2024-07-01', '2024-12-06', '2024-11-02 17:57:50', '2024-11-02 17:57:50'),
-(3, '1/2025', '2025-01-01', '2025-06-06', '2024-11-02 17:57:50', '2024-11-02 17:57:50'),
-(4, '2/2025', '2025-07-01', '2025-12-06', '2024-11-02 17:57:50', '2024-11-02 17:57:50');
+(1, '1/2024', '2024-01-01', '2024-06-06', '2024-11-02 17:57:50', '2024-11-02 17:57:50');
 
 -- --------------------------------------------------------
 
@@ -251,12 +248,12 @@ INSERT INTO `sem` (`id`, `nama`, `start_date`, `end_date`, `time_add`, `time_edi
 DROP TABLE IF EXISTS `subjek`;
 CREATE TABLE IF NOT EXISTS `subjek` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `subjek_nama` text,
-  `subjek_kod` varchar(50) DEFAULT NULL,
+  `subjek_nama` text COLLATE utf8mb4_unicode_ci,
+  `subjek_kod` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `time_add` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `time_edit` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -267,13 +264,13 @@ CREATE TABLE IF NOT EXISTS `subjek` (
 DROP TABLE IF EXISTS `time_slot`;
 CREATE TABLE IF NOT EXISTS `time_slot` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `slot` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `slot` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `masa_mula` time DEFAULT NULL,
   `masa_tamat` time DEFAULT NULL,
   `time_add` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `time_edit` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `time_slot`
@@ -309,6 +306,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `bangsa` varchar(99) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `image_url` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `password` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `fp` text COLLATE utf8mb4_unicode_ci,
   `time_add` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `time_edit` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -319,11 +317,11 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `role`, `ndp`, `nama`, `email`, `phone`, `kp`, `jantina`, `agama`, `status_kahwin`, `bangsa`, `image_url`, `password`, `time_add`, `time_edit`) VALUES
-(6, 4, 12312321, 'Izmeer Aiman', 'izmeera2000@gmail.com', 123213213, 21321312, '0', 'Lain-lain', 'Tidak Berkahwin', 'asdasd', 'gambar.png', 'a8f5f167f44f4964e6c998dee827110c', '2024-08-28 14:58:58', '2024-08-28 14:58:58'),
-(7, 1, NULL, 'Izmeer Aiman', 'aa@gmail.com', 51511, 21321321, '0', 'Lain-lain', 'Tidak Berkahwin', 'asdasd', 'gambar.png', 'a8f5f167f44f4964e6c998dee827110c', '2024-08-28 14:58:58', '2024-08-28 14:58:58'),
-(18, 4, 12312322, 'Izmeer Aiman', 'asddasdsa2@gmail.com', 1232132132, 213213122, '0', 'Lain-lain', 'Tidak Berkahwin', 'asdasd', 'gambar.png', 'a8f5f167f44f4964e6c998dee827110c', '2024-08-28 14:58:58', '2024-08-28 14:58:58'),
-(21, 4, 511, '5151', 'morax8000@gmail.com', 5151, 5151, '0', 'Islam', 'Tidak Berkahwin', 'asdasd', 'gambar.png', '717d8b3d60d9eea997b35b02b6a4e867', '2024-09-02 20:03:02', '2024-09-02 20:03:02');
+INSERT INTO `user` (`id`, `role`, `ndp`, `nama`, `email`, `phone`, `kp`, `jantina`, `agama`, `status_kahwin`, `bangsa`, `image_url`, `password`, `fp`, `time_add`, `time_edit`) VALUES
+(6, 4, 12312321, 'Izmeer Aiman', 'izmeera2000@gmail.com', 123213213, 21321312, '0', 'Lain-lain', 'Tidak Berkahwin', 'asdasd', 'gambar.png', 'a8f5f167f44f4964e6c998dee827110c', NULL, '2024-08-28 14:58:58', '2024-08-28 14:58:58'),
+(7, 1, NULL, 'Izmeer Aiman', 'aa@gmail.com', 51511, 21321321, '0', 'Lain-lain', 'Tidak Berkahwin', 'asdasd', 'gambar.png', 'a8f5f167f44f4964e6c998dee827110c', NULL, '2024-08-28 14:58:58', '2024-08-28 14:58:58'),
+(18, 4, 12312322, 'Izmeer Aiman', 'asddasdsa2@gmail.com', 1232132132, 213213122, '0', 'Lain-lain', 'Tidak Berkahwin', 'asdasd', 'gambar.png', 'a8f5f167f44f4964e6c998dee827110c', NULL, '2024-08-28 14:58:58', '2024-08-28 14:58:58'),
+(21, 4, 511, '5151', 'morax8000@gmail.com', 5151, 5151, '0', 'Islam', 'Tidak Berkahwin', 'asdasd', 'gambar.png', '717d8b3d60d9eea997b35b02b6a4e867', NULL, '2024-09-02 20:03:02', '2024-09-02 20:03:02');
 
 -- --------------------------------------------------------
 
@@ -334,9 +332,9 @@ INSERT INTO `user` (`id`, `role`, `ndp`, `nama`, `email`, `phone`, `kp`, `jantin
 DROP TABLE IF EXISTS `user_role`;
 CREATE TABLE IF NOT EXISTS `user_role` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nama` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `nama` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `user_role`
@@ -361,22 +359,13 @@ CREATE TABLE IF NOT EXISTS `user_sem` (
   `sem_start` int DEFAULT NULL,
   `sem_end` int DEFAULT NULL,
   `sem_now` int DEFAULT NULL,
-  `sem_now_num` int DEFAULT NULL,
   `time_add` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `time_edit` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `sem_end` (`sem_end`),
   KEY `sem_now` (`sem_now`),
-  KEY `sem_start` (`sem_start`),
-  KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `user_sem`
---
-
-INSERT INTO `user_sem` (`id`, `user_id`, `sem_start`, `sem_end`, `sem_now`, `sem_now_num`, `time_add`, `time_edit`) VALUES
-(1, 21, 1, 4, 3, NULL, '2024-11-03 13:41:32', '2024-11-03 13:58:24');
+  KEY `sem_start` (`sem_start`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Constraints for dumped tables
@@ -400,8 +389,7 @@ ALTER TABLE `user`
 ALTER TABLE `user_sem`
   ADD CONSTRAINT `user_sem_ibfk_1` FOREIGN KEY (`sem_end`) REFERENCES `sem` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   ADD CONSTRAINT `user_sem_ibfk_2` FOREIGN KEY (`sem_now`) REFERENCES `sem` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `user_sem_ibfk_3` FOREIGN KEY (`sem_start`) REFERENCES `sem` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `user_sem_ibfk_4` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `user_sem_ibfk_3` FOREIGN KEY (`sem_start`) REFERENCES `sem` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
