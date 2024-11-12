@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 11, 2024 at 06:31 AM
+-- Generation Time: Nov 11, 2024 at 06:31 PM
 -- Server version: 8.3.0
 -- PHP Version: 8.2.18
 
@@ -31,27 +31,31 @@ DROP TABLE IF EXISTS `attendance`;
 CREATE TABLE IF NOT EXISTS `attendance` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int DEFAULT NULL,
+  `fp_id_in` int DEFAULT NULL,
+  `fp_id_out` int DEFAULT NULL,
   `event_status` tinyint DEFAULT '1',
-  `masa_mula` datetime DEFAULT NULL,
+  `masa_mula` datetime DEFAULT CURRENT_TIMESTAMP,
   `masa_tamat` datetime DEFAULT NULL,
   `type` tinyint DEFAULT NULL,
   `time_add` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `time_edit` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `time_edit` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `attendance`
 --
 
-INSERT INTO `attendance` (`id`, `user_id`, `event_status`, `masa_mula`, `masa_tamat`, `type`, `time_add`, `time_edit`) VALUES
-(1, 6, 1, '2024-09-04 08:46:41', '2024-09-04 14:46:41', NULL, '2024-09-04 15:46:57', '2024-09-04 15:46:57'),
-(2, 21, 1, '2024-09-04 15:46:41', '2024-09-04 17:46:41', NULL, '2024-09-04 15:46:57', '2024-09-04 15:46:57'),
-(3, 21, 0, '2024-09-04 17:46:41', '2024-09-04 18:00:00', NULL, '2024-09-04 15:46:57', '2024-09-04 15:46:57'),
-(9, 7, 1, '2024-09-04 23:34:10', '2024-09-04 23:34:23', NULL, '2024-09-04 23:34:10', '2024-09-04 23:34:10'),
-(10, 7, 1, '2024-11-02 17:29:23', '2024-11-02 17:29:28', NULL, '2024-11-02 17:29:23', '2024-11-02 17:29:23'),
-(12, 6, 1, '2024-11-01 14:30:41', '2024-11-01 17:30:41', NULL, '2024-11-02 17:30:41', '2024-11-02 17:30:41');
+INSERT INTO `attendance` (`id`, `user_id`, `fp_id_in`, `fp_id_out`, `event_status`, `masa_mula`, `masa_tamat`, `type`, `time_add`, `time_edit`) VALUES
+(1, 6, NULL, 0, 1, '2024-09-04 08:46:41', '2024-09-04 14:46:41', NULL, '2024-09-04 15:46:57', '2024-09-04 15:46:57'),
+(2, 21, NULL, 0, 1, '2024-09-04 15:46:41', '2024-09-04 17:46:41', NULL, '2024-09-04 15:46:57', '2024-09-04 15:46:57'),
+(3, 21, NULL, 0, 0, '2024-09-04 17:46:41', '2024-09-04 18:00:00', NULL, '2024-09-04 15:46:57', '2024-09-04 15:46:57'),
+(9, 7, NULL, 0, 1, '2024-09-04 23:34:10', '2024-09-04 23:34:23', NULL, '2024-09-04 23:34:10', '2024-09-04 23:34:10'),
+(10, 7, NULL, 0, 1, '2024-11-02 17:29:23', '2024-11-02 17:29:28', NULL, '2024-11-02 17:29:23', '2024-11-02 17:29:23'),
+(12, 6, NULL, 0, 1, '2024-11-01 14:30:41', '2024-11-01 17:30:41', NULL, '2024-11-02 17:30:41', '2024-11-02 17:30:41'),
+(13, 6, NULL, NULL, 1, '2024-11-12 02:13:16', '2024-11-12 02:20:13', NULL, '2024-11-12 02:13:32', '2024-11-12 02:20:13'),
+(14, 6, NULL, NULL, 1, '2024-11-12 02:21:44', NULL, NULL, '2024-11-12 02:21:44', '2024-11-12 02:21:44');
 
 -- --------------------------------------------------------
 

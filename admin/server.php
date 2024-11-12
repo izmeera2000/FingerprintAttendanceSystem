@@ -1562,4 +1562,48 @@ if (isset($_POST['holiday_deletef'])) {
 }
 
 
+if (isset($_POST['fingerprintlogin'])) {
+
+  $user_id = "";
+
+  $query = "SELECT * FROM attendance WHERE DATE(masa_mula) = CURRENT_DATE AND masa_tamat IS  NULL;";
+  $results = mysqli_query($db, $query);
+  if ($result->num_rows > 0) {
+
+    while ($row = mysqli_fetch_assoc($results)) {
+      $id = $row['id'];
+      $query = "UPDATE `attendance` SET `masa_tamat` = NOW() WHERE id = $id";
+    }
+
+  } else {
+
+    $query = "INSERT INTO attendance (user_id) VALUES ('$user_id') ";
+    $results = mysqli_query($db, $query);
+
+
+  }
+}
+
+
+if (isset($_POST['fingerprintregister'])) {
+
+  $user_id = "";
+
+  $query = "SELECT * FROM user WHERE fp = '1' ";
+  $results = mysqli_query($db, $query);
+  if ($result->num_rows > 0) {
+
+    while ($row = mysqli_fetch_assoc($results)) {
+      $id = $row['id'];
+      $query = "UPDATE `attendance` SET `masa_tamat` = NOW() WHERE id = $id";
+    }
+
+  } else {
+
+    $query = "INSERT INTO attendance (user_id) VALUES ('$user_id') ";
+    $results = mysqli_query($db, $query);
+
+
+  }
+}
 ?>

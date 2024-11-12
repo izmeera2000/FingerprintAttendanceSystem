@@ -1,66 +1,52 @@
+#include <SoftwareSerial.h>
 #include <Adafruit_Fingerprint.h>
 
-HardwareSerial mySerial(2);  // UART2 on GPIO16 (RX) and GPIO17 (TX)
-Adafruit_Fingerprint finger = Adafruit_Fingerprint(&mySerial);
+// Define pins for Software Serial (adjust based on your ESP32 model)
+#define RX_PIN 18  // Pin for RX (to R307 TX)
+#define TX_PIN 5   // Pin for TX (to R307 RX)
 
-// Define GPIO pins for touch sensors
-const int touchPin1 = 4;  // Touch pin for Sensor 1 (IN)
-const int touchPin2 = 5;  // Touch pin for Sensor 2 (OUT)
+// Create SoftwareSerial and Adafruit_Fingerprint objects
+EspSoftwareSerial::UART myPort;
+Adafruit_Fingerprint finger = Adafruit_Fingerprint(&myPort);
 
 void setup() {
-  Serial.begin(115200);                       // Debug serial
-  mySerial.begin(57600, SERIAL_8N1, 16, 17);  // UART2 for fingerprint sensors
+  Serial.begin(115200);  // Start Serial monitor for debug
+  myPort.begin(57600, SWSERIAL_8N1, RX_PIN, TX_PIN, false);
+  finger.begin(57600);  // Initialize the fingerprint sensor
 
-  pinMode(touchPin1, INPUT);
-  pinMode(touchPin2, INPUT);
+  // Check if the fingerprint sensor is connected
+  if (finger.verifyPassword()) {
+    Serial.println("Found fingerprint sensor!");
+  } else {
+    Serial.println("Did not find fingerprint sensor :(");
+    while (1) { delay(1); }
+  }
 }
 
 void loop() {
-  if (digitalRead(touchPin1) == HIGH) {
-    Serial.println("Sensor 1 (IN) activated.");
-    finger.begin(57600);
-    if (finger.verifyPassword()) {
-      checkFingerprint("IN");
-    } else {
-      Serial.println("Sensor 1 not detected.");
-    }
-  }
-  if (digitalRead(touchPin2) == HIGH) {
-    Serial.println("Sensor 2 (OUT) activated.");
-    finger.begin(57600);
-    if (finger.verifyPassword()) {
-      checkFingerprint("OUT");
-    } else {
-      Serial.println("Sensor 2 not detected.");
-    }
-  }
+  // Example: Get fingerprint ID when a finger is placed
+  Serial.println("Place your finger on the sensor");
+  int fingerprintID = getFingerprintID();
 
-  delay(100);  // Small delay to debounce touch sensors
+  if (fingerprintID != -1) {
+    Serial.print("Found ID: ");
+    Serial.println(fingerprintID);
+  } else {
+    Serial.println("Fingerprint not recognized.");
+  }
+  delay(2000);  // Wait a bit before reading again
 }
 
-void checkFingerprint(String action) {
-  Serial.print("Place your finger on the ");
-  Serial.print(action);
-  Serial.println(" sensor...");
+// Function to get fingerprint ID
+int getFingerprintID() {
+  uint8_t p = finger.getImage();
+  if (p != FINGERPRINT_OK) return -1;
 
-  int result = finger.getImage();
-  if (result == FINGERPRINT_OK) {
-    Serial.print(action);
-    Serial.println(" fingerprint image taken");
+  p = finger.image2Tz();
+  if (p != FINGERPRINT_OK) return -1;
 
-    result = finger.image2Tz();
-    if (result == FINGERPRINT_OK) {
-      Serial.print("Fingerprint image converted for ");
-      Serial.println(action);
-    } else {
-      Serial.print(action);
-      Serial.println(" fingerprint conversion failed.");
-    }
-  } else if (result == FINGERPRINT_NOFINGER) {
-    Serial.println("No finger detected");
-  } else {
-    Serial.print("Error on ");
-    Serial.print(action);
-    Serial.println(" sensor.");
-  }
+  p = finger.fingerFastSearch();
+  if (p != FINGERPRINT_OK) return -1;
+
+  return finger.fingerID;  // Return the found ID
 }

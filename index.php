@@ -225,6 +225,7 @@ switch (true) {
 		break;
 
 	// case (str_contains($request, 'eventcheck')):
+	case (str_contains($request, 'fingerprintesp')):
 	case (str_contains($request, 'fetchresource')):
 	case (str_contains($request, 'fetchevent')):
 	case (str_contains($request, 'fetchevent2')):
