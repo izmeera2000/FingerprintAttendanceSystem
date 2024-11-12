@@ -148,8 +148,7 @@
 
           <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-              magna aliqua.
+              Abstrak
             </p>
             <ul>
               <li><i class="bi bi-check2-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></li>
@@ -319,11 +318,11 @@
 
         <div class="row" data-aos="zoom-in" data-aos-delay="100">
           <div class="col-xl-9 text-center text-xl-start">
-            <h3>Call To Action</h3>
-            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <h3>Expirience Now</h3>
+            <p>adasdasdasdas</p>
           </div>
           <div class="col-xl-3 cta-btn-container text-center">
-            <a class="cta-btn align-middle" href="#">Call To Action</a>
+            <a class="cta-btn align-middle" href="#">Login Now</a>
           </div>
         </div>
 
@@ -549,94 +548,7 @@
       </div>
 
     </section><!-- /Testimonials Section -->
-
-    <!-- Pricing Section -->
-    <section id="pricing" class="pricing section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Pricing</h2>
-        <p>What they are saying about us</p>
-      </div><!-- End Section Title -->
-
-      <div class="container">
-
-        <div class="row gy-3">
-
-          <div class="col-xl-3 col-lg-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="pricing-item">
-              <h3>Free</h3>
-              <h4><sup>$</sup>0<span> / month</span></h4>
-              <ul>
-                <li>Aida dere</li>
-                <li>Nec feugiat nisl</li>
-                <li>Nulla at volutpat dola</li>
-                <li class="na">Pharetra massa</li>
-                <li class="na">Massa ultricies mi</li>
-              </ul>
-              <div class="btn-wrap">
-                <a href="#" class="btn-buy">Buy Now</a>
-              </div>
-            </div>
-          </div><!-- End Pricing Item -->
-
-          <div class="col-xl-3 col-lg-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="pricing-item featured">
-              <h3>Business</h3>
-              <h4><sup>$</sup>19<span> / month</span></h4>
-              <ul>
-                <li>Aida dere</li>
-                <li>Nec feugiat nisl</li>
-                <li>Nulla at volutpat dola</li>
-                <li>Pharetra massa</li>
-                <li class="na">Massa ultricies mi</li>
-              </ul>
-              <div class="btn-wrap">
-                <a href="#" class="btn-buy">Buy Now</a>
-              </div>
-            </div>
-          </div><!-- End Pricing Item -->
-
-          <div class="col-xl-3 col-lg-6" data-aos="fade-up" data-aos-delay="400">
-            <div class="pricing-item">
-              <h3>Developer</h3>
-              <h4><sup>$</sup>29<span> / month</span></h4>
-              <ul>
-                <li>Aida dere</li>
-                <li>Nec feugiat nisl</li>
-                <li>Nulla at volutpat dola</li>
-                <li>Pharetra massa</li>
-                <li>Massa ultricies mi</li>
-              </ul>
-              <div class="btn-wrap">
-                <a href="#" class="btn-buy">Buy Now</a>
-              </div>
-            </div>
-          </div><!-- End Pricing Item -->
-
-          <div class="col-xl-3 col-lg-6" data-aos="fade-up" data-aos-delay="400">
-            <div class="pricing-item">
-              <span class="advanced">Advanced</span>
-              <h3>Ultimate</h3>
-              <h4><sup>$</sup>49<span> / month</span></h4>
-              <ul>
-                <li>Aida dere</li>
-                <li>Nec feugiat nisl</li>
-                <li>Nulla at volutpat dola</li>
-                <li>Pharetra massa</li>
-                <li>Massa ultricies mi</li>
-              </ul>
-              <div class="btn-wrap">
-                <a href="#" class="btn-buy">Buy Now</a>
-              </div>
-            </div>
-          </div><!-- End Pricing Item -->
-
-        </div>
-
-      </div>
-
-    </section><!-- /Pricing Section -->
+ 
 
     <!-- Faq Section -->
     <section id="faq" class="faq section">
@@ -725,7 +637,7 @@
           <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
             <div class="team-member">
               <div class="member-img">
-                <img src="assets/images/team/team-1.jpg" class="img-fluid" alt="">
+                <img src="assets/images/team/ceo.jpg" class="img-fluid" alt="">
                 <div class="social">
                   <a href=""><i class="bi bi-twitter-x"></i></a>
                   <a href=""><i class="bi bi-facebook"></i></a>
@@ -734,8 +646,8 @@
                 </div>
               </div>
               <div class="member-info">
-                <h4>Walter White</h4>
-                <span>Chief Executive Officer</span>
+                <h4>Hijazi</h4>
+                <span>Team Leader</span>
               </div>
             </div>
           </div><!-- End Team Member -->

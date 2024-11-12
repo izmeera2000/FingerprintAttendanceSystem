@@ -1,52 +1,58 @@
-#include <SoftwareSerial.h>
 #include <Adafruit_Fingerprint.h>
+#include <SoftwareSerial.h>
 
-// Define pins for Software Serial (adjust based on your ESP32 model)
-#define RX_PIN 18  // Pin for RX (to R307 TX)
-#define TX_PIN 5   // Pin for TX (to R307 RX)
+// Define software serial pins
+#define RX_PIN 18
+#define TX_PIN 5
 
-// Create SoftwareSerial and Adafruit_Fingerprint objects
-EspSoftwareSerial::UART myPort;
-Adafruit_Fingerprint finger = Adafruit_Fingerprint(&myPort);
+// Create SoftwareSerial object
+SoftwareSerial mySerial(RX_PIN, TX_PIN);
+
+// Initialize the fingerprint sensor
+Adafruit_Fingerprint finger = Adafruit_Fingerprint(&mySerial);
 
 void setup() {
-  Serial.begin(115200);  // Start Serial monitor for debug
-  myPort.begin(57600, SWSERIAL_8N1, RX_PIN, TX_PIN, false);
-  finger.begin(57600);  // Initialize the fingerprint sensor
+  Serial.begin(115200);
+  mySerial.begin(57600);
 
-  // Check if the fingerprint sensor is connected
+  // Wait for serial to initialize
+  while (!Serial);
+
+  // Initialize the fingerprint sensor
   if (finger.verifyPassword()) {
-    Serial.println("Found fingerprint sensor!");
+    Serial.println("Fingerprint sensor detected!");
   } else {
-    Serial.println("Did not find fingerprint sensor :(");
-    while (1) { delay(1); }
+    Serial.println("Fingerprint sensor not detected!");
+    while (1);
   }
 }
 
 void loop() {
-  // Example: Get fingerprint ID when a finger is placed
-  Serial.println("Place your finger on the sensor");
-  int fingerprintID = getFingerprintID();
-
-  if (fingerprintID != -1) {
-    Serial.print("Found ID: ");
-    Serial.println(fingerprintID);
+  uint8_t id = getFingerprintID();
+  if (id == FINGERPRINT_OK) {
+    Serial.println("Fingerprint matched");
   } else {
-    Serial.println("Fingerprint not recognized.");
+    Serial.println("Fingerprint not matched");
   }
-  delay(2000);  // Wait a bit before reading again
+  delay(1000);
 }
 
-// Function to get fingerprint ID
-int getFingerprintID() {
+uint8_t getFingerprintID() {
   uint8_t p = finger.getImage();
-  if (p != FINGERPRINT_OK) return -1;
+  if (p != FINGERPRINT_OK) {
+    return p;
+  }
 
   p = finger.image2Tz();
-  if (p != FINGERPRINT_OK) return -1;
+  if (p != FINGERPRINT_OK) {
+    return p;
+  }
 
   p = finger.fingerFastSearch();
-  if (p != FINGERPRINT_OK) return -1;
+  if (p != FINGERPRINT_OK) {
+    return p;
+  }
 
-  return finger.fingerID;  // Return the found ID
+  // Found a match!
+  return finger.fingerID;
 }
