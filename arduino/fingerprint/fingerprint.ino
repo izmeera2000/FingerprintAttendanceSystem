@@ -41,55 +41,49 @@ void setup() {
 
 void loop() {
   enrollAndPostFingerprint();
+  delay(5000); // Delay to prevent repeated posting
 
 }
 
 
-
-void enrollAndPostFingerprint() {
-  int id = 1;
-  Serial.print("Enrolling fingerprint ID "); Serial.println(id);
-
+bool enrollFingerprintTemplate() {
+  int id = 1;  // ID for the template
   Serial.println("Place your finger on the sensor...");
-  while (finger.getImage() != FINGERPRINT_OK);
 
-  Serial.println("Image taken. Removing finger...");
-  delay(1000);
-  while (finger.getImage() != FINGERPRINT_NOFINGER);
+  if (finger.getImage() != FINGERPRINT_OK) return false;
 
-  Serial.println("Place the same finger again...");
-  while (finger.getImage() != FINGERPRINT_OK);
+  if (finger.createModel() != FINGERPRINT_OK) return false;
 
-  if (finger.createModel() == FINGERPRINT_OK) {
-    Serial.println("Fingerprint template created.");
+  // Load the model into buffer
+  if (finger.loadModel(id) != FINGERPRINT_OK) return false;
 
-    if (finger.storeModel(id) == FINGERPRINT_OK) {
-      Serial.println("Fingerprint template stored successfully.");
-
-      // Post fingerprint data
-      postFingerprint(id);
-    } else {
-      Serial.println("Failed to store fingerprint template.");
-    }
+  // Send template data to ESP32 serial buffer
+  if (finger.getModel() == FINGERPRINT_OK) {
+    Serial.println("Fingerprint template created successfully.");
+    return true;
   } else {
     Serial.println("Failed to create fingerprint template.");
+    return false;
   }
 }
 
-void postFingerprint(int id) {
+void postFingerprintTemplate() {
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
-    http.begin("http://fas.e-veterinar.com/api_endpoint"); // Replace with actual endpoint
+    http.begin("https://fas.e-veterinar.com/post_fp");
 
     http.addHeader("Content-Type", "application/x-www-form-urlencoded");
 
-    // Prepare data to send
-    String postData = "post_fp=" + String(id);
+    // Convert template to a String (example only, actual template data might need encoding)
+    String templateData = "";  
+    for (int i = 0; i < finger.templateBuffer->capacity(); i++) {
+      templateData += String(finger.templateBuffer[i], HEX);
+    }
 
-    // Send POST request
+    String postData = "post_fp=" + "test" + "fp=" + templateData;
+
     int httpResponseCode = http.POST(postData);
 
-    // Check response
     if (httpResponseCode > 0) {
       String response = http.getString();
       Serial.println("Server response: " + response);
@@ -97,8 +91,6 @@ void postFingerprint(int id) {
       Serial.println("Error in POST request");
     }
     http.end();
-      delay(1000); // Delay to prevent repeated posting
-
   } else {
     Serial.println("WiFi disconnected");
   }

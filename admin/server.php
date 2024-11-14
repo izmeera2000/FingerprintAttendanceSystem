@@ -593,7 +593,7 @@ AND DATE(a.tarikh) BETWEEN '$start_date2' AND '$end_date2' ";
         'resourceId' => $row['user_id'],          // ID of the user (resource)
         'title' => $row['slot_status'],
         'start' => $start->format('Y-m-d H:i:s'),       // Date of the attendance
-        'end' => $end->format(  'Y-m-d H:i:s'),       // Date of the attendance
+        'end' => $end->format('Y-m-d H:i:s'),       // Date of the attendance
         'status' => $row['slot_status'],        // Status or description of the event
         'status_description' => $slot_statuses[$row['slot_status']],
         'tarikh' => $row['tarikh'],
@@ -1694,7 +1694,7 @@ if (isset($_POST['get_pdf'])) {
       if ($currentDate->format('N') != 6 && $currentDate->format('N') != 7) {
 
         if (count($dates) >= 5) {
-        }else{
+        } else {
 
           $dates[] = $currentDate->format('Y-m-d');
         }
@@ -1710,7 +1710,7 @@ if (isset($_POST['get_pdf'])) {
 
   if ($dates) {
 
-  
+
 
     $query =
       "SELECT COUNT(*) as total FROM user WHERE role = 4";
@@ -1953,7 +1953,18 @@ if (isset($_POST['get_pdf'])) {
 
 if (isset($_POST['post_fp'])) {
 
+  $fp = $_POST['post_fp'];
 
+  $query = "INSERT INTO user (fp) VALUES ('$fp') ";
+  $results = mysqli_query($db, $query);
 
+  if ($results) {
+    echo "ok";
+
+  }else{
+    echo "not Ok";
+  }
+
+  
 }
 ?>
