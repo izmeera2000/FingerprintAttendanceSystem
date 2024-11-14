@@ -69,7 +69,7 @@
         <div class="row">
           <div class="col-md-12">
             <div class="card">
-              <form action="eventmasuk" method="POST">
+              <form action="" method="POST">
                 <label for="kelas">Kelas</label>
 
                 <select name="kelas" id="kelas">
@@ -77,6 +77,23 @@
                   <option value="saab">Saab</option>
                   <option value="mercedes">Mercedes</option>
                   <option value="audi">Audi</option> -->
+
+
+                  <?php
+
+                  $query =
+
+                    "SELECT * FROM kelas ";
+
+                  $results2 = mysqli_query($db, $query);
+
+                  while ($row = mysqli_fetch_assoc($results2)) {
+                    $nama = $row['nama_kelas'];
+
+                    echo "<option value='$nama'>$nama</option>";
+
+                  }
+                  ?>
                 </select>
 
                 <label for="year">Year</label>
@@ -100,46 +117,43 @@
                   ?>
                 </select>
 
-                <button type="submit" name="eventmasuk">asdasd</button>
+
+
+                <label for="year">Tarikh 1</label>
+
+                <select name="year" id="year">
+
+                  <?php
+
+                  $query =
+
+                    "SELECT DISTINCT YEAR(tarikh) AS year FROM attendance_slot ORDER BY year DESC;";
+
+                  $results2 = mysqli_query($db, $query);
+
+                  while ($row = mysqli_fetch_assoc($results2)) {
+                    $year = $row['year'];
+
+                    echo "<option value='$year'>$year</option>";
+
+                  }
+                  ?>
+                </select>
+
+
+                <button type="submit" name="get_pdf">asdasd</button>
               </form>
+
+
               <?php
+              if ($dates) {
 
+                ?>
 
-              $query =
-
-                "SELECT  a.*, b.nama as sem_start_date  , d.nama as sem_now_date FROM user_sem  a 
-                  INNER JOIN sem b ON b.id = a.sem_start
-                  INNER JOIN sem d ON d.id = a.sem_now
-
-
-              ";
-
-              $results2 = mysqli_query($db, $query);
-
-              while ($row = mysqli_fetch_assoc($results2)) {
-                $userStartSemester = $row['sem_start_date']; // Example user start semester
-                $currentSemester = $row['sem_now_date'];  // Example current semester
-              
+                <iframe src="<?php echo $site_url ?>test.pdf" width="100%" height="600px"></iframe>
+              <?php
               }
-
-
-
-              // Extract semester and year
-              list($userStartPhase, $userStartYear) = explode('/', $userStartSemester);
-              list($currentPhase, $currentYear) = explode('/', $currentSemester);
-
-              $userStartPhase = (int) $userStartPhase;
-              $currentPhase = (int) $currentPhase;
-              $userStartYear = (int) $userStartYear;
-              $currentYear = (int) $currentYear;
-
-              // Calculate the difference
-              $phaseCount = ($currentYear - $userStartYear) * 2 + ($currentPhase - $userStartPhase) + 1;
-
-              echo "Current Phase Number: " . $phaseCount;
-
               ?>
-
 
 
             </div>

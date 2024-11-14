@@ -25,14 +25,15 @@
           justify-content-center
           align-items-center
         " style="
-          background: url(views/assets/images/big/auth-bg.jpg) no-repeat center
+          background: url(<?php echo $site_url ?>assets/images/auth-bg.jpg) no-repeat center
             center;
         ">
       <div class="auth-box p-4 bg-white rounded">
         <div>
           <div class="logo text-center">
-            <span class="db"><img src="../assets/images/logo-icon.png" alt="logo" /></span>
-            <h5 class="font-weight-medium mb-3 mt-1">Sign Up Student</h5>
+            <span class="db"><img src="<?php echo $site_url ?>assets/images/logo-b.png" alt="logo" /></span>
+            <span class="db"><img src="<?php echo $site_url ?>assets/images/logo-b-text.png" alt="logo" /></span>
+            <h5 class="font-weight-medium mb-3 mt-2">Sign Up Student</h5>
           </div>
           <!-- Form -->
           <div class="row">

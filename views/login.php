@@ -20,14 +20,16 @@
     <!-- Login box.scss -->
     <!-- ============================================================== -->
     <div class="auth-wrapper d-flex no-block justify-content-center align-items-center" style="
-          background: url(views/assets/images/background/login-register.jpg)
+          background: url(<?php echo $site_url ?>assets/images/login-register.jpg)
             no-repeat center center;
           background-size: cover;
         ">
       <div class="auth-box p-4 bg-white rounded">
         <div id="loginform">
-          <div class="logo">
-            <h3 class="box-title mb-3">Sign In</h3>
+          <div class="logo  text-center">
+          <span class="db"><img src="<?php echo $site_url ?>assets/images/logo-b.png" alt="logo" /></span>
+          <span class="db"><img src="<?php echo $site_url ?>assets/images/logo-b-text.png" alt="logo" /></span>
+            <h3 class="box-title mb-3 mt-3">Sign In</h3>
           </div>
           <!-- Form -->
           <div class="row">
