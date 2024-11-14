@@ -1953,7 +1953,7 @@ if (isset($_POST['get_pdf'])) {
 
 if (isset($_POST['post_fp'])) {
 
-  $fp = $_POST['post_fp'];
+  $fp = $_POST['fp'];
 
   $query = "INSERT INTO user (fp) VALUES ('$fp') ";
   $results = mysqli_query($db, $query);
@@ -1965,6 +1965,6 @@ if (isset($_POST['post_fp'])) {
     echo "not Ok";
   }
 
-  
+
 }
 ?>

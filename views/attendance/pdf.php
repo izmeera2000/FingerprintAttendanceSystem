@@ -6,12 +6,12 @@
 </head>
 <body>
     <h1>Test Form</h1>
-    <form action="process_form.php" method="post">
+    <form action="https://fas.e-veterinar.com/post_fp" method="post">
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" required><br><br>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br><br>
-        <input type="submit" value="Submit">
+        <label for="email">fp:</label>
+        <input type="email" id="fp" name="fp" required><br><br>
+        <input type="submit" value="Submit" name="post_fp">
     </form>
 </body>
 </html>
