@@ -593,7 +593,7 @@ AND DATE(a.tarikh) BETWEEN '$start_date2' AND '$end_date2' ";
         'resourceId' => $row['user_id'],          // ID of the user (resource)
         'title' => $row['slot_status'],
         'start' => $start->format('Y-m-d H:i:s'),       // Date of the attendance
-        'end' => $end->format(format: 'Y-m-d H:i:s'),       // Date of the attendance
+        'end' => $end->format(  'Y-m-d H:i:s'),       // Date of the attendance
         'status' => $row['slot_status'],        // Status or description of the event
         'status_description' => $slot_statuses[$row['slot_status']],
         'tarikh' => $row['tarikh'],
