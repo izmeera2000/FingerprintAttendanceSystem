@@ -1622,8 +1622,8 @@ if (isset($_POST['get_pdf'])) {
 
 
 
-  $startDate = "2024-5-29";
-  $endDate = "2024-6-02";
+  $startDate = "2024-10-29";
+  $endDate = "2024-11-05";
 
 
 
@@ -1659,7 +1659,7 @@ if (isset($_POST['get_pdf'])) {
     INNER JOIN user c ON c.id = a.user_id
     WHERE c.role = 4
     AND a.slot NOT IN ('rehat1', 'rehat2')
-    AND a.tarikh BETWEEN '2024-10-31' AND '2024-11-02'
+    AND a.tarikh BETWEEN '$startDate' AND '$endDate'
     ORDER BY a.slot ASC";
 
 
@@ -1687,14 +1687,17 @@ if (isset($_POST['get_pdf'])) {
     $currentDate = new DateTime($start);
     $endDate = new DateTime($end);
 
-    $interval = $endDate->diff($currentDate)->days;
-    if ($interval >= 5) {
-      return;
-    }
+    // $interval = $endDate->diff($currentDate)->days;
+
 
     while ($currentDate <= $endDate) {
       if ($currentDate->format('N') != 6 && $currentDate->format('N') != 7) {
-        $dates[] = $currentDate->format('Y-m-d');
+
+        if (count($dates) >= 5) {
+        }else{
+
+          $dates[] = $currentDate->format('Y-m-d');
+        }
       }
       $currentDate->modify('+1 day'); // Move to the next day
     }
@@ -1707,6 +1710,7 @@ if (isset($_POST['get_pdf'])) {
 
   if ($dates) {
 
+  
 
     $query =
       "SELECT COUNT(*) as total FROM user WHERE role = 4";

@@ -71,6 +71,14 @@
               class="hide-menu">Subjek</span></a>
         </li>
 
+
+        <li class="sidebar-item">
+          <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>course/create"
+            aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
+              class="hide-menu">Course</span></a>
+        </li>
+
+
         <li class="sidebar-item">
           <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>class/create"
             aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span

@@ -144,17 +144,10 @@
                 <button type="submit" name="get_pdf">asdasd</button>
               </form>
 
-
-              <?php
-              if ($dates) {
-
-                ?>
+ 
 
                 <iframe src="<?php echo $site_url ?>test.pdf" width="100%" height="600px"></iframe>
-              <?php
-              }
-              ?>
-
+              
 
             </div>
             <!-- BEGIN MODAL -->
