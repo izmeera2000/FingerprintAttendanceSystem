@@ -32,3 +32,4 @@ $request = rtrim($request, '/');
 $request = strtolower($request);
 //Site URL - register
 
+?>
