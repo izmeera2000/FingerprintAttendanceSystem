@@ -60,6 +60,7 @@ bool enrollFingerprintTemplate() {
   // Send template data to ESP32 serial buffer
   if (finger.getModel() == FINGERPRINT_OK) {
     Serial.println("Fingerprint template created successfully.");
+
     postFingerprintTemplate();
     return true;
   } else {
@@ -67,7 +68,6 @@ bool enrollFingerprintTemplate() {
     return false;
   }
 }
-
 void postFingerprintTemplate() {
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
@@ -75,23 +75,35 @@ void postFingerprintTemplate() {
 
     http.addHeader("Content-Type", "application/x-www-form-urlencoded");
 
-    // Convert template to a String (example only, actual template data might need encoding)
-    String templateData = "";  
-    for (int i = 0; i < finger.templateBuffer->capacity(); i++) {
-      templateData += String(finger.templateBuffer[i], HEX);
-    }
+    // Get template data from the sensor
+    uint8_t templateData[512]; // Maximum size for a fingerprint template
+    int templateLength = finger.getModel(); // Get the template size
 
-    String postData = "post_fp=" + "test" + "fp=" + templateData;
+    if (templateLength > 0) {
+      memcpy(templateData, finger.templateData, templateLength);
 
-    int httpResponseCode = http.POST(postData);
+      // Convert the template data to a hex string
+      String hexTemplate = "";
+      for (int i = 0; i < templateLength; i++) {
+        hexTemplate += String(templateData[i], HEX);
+      }
 
-    if (httpResponseCode > 0) {
-      String response = http.getString();
-      Serial.println("Server response: " + response);
+      // Prepare POST data
+      String postData = "post_fp=" + hexTemplate;
+
+      // Send POST request
+      int httpResponseCode = http.POST(postData);
+
+      if (httpResponseCode > 0) {
+        String response = http.getString();
+        Serial.println("Server response: " + response);
+      } else {
+        Serial.println("Error in POST request");
+      }
+      http.end();
     } else {
-      Serial.println("Error in POST request");
+      Serial.println("Error reading fingerprint template.");
     }
-    http.end();
   } else {
     Serial.println("WiFi disconnected");
   }
