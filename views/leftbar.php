@@ -49,13 +49,13 @@
         <li class="sidebar-item">
           <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>attendance/pdf"
             aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
-              class="hide-menu">Test PDF</span></a>
+              class="hide-menu">Test </span></a>
         </li>
 
         <li class="sidebar-item">
           <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>attendance/pdf2"
             aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
-              class="hide-menu">Test PDF 2</span></a>
+              class="hide-menu">Test PDF </span></a>
         </li>
 
 

@@ -1,4 +1,3 @@
-
 <?php include(getcwd() . '/admin/server.php');
 ?>
 
@@ -6,32 +5,25 @@
 <html lang="en">
 
 <head>
-<meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta
-      name="keywords"
-      content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, nice admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, material design, material dashboard bootstrap 5 dashboard template"
-    />
-    <meta
-      name="description"
-      content="Nice is powerful and clean admin dashboard template, inpired from Google's Material Design"
-    />
-    <meta name="robots" content="noindex,nofollow" />
-    <title>Fingerprint Attendance System</title>
- 
-    <!-- Favicon icon -->
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="<?php  echo $site_url ?>assets/images/favicon.png"
-    />
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords"
+    content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, nice admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, material design, material dashboard bootstrap 5 dashboard template" />
+  <meta name="description"
+    content="Nice is powerful and clean admin dashboard template, inpired from Google's Material Design" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Fingerprint Attendance System</title>
+
+  <!-- Favicon icon -->
+  <link rel="icon" type="image/png" sizes="16x16" href="<?php echo $site_url ?>assets/images/favicon.png" />
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -107,16 +99,22 @@
         <!-- Slide 1 -->
         <div class="carousel-item active">
           <div class="carousel-container">
-            <h2 class="animate__animated animate__fadeInDown">Welcome to <span>Fingerprint ADTEC Taiping</span></h2>
-            <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
-            <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a>
+            <h2 class="animate__animated animate__fadeInDown">Welcome to <br>
+              <div class="text-uppercase">Fingerprint Attendance System</div>
+            </h2>
+            <p class="animate__animated animate__fadeInUp">Effortlessly manage and track attendance with our
+              state-of-the-art fingerprint system. Secure, reliable, and easy to use, ensuring accuracy and efficiency
+              in your organization. Experience the seamless integration of technology and convenience with our system.
+            </p>
+            <!-- <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a> -->
           </div>
         </div>
 
- 
+
       </div>
 
-      <svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28 " preserveAspectRatio="none">
+      <svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+        viewBox="0 24 150 28 " preserveAspectRatio="none">
         <defs>
           <path id="wave-path" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path>
         </defs>
@@ -148,18 +146,18 @@
 
           <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
             <p>
-              Abstrak
+            Advantages of the Fingerprint Attendance System :
             </p>
             <ul>
-              <li><i class="bi bi-check2-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></li>
-              <li><i class="bi bi-check2-circle"></i> <span>Duis aute irure dolor in reprehenderit in voluptate velit.</span></li>
-              <li><i class="bi bi-check2-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo</span></li>
+              <li><i class="bi bi-check2-circle"></i> <span>Streamline attendance management with quick and reliable fingerprint scanning.</span></li>
+              <li><i class="bi bi-check2-circle"></i> <span>Enhance data security with biometric authentication, ensuring accurate records.</span></li>
+              <li><i class="bi bi-check2-circle"></i> <span>Simplify attendance tracking with an easy-to-use, hassle-free system.</span></li>
             </ul>
           </div>
 
           <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-            <p>Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
-            <a href="#" class="read-more"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
+            <p>Discover a streamlined way to manage attendance. Our system ensures accuracy, security, and ease-of-use, making attendance tracking a breeze. Join us in</p>
+            <a href="<?php echo $site_url?>login" class="read-more"><span>Experience</span><i class="bi bi-arrow-right"></i></a>
           </div>
 
         </div>
@@ -207,19 +205,25 @@
               <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0">
                 <h3>Voluptatem dignissimos provident quasi corporis voluptates sit assumenda.</h3>
                 <p class="fst-italic">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                  dolore
                   magna aliqua.
                 </p>
                 <ul>
                   <li><i class="bi bi-check2-all"></i>
                     <spab>Ullamco laboris nisi ut aliquip ex ea commodo consequat.</spab>
                   </li>
-                  <li><i class="bi bi-check2-all"></i> <span>Duis aute irure dolor in reprehenderit in voluptate velit</span>.</li>
-                  <li><i class="bi bi-check2-all"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla pariatur.</span></li>
+                  <li><i class="bi bi-check2-all"></i> <span>Duis aute irure dolor in reprehenderit in voluptate
+                      velit</span>.</li>
+                  <li><i class="bi bi-check2-all"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                      Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu
+                      fugiat nulla pariatur.</span></li>
                 </ul>
                 <p>
-                  Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                  velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                  Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+                  voluptate
+                  velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+                  sunt in
                   culpa qui officia deserunt mollit anim id est laborum
                 </p>
               </div>
@@ -234,19 +238,27 @@
               <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0">
                 <h3>Neque exercitationem debitis soluta quos debitis quo mollitia officia est</h3>
                 <p>
-                  Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                  velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                  Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+                  voluptate
+                  velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+                  sunt in
                   culpa qui officia deserunt mollit anim id est laborum
                 </p>
                 <p class="fst-italic">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                  dolore
                   magna aliqua.
                 </p>
                 <ul>
-                  <li><i class="bi bi-check2-all"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></li>
-                  <li><i class="bi bi-check2-all"></i> <span>Duis aute irure dolor in reprehenderit in voluptate velit.</span></li>
-                  <li><i class="bi bi-check2-all"></i> <span>Provident mollitia neque rerum asperiores dolores quos qui a. Ipsum neque dolor voluptate nisi sed.</span></li>
-                  <li><i class="bi bi-check2-all"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla pariatur.</span></li>
+                  <li><i class="bi bi-check2-all"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo
+                      consequat.</span></li>
+                  <li><i class="bi bi-check2-all"></i> <span>Duis aute irure dolor in reprehenderit in voluptate
+                      velit.</span></li>
+                  <li><i class="bi bi-check2-all"></i> <span>Provident mollitia neque rerum asperiores dolores quos qui
+                      a. Ipsum neque dolor voluptate nisi sed.</span></li>
+                  <li><i class="bi bi-check2-all"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                      Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu
+                      fugiat nulla pariatur.</span></li>
                 </ul>
               </div>
               <div class="col-lg-6 order-1 order-lg-2 text-center">
@@ -260,17 +272,23 @@
               <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0">
                 <h3>Voluptatibus commodi ut accusamus ea repudiandae ut autem dolor ut assumenda</h3>
                 <p>
-                  Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                  velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                  Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+                  voluptate
+                  velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+                  sunt in
                   culpa qui officia deserunt mollit anim id est laborum
                 </p>
                 <ul>
-                  <li><i class="bi bi-check2-all"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></li>
-                  <li><i class="bi bi-check2-all"></i> <span>Duis aute irure dolor in reprehenderit in voluptate velit.</span></li>
-                  <li><i class="bi bi-check2-all"></i> <span>Provident mollitia neque rerum asperiores dolores quos qui a. Ipsum neque dolor voluptate nisi sed.</span></li>
+                  <li><i class="bi bi-check2-all"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo
+                      consequat.</span></li>
+                  <li><i class="bi bi-check2-all"></i> <span>Duis aute irure dolor in reprehenderit in voluptate
+                      velit.</span></li>
+                  <li><i class="bi bi-check2-all"></i> <span>Provident mollitia neque rerum asperiores dolores quos qui
+                      a. Ipsum neque dolor voluptate nisi sed.</span></li>
                 </ul>
                 <p class="fst-italic">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                  dolore
                   magna aliqua.
                 </p>
               </div>
@@ -285,18 +303,25 @@
               <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0">
                 <h3>Omnis fugiat ea explicabo sunt dolorum asperiores sequi inventore rerum</h3>
                 <p>
-                  Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                  velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                  Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+                  voluptate
+                  velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+                  sunt in
                   culpa qui officia deserunt mollit anim id est laborum
                 </p>
                 <p class="fst-italic">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                  dolore
                   magna aliqua.
                 </p>
                 <ul>
-                  <li><i class="bi bi-check2-all"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></li>
-                  <li><i class="bi bi-check2-all"></i> <span>Duis aute irure dolor in reprehenderit in voluptate velit.</span></li>
-                  <li><i class="bi bi-check2-all"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla pariatur.</span></li>
+                  <li><i class="bi bi-check2-all"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo
+                      consequat.</span></li>
+                  <li><i class="bi bi-check2-all"></i> <span>Duis aute irure dolor in reprehenderit in voluptate
+                      velit.</span></li>
+                  <li><i class="bi bi-check2-all"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                      Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu
+                      fugiat nulla pariatur.</span></li>
                 </ul>
               </div>
               <div class="col-lg-6 order-1 order-lg-2 text-center">
@@ -318,11 +343,11 @@
 
         <div class="row" data-aos="zoom-in" data-aos-delay="100">
           <div class="col-xl-9 text-center text-xl-start">
-            <h3>Expirience Now</h3>
-            <p>adasdasdasdas</p>
+            <h3>Discover the Future of Attendance!</h3>
+            <p>Effortlessly manage attendance with our secure and efficient fingerprint technology. Simple, accurate, and reliable—making attendance tracking effortless.</p>
           </div>
           <div class="col-xl-3 cta-btn-container text-center">
-            <a class="cta-btn align-middle" href="#">Login Now</a>
+            <a class="cta-btn align-middle" href="<?php echo $site_url?>">Experience Now</a>
           </div>
         </div>
 
@@ -348,10 +373,10 @@
               <div class="icon">
                 <i class="bi bi-cash-stack" style="color: #0dcaf0;"></i>
               </div>
-              <a href="service-details.html" class="stretched-link">
-                <h3>Nesciunt Mete</h3>
-              </a>
-              <p>Provident nihil minus qui consequatur non omnis maiores. Eos accusantium minus dolores iure perferendis tempore et consequatur.</p>
+              <!-- <a href="service-details.html" class="stretched-link"> -->
+                <h3>Fingerprint Attendance Management</h3>
+              <!-- </a> -->
+              <p>Ensure seamless and accurate attendance tracking with our state-of-the-art fingerprint recognition system, reducing manual errors and saving time.</p>
             </div>
           </div><!-- End Service Item -->
 
@@ -360,10 +385,10 @@
               <div class="icon">
                 <i class="bi bi-calendar4-week" style="color: #fd7e14;"></i>
               </div>
-              <a href="service-details.html" class="stretched-link">
-                <h3>Eosle Commodi</h3>
-              </a>
-              <p>Ut autem aut autem non a. Sint sint sit facilis nam iusto sint. Libero corrupti neque eum hic non ut nesciunt dolorem.</p>
+              <!-- <a href="service-details.html" class="stretched-link"> -->
+                <h3>Real-Time Data Access</h3>
+              <!-- </a> -->
+              <p>Gain instant access to attendance data from anywhere, enabling timely decision-making and efficient management of schedules.</p>
             </div>
           </div><!-- End Service Item -->
 
@@ -372,10 +397,10 @@
               <div class="icon">
                 <i class="bi bi-chat-text" style="color: #20c997;"></i>
               </div>
-              <a href="service-details.html" class="stretched-link">
-                <h3>Ledo Markt</h3>
-              </a>
-              <p>Ut excepturi voluptatem nisi sed. Quidem fuga consequatur. Minus ea aut. Vel qui id voluptas adipisci eos earum corrupti.</p>
+              <!-- <a href="service-details.html" class="stretched-link"> -->
+                <h3>Secure Data Storage</h3>
+              <!-- </a> -->
+              <p>Your attendance data is securely stored and encrypted, ensuring privacy and protection against unauthorized access.</p>
             </div>
           </div><!-- End Service Item -->
 
@@ -387,7 +412,8 @@
               <a href="service-details.html" class="stretched-link">
                 <h3>Asperiores Commodit</h3>
               </a>
-              <p>Non et temporibus minus omnis sed dolor esse consequatur. Cupiditate sed error ea fuga sit provident adipisci neque.</p>
+              <p>Non et temporibus minus omnis sed dolor esse consequatur. Cupiditate sed error ea fuga sit provident
+                adipisci neque.</p>
             </div>
           </div><!-- End Service Item -->
 
@@ -399,7 +425,8 @@
               <a href="service-details.html" class="stretched-link">
                 <h3>Velit Doloremque</h3>
               </a>
-              <p>Cumque et suscipit saepe. Est maiores autem enim facilis ut aut ipsam corporis aut. Sed animi at autem alias eius labore.</p>
+              <p>Cumque et suscipit saepe. Est maiores autem enim facilis ut aut ipsam corporis aut. Sed animi at autem
+                alias eius labore.</p>
             </div>
           </div><!-- End Service Item -->
 
@@ -411,7 +438,8 @@
               <a href="service-details.html" class="stretched-link">
                 <h3>Dolori Architecto</h3>
               </a>
-              <p>Hic molestias ea quibusdam eos. Fugiat enim doloremque aut neque non et debitis iure. Corrupti recusandae ducimus enim.</p>
+              <p>Hic molestias ea quibusdam eos. Fugiat enim doloremque aut neque non et debitis iure. Corrupti
+                recusandae ducimus enim.</p>
             </div>
           </div><!-- End Service Item -->
 
@@ -420,7 +448,7 @@
       </div>
 
     </section><!-- /Services Section -->
- 
+
 
     <!-- Testimonials Section -->
     <section id="testimonials" class="testimonials section">
@@ -467,11 +495,13 @@
                 <h3>Saul Goodman</h3>
                 <h4>Ceo &amp; Founder</h4>
                 <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                 </div>
                 <p>
                   <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.</span>
+                  <span>Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus.
+                    Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.</span>
                   <i class="bi bi-quote quote-icon-right"></i>
                 </p>
               </div>
@@ -483,11 +513,13 @@
                 <h3>Sara Wilsson</h3>
                 <h4>Designer</h4>
                 <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                 </div>
                 <p>
                   <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.</span>
+                  <span>Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram
+                    malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.</span>
                   <i class="bi bi-quote quote-icon-right"></i>
                 </p>
               </div>
@@ -499,11 +531,13 @@
                 <h3>Jena Karlis</h3>
                 <h4>Store Owner</h4>
                 <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                 </div>
                 <p>
                   <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.</span>
+                  <span>Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis
+                    minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.</span>
                   <i class="bi bi-quote quote-icon-right"></i>
                 </p>
               </div>
@@ -515,11 +549,14 @@
                 <h3>Matt Brandon</h3>
                 <h4>Freelancer</h4>
                 <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                 </div>
                 <p>
                   <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.</span>
+                  <span>Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim
+                    velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum
+                    veniam.</span>
                   <i class="bi bi-quote quote-icon-right"></i>
                 </p>
               </div>
@@ -531,11 +568,14 @@
                 <h3>John Larson</h3>
                 <h4>Entrepreneur</h4>
                 <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                 </div>
                 <p>
                   <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.</span>
+                  <span>Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim
+                    culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum
+                    quid.</span>
                   <i class="bi bi-quote quote-icon-right"></i>
                 </p>
               </div>
@@ -548,7 +588,7 @@
       </div>
 
     </section><!-- /Testimonials Section -->
- 
+
 
     <!-- Faq Section -->
     <section id="faq" class="faq section">
@@ -569,7 +609,8 @@
                   </button>
                 </h2>
 
-                <div id="collapse-faq-1" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion-faq">
+                <div id="collapse-faq-1" class="collapse show" aria-labelledby="headingOne"
+                  data-parent="#accordion-faq">
                   <div class="accordion-body">
                     Far far away, behind the word mountains, far from the countries
                     Vokalia and Consonantia, there live the blind texts. Separated
@@ -582,7 +623,8 @@
 
               <div class="accordion-item">
                 <h2 class="mb-0">
-                  <button class="btn btn-link collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-faq-2" "="">
+                  <button class="btn btn-link collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapse-faq-2" "="">
                 How to create your paypal account?
               </button>
             </h2>
@@ -598,7 +640,8 @@
 
             <div class="accordion-item">
               <h2 class="mb-0">
-                <button class="btn btn-link collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-faq-3">
+                <button class="btn btn-link collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapse-faq-3">
                   How to link your paypal and bank account?
                 </button>
               </h2>
@@ -632,7 +675,7 @@
 
       <div class="container">
 
-        <div class="row gy-4">
+        <div class="row gy-4 justify-content-center">
 
           <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
             <div class="team-member">
@@ -655,7 +698,7 @@
           <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
             <div class="team-member">
               <div class="member-img">
-                <img src="assets/images/team/team-2.jpg" class="img-fluid" alt="">
+                <img src="assets/images/team/fyp1.jpg" class="img-fluid" alt="">
                 <div class="social">
                   <a href=""><i class="bi bi-twitter-x"></i></a>
                   <a href=""><i class="bi bi-facebook"></i></a>
@@ -670,41 +713,7 @@
             </div>
           </div><!-- End Team Member -->
 
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
-            <div class="team-member">
-              <div class="member-img">
-                <img src="assets/images/team/team-3.jpg" class="img-fluid" alt="">
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter-x"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>William Anderson</h4>
-                <span>CTO</span>
-              </div>
-            </div>
-          </div><!-- End Team Member -->
 
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="400">
-            <div class="team-member">
-              <div class="member-img">
-                <img src="assets/images/team/team-4.jpg" class="img-fluid" alt="">
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter-x"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>Amanda Jepson</h4>
-                <span>Accountant</span>
-              </div>
-            </div>
-          </div><!-- End Team Member -->
 
         </div>
 
@@ -712,7 +721,7 @@
 
     </section><!-- /Team Section -->
 
- 
+
     <!-- Contact Section -->
     <section id="contact" class="contact section">
 
@@ -739,7 +748,7 @@
               <i class="bi bi-telephone flex-shrink-0"></i>
               <div>
                 <h3>Call Us</h3>
-                <p>+1 5589 55488 55</p>
+                <p>+6011 1245 6300</p>
               </div>
             </div><!-- End Info Item -->
 
@@ -754,7 +763,17 @@
           </div>
 
           <div class="col-lg-8">
-            <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2653.2879339845003!2d100.6974965304708!3d4.865684079136129!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31caac2365fecdc5%3A0x2d36285eabc19b9a!2sPusat%20Latihan%20Teknologi%20Tinggi%20(ADTEC)%20Taiping!5e0!3m2!1sen!2smy!4v1731638889781!5m2!1sen!2smy"
+              width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+
+
+          <!-- <div class="col-lg-8">
+            <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up"
+              data-aos-delay="200">
               <div class="row gy-4">
 
                 <div class="col-md-6">
@@ -783,7 +802,8 @@
 
               </div>
             </form>
-          </div><!-- End Contact Form -->
+          </div> -->
+          <!-- End Contact Form -->
 
         </div>
 
@@ -795,8 +815,9 @@
 
   <footer id="footer" class="footer dark-background">
     <div class="container">
-      <h3 class="sitename">Selecao</h3>
-      <p>Et aut eum quis fuga eos sunt ipsa nihil. Labore corporis magni eligendi fuga maxime saepe commodi placeat.</p>
+      <h3 class="sitename">FINGERPRINT ATTENDANCE SYSTEM</h3>
+      <p>Seamlessly manage attendance with our secure and efficient fingerprint technology. Simple, accurate, and
+        reliable—making attendance tracking effortless.</p>
       <div class="social-links d-flex justify-content-center">
         <a href=""><i class="bi bi-twitter-x"></i></a>
         <a href=""><i class="bi bi-facebook"></i></a>
@@ -806,21 +827,22 @@
       </div>
       <div class="container">
         <div class="copyright">
-          <span>Copyright</span> <strong class="px-1 sitename">Selecao</strong> <span>All Rights Reserved</span>
+          <span>Copyright</span> <strong class="px-1 sitename">ADTEC Taiping</strong> <span>All Rights Reserved</span>
         </div>
         <div class="credits">
           <!-- All the links in the footer should remain intact. -->
           <!-- You can delete the links only if you've purchased the pro version. -->
           <!-- Licensing information: https://bootstrapmade.com/license/ -->
           <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+          <!-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
         </div>
       </div>
     </div>
   </footer>
 
   <!-- Scroll Top -->
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
 
   <!-- Preloader -->
   <div id="preloader"></div>
