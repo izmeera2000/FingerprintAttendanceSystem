@@ -67,6 +67,8 @@ void setup() {
     Serial.print(finger.templateCount);
     Serial.println(" templates");
   }
+
+
 }
 
 void loop() {
@@ -74,10 +76,10 @@ void loop() {
 
   // getFingerprintEnroll();
 
-  // int id = getFingerprintIDez();
-  // downloadFingerprintTemplate2(id);
+  int id = getFingerprintIDez();
+  downloadFingerprintTemplate2(id);
 
-  downloadFingerprintTemplate(3);
+  // downloadFingerprintTemplate(3);
 
 
 
