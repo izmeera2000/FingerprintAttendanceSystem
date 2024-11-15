@@ -146,18 +146,23 @@
 
           <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
             <p>
-            Advantages of the Fingerprint Attendance System :
+              Advantages of the Fingerprint Attendance System :
             </p>
             <ul>
-              <li><i class="bi bi-check2-circle"></i> <span>Streamline attendance management with quick and reliable fingerprint scanning.</span></li>
-              <li><i class="bi bi-check2-circle"></i> <span>Enhance data security with biometric authentication, ensuring accurate records.</span></li>
-              <li><i class="bi bi-check2-circle"></i> <span>Simplify attendance tracking with an easy-to-use, hassle-free system.</span></li>
+              <li><i class="bi bi-check2-circle"></i> <span>Streamline attendance management with quick and reliable
+                  fingerprint scanning.</span></li>
+              <li><i class="bi bi-check2-circle"></i> <span>Enhance data security with biometric authentication,
+                  ensuring accurate records.</span></li>
+              <li><i class="bi bi-check2-circle"></i> <span>Simplify attendance tracking with an easy-to-use,
+                  hassle-free system.</span></li>
             </ul>
           </div>
 
           <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-            <p>Discover a streamlined way to manage attendance. Our system ensures accuracy, security, and ease-of-use, making attendance tracking a breeze. Join us in</p>
-            <a href="<?php echo $site_url?>login" class="read-more"><span>Experience</span><i class="bi bi-arrow-right"></i></a>
+            <p>Discover a streamlined way to manage attendance. Our system ensures accuracy, security, and ease-of-use,
+              making attendance tracking a breeze. Join us in</p>
+            <a href="<?php echo $site_url ?>login" class="read-more"><span>Experience</span><i
+                class="bi bi-arrow-right"></i></a>
           </div>
 
         </div>
@@ -344,10 +349,11 @@
         <div class="row" data-aos="zoom-in" data-aos-delay="100">
           <div class="col-xl-9 text-center text-xl-start">
             <h3>Discover the Future of Attendance!</h3>
-            <p>Effortlessly manage attendance with our secure and efficient fingerprint technology. Simple, accurate, and reliable—making attendance tracking effortless.</p>
+            <p>Effortlessly manage attendance with our secure and efficient fingerprint technology. Simple, accurate,
+              and reliable—making attendance tracking effortless.</p>
           </div>
           <div class="col-xl-3 cta-btn-container text-center">
-            <a class="cta-btn align-middle" href="<?php echo $site_url?>">Experience Now</a>
+            <a class="cta-btn align-middle" href="<?php echo $site_url ?>">Experience Now</a>
           </div>
         </div>
 
@@ -374,9 +380,10 @@
                 <i class="bi bi-cash-stack" style="color: #0dcaf0;"></i>
               </div>
               <!-- <a href="service-details.html" class="stretched-link"> -->
-                <h3>Fingerprint Attendance Management</h3>
+              <h3>Fingerprint Attendance Management</h3>
               <!-- </a> -->
-              <p>Ensure seamless and accurate attendance tracking with our state-of-the-art fingerprint recognition system, reducing manual errors and saving time.</p>
+              <p>Ensure seamless and accurate attendance tracking with our state-of-the-art fingerprint recognition
+                system, reducing manual errors and saving time.</p>
             </div>
           </div><!-- End Service Item -->
 
@@ -386,9 +393,10 @@
                 <i class="bi bi-calendar4-week" style="color: #fd7e14;"></i>
               </div>
               <!-- <a href="service-details.html" class="stretched-link"> -->
-                <h3>Real-Time Data Access</h3>
+              <h3>Real-Time Data Access</h3>
               <!-- </a> -->
-              <p>Gain instant access to attendance data from anywhere, enabling timely decision-making and efficient management of schedules.</p>
+              <p>Gain instant access to attendance data from anywhere, enabling timely decision-making and efficient
+                management of schedules.</p>
             </div>
           </div><!-- End Service Item -->
 
@@ -398,9 +406,10 @@
                 <i class="bi bi-chat-text" style="color: #20c997;"></i>
               </div>
               <!-- <a href="service-details.html" class="stretched-link"> -->
-                <h3>Secure Data Storage</h3>
+              <h3>Secure Data Storage</h3>
               <!-- </a> -->
-              <p>Your attendance data is securely stored and encrypted, ensuring privacy and protection against unauthorized access.</p>
+              <p>Your attendance data is securely stored and encrypted, ensuring privacy and protection against
+                unauthorized access.</p>
             </div>
           </div><!-- End Service Item -->
 
@@ -410,9 +419,10 @@
                 <i class="bi bi-credit-card-2-front" style="color: #df1529;"></i>
               </div>
               <!-- <a href="service-details.html" class="stretched-link"> -->
-                <h3>User-Friendly Interface</h3>
+              <h3>User-Friendly Interface</h3>
               <!-- </a> -->
-              <p>Our system is designed with ease of use in mind, making it simple for administrators and employees alike to navigate and utilize its features.</p>
+              <p>Our system is designed with ease of use in mind, making it simple for administrators and employees
+                alike to navigate and utilize its features.</p>
             </div>
           </div><!-- End Service Item -->
 
@@ -422,9 +432,10 @@
                 <i class="bi bi-globe" style="color: #6610f2;"></i>
               </div>
               <!-- <a href="service-details.html" class="stretched-link"> -->
-                <h3>Integration with Existing Systems</h3>
+              <h3>Integration with Existing Systems</h3>
               <!-- </a> -->
-              <p>Seamlessly integrate our attendance system with your current HR and payroll systems, ensuring smooth data flow and synchronization.</p>
+              <p>Seamlessly integrate our attendance system with your current HR and payroll systems, ensuring smooth
+                data flow and synchronization.</p>
             </div>
           </div><!-- End Service Item -->
 
@@ -434,9 +445,10 @@
                 <i class="bi bi-clock" style="color: #f3268c;"></i>
               </div>
               <!-- <a href="service-details.html" class="stretched-link"> -->
-                <h3>Multi-Device Support</h3>
+              <h3>Multi-Device Support</h3>
               <!-- </a> -->
-              <p>Access and manage attendance data from multiple devices, including desktops, tablets, and smartphones, providing flexibility and convenience.</p>
+              <p>Access and manage attendance data from multiple devices, including desktops, tablets, and smartphones,
+                providing flexibility and convenience.</p>
             </div>
           </div><!-- End Service Item -->
 
@@ -446,146 +458,160 @@
 
     </section><!-- /Services Section -->
 
+    <?php
 
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials section">
 
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Testimonials</h2>
-        <p>What they are saying about us</p>
-      </div><!-- End Section Title -->
+    $query =
 
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
+      "SELECT * FROM feedback ";
 
-        <div class="swiper init-swiper">
-          <script type="application/json" class="swiper-config">
-            {
-              "loop": true,
-              "speed": 600,
-              "autoplay": {
-                "delay": 5000
-              },
-              "slidesPerView": "auto",
-              "pagination": {
-                "el": ".swiper-pagination",
-                "type": "bullets",
-                "clickable": true
-              },
-              "breakpoints": {
-                "320": {
-                  "slidesPerView": 1,
-                  "spaceBetween": 40
-                },
-                "1200": {
-                  "slidesPerView": 3,
-                  "spaceBetween": 10
-                }
-              }
-            }
-          </script>
-          <div class="swiper-wrapper">
+    $feedback = mysqli_query($db, $query);
 
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="assets/images/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
-                <h3>Saul Goodman</h3>
-                <h4>Ceo &amp; Founder</h4>
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                </div>
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus.
-                    Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
+    if ($feedback) {
+
+      if (mysqli_num_rows($feedback) > 0) {
+        ?>
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="testimonials section">
+
+          <!-- Section Title -->
+          <div class="container section-title" data-aos="fade-up">
+            <h2>Testimonials</h2>
+            <p>What they are saying about us</p>
+          </div><!-- End Section Title -->
+
+          <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+            <div class="swiper init-swiper">
+              <script type="application/json" class="swiper-config">
+                  {
+                    "loop": true,
+                    "speed": 600,
+                    "autoplay": {
+                      "delay": 5000
+                    },
+                    "slidesPerView": "auto",
+                    "pagination": {
+                      "el": ".swiper-pagination",
+                      "type": "bullets",
+                      "clickable": true
+                    },
+                    "breakpoints": {
+                      "320": {
+                        "slidesPerView": 1,
+                        "spaceBetween": 40
+                      },
+                      "1200": {
+                        "slidesPerView": 3,
+                        "spaceBetween": 10
+                      }
+                    }
+                  }
+                </script>
+              <div class="swiper-wrapper">
+
+                <div class="swiper-slide">
+                  <div class="testimonial-item">
+                    <img src="assets/images/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
+                    <h3>Saul Goodman</h3>
+                    <h4>Ceo &amp; Founder</h4>
+                    <div class="stars">
+                      <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                        class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                    </div>
+                    <p>
+                      <i class="bi bi-quote quote-icon-left"></i>
+                      <span>Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus.
+                        Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.</span>
+                      <i class="bi bi-quote quote-icon-right"></i>
+                    </p>
+                  </div>
+                </div><!-- End testimonial item -->
+
+                <div class="swiper-slide">
+                  <div class="testimonial-item">
+                    <img src="assets/images/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
+                    <h3>Sara Wilsson</h3>
+                    <h4>Designer</h4>
+                    <div class="stars">
+                      <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                        class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                    </div>
+                    <p>
+                      <i class="bi bi-quote quote-icon-left"></i>
+                      <span>Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram
+                        malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.</span>
+                      <i class="bi bi-quote quote-icon-right"></i>
+                    </p>
+                  </div>
+                </div><!-- End testimonial item -->
+
+                <div class="swiper-slide">
+                  <div class="testimonial-item">
+                    <img src="assets/images/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
+                    <h3>Jena Karlis</h3>
+                    <h4>Store Owner</h4>
+                    <div class="stars">
+                      <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                        class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                    </div>
+                    <p>
+                      <i class="bi bi-quote quote-icon-left"></i>
+                      <span>Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis
+                        minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.</span>
+                      <i class="bi bi-quote quote-icon-right"></i>
+                    </p>
+                  </div>
+                </div><!-- End testimonial item -->
+
+                <div class="swiper-slide">
+                  <div class="testimonial-item">
+                    <img src="assets/images/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
+                    <h3>Matt Brandon</h3>
+                    <h4>Freelancer</h4>
+                    <div class="stars">
+                      <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                        class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                    </div>
+                    <p>
+                      <i class="bi bi-quote quote-icon-left"></i>
+                      <span>Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim
+                        velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum
+                        veniam.</span>
+                      <i class="bi bi-quote quote-icon-right"></i>
+                    </p>
+                  </div>
+                </div><!-- End testimonial item -->
+
+                <div class="swiper-slide">
+                  <div class="testimonial-item">
+                    <img src="assets/images/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
+                    <h3>John Larson</h3>
+                    <h4>Entrepreneur</h4>
+                    <div class="stars">
+                      <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                        class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                    </div>
+                    <p>
+                      <i class="bi bi-quote quote-icon-left"></i>
+                      <span>Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim
+                        culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum
+                        quid.</span>
+                      <i class="bi bi-quote quote-icon-right"></i>
+                    </p>
+                  </div>
+                </div><!-- End testimonial item -->
+
               </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="assets/images/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
-                <h3>Sara Wilsson</h3>
-                <h4>Designer</h4>
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                </div>
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram
-                    malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="assets/images/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
-                <h3>Jena Karlis</h3>
-                <h4>Store Owner</h4>
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                </div>
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis
-                    minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="assets/images/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
-                <h3>Matt Brandon</h3>
-                <h4>Freelancer</h4>
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                </div>
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim
-                    velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum
-                    veniam.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="assets/images/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
-                <h3>John Larson</h3>
-                <h4>Entrepreneur</h4>
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                </div>
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim
-                    culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum
-                    quid.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-              </div>
-            </div><!-- End testimonial item -->
+              <div class="swiper-pagination"></div>
+            </div>
 
           </div>
-          <div class="swiper-pagination"></div>
-        </div>
 
-      </div>
-
-    </section><!-- /Testimonials Section -->
-
+        </section><!-- /Testimonials Section -->
+        <?php
+      }
+    } ?>
 
     <!-- Faq Section -->
     <section id="faq" class="faq section">
@@ -621,43 +647,43 @@
               <div class="accordion-item">
                 <h2 class="mb-0">
                   <button class="btn btn-link collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapse-faq-2" >
-                How to create your paypal account?
-              </button>
-            </h2>
-            <div id="collapse-faq-2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion-faq">
-                    <div class="accordion-body">
-                      A small river named Duden flows by their place and supplies it
-                      with the necessary regelialia. It is a paradisematic country, in
-                      which roasted parts of sentences fly into your mouth.
-                    </div>
-              </div>
-            </div>
-            <!-- .accordion-item -->
-
-            <div class="accordion-item">
-              <h2 class="mb-0">
-                <button class="btn btn-link collapsed" type="button" data-bs-toggle="collapse"
-                  data-bs-target="#collapse-faq-3">
-                  How to link your paypal and bank account?
-                </button>
-              </h2>
-
-              <div id="collapse-faq-3" class="collapse" aria-labelledby="headingThree" data-parent="#accordion-faq">
-                <div class="accordion-body">
-                  When she reached the first hills of the Italic Mountains, she
-                  had a last view back on the skyline of her hometown
-                  Bookmarksgrove, the headline of Alphabet Village and the subline
-                  of her own road, the Line Lane. Pityful a rethoric question ran
-                  over her cheek, then she continued her way.
+                    data-bs-target="#collapse-faq-2">
+                    How to create your paypal account?
+                  </button>
+                </h2>
+                <div id="collapse-faq-2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion-faq">
+                  <div class="accordion-body">
+                    A small river named Duden flows by their place and supplies it
+                    with the necessary regelialia. It is a paradisematic country, in
+                    which roasted parts of sentences fly into your mouth.
+                  </div>
                 </div>
               </div>
-            </div>
-            <!-- .accordion-item -->
+              <!-- .accordion-item -->
 
+              <div class="accordion-item">
+                <h2 class="mb-0">
+                  <button class="btn btn-link collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapse-faq-3">
+                    How to link your paypal and bank account?
+                  </button>
+                </h2>
+
+                <div id="collapse-faq-3" class="collapse" aria-labelledby="headingThree" data-parent="#accordion-faq">
+                  <div class="accordion-body">
+                    When she reached the first hills of the Italic Mountains, she
+                    had a last view back on the skyline of her hometown
+                    Bookmarksgrove, the headline of Alphabet Village and the subline
+                    of her own road, the Line Lane. Pityful a rethoric question ran
+                    over her cheek, then she continued her way.
+                  </div>
+                </div>
+              </div>
+              <!-- .accordion-item -->
+
+            </div>
           </div>
         </div>
-      </div>
       </div>
     </section><!-- /Faq Section -->
 
