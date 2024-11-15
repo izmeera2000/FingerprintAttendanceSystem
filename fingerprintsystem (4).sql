@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 11, 2024 at 06:31 PM
+-- Generation Time: Nov 15, 2024 at 06:45 AM
 -- Server version: 8.3.0
 -- PHP Version: 8.2.18
 
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `attendance` (
   `time_edit` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `attendance`
@@ -55,7 +55,10 @@ INSERT INTO `attendance` (`id`, `user_id`, `fp_id_in`, `fp_id_out`, `event_statu
 (10, 7, NULL, 0, 1, '2024-11-02 17:29:23', '2024-11-02 17:29:28', NULL, '2024-11-02 17:29:23', '2024-11-02 17:29:23'),
 (12, 6, NULL, 0, 1, '2024-11-01 14:30:41', '2024-11-01 17:30:41', NULL, '2024-11-02 17:30:41', '2024-11-02 17:30:41'),
 (13, 6, NULL, NULL, 1, '2024-11-12 02:13:16', '2024-11-12 02:20:13', NULL, '2024-11-12 02:13:32', '2024-11-12 02:20:13'),
-(14, 6, NULL, NULL, 1, '2024-11-12 02:21:44', NULL, NULL, '2024-11-12 02:21:44', '2024-11-12 02:21:44');
+(14, 6, NULL, NULL, 1, '2024-11-12 02:21:44', NULL, NULL, '2024-11-12 02:21:44', '2024-11-12 02:21:44'),
+(15, 7, NULL, NULL, 1, '2024-11-13 11:19:13', NULL, NULL, '2024-11-13 11:19:13', '2024-11-13 11:19:13'),
+(16, 7, NULL, NULL, 1, '2024-11-13 11:20:19', NULL, NULL, '2024-11-13 11:20:19', '2024-11-13 11:20:19'),
+(17, 7, NULL, NULL, 1, '2024-11-13 13:38:51', NULL, NULL, '2024-11-13 13:38:51', '2024-11-13 13:38:51');
 
 -- --------------------------------------------------------
 
@@ -127,6 +130,38 @@ INSERT INTO `attendance_slot` (`id`, `user_id`, `slot`, `slot_status`, `tarikh`,
 (40, 21, 'rehat2', 6, '2024-11-02', NULL, NULL, NULL, NULL, NULL, '2024-11-02 17:40:04', '2024-11-02 17:40:04'),
 (41, 21, 'slot4', 0, '2024-11-02', NULL, NULL, NULL, NULL, NULL, '2024-11-02 17:40:04', '2024-11-02 17:40:04'),
 (42, 21, 'slot5', 0, '2024-11-02', NULL, NULL, NULL, NULL, NULL, '2024-11-02 17:40:04', '2024-11-02 17:40:04');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `course`
+--
+
+DROP TABLE IF EXISTS `course`;
+CREATE TABLE IF NOT EXISTS `course` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nama` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `masa_mula` datetime DEFAULT NULL,
+  `time_add` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `time_edit` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `feedback`
+--
+
+DROP TABLE IF EXISTS `feedback`;
+CREATE TABLE IF NOT EXISTS `feedback` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int DEFAULT NULL,
+  `content` text COLLATE utf8mb4_unicode_ci,
+  `time_add` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `time_edit` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
