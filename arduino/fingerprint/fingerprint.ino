@@ -56,12 +56,22 @@ void setup() {
   Serial.println(finger.packet_len);
   Serial.print(F("Baud rate: "));
   Serial.println(finger.baud_rate);
+
+    finger.getTemplateCount();
+
+  if (finger.templateCount == 0) {
+    Serial.print("Sensor doesn't contain any fingerprint data. Please run the 'enroll' example.");
+  }
+  else {
+    Serial.println("Waiting for valid finger...");
+      Serial.print("Sensor contains "); Serial.print(finger.templateCount); Serial.println(" templates");
+  }
 }
 
 void loop() {
   // getFingerprintEnroll();
-    downloadFingerprintTemplate(3);
-  
+    // downloadFingerprintTemplate(3);
+  getFingerprintIDez();
 }
 
 
@@ -366,4 +376,21 @@ uint8_t downloadFingerprintTemplate(uint16_t id) {
   delay(10000);  // Delay to prevent repeated posting
 
   return p;
+}
+
+
+int getFingerprintIDez() {
+  uint8_t p = finger.getImage();
+  if (p != FINGERPRINT_OK)  return -1;
+
+  p = finger.image2Tz();
+  if (p != FINGERPRINT_OK)  return -1;
+
+  p = finger.fingerFastSearch();
+  if (p != FINGERPRINT_OK)  return -1;
+
+  // found a match!
+  Serial.print("Found ID #"); Serial.print(finger.fingerID);
+  Serial.print(" with confidence of "); Serial.println(finger.confidence);
+  return finger.fingerID;
 }
