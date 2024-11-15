@@ -1967,4 +1967,25 @@ if (isset($_POST['post_fp'])) {
 
 
 }
+
+
+if (isset($_POST['login_fp'])) {
+
+  $fp = $_POST['login_fp'];
+
+  $query = "SELECT id, fp FROM user WHERE fp = '$fp'";
+  $results = mysqli_query($db, $query);
+  while ($row = mysqli_fetch_assoc($results)) {
+$id = $row['id'];
+  }
+  if ($results) {
+    echo "data posted:";
+    var_dump($_POST);
+    echo $id;
+  } else {
+    echo "not Ok";
+  }
+
+
+}
 ?>
