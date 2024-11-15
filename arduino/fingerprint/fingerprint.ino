@@ -72,6 +72,8 @@ void loop() {
   // getFingerprintEnroll();
     // downloadFingerprintTemplate(3);
   getFingerprintIDez();
+  delay(50);            //don't ned to run this at full speed.
+
 }
 
 
