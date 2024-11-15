@@ -255,7 +255,7 @@ void postFingerprintTemplate(uint8_t* fp) {
     String postData = "post_fp=" + hexTemplate;
 
     // Send POST request
-    int httpResponseCode = http.POST(postData.c_str()); // Use .c_str() to convert String to const char*
+    int httpResponseCode = http.POST(postData); // Use .c_str() to convert String to const char*
 
     // Handle the response
     if (httpResponseCode > 0) {
