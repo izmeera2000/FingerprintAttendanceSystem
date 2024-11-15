@@ -254,7 +254,7 @@ void postFingerprintTemplate(uint8_t* fp) {
     String postData = "post_fp=" + hexTemplate;
 
     // Send POST request
-    int httpResponseCode = http.POST(postData);
+    int httpResponseCode = http.POST(postData.c_str()); // Use .c_str() to convert String to const char*
 
     // Handle the response
     if (httpResponseCode > 0) {
@@ -270,6 +270,7 @@ void postFingerprintTemplate(uint8_t* fp) {
     Serial.println("WiFi is not connected");
   }
 }
+
 
 
 void printHex(int num, int precision) {
@@ -320,7 +321,7 @@ uint8_t downloadFingerprintTemplate(uint16_t id) {
       return p;
   }
 
-  // one data packet is 267 bytes. in one data packet, 11 bytes are 'usesless' :D
+  // one data packet is 267 bytes. in one data packet, 11 bytes are 'useless' :D
   uint8_t bytesReceived[534];  // 2 data packets
   memset(bytesReceived, 0xff, 534);
 
@@ -347,37 +348,10 @@ uint8_t downloadFingerprintTemplate(uint16_t id) {
   index += 256;                                                // advance pointer
   memcpy(fingerTemplate + index, bytesReceived + uindx, 256);  // second 256 bytes
 
-  postFingerprintTemplate(fingerTemplate[512]);
+  // Pass the entire fingerTemplate array (not just fingerTemplate[512])
+  postFingerprintTemplate(fingerTemplate);
 
   Serial.println("\ndone.");
 
   return p;
-
-  /*
-    uint8_t templateBuffer[256];
-    memset(templateBuffer, 0xff, 256);  //zero out template buffer
-    int index=0;
-    uint32_t starttime = millis();
-    while ((index < 256) && ((millis() - starttime) < 1000))
-    {
-    if (mySerial.available())
-    {
-      templateBuffer[index] = mySerial.read();
-      index++;
-    }
-    }
-
-    Serial.print(index); Serial.println(" bytes read");
-
-    //dump entire templateBuffer.  This prints out 16 lines of 16 bytes
-    for (int count= 0; count < 16; count++)
-    {
-    for (int i = 0; i < 16; i++)
-    {
-      Serial.print("0x");
-      Serial.print(templateBuffer[count*16+i], HEX);
-      Serial.print(", ");
-    }
-    Serial.println();
-    }*/
 }
