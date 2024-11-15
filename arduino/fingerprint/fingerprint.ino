@@ -127,6 +127,38 @@ void loop() {
   digitalWrite(RELAY_PIN, LOW);  // lock the door
   delay(5000);
 
+
+// if object detect for 5 sec continous
+//  it is a door , lock it
+
+//  if already login finger but 10 sec no object detct 
+//  alarm
+
+// if object detect for 5 sec continous but alr login fingerpirnt
+//  cancel
+
+
+// alarm silakan amsuk , bila pintu baru buka 
+
+//alarm kalau ada org tapi 1 fingerprint
+
+//fp x detect , 
+
+
+
+//register fp , dekat fp out 
+
+//fp settings dekat website
+
+
+
+//fp transfer data to another fp
+
+// dobule fp
+//test touchsense 
+
+
+
   // delay(50);  //don't ned to run this at full speed.
 }
 
