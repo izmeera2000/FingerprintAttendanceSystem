@@ -3,7 +3,7 @@
 #include <WiFi.h>
 #include <HTTPClient.h>
 
-const char* ssid = "NoName";
+const char* ssid = "NoName?";
 const char* password = "54548484";
 // Define software serial pins
 #define RX_PIN 18
