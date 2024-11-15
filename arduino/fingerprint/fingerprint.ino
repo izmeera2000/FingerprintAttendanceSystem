@@ -3,8 +3,8 @@
 #include <WiFi.h>
 #include <HTTPClient.h>
 
-const char* ssid = "your_SSID";
-const char* password = "your_PASSWORD";
+const char* ssid = "POCO X6 Pro 5G";
+const char* password = "54548484";
 // Define software serial pins
 #define RX_PIN 18
 #define TX_PIN 5
