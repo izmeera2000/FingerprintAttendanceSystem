@@ -113,11 +113,12 @@ void loop() {
 
 
 
- int sensorValue = analogRead(IR_PIN);
-  float distance = sensorValue / 9.766; //convert sensor value to distance
-  Serial.print("Distance: ");
-  Serial.println(distance);
-  delay(1000);
+  int state = digitalRead(IR_PIN);
+
+  if (state == LOW)
+    Serial.println("The obstacle is present");
+  else
+    Serial.println("The obstacle is NOT present");
 
 
  
