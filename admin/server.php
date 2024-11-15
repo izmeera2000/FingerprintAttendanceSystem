@@ -1959,9 +1959,9 @@ if (isset($_POST['post_fp'])) {
   $results = mysqli_query($db, $query);
 
   if ($results) {
-    echo "ok";
-
-  }else{
+    // echo $query;
+    var_dump($POST);
+  } else {
     echo "not Ok";
   }
 
