@@ -60,9 +60,8 @@ void setup() {
 
 void loop() {
   // getFingerprintEnroll();
-  for (int finger = 1; finger < 10; finger++) {
-    downloadFingerprintTemplate(finger);
-  }
+    downloadFingerprintTemplate(3);
+  
 }
 
 
