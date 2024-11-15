@@ -10,18 +10,18 @@
         </li>
         <li class="sidebar-item">
           <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>attendance/view"
-            aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
-              class="hide-menu">Log View</span></a>
+            aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span class="hide-menu">Log
+              View</span></a>
         </li>
 
         <li class="sidebar-item">
           <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>attendance/slotview"
-            aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
-              class="hide-menu">Slot View</span></a>
+            aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span class="hide-menu">Slot
+              View</span></a>
         </li>
 
 
-<!-- 
+        <!-- 
         <li class="sidebar-item">
           <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>attendance/eventmasuk"
             aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
@@ -38,7 +38,7 @@
 
 
 
-<!-- 
+        <!-- 
 
         <li class="sidebar-item">
           <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>attendance/eventchecktime"
@@ -48,14 +48,14 @@
 
         <li class="sidebar-item">
           <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>attendance/pdf"
-            aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
-              class="hide-menu">Test </span></a>
+            aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span class="hide-menu">Test
+            </span></a>
         </li>
 
         <li class="sidebar-item">
           <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>attendance/pdf2"
-            aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
-              class="hide-menu">Test PDF </span></a>
+            aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span class="hide-menu">Test PDF
+            </span></a>
         </li>
 
 
@@ -64,7 +64,7 @@
           <span class="hide-menu">Manage</span>
         </li>
 
-        
+
         <li class="sidebar-item">
           <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>subjek/create"
             aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
@@ -113,11 +113,11 @@
 
         <li class="sidebar-item">
           <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>fp/create"
-            aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
-              class="hide-menu">Fingerprint Device</span></a>
+            aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span class="hide-menu">Fingerprint
+              Device</span></a>
         </li>
 
-        
+
 
 
 

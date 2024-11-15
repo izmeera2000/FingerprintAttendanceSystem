@@ -40,7 +40,7 @@ void setup() {
 }
 
 void loop() {
-  enrollAndPostFingerprint();
+  enrollFingerprintTemplate();
   delay(5000); // Delay to prevent repeated posting
 
 }
@@ -60,6 +60,7 @@ bool enrollFingerprintTemplate() {
   // Send template data to ESP32 serial buffer
   if (finger.getModel() == FINGERPRINT_OK) {
     Serial.println("Fingerprint template created successfully.");
+    postFingerprintTemplate();
     return true;
   } else {
     Serial.println("Failed to create fingerprint template.");
