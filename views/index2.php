@@ -409,11 +409,10 @@
               <div class="icon">
                 <i class="bi bi-credit-card-2-front" style="color: #df1529;"></i>
               </div>
-              <a href="service-details.html" class="stretched-link">
-                <h3>Asperiores Commodit</h3>
-              </a>
-              <p>Non et temporibus minus omnis sed dolor esse consequatur. Cupiditate sed error ea fuga sit provident
-                adipisci neque.</p>
+              <!-- <a href="service-details.html" class="stretched-link"> -->
+                <h3>User-Friendly Interface</h3>
+              <!-- </a> -->
+              <p>Our system is designed with ease of use in mind, making it simple for administrators and employees alike to navigate and utilize its features.</p>
             </div>
           </div><!-- End Service Item -->
 
@@ -422,11 +421,10 @@
               <div class="icon">
                 <i class="bi bi-globe" style="color: #6610f2;"></i>
               </div>
-              <a href="service-details.html" class="stretched-link">
-                <h3>Velit Doloremque</h3>
-              </a>
-              <p>Cumque et suscipit saepe. Est maiores autem enim facilis ut aut ipsam corporis aut. Sed animi at autem
-                alias eius labore.</p>
+              <!-- <a href="service-details.html" class="stretched-link"> -->
+                <h3>Integration with Existing Systems</h3>
+              <!-- </a> -->
+              <p>Seamlessly integrate our attendance system with your current HR and payroll systems, ensuring smooth data flow and synchronization.</p>
             </div>
           </div><!-- End Service Item -->
 
@@ -435,11 +433,10 @@
               <div class="icon">
                 <i class="bi bi-clock" style="color: #f3268c;"></i>
               </div>
-              <a href="service-details.html" class="stretched-link">
-                <h3>Dolori Architecto</h3>
-              </a>
-              <p>Hic molestias ea quibusdam eos. Fugiat enim doloremque aut neque non et debitis iure. Corrupti
-                recusandae ducimus enim.</p>
+              <!-- <a href="service-details.html" class="stretched-link"> -->
+                <h3>Multi-Device Support</h3>
+              <!-- </a> -->
+              <p>Access and manage attendance data from multiple devices, including desktops, tablets, and smartphones, providing flexibility and convenience.</p>
             </div>
           </div><!-- End Service Item -->
 
