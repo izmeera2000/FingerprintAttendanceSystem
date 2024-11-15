@@ -4,12 +4,17 @@
 #include "DFRobotDFPlayerMini.h"
 #include <Wire.h>
 #include <HTTPClient.h>
+#include <HardwareSerial.h>
+
 
 const char* ssid = "NoName?";
 const char* password = "54548484";
 // Define software serial pins
 #define RX_PIN 18
 #define TX_PIN 5
+
+#define RXfp1_PIN 16
+#define TXfp1_PIN 17
 
 #define RX2_PIN 12
 #define TX2_PIN 14
@@ -19,6 +24,7 @@ const char* password = "54548484";
 
 
 // Create SoftwareSerial object
+HardwareSerial mySerialfp(2);  // Use UART2 (index 2)
 SoftwareSerial mySerial(RX_PIN, TX_PIN);
 SoftwareSerial DFPSerial(RX2_PIN, TX2_PIN);
 
@@ -26,6 +32,7 @@ SoftwareSerial DFPSerial(RX2_PIN, TX2_PIN);
 DFRobotDFPlayerMini player;
 
 Adafruit_Fingerprint finger = Adafruit_Fingerprint(&mySerial);
+Adafruit_Fingerprint finger2 = Adafruit_Fingerprint(&mySerialfp);
 
 int loginmode = 1;
 
@@ -33,6 +40,7 @@ void setup() {
   Serial.begin(115200);
   mySerial.begin(57600);
   DFPSerial.begin(9600);
+  mySerialfp.begin(9600, SERIAL_8N1, RXfp1_PIN, TXfp1_PIN);  // 9600 is the baud rate for most fingerprint sensors
 
   // Wait for serial to initialize
   while (!Serial)
@@ -156,6 +164,9 @@ void loop() {
 
 // dobule fp
 //test touchsense 
+
+
+
 
 
 
