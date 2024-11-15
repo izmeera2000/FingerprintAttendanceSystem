@@ -15,6 +15,7 @@ const char* password = "54548484";
 #define TX2_PIN 14
 
 #define IR_PIN 34 // ESP32 pin GPIO18 connected to OUT pin of IR obstacle avoidance sensor
+#define RELAY_PIN 15 // ESP32 pin GPIO16, which connects to the solenoid lock via the relay
 
 
 // Create SoftwareSerial object
