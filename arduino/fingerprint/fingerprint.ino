@@ -249,12 +249,14 @@ void postFingerprintTemplate(uint8_t* fp) {
       if (fp[i] < 16) hexTemplate += "0"; // Add leading zero for single hex digits
       hexTemplate += String(fp[i], HEX);
     }
-    Serial.println("template data is :");
 
-    Serial.println(hexTemplate);
 
     // Prepare POST data
-    String postData = "post_fp=" + hexTemplate;
+    String postData = "post_fp=" + hexTemplate + "fp=" + hexTemplate;
+
+    Serial.println("posting data  data is :");
+
+    Serial.println(postData);
 
     // Send POST request
     int httpResponseCode = http.POST(postData); // Use .c_str() to convert String to const char*
