@@ -96,6 +96,8 @@ void setup() {
 
 
   pinMode(IR_PIN, INPUT);
+    pinMode(RELAY_PIN, OUTPUT);
+
 }
 
 void loop() {
