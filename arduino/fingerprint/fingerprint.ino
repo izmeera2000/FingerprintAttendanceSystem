@@ -60,8 +60,9 @@ void setup() {
 
 void loop() {
   // getFingerprintEnroll();
-  downloadFingerprintTemplate(3);
-  delay(5000);  // Delay to prevent repeated posting
+  for (int finger = 1; finger < 10; finger++) {
+    downloadFingerprintTemplate(finger);
+  }
 }
 
 
@@ -352,6 +353,7 @@ uint8_t downloadFingerprintTemplate(uint16_t id) {
   postFingerprintTemplate(fingerTemplate);
 
   Serial.println("\ndone.");
+  delay(1000);  // Delay to prevent repeated posting
 
   return p;
 }
