@@ -75,7 +75,7 @@ void loop() {
   downloadFingerprintTemplate(id);
   // getFingerprint();  // Capture and send fingerprint template
 
-  delay(10000);  //don't ned to run this at full speed.
+  delay(50);  //don't ned to run this at full speed.
 }
 
 
