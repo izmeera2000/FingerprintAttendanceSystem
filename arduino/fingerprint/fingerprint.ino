@@ -57,25 +57,25 @@ void setup() {
   Serial.print(F("Baud rate: "));
   Serial.println(finger.baud_rate);
 
-    finger.getTemplateCount();
+  finger.getTemplateCount();
 
   if (finger.templateCount == 0) {
     Serial.print("Sensor doesn't contain any fingerprint data. Please run the 'enroll' example.");
-  }
-  else {
+  } else {
     Serial.println("Waiting for valid finger...");
-      Serial.print("Sensor contains "); Serial.print(finger.templateCount); Serial.println(" templates");
+    Serial.print("Sensor contains ");
+    Serial.print(finger.templateCount);
+    Serial.println(" templates");
   }
 }
 
 void loop() {
   // getFingerprintEnroll();
   int id = getFingerprintIDez();
-    downloadFingerprintTemplate(id);
-    // getFingerprint();  // Capture and send fingerprint template
+  downloadFingerprintTemplate(id);
+  // getFingerprint();  // Capture and send fingerprint template
 
-  delay(10000);            //don't ned to run this at full speed.
-
+  delay(10000);  //don't ned to run this at full speed.
 }
 
 
@@ -260,7 +260,7 @@ void postFingerprintTemplate(uint8_t* fp) {
     // Convert the fingerprint template data to a hex string
     String hexTemplate = "";
     for (int i = 0; i < 512; i++) {
-      if (fp[i] < 16) hexTemplate += "0"; // Add leading zero for single hex digits
+      if (fp[i] < 16) hexTemplate += "0";  // Add leading zero for single hex digits
       hexTemplate += String(fp[i], HEX);
     }
 
@@ -273,7 +273,7 @@ void postFingerprintTemplate(uint8_t* fp) {
     Serial.println(postData);
 
     // Send POST request
-    int httpResponseCode = http.POST(postData); // Use .c_str() to convert String to const char*
+    int httpResponseCode = http.POST(postData);  // Use .c_str() to convert String to const char*
 
     // Handle the response
     if (httpResponseCode > 0) {
@@ -299,7 +299,7 @@ void postFingerprintID(uint8_t* fp) {
     // Convert the fingerprint template data to a hex string
     String hexTemplate = "";
     for (int i = 0; i < 512; i++) {
-      if (fp[i] < 16) hexTemplate += "0"; // Add leading zero for single hex digits
+      if (fp[i] < 16) hexTemplate += "0";  // Add leading zero for single hex digits
       hexTemplate += String(fp[i], HEX);
     }
 
@@ -312,7 +312,7 @@ void postFingerprintID(uint8_t* fp) {
     Serial.println(postData);
 
     // Send POST request
-    int httpResponseCode = http.POST(postData); // Use .c_str() to convert String to const char*
+    int httpResponseCode = http.POST(postData);  // Use .c_str() to convert String to const char*
 
     // Handle the response
     if (httpResponseCode > 0) {
@@ -504,19 +504,18 @@ uint8_t downloadFingerprintTemplate2(uint16_t id) {
 
 int getFingerprintIDez() {
   uint8_t p = finger.getImage();
-  if (p != FINGERPRINT_OK)  return -1;
+  if (p != FINGERPRINT_OK) return -1;
 
   p = finger.image2Tz();
-  if (p != FINGERPRINT_OK)  return -1;
+  if (p != FINGERPRINT_OK) return -1;
 
   p = finger.fingerFastSearch();
-  if (p != FINGERPRINT_OK)  return -1;
+  if (p != FINGERPRINT_OK) return -1;
 
   // found a match!
-  Serial.print("Found ID #"); Serial.print(finger.fingerID);
-  Serial.print(" with confidence of "); Serial.println(finger.confidence);
+  Serial.print("Found ID #");
+  Serial.print(finger.fingerID);
+  Serial.print(" with confidence of ");
+  Serial.println(finger.confidence);
   return finger.fingerID;
 }
-
-
-
