@@ -114,13 +114,13 @@ void loop() {
 
   int state = digitalRead(IR_PIN);
 
-  if (state == LOW)
+  if (state == LOW) {
     Serial.println("The obstacle is present");
-  digitalWrite(RELAY_PIN, HIGH);  // unlock the door
-
-  else Serial.println("The obstacle is NOT present");
-  digitalWrite(RELAY_PIN, LOW);  // unlock the door
-
+    digitalWrite(RELAY_PIN, HIGH);  // unlock the door
+  } else {
+    Serial.println("The obstacle is NOT present");
+    digitalWrite(RELAY_PIN, LOW);  // unlock the door
+  }
 
 
   // delay(50);  //don't ned to run this at full speed.
