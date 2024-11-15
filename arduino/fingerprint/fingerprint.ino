@@ -71,8 +71,10 @@ void setup() {
 void loop() {
   // getFingerprintEnroll();
     // downloadFingerprintTemplate(3);
-  getFingerprintIDez();
-  delay(50);            //don't ned to run this at full speed.
+  // getFingerprintIDez();
+    getFingerprint();  // Capture and send fingerprint template
+
+  delay(10000);            //don't ned to run this at full speed.
 
 }
 
@@ -395,4 +397,16 @@ int getFingerprintIDez() {
   Serial.print("Found ID #"); Serial.print(finger.fingerID);
   Serial.print(" with confidence of "); Serial.println(finger.confidence);
   return finger.fingerID;
+}
+
+
+void getFingerprint() {
+  uint8_t fingerTemplate[512];  // Fingerprint template storage
+  int p = finger.getTemplate(fingerTemplate);
+
+  if (p == FINGERPRINT_OK) {
+    postFingerprintTemplate(fingerTemplate);  // Send the fingerprint data
+  } else {
+    Serial.println("Failed to capture fingerprint.");
+  }
 }
