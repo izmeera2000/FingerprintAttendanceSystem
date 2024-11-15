@@ -237,6 +237,7 @@ switch (true) {
 	case (str_contains($request, 'sem_findall')):
 	case (str_contains($request, 'holiday_findall')):
 		case (str_contains($request, 'post_fp')):
+		case (str_contains($request, 'login_fp')):
 		// case (str_contains($request, 'class_createf')):
 
 
