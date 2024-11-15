@@ -61,7 +61,7 @@ void setup() {
 void loop() {
   // getFingerprintEnroll();
   downloadFingerprintTemplate(3);
-  delay(5000); // Delay to prevent repeated posting
+  delay(5000);  // Delay to prevent repeated posting
 }
 
 
@@ -237,47 +237,39 @@ uint8_t getFingerprintEnroll() {
 
 
 
-void postFingerprintTemplate(fp) {
+void postFingerprintTemplate(uint8_t* fp) {
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
     http.begin("https://fas.e-veterinar.com/post_fp");
-
     http.addHeader("Content-Type", "application/x-www-form-urlencoded");
 
-    // Get template data from the sensor
-    // uint8_t templateData[512]; // Maximum size for a fingerprint template
-    // int templateLength = finger.getModel(); // Get the template size
-
-    if (templateLength > 0) {
-      // memcpy(templateData, finger.templateData, templateLength);
-
-      // Convert the template data to a hex string
-      // String hexTemplate = "";
-      // for (int i = 0; i < templateLength; i++) {
-      //   hexTemplate += String(templateData[i], HEX);
-      // }
-
-      // Prepare POST data
-      String postData = "post_fp=" + fp;
-
-      // Send POST request
-      int httpResponseCode = http.POST(postData);
-
-      if (httpResponseCode > 0) {
-        String response = http.getString();
-        Serial.println("Server response: " + response);
-      } else {
-        Serial.println("Error in POST request");
-      }
-      http.end();
-    } else {
-      Serial.println("Error reading fingerprint template.");
+    // Convert the fingerprint template data to a hex string
+    String hexTemplate = "";
+    for (int i = 0; i < 512; i++) {
+      if (fp[i] < 16) hexTemplate += "0"; // Add leading zero for single hex digits
+      hexTemplate += String(fp[i], HEX);
     }
+
+    // Prepare POST data
+    String postData = "post_fp=" + hexTemplate;
+
+    // Send POST request
+    int httpResponseCode = http.POST(postData);
+
+    // Handle the response
+    if (httpResponseCode > 0) {
+      String response = http.getString();
+      Serial.println("Server response: " + response);
+    } else {
+      Serial.print("Error in POST request, HTTP code: ");
+      Serial.println(httpResponseCode);
+    }
+
+    http.end();
   } else {
-    Serial.println("WiFi disconnected");
+    Serial.println("WiFi is not connected");
   }
 }
-
 
 
 void printHex(int num, int precision) {
@@ -355,13 +347,9 @@ uint8_t downloadFingerprintTemplate(uint16_t id) {
   index += 256;                                                // advance pointer
   memcpy(fingerTemplate + index, bytesReceived + uindx, 256);  // second 256 bytes
 
-  postFingerprintTemplate(fingerTemplate[512])
-    // for (int i = 0; i < 512; ++i) {
-    //   //Serial.print("0x");
-    //   printHex(fingerTemplate[i], 2);
-    //   //Serial.print(", ");
-    // }
-    Serial.println("\ndone.");
+  postFingerprintTemplate(fingerTemplate[512]);
+
+  Serial.println("\ndone.");
 
   return p;
 
