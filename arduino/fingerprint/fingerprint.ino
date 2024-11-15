@@ -1,6 +1,8 @@
 #include <Adafruit_Fingerprint.h>
 #include <SoftwareSerial.h>
 #include <WiFi.h>
+#include "DFRobotDFPlayerMini.h"
+
 #include <HTTPClient.h>
 
 const char* ssid = "NoName?";
@@ -9,15 +11,24 @@ const char* password = "54548484";
 #define RX_PIN 18
 #define TX_PIN 5
 
+#define RX2_PIN 12
+#define TX2_PIN 14
+
 // Create SoftwareSerial object
 SoftwareSerial mySerial(RX_PIN, TX_PIN);
+SoftwareSerial DFPSerial(RX2_PIN, TX2_PIN);
 
 // Initialize the fingerprint sensor
+DFRobotDFPlayerMini player;
+
 Adafruit_Fingerprint finger = Adafruit_Fingerprint(&mySerial);
+
+int loginmode = 1;
 
 void setup() {
   Serial.begin(115200);
   mySerial.begin(57600);
+  DFPSerial.begin(9600);
 
   // Wait for serial to initialize
   while (!Serial)
@@ -38,6 +49,17 @@ void setup() {
     Serial.println("Fingerprint sensor not detected!");
     while (1)
       ;
+  }
+
+  if (player.begin(softwareSerial)) {
+    Serial.println("OK");
+
+    // Set volume to maximum (0 to 30).
+    player.volume(20);
+    // Play the first MP3 file on the SD card
+    player.play(1);
+  } else {
+    Serial.println("Connecting to DFPlayer Mini failed!");
   }
 
   Serial.println(F("Reading sensor parameters"));
@@ -67,8 +89,6 @@ void setup() {
     Serial.print(finger.templateCount);
     Serial.println(" templates");
   }
-
-
 }
 
 void loop() {
@@ -76,10 +96,15 @@ void loop() {
 
   // getFingerprintEnroll();
 
-  int id = getFingerprintIDez();
-  downloadFingerprintTemplate2(id);
+  if (loginmode) {
+    int id = getFingerprintIDez();
+    downloadFingerprintTemplate2(id);
+  } else {
+    downloadFingerprintTemplate(3);
+  }
 
-  // downloadFingerprintTemplate(3);
+
+
 
 
 
