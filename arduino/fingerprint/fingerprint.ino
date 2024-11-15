@@ -72,7 +72,7 @@ void setup() {
 void loop() {
   // getFingerprintEnroll();
   int id = getFingerprintIDez();
-  downloadFingerprintTemplate(id);
+  downloadFingerprintTemplate2(id);
   // getFingerprint();  // Capture and send fingerprint template
 
   delay(50);  //don't ned to run this at full speed.
