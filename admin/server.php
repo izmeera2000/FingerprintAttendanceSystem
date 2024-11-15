@@ -1977,11 +1977,12 @@ if (isset($_POST['login_fp'])) {
   $results = mysqli_query($db, $query);
   while ($row = mysqli_fetch_assoc($results)) {
     $id = $row['id'];
+    echo $id;
+
   }
   if ($results) {
     // echo "data posted:";
     // var_dump($_POST);
-    echo $id;
   } else {
     echo "not Ok";
   }
