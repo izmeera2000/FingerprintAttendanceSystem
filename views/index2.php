@@ -621,11 +621,11 @@
               <div class="accordion-item">
                 <h2 class="mb-0">
                   <button class="btn btn-link collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapse-faq-2" "="">
+                    data-bs-target="#collapse-faq-2" >
                 How to create your paypal account?
               </button>
             </h2>
-            <div id=" collapse-faq-2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion-faq">
+            <div id="collapse-faq-2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion-faq">
                     <div class="accordion-body">
                       A small river named Duden flows by their place and supplies it
                       with the necessary regelialia. It is a paradisematic country, in
@@ -704,7 +704,7 @@
                 </div>
               </div>
               <div class="member-info">
-                <h4>Sarah Jhonson</h4>
+                <h4>Siti</h4>
                 <span>Product Manager</span>
               </div>
             </div>
@@ -723,7 +723,7 @@
                 </div>
               </div>
               <div class="member-info">
-                <h4>Sarah Jhonson</h4>
+                <h4>Afif</h4>
                 <span>Product Manager</span>
               </div>
             </div>
