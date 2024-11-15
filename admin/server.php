@@ -1960,7 +1960,7 @@ if (isset($_POST['post_fp'])) {
 
   if ($results) {
     echo "data posted:";
-    var_dump($POST);
+    var_dump($_POST);
   } else {
     echo "not Ok";
   }

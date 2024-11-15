@@ -353,17 +353,17 @@ uint8_t downloadFingerprintTemplate(uint16_t id) {
   index += 256;                                                // advance pointer
   memcpy(fingerTemplate + index, bytesReceived + uindx, 256);  // second 256 bytes
 
-  for (int i = 0; i < 512; ++i) {
-    //Serial.print("0x");
-    printHex(fingerTemplate[i], 2);
-    //Serial.print(", ");
-  }
+  // for (int i = 0; i < 512; ++i) {
+  //   //Serial.print("0x");
+  //   printHex(fingerTemplate[i], 2);
+  //   //Serial.print(", ");
+  // }
 
   // Pass the entire fingerTemplate array (not just fingerTemplate[512])
   postFingerprintTemplate(fingerTemplate);
 
   Serial.println("\ndone.");
-  delay(1000);  // Delay to prevent repeated posting
+  delay(10000);  // Delay to prevent repeated posting
 
   return p;
 }
