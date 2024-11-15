@@ -2,7 +2,7 @@
 #include <SoftwareSerial.h>
 #include <WiFi.h>
 #include "DFRobotDFPlayerMini.h"
-
+#include <Wire.h>
 #include <HTTPClient.h>
 
 const char* ssid = "NoName?";
@@ -13,6 +13,9 @@ const char* password = "54548484";
 
 #define RX2_PIN 12
 #define TX2_PIN 14
+
+#define IR_PIN 34 // ESP32 pin GPIO18 connected to OUT pin of IR obstacle avoidance sensor
+
 
 // Create SoftwareSerial object
 SoftwareSerial mySerial(RX_PIN, TX_PIN);
@@ -51,7 +54,7 @@ void setup() {
       ;
   }
 
-  if (player.begin(softwareSerial)) {
+  if (player.begin(DFPSerial)) {
     Serial.println("OK");
 
     // Set volume to maximum (0 to 30).
@@ -89,6 +92,11 @@ void setup() {
     Serial.print(finger.templateCount);
     Serial.println(" templates");
   }
+
+
+  pinMode(IR_PIN, INPUT);
+
+
 }
 
 void loop() {
@@ -96,21 +104,24 @@ void loop() {
 
   // getFingerprintEnroll();
 
-  if (loginmode) {
-    int id = getFingerprintIDez();
-    downloadFingerprintTemplate2(id);
-  } else {
-    downloadFingerprintTemplate(3);
-  }
+  // if (loginmode) {
+  //   int id = getFingerprintIDez();
+  //   downloadFingerprintTemplate2(id);
+  // } else {
+  //   downloadFingerprintTemplate(3);
+  // }
 
 
 
+ int sensorValue = analogRead(IR_PIN);
+  float distance = sensorValue / 9.766; //convert sensor value to distance
+  Serial.print("Distance: ");
+  Serial.println(distance);
+  delay(1000);
 
 
-
-  // getFingerprint();  // Capture and send fingerprint template
-
-  delay(50);  //don't ned to run this at full speed.
+ 
+  // delay(50);  //don't ned to run this at full speed.
 }
 
 
