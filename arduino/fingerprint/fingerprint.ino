@@ -131,7 +131,7 @@ void loop() {
   }
 
 
-  void registermode = getFingerprintmode(fp_name_out);
+  String registermode = getFingerprintmode(fp_name_out);
 
   if (registermode == "0") {
     int test = getFingerprintEnroll(4);
@@ -659,7 +659,7 @@ void uploadFingerprintToSensor(Adafruit_Fingerprint& sourceSensor, Adafruit_Fing
 }
 
 
-void getFingerprintmode(String fp_name) {
+String getFingerprintmode(String fp_name) {
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
     http.begin("https://fast.e-veterinar.com/fp_mode");
