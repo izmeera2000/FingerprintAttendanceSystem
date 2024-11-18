@@ -44,7 +44,7 @@ void setup() {
   Serial.begin(115200);
   mySerial.begin(57600);
   DFPSerial.begin(9600);
-  mySerialfp.begin(57600, SERIAL_8N1, RXfp1_PIN, TXfp1_PIN);   
+  mySerialfp.begin(57600, SERIAL_8N1, RXfp1_PIN, TXfp1_PIN);
 
   // Wait for serial to initialize
   while (!Serial)
@@ -67,7 +67,7 @@ void setup() {
       ;
   }
 
-    if (finger.verifyPassword()) {
+  if (finger.verifyPassword()) {
     Serial.println("Fingerprint hrdwr detected!");
   } else {
     Serial.println("Fingerprint hrdwr sensor not detected!");
@@ -114,12 +114,12 @@ void setup() {
     Serial.println(" templates");
   }
 
-  getFingerprintmode(fp_name_out);
+
 
 
   pinMode(IR_PIN, INPUT);
   pinMode(RELAY_PIN, OUTPUT);
-    pinMode(TOUCH1, INPUT);
+  pinMode(TOUCH1, INPUT);
   pinMode(TOUCH2, INPUT);
 }
 
@@ -130,10 +130,16 @@ void loop() {
     Serial.println("TOUCH SENSOR 1");
   }
 
- int test = getFingerprintEnroll(4);
-  if (test){
-    downloadFingerprintTemplate(4);
+
+  int registermode = getFingerprintmode(fp_name_out);
+
+  if (!registermode) {
+    int test = getFingerprintEnroll(4);
+    if (test) {
+      downloadFingerprintTemplate(4);
+    }
   }
+
 
   // if (loginmode) {
   //   int id = getFingerprintIDez();
@@ -159,34 +165,34 @@ void loop() {
   // delay(5000);
 
 
-// if object detect for 5 sec continous
-//  it is a door , lock it
+  // if object detect for 5 sec continous
+  //  it is a door , lock it
 
-//  if already login finger but 10 sec no object detct 
-//  alarm
+  //  if already login finger but 10 sec no object detct
+  //  alarm
 
-// if object detect for 5 sec continous but alr login fingerpirnt
-//  cancel
-
-
-// alarm silakan amsuk , bila pintu baru buka 
-
-//alarm kalau ada org tapi 1 fingerprint
-
-//fp x detect , 
+  // if object detect for 5 sec continous but alr login fingerpirnt
+  //  cancel
 
 
+  // alarm silakan amsuk , bila pintu baru buka
 
-//register fp , dekat fp out 
+  //alarm kalau ada org tapi 1 fingerprint
 
-//fp settings dekat website
+  //fp x detect ,
 
 
 
-//fp transfer data to another fp
+  //register fp , dekat fp out
 
-// dobule fp
-//test touchsense 
+  //fp settings dekat website
+
+
+
+  //fp transfer data to another fp
+
+  // dobule fp
+  //test touchsense
 
 
 
@@ -198,7 +204,7 @@ void loop() {
 
 
 uint8_t getFingerprintEnroll(int id) {
-   int p = -1;
+  int p = -1;
   Serial.print("Waiting for valid finger to enroll as #");
   Serial.println(id);
   while (p != FINGERPRINT_OK) {
@@ -635,7 +641,7 @@ int getFingerprintIDez() {
 
 
 
-void uploadFingerprintToSensor(Adafruit_Fingerprint &sourceSensor, Adafruit_Fingerprint &targetSensor, int id) {
+void uploadFingerprintToSensor(Adafruit_Fingerprint& sourceSensor, Adafruit_Fingerprint& targetSensor, int id) {
   uint8_t p = sourceSensor.loadModel(id);  // Load model from source sensor (id = 1)
   if (p == FINGERPRINT_OK) {
     Serial.println("Fingerprint model loaded from Sensor 1");
@@ -675,10 +681,10 @@ void getFingerprintmode(String fp_name) {
     // Handle the response
     if (httpResponseCode > 0) {
       String response = http.getString();
-    Serial.println("response  data is :");
+      Serial.println("response  data is :");
 
       Serial.println(response);
-    Serial.println("thats all");
+      Serial.println("thats all");
 
     } else {
       Serial.print("Error in POST request, HTTP code: ");
