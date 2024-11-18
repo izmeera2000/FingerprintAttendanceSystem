@@ -685,7 +685,7 @@ int getFingerprintmode(String fp_name) {
 
       Serial.println(response);
       Serial.println("thats all");
-      return response;
+      return toInt(response);
     } else {
       Serial.print("Error in POST request, HTTP code: ");
       Serial.println(httpResponseCode);
