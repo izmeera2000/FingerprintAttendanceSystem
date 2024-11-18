@@ -11,7 +11,7 @@
         <input type="text" id="name" name="fp_name" required><br><br>
         <!-- <label for="email">fp:</label>
         <input type="email" id="fp" name="fp" required><br><br> -->
-        <input type="submit" value="Submit" name="post_fp">
+        <input type="submit" value="Submit" name="fp_mode">
     </form>
 </body>
 </html>
