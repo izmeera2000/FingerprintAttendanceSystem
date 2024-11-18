@@ -2002,7 +2002,11 @@ if (isset($_POST['fp_mode'])) {
 
   }
 
-  echo $mode;
+  if ($results) {
+    echo $mode;
+   } else {
+    echo "not Ok";
+  }
 
 
 }

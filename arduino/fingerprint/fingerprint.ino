@@ -9,7 +9,8 @@
 
 const char* ssid = "NoName?";
 const char* password = "54548484";
-const char* fp_name = "testout";
+const char* fp_name_in = "testin";
+const char* fp_name_out = "testout";
 // Define software serial pins
 #define RX_PIN 18
 #define TX_PIN 5
@@ -111,7 +112,7 @@ void setup() {
     Serial.println(" templates");
   }
 
-  getFingerprintmode(fp_name);
+  getFingerprintmode(fp_name_out);
 
 
   pinMode(IR_PIN, INPUT);
