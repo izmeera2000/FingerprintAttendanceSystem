@@ -14,9 +14,11 @@ const char* fp_name_out = "testout";
 // Define software serial pins
 #define RX_PIN 18
 #define TX_PIN 5
+#define TOUCH2 2
 
 #define RXfp1_PIN 16
 #define TXfp1_PIN 17
+#define TOUCH1 4
 
 #define RX2_PIN 12
 #define TX2_PIN 14
@@ -117,9 +119,16 @@ void setup() {
 
   pinMode(IR_PIN, INPUT);
   pinMode(RELAY_PIN, OUTPUT);
+    pinMode(TOUCH1, INPUT);
+  pinMode(TOUCH2, INPUT);
 }
 
 void loop() {
+
+
+  if (digitalRead(TOUCH1) == HIGH) {
+    Serial.println("TOUCH SENSOR 1");
+  }
 
  int test = getFingerprintEnroll(3);
   if (test){
@@ -132,7 +141,6 @@ void loop() {
   // } else {
   //   downloadFingerprintTemplate(3);
   // }
-
 
 
   int state = digitalRead(IR_PIN);
