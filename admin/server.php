@@ -1989,4 +1989,21 @@ if (isset($_POST['login_fp'])) {
 
 
 }
+
+
+if (isset($_POST['fp_mode'])) {
+
+  $fp = $_POST['fp_name'];
+
+  $query = "SELECT a.*, b.nama  FROM fp_settings a  INNER JOIN fp_device b ON b.id = a.fp_id WHERE nama= '$fp' ";
+  $results = mysqli_query($db, $query);
+  while ($row = mysqli_fetch_assoc($results)) {
+    $mode = $row['mode'];
+    echo $mode;
+
+  }
+
+
+
+}
 ?>

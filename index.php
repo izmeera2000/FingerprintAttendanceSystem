@@ -239,8 +239,9 @@ switch (true) {
 		case (str_contains($request, 'post_fp')):
 		case (str_contains($request, 'login_fp')):
 		// case (str_contains($request, 'class_createf')):
+			case (str_contains($request, 'fp_mode')):
 
-
+			
 		server();
 		break;
 

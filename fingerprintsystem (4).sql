@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 15, 2024 at 06:45 AM
+-- Generation Time: Nov 18, 2024 at 03:23 PM
 -- Server version: 8.3.0
 -- PHP Version: 8.2.18
 
@@ -190,6 +190,29 @@ INSERT INTO `fp_device` (`id`, `nama`, `entrance`, `time_add`, `time_edit`) VALU
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `fp_settings`
+--
+
+DROP TABLE IF EXISTS `fp_settings`;
+CREATE TABLE IF NOT EXISTS `fp_settings` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `fp_id` int NOT NULL,
+  `mode` int NOT NULL,
+  `time_add` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `time_edit` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `fp_settings`
+--
+
+INSERT INTO `fp_settings` (`id`, `fp_id`, `mode`, `time_add`, `time_edit`) VALUES
+(1, 2, 0, '2024-11-18 23:05:43', '2024-11-18 23:05:43');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `holiday`
 --
 
@@ -360,7 +383,7 @@ INSERT INTO `user` (`id`, `role`, `ndp`, `nama`, `email`, `phone`, `kp`, `jantin
 (6, 4, 12312321, 'Izmeer Aiman', 'izmeera2000@gmail.com', 123213213, 21321312, '0', 'Lain-lain', 'Tidak Berkahwin', 'asdasd', 'gambar.png', 'a8f5f167f44f4964e6c998dee827110c', NULL, '2024-08-28 14:58:58', '2024-08-28 14:58:58'),
 (7, 1, NULL, 'Izmeer Aiman', 'aa@gmail.com', 51511, 21321321, '0', 'Lain-lain', 'Tidak Berkahwin', 'asdasd', 'gambar.png', 'a8f5f167f44f4964e6c998dee827110c', NULL, '2024-08-28 14:58:58', '2024-08-28 14:58:58'),
 (18, 4, 12312322, 'Izmeer Aiman', 'asddasdsa2@gmail.com', 1232132132, 213213122, '0', 'Lain-lain', 'Tidak Berkahwin', 'asdasd', 'gambar.png', 'a8f5f167f44f4964e6c998dee827110c', NULL, '2024-08-28 14:58:58', '2024-08-28 14:58:58'),
-(21, 4, 511, '5151', 'morax8000@gmail.com', 5151, 5151, '0', 'Islam', 'Tidak Berkahwin', 'asdasd', 'gambar.png', '717d8b3d60d9eea997b35b02b6a4e867', NULL, '2024-09-02 20:03:02', '2024-09-02 20:03:02');
+(21, 4, 511, '5151', 'morax8000@gmail.com', 5151, 5151, '0', 'Islam', 'Tidak Berkahwin', 'asdasd', 'gambar.png', '717d8b3d60d9eea997b35b02b6a4e867', 'R', '2024-09-02 20:03:02', '2024-09-02 20:03:02');
 
 -- --------------------------------------------------------
 
