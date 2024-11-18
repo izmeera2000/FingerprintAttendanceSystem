@@ -31,8 +31,8 @@ SoftwareSerial DFPSerial(RX2_PIN, TX2_PIN);
 // Initialize the fingerprint sensor
 DFRobotDFPlayerMini player;
 
-Adafruit_Fingerprint finger = Adafruit_Fingerprint(&mySerial);
-Adafruit_Fingerprint finger2 = Adafruit_Fingerprint(&mySerialfp);
+Adafruit_Fingerprint finger2 = Adafruit_Fingerprint(&mySerial);
+Adafruit_Fingerprint finger = Adafruit_Fingerprint(&mySerialfp);
 
 int loginmode = 1;
 
@@ -40,7 +40,7 @@ void setup() {
   Serial.begin(115200);
   mySerial.begin(57600);
   DFPSerial.begin(9600);
-  mySerialfp.begin(9600, SERIAL_8N1, RXfp1_PIN, TXfp1_PIN);  // 9600 is the baud rate for most fingerprint sensors
+  mySerialfp.begin(57600, SERIAL_8N1, RXfp1_PIN, TXfp1_PIN);   
 
   // Wait for serial to initialize
   while (!Serial)
@@ -55,10 +55,18 @@ void setup() {
 
 
   // Initialize the fingerprint sensor
-  if (finger.verifyPassword()) {
-    Serial.println("Fingerprint sensor detected!");
+  if (finger2.verifyPassword()) {
+    Serial.println("Fingerprint sftwr sensor detected!");
   } else {
-    Serial.println("Fingerprint sensor not detected!");
+    Serial.println("Fingerprint sftwr sensor not detected!");
+    while (1)
+      ;
+  }
+
+    if (finger.verifyPassword()) {
+    Serial.println("Fingerprint hrdwr detected!");
+  } else {
+    Serial.println("Fingerprint hrdwr sensor not detected!");
     while (1)
       ;
   }
@@ -67,29 +75,29 @@ void setup() {
     Serial.println("OK");
 
     // Set volume to maximum (0 to 30).
-    player.volume(20);
+    player.volume(10);
     // Play the first MP3 file on the SD card
     player.play(1);
   } else {
     Serial.println("Connecting to DFPlayer Mini failed!");
   }
 
-  Serial.println(F("Reading sensor parameters"));
-  finger.getParameters();
-  Serial.print(F("Status: 0x"));
-  Serial.println(finger.status_reg, HEX);
-  Serial.print(F("Sys ID: 0x"));
-  Serial.println(finger.system_id, HEX);
-  Serial.print(F("Capacity: "));
-  Serial.println(finger.capacity);
-  Serial.print(F("Security level: "));
-  Serial.println(finger.security_level);
-  Serial.print(F("Device address: "));
-  Serial.println(finger.device_addr, HEX);
-  Serial.print(F("Packet len: "));
-  Serial.println(finger.packet_len);
-  Serial.print(F("Baud rate: "));
-  Serial.println(finger.baud_rate);
+  // Serial.println(F("Reading sensor parameters"));
+  // finger.getParameters();
+  // Serial.print(F("Status: 0x"));
+  // Serial.println(finger.status_reg, HEX);
+  // Serial.print(F("Sys ID: 0x"));
+  // Serial.println(finger.system_id, HEX);
+  // Serial.print(F("Capacity: "));
+  // Serial.println(finger.capacity);
+  // Serial.print(F("Security level: "));
+  // Serial.println(finger.security_level);
+  // Serial.print(F("Device address: "));
+  // Serial.println(finger.device_addr, HEX);
+  // Serial.print(F("Packet len: "));
+  // Serial.println(finger.packet_len);
+  // Serial.print(F("Baud rate: "));
+  // Serial.println(finger.baud_rate);
 
   finger.getTemplateCount();
 
@@ -109,8 +117,10 @@ void setup() {
 
 void loop() {
 
-
-  // getFingerprintEnroll();
+ int test = getFingerprintEnroll(3);
+  if (test){
+    downloadFingerprintTemplate(3);
+  }
 
   // if (loginmode) {
   //   int id = getFingerprintIDez();
@@ -121,19 +131,20 @@ void loop() {
 
 
 
-  // int state = digitalRead(IR_PIN);
+  int state = digitalRead(IR_PIN);
 
-  // if (state == LOW) {
-  //   Serial.println("The obstacle is present");
-  //   digitalWrite(RELAY_PIN, HIGH);  // unlock the door
-  // } else {
-  //   Serial.println("The obstacle is NOT present");
-  //   digitalWrite(RELAY_PIN, LOW);  // unlock the door
-  // }
-  digitalWrite(RELAY_PIN, HIGH);  // unlock the door
-  delay(5000);
-  digitalWrite(RELAY_PIN, LOW);  // lock the door
-  delay(5000);
+  if (state == LOW) {
+    Serial.println("The obstacle is present");
+    digitalWrite(RELAY_PIN, HIGH);  // unlock the door
+  } else {
+    Serial.println("The obstacle is NOT present");
+    digitalWrite(RELAY_PIN, LOW);  // unlock the door
+  }
+
+  // digitalWrite(RELAY_PIN, HIGH);  // unlock the door
+  // delay(5000);
+  // digitalWrite(RELAY_PIN, LOW);  // lock the door
+  // delay(5000);
 
 
 // if object detect for 5 sec continous
@@ -174,9 +185,8 @@ void loop() {
 }
 
 
-uint8_t getFingerprintEnroll() {
-  int id = 3;
-  int p = -1;
+uint8_t getFingerprintEnroll(int id) {
+   int p = -1;
   Serial.print("Waiting for valid finger to enroll as #");
   Serial.println(id);
   while (p != FINGERPRINT_OK) {
@@ -315,6 +325,7 @@ uint8_t getFingerprintEnroll() {
     Serial.println("Unknown error");
     return p;
   }
+  uploadFingerprintToSensor(finger, finger2, id);
 
   return true;
 }
@@ -581,11 +592,6 @@ uint8_t downloadFingerprintTemplate2(uint16_t id) {
   index += 256;                                                // advance pointer
   memcpy(fingerTemplate + index, bytesReceived + uindx, 256);  // second 256 bytes
 
-  // for (int i = 0; i < 512; ++i) {
-  //   //Serial.print("0x");
-  //   printHex(fingerTemplate[i], 2);
-  //   //Serial.print(", ");
-  // }
 
   // Pass the entire fingerTemplate array (not just fingerTemplate[512])
   postFingerprintID(fingerTemplate);
@@ -613,4 +619,23 @@ int getFingerprintIDez() {
   Serial.print(" with confidence of ");
   Serial.println(finger.confidence);
   return finger.fingerID;
+}
+
+
+
+void uploadFingerprintToSensor(Adafruit_Fingerprint &sourceSensor, Adafruit_Fingerprint &targetSensor, int id) {
+  uint8_t p = sourceSensor.loadModel(id);  // Load model from source sensor (id = 1)
+  if (p == FINGERPRINT_OK) {
+    Serial.println("Fingerprint model loaded from Sensor 1");
+
+    // Now upload the model to the second sensor
+    p = targetSensor.storeModel(id);
+    if (p == FINGERPRINT_OK) {
+      Serial.println("Fingerprint model uploaded to Sensor 2");
+    } else {
+      Serial.println("Failed to upload fingerprint model to Sensor 2");
+    }
+  } else {
+    Serial.println("Failed to load fingerprint model from Sensor 1");
+  }
 }
