@@ -1999,10 +1999,10 @@ if (isset($_POST['fp_mode'])) {
   $results = mysqli_query($db, $query);
   while ($row = mysqli_fetch_assoc($results)) {
     $mode = $row['mode'];
-    echo $mode;
 
   }
 
+  echo $mode;
 
 
 }
