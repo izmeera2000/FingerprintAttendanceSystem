@@ -659,7 +659,7 @@ void uploadFingerprintToSensor(Adafruit_Fingerprint& sourceSensor, Adafruit_Fing
 }
 
 
-void getFingerprintmode(String fp_name) {
+int getFingerprintmode(String fp_name) {
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
     http.begin("https://fast.e-veterinar.com/fp_mode");
@@ -685,7 +685,7 @@ void getFingerprintmode(String fp_name) {
 
       Serial.println(response);
       Serial.println("thats all");
-
+      return response;
     } else {
       Serial.print("Error in POST request, HTTP code: ");
       Serial.println(httpResponseCode);
