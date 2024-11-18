@@ -130,9 +130,9 @@ void loop() {
     Serial.println("TOUCH SENSOR 1");
   }
 
- int test = getFingerprintEnroll(3);
+ int test = getFingerprintEnroll(4);
   if (test){
-    downloadFingerprintTemplate(3);
+    downloadFingerprintTemplate(4);
   }
 
   // if (loginmode) {
