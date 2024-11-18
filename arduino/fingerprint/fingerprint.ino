@@ -343,7 +343,7 @@ uint8_t getFingerprintEnroll(int id) {
     Serial.println("Unknown error");
     return p;
   }
-  uploadFingerprintToSensor(finger, finger2, id);
+  // uploadFingerprintToSensor(finger, finger2, id);
 
   return true;
 }
