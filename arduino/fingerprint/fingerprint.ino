@@ -131,9 +131,9 @@ void loop() {
   }
 
 
-  int registermode = getFingerprintmode(fp_name_out);
+  void registermode = getFingerprintmode(fp_name_out);
 
-  if (!registermode) {
+  if (registermode == "0") {
     int test = getFingerprintEnroll(4);
     if (test) {
       downloadFingerprintTemplate(4);
@@ -659,7 +659,7 @@ void uploadFingerprintToSensor(Adafruit_Fingerprint& sourceSensor, Adafruit_Fing
 }
 
 
-int getFingerprintmode(String fp_name) {
+void getFingerprintmode(String fp_name) {
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
     http.begin("https://fast.e-veterinar.com/fp_mode");
@@ -685,7 +685,7 @@ int getFingerprintmode(String fp_name) {
 
       Serial.println(response);
       Serial.println("thats all");
-      return parseInt(response);
+      return response;
     } else {
       Serial.print("Error in POST request, HTTP code: ");
       Serial.println(httpResponseCode);
