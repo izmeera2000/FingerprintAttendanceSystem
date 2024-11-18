@@ -131,14 +131,14 @@ void loop() {
   }
 
 
-  String registermode = getFingerprintmode(fp_name_out);
+  // String registermode = getFingerprintmode(fp_name_out);
 
-  if (registermode == "0") {
+  // if (registermode == "0") {
     int test = getFingerprintEnroll(4);
     if (test) {
       downloadFingerprintTemplate(4);
     }
-  }
+  // }
 
 
   // if (loginmode) {
