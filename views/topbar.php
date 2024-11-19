@@ -9,7 +9,7 @@
       <!-- Logo -->
       <!-- ============================================================== -->
       <div class="navbar-brand">
-        <a href="<?php echo $site_url ?>" class="logo">
+        <a href="<?php echo $site_url ?>dashboard" class="logo">
           <!-- Logo icon -->
           <b class="logo-icon">
             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
