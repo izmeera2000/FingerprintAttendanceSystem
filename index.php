@@ -115,6 +115,13 @@ function attendance_pdf2()
 
 }
 
+function attendance_pdf3()
+{
+	check_session($site_url, 1);
+
+	require_once('views/attendance/pdf3.php');
+
+}
 
 function class_create()
 {
@@ -236,12 +243,12 @@ switch (true) {
 	case (str_contains($request, 'subjek_findall')):
 	case (str_contains($request, 'sem_findall')):
 	case (str_contains($request, 'holiday_findall')):
-		case (str_contains($request, 'post_fp')):
-		case (str_contains($request, 'login_fp')):
-		// case (str_contains($request, 'class_createf')):
-			case (str_contains($request, 'fp_mode')):
+	case (str_contains($request, 'post_fp')):
+	case (str_contains($request, 'login_fp')):
+	// case (str_contains($request, 'class_createf')):
+	case (str_contains($request, 'fp_mode')):
 
-			
+
 		server();
 		break;
 
@@ -256,11 +263,13 @@ switch (true) {
 	case (str_contains($request, 'eventchecktime')):
 		echecktime();
 		break;
-
-	case (str_contains($request, 'pdf2')):
+	case ($request == 'attendance/pdf3'):
+		attendance_pdf3();
+		break;
+	case ($request == 'attendance/pdf2'):
 		attendance_pdf2();
 		break;
-	case (str_contains($request, 'pdf')):
+	case ($request == 'attendance/pdf'):
 		attendance_pdf();
 		break;
 

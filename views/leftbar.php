@@ -52,12 +52,19 @@
             </span></a>
         </li>
 
+        
+
         <li class="sidebar-item">
           <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>attendance/pdf2"
             aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span class="hide-menu">Test PDF
             </span></a>
         </li>
 
+        <li class="sidebar-item">
+          <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>attendance/pdf3"
+            aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span class="hide-menu">Test PDF 3
+            </span></a>
+        </li>
 
         <li class="nav-small-cap">
           <i class="mdi mdi-dots-horizontal"></i>

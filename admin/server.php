@@ -9,6 +9,7 @@ $site_url = $_ENV['site2'];
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
+use setasign\Fpdi\Fpdi;
 
 $errors = array();
 $toast = array();
@@ -1946,6 +1947,44 @@ if (isset($_POST['get_pdf'])) {
     $pdf->Output('F', 'test.pdf');
 
   }
+  debug_to_console("test");
+}
+
+
+
+if (isset($_POST['get_pdf2'])) {
+
+
+  $pdf = new Fpdi();
+  // add a page
+  $pdf->SetFont('arial', '', 12);
+
+  $pdf->AddPage();
+  // set the source file
+  $pdf->setSourceFile("assets/pdf/sp1b.pdf");
+  // import page 1
+  $tplId = $pdf->importPage(1);
+  // use the imported page and place it at point 10,10 with a width of 100 mm
+  $pdf->useTemplate($tplId, ['adjustPageSize' => true]);
+  $pdf->SetXY(64, 61.6);
+
+  $pdf->Write(0, 'MUHAMMAD HIJAZI BIN MOHD YATIM');
+  $pdf->SetXY(102, 66.5);
+  $pdf->Write(0, '5 DTK KOMPUTER');
+
+  $pdf->SetFont('arial', 'B', 12);
+
+  $pdf->SetXY(70,126.9);
+  $text = '(10/9/24 - 1 slot, 27/9/24 - 1 slot, 3/10/24 - 1 slot, 3/10/24 - 1 slot, 3/10/24 - 1 slot)';
+
+  // Use MultiCell for wrapping text
+  $width = 100; // Width of the cell
+  $lineHeight = 5.9; // Height of each line
+  $pdf->MultiCell($width, $lineHeight, $text, 0, 'L');
+  
+  
+  $pdf->Output('F', 'test2.pdf');
+
   debug_to_console("test");
 }
 
