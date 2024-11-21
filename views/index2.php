@@ -463,7 +463,7 @@
 
     $query =
 
-      "SELECT * FROM feedback ORDER BY LENGTH(content) DESC, rate1 DESC, rate2 DESC, rate3 DESC, time_add DESC LIMIT 6";
+      "SELECT * FROM feedback ORDER BY LENGTH(content) DESC, rate1 DESC, rate2 DESC, rate3 DESC, time_add DESC";
 
     $feedback = mysqli_query($db, $query);
 
@@ -487,30 +487,30 @@
 
             <div class="swiper init-swiper">
               <script type="application/json" class="swiper-config">
-                                                                                        {
-                                                                                          "loop": true,
-                                                                                          "speed": 600,
-                                                                                          "autoplay": {
-                                                                                            "delay": 5000
-                                                                                          },
-                                                                                          "slidesPerView": "auto",
-                                                                                          "pagination": {
-                                                                                            "el": ".swiper-pagination",
-                                                                                            "type": "bullets",
-                                                                                            "clickable": true
-                                                                                          },
-                                                                                          "breakpoints": {
-                                                                                            "320": {
-                                                                                              "slidesPerView": 1,
-                                                                                              "spaceBetween": 40
-                                                                                            },
-                                                                                            "1200": {
-                                                                                              "slidesPerView": 3,
-                                                                                              "spaceBetween": 10
+                                                                                            {
+                                                                                              "loop": true,
+                                                                                              "speed": 600,
+                                                                                              "autoplay": {
+                                                                                                "delay": 5000
+                                                                                              },
+                                                                                              "slidesPerView": "auto",
+                                                                                              "pagination": {
+                                                                                                "el": ".swiper-pagination",
+                                                                                                "type": "bullets",
+                                                                                                "clickable": true
+                                                                                              },
+                                                                                              "breakpoints": {
+                                                                                                "320": {
+                                                                                                  "slidesPerView": 1,
+                                                                                                  "spaceBetween": 40
+                                                                                                },
+                                                                                                "1200": {
+                                                                                                  "slidesPerView": 3,
+                                                                                                  "spaceBetween": 10
+                                                                                                }
+                                                                                              }
                                                                                             }
-                                                                                          }
-                                                                                        }
-                                                                                      </script>
+                                                                                          </script>
               <div class="swiper-wrapper">
                 <?php while ($row = mysqli_fetch_assoc($feedback)) { ?>
                   <div class="swiper-slide">
@@ -597,23 +597,23 @@
                       <?php }
                       ?>
 
-<?php if ($row['content']) { ?>
-                      <p>
-                        <i class="bi bi-quote quote-icon-left"></i>
-                        <span><?php echo $row['content'] ?></span>
-                        <i class="bi bi-quote quote-icon-right"></i>
-                      </p>
+                      <?php if ($row['content']) { ?>
+                        <p>
+                          <i class="bi bi-quote quote-icon-left"></i>
+                          <span><?php echo $row['content'] ?></span>
+                          <i class="bi bi-quote quote-icon-right"></i>
+                        </p>
 
                       </div>
-                      <?php }
+                    <?php }
                       ?>
-                    </div>
-                  </div><!-- End testimonial item -->
-                <?php } ?>
+                  </div>
+                </div><!-- End testimonial item -->
+              <?php } ?>
 
-              </div>
-              <div class="swiper-pagination"></div>
             </div>
+            <!-- <div class="swiper-pagination"></div> -->
+          </div>
 
           </div>
 
