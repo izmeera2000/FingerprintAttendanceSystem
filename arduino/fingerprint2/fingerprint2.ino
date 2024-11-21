@@ -134,7 +134,7 @@ void loop() {
   // String registermode = getFingerprintmode(fp_name_out);
 
   // if (registermode == "0") {
-getFingerprintEnroll(4);
+  getFingerprintEnroll(4);
   // }
 
 
@@ -201,64 +201,86 @@ getFingerprintEnroll(4);
 
 
 uint8_t getFingerprintEnroll(int id) {
-  int p = -1;
-  Serial.print("Waiting for valid finger to enroll as #");
-  Serial.println(id);
+     int p = -1;
+    Serial.print("Waiting for valid finger to enroll as #");
+    Serial.println(id);
 
-  // First sensor enrollment process (unchanged)
-  while (p != FINGERPRINT_OK) {
-    p = finger.getImage();
-    switch (p) {
-      case FINGERPRINT_OK:
-        Serial.println("Image taken");
-        break;
-      case FINGERPRINT_NOFINGER:
-        Serial.print(".");
-        break;
-      case FINGERPRINT_PACKETRECIEVEERR:
-        Serial.println("Communication error");
-        break;
-      case FINGERPRINT_IMAGEFAIL:
-        Serial.println("Imaging error");
-        break;
-      default:
-        Serial.println("Unknown error");
-        break;
+    // First sensor enrollment process (unchanged)
+    while (p != FINGERPRINT_OK) {
+      p = finger.getImage();
+      switch (p) {
+        case FINGERPRINT_OK:
+          Serial.println("Image taken");
+          break;
+        case FINGERPRINT_NOFINGER:
+          Serial.print(".");
+          break;
+        case FINGERPRINT_PACKETRECIEVEERR:
+          Serial.println("Communication error");
+          break;
+        case FINGERPRINT_IMAGEFAIL:
+          Serial.println("Imaging error");
+          break;
+        default:
+          Serial.println("Unknown error");
+          break;
+      }
     }
+
+    // Convert image and create model
+    p = finger.image2Tz(1);
+    if (p != FINGERPRINT_OK) return p;
+
+    Serial.println("Remove finger");
+    delay(2000);
+
+    p = 0;
+    while (p != FINGERPRINT_NOFINGER) {
+      p = finger.getImage();
+    }
+
+    Serial.println("Place same finger again");
+    while (p != FINGERPRINT_OK) {
+      p = finger.getImage();
+      if (p == FINGERPRINT_NOFINGER) Serial.print(".");
+    }
+
+    p = finger.image2Tz(2);
+    if (p != FINGERPRINT_OK) return p;
+
+    p = finger.createModel();
+    if (p != FINGERPRINT_OK) return p;
+
+    p = finger.storeModel(id);
+    if (p != FINGERPRINT_OK) return p;
+
+    Serial.println("Stored in sensor 1!");
+
+    // Now enroll into second sensor (finger2)
+    uint8_t buffer[534];  // Buffer to hold model data
+    p = finger.getModel(buffer);
+    if (p != FINGERPRINT_OK) {
+      Serial.println("Failed to retrieve model from sensor 1");
+      return p;
+    }
+
+    p = finger2.uploadModel(buffer);
+    if (p != FINGERPRINT_OK) {
+      Serial.println("Failed to upload model to sensor 2");
+      return p;
+    }
+
+    p = finger2.storeModel(id);
+    if (p != FINGERPRINT_OK) {
+      Serial.println("Failed to store model in sensor 2");
+      return p;
+    }
+
+    Serial.println("Stored in sensor 2!");
+    return FINGERPRINT_OK;
   }
+}
 
-  // Convert image and create model
-  p = finger.image2Tz(1);
-  if (p != FINGERPRINT_OK) return p;
-
-  Serial.println("Remove finger");
-  delay(2000);
-
-  p = 0;
-  while (p != FINGERPRINT_NOFINGER) {
-    p = finger.getImage();
-  }
-
-  Serial.println("Place same finger again");
-  while (p != FINGERPRINT_OK) {
-    p = finger.getImage();
-    if (p == FINGERPRINT_NOFINGER) Serial.print(".");
-  }
-
-  p = finger.image2Tz(2);
-  if (p != FINGERPRINT_OK) return p;
-
-  p = finger.createModel();
-  if (p != FINGERPRINT_OK) return p;
-
-  p = finger.storeModel(id);
-  if (p != FINGERPRINT_OK) return p;
-
-  Serial.println("Stored in sensor 1!");
-
-  // Now enroll into second sensor (finger2)
-  uint8_t buffer[534]; // Buffer to hold model data
-  
 
 
 
