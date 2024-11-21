@@ -317,7 +317,7 @@ uint8_t downloadFingerprintTemplate(uint16_t id, uint8_t* fingerTemplate) {
 }
 
 uint8_t uploadFingerprintTemplate(uint16_t id, uint8_t* fingerTemplate) {
-  Serial.println("uploading");
+  Serial.println("Uploading fingerprint template...");
 
   uint8_t packet[] = {
     0xEF, 0x01, 0xFF, 0xFF, 0xFF, 0xFF, 0x01, 0x00, 0x04, 0x07, (uint8_t)(id >> 8), (uint8_t)(id & 0xFF), 0x00
@@ -326,18 +326,21 @@ uint8_t uploadFingerprintTemplate(uint16_t id, uint8_t* fingerTemplate) {
 
   // Send the packet to the second fingerprint sensor
   mySerial.write(packet, sizeof(packet));
+  Serial.println("Packet sent. Waiting for acknowledgment...");
 
   // Wait for acknowledgment
   uint8_t ack[12];
   int ackLen = 0;
   uint32_t starttime = millis();
-  while ((millis() - starttime) < 2000 && ackLen < sizeof(ack)) {
+  while ((millis() - starttime) < 5000 && ackLen < sizeof(ack)) {
     if (mySerial.available()) {
       ack[ackLen++] = mySerial.read();
     }
   }
+
+  // Check acknowledgment
   if (ackLen != 12) {
-    Serial.println("Invalid acknowledgment length");
+    Serial.println("Invalid acknowledgment length.");
     return FINGERPRINT_PACKETRECIEVEERR;
   }
 
@@ -346,27 +349,42 @@ uint8_t uploadFingerprintTemplate(uint16_t id, uint8_t* fingerTemplate) {
     Serial.println(ack[6], HEX);
     return FINGERPRINT_PACKETRECIEVEERR;
   }
-
-  // Upload first 256 bytes
+  
+  // Upload first 256 bytes of the fingerprint template
   uint8_t dataPacket[267] = { 0xEF, 0x01, 0xFF, 0xFF, 0xFF, 0xFF, 0x02, 0x01, 0x00, 0xA0 };
   memcpy(dataPacket + 10, fingerTemplate, 256);
   mySerial.write(dataPacket, sizeof(dataPacket));
+  Serial.println("First 256 bytes uploaded.");
 
   // Upload second 256 bytes
   dataPacket[7] = 0x02;
   memcpy(dataPacket + 10, fingerTemplate + 256, 256);
   mySerial.write(dataPacket, sizeof(dataPacket));
+  Serial.println("Second 256 bytes uploaded.");
 
   // Wait for acknowledgment
   ackLen = 0;
   starttime = millis();
-  while ((millis() - starttime) < 2000 && ackLen < sizeof(ack)) {
+  while ((millis() - starttime) < 5000 && ackLen < sizeof(ack)) {
     if (mySerial.available()) {
       ack[ackLen++] = mySerial.read();
     }
   }
 
-  return (ackLen == 12 && ack[6] == 0x00) ? FINGERPRINT_OK : FINGERPRINT_PACKETRECIEVEERR;
+  // Check acknowledgment for the second data packet
+  if (ackLen != 12) {
+    Serial.println("Invalid acknowledgment length for second packet.");
+    return FINGERPRINT_PACKETRECIEVEERR;
+  }
+
+  if (ack[6] != 0x00) {
+    Serial.print("Error in second acknowledgment: ");
+    Serial.println(ack[6], HEX);
+    return FINGERPRINT_PACKETRECIEVEERR;
+  }
+
+  Serial.println("Template successfully uploaded to second sensor.");
+  return FINGERPRINT_OK;
 }
 
 
