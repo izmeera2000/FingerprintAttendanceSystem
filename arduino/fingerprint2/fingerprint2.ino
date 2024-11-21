@@ -103,14 +103,14 @@ void setup() {
   // Serial.print(F("Baud rate: "));
   // Serial.println(finger.baud_rate);
 
-  finger.getTemplateCount();
+  finger2.getTemplateCount();
 
-  if (finger.templateCount == 0) {
-    Serial.print("Sensor doesn't contain any fingerprint data. Please run the 'enroll' example.");
+  if (finger2.templateCount == 0) {
+    Serial.print("Sensor  2 doesn't contain any fingerprint data. Please run the 'enroll' example.");
   } else {
     Serial.println("Waiting for valid finger...");
-    Serial.print("Sensor contains ");
-    Serial.print(finger.templateCount);
+    Serial.print("Sensor 2 contains ");
+    Serial.print(finger2.templateCount);
     Serial.println(" templates");
   }
 
@@ -128,8 +128,8 @@ void loop() {
 
   int id = 2;
 
-  enrollFinger(id);
-  transferFingerprintTemplate(id);
+  // enrollFinger(id);
+  // transferFingerprintTemplate(id);
 }
 
 
