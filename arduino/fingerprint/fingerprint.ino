@@ -20,8 +20,8 @@ const char* fp_name_out = "testout";
 #define TXfp1_PIN 17
 #define TOUCH1 4
 
-#define RX2_PIN 12
-#define TX2_PIN 14
+#define RX2_PIN 26
+#define TX2_PIN 27
 
 #define IR_PIN 34     // ESP32 pin GPIO18 connected to OUT pin of IR obstacle avoidance sensor
 #define RELAY_PIN 13  // ESP32 pin GPIO16, which connects to the solenoid lock via the relay
@@ -50,12 +50,12 @@ void setup() {
   while (!Serial)
     ;
 
-  // WiFi.begin(ssid, password);
-  // while (WiFi.status() != WL_CONNECTED) {
-  //   delay(1000);
-  //   Serial.println("Connecting to WiFi...");
-  // }
-  // Serial.println("Connected to WiFi");
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(1000);
+    Serial.println("Connecting to WiFi...");
+  }
+  Serial.println("Connected to WiFi");
 
 
   // Initialize the fingerprint sensor
@@ -140,9 +140,6 @@ void setup() {
   //   getFingerprintEnroll2(4);
   // }
 
-
-  // touchAttachInterrupt(TOUCH1, onTouch1, TOUCH_THRESHOLD);
-  // touchAttachInterrupt(TOUCH2, onTouch2, TOUCH_THRESHOLD);
 }
 
 void loop() {
@@ -159,35 +156,7 @@ void loop() {
   }
 
 
-  // String registermode = getFingerprintmode(fp_name_out);
-
-  // if (registermode == "0") {
-
-  // }
-
-
-  // if (loginmode) {
-  //   int id = getFingerprintIDez();
-  //   downloadFingerprintTemplate2(id);
-  // } else {
-  //   downloadFingerprintTemplate(3);
-  // }
-
-
-  // int state = digitalRead(IR_PIN);
-
-  // if (state == LOW) {
-  //   Serial.println("The obstacle is present");
-  //   digitalWrite(RELAY_PIN, HIGH);  // unlock the door
-  // } else {
-  //   Serial.println("The obstacle is NOT present");
-  //   digitalWrite(RELAY_PIN, LOW);  // unlock the door
-  // }
-
-  // digitalWrite(RELAY_PIN, HIGH);  // unlock the door
-  // delay(5000);
-  // digitalWrite(RELAY_PIN, LOW);  // lock the door
-  // delay(5000);
+ 
 
 
   // if object detect for 5 sec continous
@@ -521,70 +490,11 @@ uint8_t getFingerprintEnroll2(int id) {
   return true;
 }
 
-// bool enrollFingerprintTemplate() {
-//   int id = 1;  // ID for the template
-//   Serial.println("Place your finger on the sensor...");
-
-//   if (finger.getImage() != FINGERPRINT_OK) return false;
-
-//   if (finger.createModel() != FINGERPRINT_OK) return false;
-
-//   // Load the model into buffer
-//   if (finger.loadModel(id) != FINGERPRINT_OK) return false;
-
-//   // Send template data to ESP32 serial buffer
-//   if (finger.getModel() == FINGERPRINT_OK) {
-//     Serial.println("Fingerprint template created successfully.");
-
-//     postFingerprintTemplate();
-//     return true;
-//   } else {
-//     Serial.println("Failed to create fingerprint template.");
-//     return false;
-//   }
-// }
 
 
 
 
-// void postFingerprintTemplate(uint8_t* fp) {
-//   if (WiFi.status() == WL_CONNECTED) {
-//     HTTPClient http;
-//     http.begin("https://fast.e-veterinar.com/post_fp");
-//     http.addHeader("Content-Type", "application/x-www-form-urlencoded");
 
-//     // Convert the fingerprint template data to a hex string
-//     String hexTemplate = "";
-//     for (int i = 0; i < 512; i++) {
-//       if (fp[i] < 16) hexTemplate += "0";  // Add leading zero for single hex digits
-//       hexTemplate += String(fp[i], HEX);
-//     }
-
-
-//     // Prepare POST data
-//     String postData = "post_fp=" + hexTemplate + "fp=" + hexTemplate;
-
-//     Serial.println("posting data  data is :");
-
-//     Serial.println(postData);
-
-//     // Send POST request
-//     int httpResponseCode = http.POST(postData);  // Use .c_str() to convert String to const char*
-
-//     // Handle the response
-//     if (httpResponseCode > 0) {
-//       String response = http.getString();
-//       Serial.println("Server response: " + response);
-//     } else {
-//       Serial.print("Error in POST request, HTTP code: ");
-//       Serial.println(httpResponseCode);
-//     }
-
-//     http.end();
-//   } else {
-//     Serial.println("WiFi is not connected");
-//   }
-// }
 
 void postFingerprintID(int id) {
   if (WiFi.status() == WL_CONNECTED) {
