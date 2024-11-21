@@ -140,22 +140,22 @@ void setup() {
   if (test) {
     getFingerprintEnroll2(4);
   }
-  touchAttachInterrupt(TOUCH1, onTouch1, TOUCH_THRESHOLD);
-  touchAttachInterrupt(TOUCH2, onTouch2, TOUCH_THRESHOLD);
+  // touchAttachInterrupt(TOUCH1, onTouch1, TOUCH_THRESHOLD);
+  // touchAttachInterrupt(TOUCH2, onTouch2, TOUCH_THRESHOLD);
 }
 
 void loop() {
 
 
-  // if (digitalRead(TOUCH1) == HIGH) {
-  //   Serial.println("TOUCH SENSOR 1");
-  //   getFingerprintIDez();
-  // }
+  if (digitalRead(TOUCH1) == HIGH) {
+    Serial.println("TOUCH SENSOR 1");
+    getFingerprintIDez();
+  }
 
-  // if (digitalRead(TOUCH2) == HIGH) {
-  //   Serial.println("TOUCH SENSOR 1");
-  //   getFingerprintIDez2();
-  // }
+  if (digitalRead(TOUCH2) == HIGH) {
+    Serial.println("TOUCH SENSOR 1");
+    getFingerprintIDez2();
+  }
 
 
   // String registermode = getFingerprintmode(fp_name_out);
