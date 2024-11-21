@@ -597,12 +597,16 @@
                       <?php }
                       ?>
 
-
+<?php if ($row['content']) { ?>
                       <p>
                         <i class="bi bi-quote quote-icon-left"></i>
                         <span><?php echo $row['content'] ?></span>
                         <i class="bi bi-quote quote-icon-right"></i>
                       </p>
+
+                      </div>
+                      <?php }
+                      ?>
                     </div>
                   </div><!-- End testimonial item -->
                 <?php } ?>
