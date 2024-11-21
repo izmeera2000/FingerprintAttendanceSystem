@@ -133,7 +133,7 @@ void setup() {
   pinMode(TOUCH1, INPUT);
   pinMode(TOUCH2, INPUT);
 
-    int id = 8;
+  int id = 8;
 
   enrollFinger(id);
 
@@ -142,34 +142,32 @@ void setup() {
 }
 
 void loop() {
-
-
-
 }
 
 
 
 uint8_t enrollFinger(uint16_t id) {
-    int p = -1;
-  Serial.print("Waiting for valid finger to enroll as #"); Serial.println(id);
+  int p = -1;
+  Serial.print("Waiting for valid finger to enroll as #");
+  Serial.println(id);
   while (p != FINGERPRINT_OK) {
     p = finger.getImage();
     switch (p) {
-    case FINGERPRINT_OK:
-      Serial.println("Image taken");
-      break;
-    case FINGERPRINT_NOFINGER:
-      Serial.print(".");
-      break;
-    case FINGERPRINT_PACKETRECIEVEERR:
-      Serial.println("Communication error");
-      break;
-    case FINGERPRINT_IMAGEFAIL:
-      Serial.println("Imaging error");
-      break;
-    default:
-      Serial.println("Unknown error");
-      break;
+      case FINGERPRINT_OK:
+        Serial.println("Image taken");
+        break;
+      case FINGERPRINT_NOFINGER:
+        Serial.print(".");
+        break;
+      case FINGERPRINT_PACKETRECIEVEERR:
+        Serial.println("Communication error");
+        break;
+      case FINGERPRINT_IMAGEFAIL:
+        Serial.println("Imaging error");
+        break;
+      default:
+        Serial.println("Unknown error");
+        break;
     }
   }
 
@@ -203,27 +201,28 @@ uint8_t enrollFinger(uint16_t id) {
   while (p != FINGERPRINT_NOFINGER) {
     p = finger.getImage();
   }
-  Serial.print("ID "); Serial.println(id);
+  Serial.print("ID ");
+  Serial.println(id);
   p = -1;
   Serial.println("Place same finger again");
   while (p != FINGERPRINT_OK) {
     p = finger.getImage();
     switch (p) {
-    case FINGERPRINT_OK:
-      Serial.println("Image taken");
-      break;
-    case FINGERPRINT_NOFINGER:
-      Serial.print(".");
-      break;
-    case FINGERPRINT_PACKETRECIEVEERR:
-      Serial.println("Communication error");
-      break;
-    case FINGERPRINT_IMAGEFAIL:
-      Serial.println("Imaging error");
-      break;
-    default:
-      Serial.println("Unknown error");
-      break;
+      case FINGERPRINT_OK:
+        Serial.println("Image taken");
+        break;
+      case FINGERPRINT_NOFINGER:
+        Serial.print(".");
+        break;
+      case FINGERPRINT_PACKETRECIEVEERR:
+        Serial.println("Communication error");
+        break;
+      case FINGERPRINT_IMAGEFAIL:
+        Serial.println("Imaging error");
+        break;
+      default:
+        Serial.println("Unknown error");
+        break;
     }
   }
 
@@ -252,7 +251,8 @@ uint8_t enrollFinger(uint16_t id) {
   }
 
   // OK converted!
-  Serial.print("Creating model for #");  Serial.println(id);
+  Serial.print("Creating model for #");
+  Serial.println(id);
 
   p = finger.createModel();
   if (p == FINGERPRINT_OK) {
@@ -268,7 +268,8 @@ uint8_t enrollFinger(uint16_t id) {
     return p;
   }
 
-  Serial.print("ID "); Serial.println(id);
+  Serial.print("ID ");
+  Serial.println(id);
   p = finger.storeModel(id);
   if (p == FINGERPRINT_OK) {
     Serial.println("Stored!");
@@ -290,19 +291,19 @@ uint8_t enrollFinger(uint16_t id) {
 }
 
 uint8_t downloadFingerprintTemplate(uint16_t id, uint8_t* fingerTemplate) {
-    Serial.println("Downloading");
+  Serial.println("Downloading");
 
-uint8_t p = finger.loadModel(id);
-if (p != FINGERPRINT_OK) {
-  Serial.println("Failed to load model.");
-  return p;
-}
+  uint8_t p = finger.loadModel(id);
+  if (p != FINGERPRINT_OK) {
+    Serial.println("Failed to load model.");
+    return p;
+  }
 
-p = finger.getModel();
-if (p != FINGERPRINT_OK) {
-  Serial.println("Failed to get model.");
-  return p;
-}
+  p = finger.getModel();
+  if (p != FINGERPRINT_OK) {
+    Serial.println("Failed to get model.");
+    return p;
+  }
 
   // Read template data
   uint8_t bytesReceived[534];
@@ -312,14 +313,13 @@ if (p != FINGERPRINT_OK) {
   while (i < 534 && (millis() - starttime) < 20000) {
     if (mySerial.available()) {
       bytesReceived[i++] = mySerial.read();
-      
+
+      Serial.print(bytesReceived[i], HEX);
+      Serial.print(" ");
     }
   }
-Serial.print("Received bytes: ");
-for (int i = 0; i < 534; i++) {
-  Serial.print(bytesReceived[i], HEX);
-  Serial.print(" ");
-}
+
+
 
   if (i != 534) return FINGERPRINT_PACKETRECIEVEERR;
 
@@ -330,7 +330,7 @@ for (int i = 0; i < 534; i++) {
 }
 
 uint8_t uploadFingerprintTemplate(uint16_t id, uint8_t* fingerTemplate) {
-    Serial.println("uploading");
+  Serial.println("uploading");
 
   uint8_t packet[] = {
     0xEF, 0x01, 0xFF, 0xFF, 0xFF, 0xFF, 0x01, 0x00, 0x04, 0x07, (uint8_t)(id >> 8), (uint8_t)(id & 0xFF), 0x00
