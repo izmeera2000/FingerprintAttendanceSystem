@@ -143,11 +143,11 @@ void setup() {
 }
 
 void loop() {
+getFingerprintIDez();
 
-
-  if (digitalRead(TOUCH1) == HIGH) {
-    Serial.println("TOUCH SENSOR 1");
-  }
+  // if (digitalRead(TOUCH1) == HIGH) {
+  //   Serial.println("TOUCH SENSOR 1");
+  // }
 
 
   // String registermode = getFingerprintmode(fp_name_out);
@@ -165,15 +165,15 @@ void loop() {
   // }
 
 
-  int state = digitalRead(IR_PIN);
+  // int state = digitalRead(IR_PIN);
 
-  if (state == LOW) {
-    Serial.println("The obstacle is present");
-    digitalWrite(RELAY_PIN, HIGH);  // unlock the door
-  } else {
-    Serial.println("The obstacle is NOT present");
-    digitalWrite(RELAY_PIN, LOW);  // unlock the door
-  }
+  // if (state == LOW) {
+  //   Serial.println("The obstacle is present");
+  //   digitalWrite(RELAY_PIN, HIGH);  // unlock the door
+  // } else {
+  //   Serial.println("The obstacle is NOT present");
+  //   digitalWrite(RELAY_PIN, LOW);  // unlock the door
+  // }
 
   // digitalWrite(RELAY_PIN, HIGH);  // unlock the door
   // delay(5000);
@@ -577,22 +577,17 @@ void postFingerprintTemplate(uint8_t* fp) {
   }
 }
 
-void postFingerprintID(uint8_t* fp) {
+void postFingerprintID(int id) {
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
     http.begin("https://fast.e-veterinar.com/login_fp");
     http.addHeader("Content-Type", "application/x-www-form-urlencoded");
 
     // Convert the fingerprint template data to a hex string
-    String hexTemplate = "";
-    for (int i = 0; i < 512; i++) {
-      if (fp[i] < 16) hexTemplate += "0";  // Add leading zero for single hex digits
-      hexTemplate += String(fp[i], HEX);
-    }
 
 
     // Prepare POST data
-    String postData = "login_fp=" + hexTemplate + "fp=" + hexTemplate;
+    String postData = "login_fp=" + id + "fp=" + id;
 
     Serial.println("posting data  data is :");
 
@@ -799,27 +794,14 @@ int getFingerprintIDez() {
   Serial.print(finger.fingerID);
   Serial.print(" with confidence of ");
   Serial.println(finger.confidence);
-  return finger.fingerID;
+
+  postFingerprintID(finger.fingerID);
+  // return finger.fingerID;
 }
 
 
 
-void uploadFingerprintToSensor(Adafruit_Fingerprint& sourceSensor, Adafruit_Fingerprint& targetSensor, int id) {
-  uint8_t p = sourceSensor.loadModel(id);  // Load model from source sensor (id = 1)
-  if (p == FINGERPRINT_OK) {
-    Serial.println("Fingerprint model loaded from Sensor 1");
 
-    // Now upload the model to the second sensor
-    p = targetSensor.storeModel(id);
-    if (p == FINGERPRINT_OK) {
-      Serial.println("Fingerprint model uploaded to Sensor 2");
-    } else {
-      Serial.println("Failed to upload fingerprint model to Sensor 2");
-    }
-  } else {
-    Serial.println("Failed to load fingerprint model from Sensor 1");
-  }
-}
 
 
 String getFingerprintmode(String fp_name) {
