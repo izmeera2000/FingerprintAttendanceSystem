@@ -17,17 +17,14 @@ void setup() {
   softwareSerial.begin(9600);
 
   // Start communication with DFPlayer Mini
-  if (player.begin(softwareSerial)) {
-   Serial.println("OK");
-
-    // Set volume to maximum (0 to 30).
-    player.volume(20);
-    // Play the first MP3 file on the SD card
-    player.play(1);
-  } else {
-    Serial.println("Connecting to DFPlayer Mini failed!");
-  }
+if (player.begin(softwareSerial, true, false)) {  // Enable debug prints
+  Serial.println("Connected to DFPlayer Mini successfully!");
+  player.volume(20);
+  player.play(1);
+} else {
+  Serial.println("Failed to initialize DFPlayer Mini.");
 }
+
 
 void loop() {
 
