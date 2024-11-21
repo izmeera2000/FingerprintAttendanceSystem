@@ -292,11 +292,17 @@ uint8_t enrollFinger(uint16_t id) {
 uint8_t downloadFingerprintTemplate(uint16_t id, uint8_t* fingerTemplate) {
     Serial.println("Downloading");
 
-  uint8_t p = finger.loadModel(id);
-  if (p != FINGERPRINT_OK) return p;
+uint8_t p = finger.loadModel(id);
+if (p != FINGERPRINT_OK) {
+  Serial.println("Failed to load model.");
+  return p;
+}
 
-  p = finger.getModel();
-  if (p != FINGERPRINT_OK) return p;
+p = finger.getModel();
+if (p != FINGERPRINT_OK) {
+  Serial.println("Failed to get model.");
+  return p;
+}
 
   // Read template data
   uint8_t bytesReceived[534];
@@ -306,8 +312,14 @@ uint8_t downloadFingerprintTemplate(uint16_t id, uint8_t* fingerTemplate) {
   while (i < 534 && (millis() - starttime) < 20000) {
     if (mySerial.available()) {
       bytesReceived[i++] = mySerial.read();
+      
     }
   }
+Serial.print("Received bytes: ");
+for (int i = 0; i < 534; i++) {
+  Serial.print(bytesReceived[i], HEX);
+  Serial.print(" ");
+}
 
   if (i != 534) return FINGERPRINT_PACKETRECIEVEERR;
 
