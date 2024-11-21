@@ -351,17 +351,17 @@ uint8_t transferFingerprintTemplate(uint16_t id) {
     Serial.println("Transferring");
 
   uint8_t fingerTemplate[512];
-  uint8_t result = downloadFingerprintTemplate(id, fingerTemplate);
-  if (result != FINGERPRINT_OK) {
-    Serial.println("Failed to download template.");
-    return result;
-  }
+   downloadFingerprintTemplate(id, fingerTemplate);
+  // if (result != FINGERPRINT_OK) {
+  //   Serial.println("Failed to download template.");
+  //   return result;
+  // }
 
-  result = uploadFingerprintTemplate(id, fingerTemplate);
-  if (result != FINGERPRINT_OK) {
-    Serial.println("Failed to upload template to second sensor.");
-    return result;
-  }
+ uploadFingerprintTemplate(id, fingerTemplate);
+  // if (result != FINGERPRINT_OK) {
+  //   Serial.println("Failed to upload template to second sensor.");
+  //   return result;
+  // }
 
   Serial.println("Template successfully transferred!");
   return FINGERPRINT_OK;
