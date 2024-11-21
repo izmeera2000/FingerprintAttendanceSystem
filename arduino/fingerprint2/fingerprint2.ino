@@ -42,9 +42,9 @@ int loginmode = 1;
 
 void setup() {
   Serial.begin(115200);
-  mySerial.begin(9600);
+  mySerial.begin(57600);
   DFPSerial.begin(9600);
-  mySerialfp.begin(9600, SERIAL_8N1, RXfp1_PIN, TXfp1_PIN);
+  mySerialfp.begin(57600, SERIAL_8N1, RXfp1_PIN, TXfp1_PIN);
 
   // Wait for serial to initialize
   while (!Serial)
@@ -295,9 +295,8 @@ uint8_t downloadFingerprintTemplate(uint16_t id, uint8_t* fingerTemplate) {
   uint32_t starttime = millis();
   int i = 0;
   while (i < 534 && (millis() - starttime) < 20000) {
-    if (mySerial.available()) {
-      bytesReceived[i++] = mySerial.read();
-
+    if (mySerialfp.available()) {
+      bytesReceived[i++] = mySerialfp.read();
       Serial.print(bytesReceived[i], HEX);
       Serial.print(" ");
     }
