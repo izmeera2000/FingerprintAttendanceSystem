@@ -139,7 +139,7 @@ void loop() {
 
   int id = 8;
 
-ss
+
 
   while (!Serial.available());
   char choice = Serial.read();
