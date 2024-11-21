@@ -122,7 +122,7 @@ void setup() {
   } else {
     Serial.println("Waiting for valid finger...");
     Serial.print("Sensor 1 contains ");
-    Serial.print(finger1.templateCount);
+    Serial.print(finger.templateCount);
     Serial.println(" templates");
   }
 
