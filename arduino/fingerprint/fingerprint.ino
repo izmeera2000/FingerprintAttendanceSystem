@@ -103,13 +103,26 @@ void setup() {
   // Serial.print(F("Baud rate: "));
   // Serial.println(finger.baud_rate);
 
+
+  finger2.getTemplateCount();
+
+  if (finger2.templateCount == 0) {
+    Serial.print("Sensor  2 doesn't contain any fingerprint data. Please run the 'enroll' example.");
+  } else {
+    Serial.println("Waiting for valid finger...");
+    Serial.print("Sensor 2 contains ");
+    Serial.print(finger2.templateCount);
+    Serial.println(" templates");
+  }
+
+
   finger.getTemplateCount();
 
   if (finger.templateCount == 0) {
-    Serial.print("Sensor doesn't contain any fingerprint data. Please run the 'enroll' example.");
+    Serial.print("Sensor  1 doesn't contain any fingerprint data. Please run the 'enroll' example.");
   } else {
     Serial.println("Waiting for valid finger...");
-    Serial.print("Sensor contains ");
+    Serial.print("Sensor 1 contains ");
     Serial.print(finger.templateCount);
     Serial.println(" templates");
   }
@@ -121,6 +134,12 @@ void setup() {
   pinMode(RELAY_PIN, OUTPUT);
   pinMode(TOUCH1, INPUT);
   pinMode(TOUCH2, INPUT);
+
+
+      int test = getFingerprintEnroll(4);
+    if (test) {
+      getFingerprintEnroll2(4);
+    }
 }
 
 void loop() {
@@ -134,10 +153,7 @@ void loop() {
   // String registermode = getFingerprintmode(fp_name_out);
 
   // if (registermode == "0") {
-    int test = getFingerprintEnroll(4);
-    if (test) {
-      getFingerprintEnroll2(4);
-    }
+
   // }
 
 
@@ -353,7 +369,7 @@ uint8_t getFingerprintEnroll2(int id) {
 
   
   int p = -1;
-  Serial.print("Waiting for valid finger to enroll as #");
+  Serial.print("Waiting for valid finger 2 to enroll as #");
   Serial.println(id);
   while (p != FINGERPRINT_OK) {
     p = finger2.getImage();
