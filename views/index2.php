@@ -463,153 +463,159 @@
 
     $query =
 
-      "SELECT * FROM feedback ";
+      "SELECT * FROM feedback ORDER BY LENGTH(content) DESC, rate1 DESC, rate2 DESC, rate3 DESC";
 
     $feedback = mysqli_query($db, $query);
 
     if ($feedback) {
 
       if (mysqli_num_rows($feedback) > 0) {
-        ?>
-        <!-- Testimonials Section -->
-        <section id="testimonials" class="testimonials section">
 
-          <!-- Section Title -->
-          <div class="container section-title" data-aos="fade-up">
-            <h2>Testimonials</h2>
-            <p>What they are saying about us</p>
-          </div><!-- End Section Title -->
+        while ($row = mysqli_fetch_assoc($feedback)) {
 
-          <div class="container" data-aos="fade-up" data-aos-delay="100">
+          ?>
+          <!-- Testimonials Section -->
+          <section id="testimonials" class="testimonials section">
 
-            <div class="swiper init-swiper">
-              <script type="application/json" class="swiper-config">
-                  {
-                    "loop": true,
-                    "speed": 600,
-                    "autoplay": {
-                      "delay": 5000
-                    },
-                    "slidesPerView": "auto",
-                    "pagination": {
-                      "el": ".swiper-pagination",
-                      "type": "bullets",
-                      "clickable": true
-                    },
-                    "breakpoints": {
-                      "320": {
-                        "slidesPerView": 1,
-                        "spaceBetween": 40
-                      },
-                      "1200": {
-                        "slidesPerView": 3,
-                        "spaceBetween": 10
-                      }
-                    }
-                  }
-                </script>
-              <div class="swiper-wrapper">
+            <!-- Section Title -->
+            <div class="container section-title" data-aos="fade-up">
+              <h2>Testimonials</h2>
+              <p>What they are saying about us</p>
+            </div><!-- End Section Title -->
 
-                <div class="swiper-slide">
-                  <div class="testimonial-item">
-                    <img src="assets/images/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
-                    <h3>Saul Goodman</h3>
-                    <h4>Ceo &amp; Founder</h4>
-                    <div class="stars">
-                      <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                        class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+            <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+              <div class="swiper init-swiper">
+                <script type="application/json" class="swiper-config">
+                                                                                    {
+                                                                                      "loop": true,
+                                                                                      "speed": 600,
+                                                                                      "autoplay": {
+                                                                                        "delay": 5000
+                                                                                      },
+                                                                                      "slidesPerView": "auto",
+                                                                                      "pagination": {
+                                                                                        "el": ".swiper-pagination",
+                                                                                        "type": "bullets",
+                                                                                        "clickable": true
+                                                                                      },
+                                                                                      "breakpoints": {
+                                                                                        "320": {
+                                                                                          "slidesPerView": 1,
+                                                                                          "spaceBetween": 40
+                                                                                        },
+                                                                                        "1200": {
+                                                                                          "slidesPerView": 3,
+                                                                                          "spaceBetween": 10
+                                                                                        }
+                                                                                      }
+                                                                                    }
+                                                                                  </script>
+                <div class="swiper-wrapper">
+
+                  <div class="swiper-slide">
+                    <div class="testimonial-item">
+                      <!-- <img src="assets/images/testimonials/testimonials-1.jpg" class="testimonial-img" alt=""> -->
+                      <h2 class="text-uppercase"><?php echo $row['nama'] ?></h2>
+
+                      <?php if ($row['rate1']) { ?>
+                        <h3>Cara Penyampaian</h3>
+                        <!-- <h4>Ceo &amp; Founder</h4> -->
+                        <div class="stars">
+                          <?php
+                          $rating = $row['rate1'];
+                          for ($i = 1; $i <= 5; $i++) {
+                            if ($i <= floor($rating)) {
+
+                              echo '<i class="bi bi-star-fill"></i>';
+                            } else if ($i == ceil($rating) && $rating - floor($rating) >= 0.5) {
+
+                              echo '<i class="bi bi-star-half"></i>';
+
+                            } else {
+
+                              echo '<i class="bi bi-star"></i>';
+                            }
+                          }
+
+
+                          ?>
+                        </div> <?php }
+                      ?>
+
+                      <?php if ($row['rate2']) { ?>
+
+                        <h3>Pandangan keseluruhan anda tentang projek</h3>
+                        <!-- <h4>Ceo &amp; Founder</h4> -->
+                        <div class="stars">
+                          <?php
+                          $rating = $row['rate2'];
+                          for ($i = 1; $i <= 5; $i++) {
+                            if ($i <= floor($rating)) {
+
+                              echo '<i class="bi bi-star-fill"></i>';
+                            } else if ($i == ceil($rating) && $rating - floor($rating) >= 0.5) {
+
+                              echo '<i class="bi bi-star-half"></i>';
+
+                            } else {
+
+                              echo '<i class="bi bi-star"></i>';
+                            }
+                          }
+
+
+
+                          ?>
+                        </div> <?php }
+                      ?>
+                      <?php if ($row['rate3']) { ?>
+
+                        <h3>Kesesuaian isi projek dengan tugas</h3>
+                        <!-- <h4>Ceo &amp; Founder</h4> -->
+                        <div class="stars">
+                          <?php
+                          $rating = $row['rate3'];
+                          for ($i = 1; $i <= 5; $i++) {
+                            if ($i <= floor($rating)) {
+
+                              echo '<i class="bi bi-star-fill"></i>';
+                            } else if ($i == ceil($rating) && $rating - floor($rating) >= 0.5) {
+
+                              echo '<i class="bi bi-star-half"></i>';
+
+                            } else {
+
+                              echo '<i class="bi bi-star"></i>';
+                            }
+                          }
+
+
+
+                          ?>
+                        </div>
+                      <?php }
+                      ?>
+
+
+                      <p>
+                        <i class="bi bi-quote quote-icon-left"></i>
+                        <span><?php echo $row['content'] ?></span>
+                        <i class="bi bi-quote quote-icon-right"></i>
+                      </p>
                     </div>
-                    <p>
-                      <i class="bi bi-quote quote-icon-left"></i>
-                      <span>Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus.
-                        Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.</span>
-                      <i class="bi bi-quote quote-icon-right"></i>
-                    </p>
-                  </div>
-                </div><!-- End testimonial item -->
+                  </div><!-- End testimonial item -->
 
-                <div class="swiper-slide">
-                  <div class="testimonial-item">
-                    <img src="assets/images/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
-                    <h3>Sara Wilsson</h3>
-                    <h4>Designer</h4>
-                    <div class="stars">
-                      <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                        class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                    </div>
-                    <p>
-                      <i class="bi bi-quote quote-icon-left"></i>
-                      <span>Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram
-                        malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.</span>
-                      <i class="bi bi-quote quote-icon-right"></i>
-                    </p>
-                  </div>
-                </div><!-- End testimonial item -->
 
-                <div class="swiper-slide">
-                  <div class="testimonial-item">
-                    <img src="assets/images/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
-                    <h3>Jena Karlis</h3>
-                    <h4>Store Owner</h4>
-                    <div class="stars">
-                      <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                        class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                    </div>
-                    <p>
-                      <i class="bi bi-quote quote-icon-left"></i>
-                      <span>Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis
-                        minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.</span>
-                      <i class="bi bi-quote quote-icon-right"></i>
-                    </p>
-                  </div>
-                </div><!-- End testimonial item -->
-
-                <div class="swiper-slide">
-                  <div class="testimonial-item">
-                    <img src="assets/images/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
-                    <h3>Matt Brandon</h3>
-                    <h4>Freelancer</h4>
-                    <div class="stars">
-                      <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                        class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                    </div>
-                    <p>
-                      <i class="bi bi-quote quote-icon-left"></i>
-                      <span>Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim
-                        velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum
-                        veniam.</span>
-                      <i class="bi bi-quote quote-icon-right"></i>
-                    </p>
-                  </div>
-                </div><!-- End testimonial item -->
-
-                <div class="swiper-slide">
-                  <div class="testimonial-item">
-                    <img src="assets/images/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
-                    <h3>John Larson</h3>
-                    <h4>Entrepreneur</h4>
-                    <div class="stars">
-                      <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                        class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                    </div>
-                    <p>
-                      <i class="bi bi-quote quote-icon-left"></i>
-                      <span>Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim
-                        culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum
-                        quid.</span>
-                      <i class="bi bi-quote quote-icon-right"></i>
-                    </p>
-                  </div>
-                </div><!-- End testimonial item -->
-
+                </div>
+                <div class="swiper-pagination"></div>
               </div>
-              <div class="swiper-pagination"></div>
+
             </div>
 
-          </div>
-
-        </section><!-- /Testimonials Section -->
-        <?php
+          </section><!-- /Testimonials Section -->
+          <?php
+        }
       }
     } ?>
 
@@ -800,6 +806,16 @@
               </div>
             </div><!-- End Info Item -->
 
+
+            <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
+              <!-- <i class="bi bi-envelope flex-shrink-0"></i> -->
+              <div>
+                <h3>Rate Us</h3>
+                <!-- <p>info@example.com</p> -->
+                <button class="btn login" id="rate-button" data-bs-toggle="modal" data-bs-target="#exampleModal">Rate
+                  Now</button>
+              </div>
+            </div><!-- End Info Item -->
           </div>
 
           <div class="col-lg-8">
@@ -850,7 +866,63 @@
       </div>
 
     </section><!-- /Contact Section -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Maklum Balas Projek Fingerprint Attendance System</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label class="form-label">Nama</label>
+                <input type="text" class="form-control" name="nama" id="nama" />
 
+
+              </div>
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Cara penyampaian</label>
+                <input type="range" class="form-range" min="1" max="10" step="1" id="rating1" name="rating1" value="10"
+                  oninput="changerating(this)" required>
+                <div class="stars d-flex justify-content-between"><i class="bi bi-star-fill"></i><i
+                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                    class="bi bi-star-fill"></i></div>
+
+              </div>
+              <div class="mb-3">
+                <label for="message-text" class="col-form-label">Pandangan keseluruhan anda tentang projek </label>
+                <input type="range" class="form-range" min="1" max="10" step="1" id="rating2" name="rating2" value="10"
+                  oninput="changerating(this)" required>
+                <div class="stars d-flex justify-content-between"><i class="bi bi-star-fill"></i><i
+                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                    class="bi bi-star-fill"></i></div>
+
+              </div>
+              <div class="mb-3">
+                <label for="message-text" class="col-form-label">Kesesuaian isi projek dengan tugas
+                </label>
+                <input type="range" style="accent-color:#ff0000" class="form-range" min="1" max="10" step="1"
+                  id="rating3" name="rating3" value="10" oninput="changerating(this)" required>
+                <div class="stars d-flex justify-content-between"><i class="bi bi-star-fill"></i><i
+                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                    class="bi bi-star-fill"></i></div>
+              </div>
+              <div class="mb-3">
+                <label for="message-text" class="col-form-label">Penambahbaikan (jika Ada)</label>
+                <textarea class="form-control" id="message-text"></textarea>
+              </div>
+            </form>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary " style="border-radius:50px;padding:8px 20px"
+              data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn login" id="ratingSubmit">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
 
   <footer id="footer" class="footer dark-background">
@@ -898,7 +970,78 @@
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script src="<?php echo $site_url ?>assets/libs/jquery/dist/jquery.min.js"></script>
 
+  <script>
+
+
+
+
+    function changerating(rangeInput) {
+      const value = $(rangeInput).val(); // Get the slider's current value
+      let stars = "";
+
+      // Calculate the number of full, half, and empty stars
+      const fullStars = Math.floor(value / 2); // Each 2 units equal one full star
+      const isHalfStar = value % 2 !== 0; // Check if there’s a remainder for half star
+      const emptyStars = 5 - fullStars - (isHalfStar ? 1 : 0); // Remaining stars are empty
+
+      // Add full stars
+      for (let i = 0; i < fullStars; i++) {
+        stars += "<i class='bi bi-star-fill'></i>";
+      }
+
+      // Add half star if needed
+      if (isHalfStar) {
+        stars += "<i class='bi bi-star-half'></i>"; // Unicode character for half star
+      }
+
+      // Add empty stars
+      for (let i = 0; i < emptyStars; i++) {
+        stars += "<i class='bi bi-star'></i>";
+      }
+      // Update sibling div with new stars
+      $(rangeInput).siblings(".stars").html(stars);
+    }
+
+
+    $('#ratingSubmit').click(function () {
+      // const formData = $('#ratingForm').serialize();  // Serialize the form data
+      var nama = document.getElementById("nama").value;
+      var rating1 = document.getElementById("rating1").value;
+      var rating2 = document.getElementById("rating2").value;
+      var rating3 = document.getElementById("rating3").value;
+      var content = document.getElementById("message-text").value;
+
+      // console.log(nama)
+      // console.log(rating1)
+      // console.log(rating2)
+      // console.log(rating3)
+      // console.log(content)
+      $.ajax({
+        url: 'submitrating',  // PHP script to handle each rating individually
+        type: 'POST',
+        data: {
+          send_rating: "test",
+          nama: nama,
+          rating1: rating1,
+          rating2: rating2,
+          rating3: rating3,
+          content: content,
+        },
+        success: function (response) {
+          // console.log(response);  // Log the server response
+
+          $('#exampleModal').modal('hide')
+
+
+        },
+        error: function (xhr, status, error) {
+          console.error('There was an error submitting the rating:', error);
+        }
+      });
+    });
+  </script>
 </body>
 
 </html>

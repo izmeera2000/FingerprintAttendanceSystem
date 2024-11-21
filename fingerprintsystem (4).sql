@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 18, 2024 at 03:23 PM
+-- Generation Time: Nov 21, 2024 at 08:34 AM
 -- Server version: 8.3.0
 -- PHP Version: 8.2.18
 
@@ -145,7 +145,14 @@ CREATE TABLE IF NOT EXISTS `course` (
   `time_add` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `time_edit` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `course`
+--
+
+INSERT INTO `course` (`id`, `nama`, `masa_mula`, `time_add`, `time_edit`) VALUES
+(1, 'DTK Komputer', NULL, '2024-11-21 12:45:35', '2024-11-21 12:49:16');
 
 -- --------------------------------------------------------
 
@@ -156,12 +163,22 @@ CREATE TABLE IF NOT EXISTS `course` (
 DROP TABLE IF EXISTS `feedback`;
 CREATE TABLE IF NOT EXISTS `feedback` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `user_id` int DEFAULT NULL,
+  `nama` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `content` text COLLATE utf8mb4_unicode_ci,
+  `rate1` float DEFAULT NULL,
+  `rate2` float DEFAULT NULL,
+  `rate3` float DEFAULT NULL,
   `time_add` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `time_edit` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `feedback`
+--
+
+INSERT INTO `feedback` (`id`, `nama`, `content`, `rate1`, `rate2`, `rate3`, `time_add`, `time_edit`) VALUES
+(1, 'Test', 'test', 3.5, NULL, NULL, '2024-11-21 15:07:33', '2024-11-21 15:28:43');
 
 -- --------------------------------------------------------
 
@@ -275,7 +292,7 @@ CREATE TABLE IF NOT EXISTS `kelas` (
 --
 
 INSERT INTO `kelas` (`id`, `nama_kelas`, `location`, `fp_entrance`, `fp_exit`, `time_add`, `time_edit`) VALUES
-(1, 'DTK KOMPUTER', 'Makmal Test', 0, 0, '2024-11-02 17:52:09', '2024-11-02 17:52:09');
+(1, 'Makmal Komputer', 'Makmal Test', 0, 0, '2024-11-02 17:52:09', '2024-11-21 12:49:37');
 
 -- --------------------------------------------------------
 
@@ -292,14 +309,17 @@ CREATE TABLE IF NOT EXISTS `sem` (
   `time_add` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `time_edit` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `sem`
 --
 
 INSERT INTO `sem` (`id`, `nama`, `start_date`, `end_date`, `time_add`, `time_edit`) VALUES
-(1, '1/2024', '2024-01-01', '2024-06-06', '2024-11-02 17:57:50', '2024-11-02 17:57:50');
+(1, '1/2024', '2024-01-01', '2024-06-06', '2024-11-02 17:57:50', '2024-11-02 17:57:50'),
+(2, 'dasdasda', '0000-00-00', '0000-00-00', '2024-11-21 12:17:11', '2024-11-21 12:17:11'),
+(3, 'asdasdasda', '0000-00-00', '0000-00-00', '2024-11-21 12:18:10', '2024-11-21 12:18:10'),
+(4, 'sadasdas', '0000-00-00', '0000-00-00', '2024-11-21 12:18:24', '2024-11-21 12:18:24');
 
 -- --------------------------------------------------------
 

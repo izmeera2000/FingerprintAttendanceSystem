@@ -169,6 +169,13 @@ function holiday_create()
 	require_once('views/holiday/createholiday.php');
 }
 
+function course_create()
+{
+	check_session($site_url, 1);
+
+	require_once('views/course/createcourse.php');
+}
+
 function check_session(&$site_url, $admin = 0)
 {
 	if (!isset($_SESSION['user_details'])) {
@@ -243,10 +250,12 @@ switch (true) {
 	case (str_contains($request, 'subjek_findall')):
 	case (str_contains($request, 'sem_findall')):
 	case (str_contains($request, 'holiday_findall')):
+	case (str_contains($request, 'course_findall')):
 	case (str_contains($request, 'post_fp')):
 	case (str_contains($request, 'login_fp')):
 	// case (str_contains($request, 'class_createf')):
 	case (str_contains($request, 'fp_mode')):
+		case (str_contains($request, 'submitrating')):
 
 
 		server();
@@ -295,7 +304,10 @@ switch (true) {
 	case ($request == 'cuti/create'):
 		holiday_create();
 		break;
-
+		case ($request == 'course/create'):
+			course_create();
+			break;
+	
 
 
 	default:

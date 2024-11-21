@@ -1197,14 +1197,16 @@ section,
   margin: 0;
 }
 
-.testimonials .testimonial-item .stars {
+.stars {
   margin: 10px 0;
 }
 
-.testimonials .testimonial-item .stars i {
+ .stars i {
   color: #ffc107;
   margin: 0 1px;
 }
+
+
 
 .testimonials .testimonial-item .quote-icon-left,
 .testimonials .testimonial-item .quote-icon-right {
@@ -2588,4 +2590,15 @@ section,
   background-color: #630000;
   color: #fff;
 
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;  /* Remove default thumb styling in WebKit */
+  appearance: none;  /* Standard appearance reset */
+  width: 20px;  /* Set thumb width */
+  height: 20px;  /* Set thumb height */
+  background: #ff0000;  /* Change thumb color */
+  border-radius: 50%;  /* Make thumb circular */
+  border: 2px solid #ff0000;  /* Border color */
+  cursor: pointer;  /* Change cursor to pointer on hover */
 }

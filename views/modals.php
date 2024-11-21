@@ -509,17 +509,17 @@
 
 
 
-<?php if ($request == 'sem/create') { ?>
+<?php if ($request == 'course/create') { ?>
 
 
-<div class="modal fade" id="CreateSemModal" tabindex="-1" aria-labelledby="CreateSemModalLabel"
+<div class="modal fade" id="CreateCourseModal" tabindex="-1" aria-labelledby="CreateCourseModalLabel"
   aria-hidden="true">
   <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
     <form method="POST">
       <div class="modal-content">
         <div class="modal-header d-flex align-items-center">
-          <h5 class="modal-title" id="CreateSemModalLabel">
-            Create Semester
+          <h5 class="modal-title" id="CreateCourseModalLabel">
+            Create Course
           </h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
@@ -553,7 +553,7 @@
           <!-- <button type="button" class="btn btn-success btn-update-event" data-fc-event-public-id="">
         Update changes
       </button> -->
-          <button type="submit" class="btn btn-primary btn-add-event" name="sem_createf">
+          <button type="submit" class="btn btn-primary btn-add-event" name="course_createf">
             Create
           </button>
         </div>
@@ -562,12 +562,12 @@
   </div>
 </div>
 
-<div class="modal fade" id="EditSemModal" tabindex="-1" aria-labelledby="EditSemModalLabel" aria-hidden="true">
+<div class="modal fade" id="EditCourseModal" tabindex="-1" aria-labelledby="EditCourseModalLabel" aria-hidden="true">
   <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
     <form method="POST">
       <div class="modal-content">
         <div class="modal-header d-flex align-items-center">
-          <h5 class="modal-title" id="EditSemModalLabel">
+          <h5 class="modal-title" id="EditCourseModalLabel">
             Edit FP Device
           </h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -582,7 +582,7 @@
                 <input type="text" class="form-control" name="nama" id="nama" />
               </div>
             </div>
-            <div class="col-md-6 mt-2">
+            <!-- <div class="col-md-6 mt-2">
               <div class="">
                 <label class="form-label">Tarikh Mula</label>
                 <input type="date" class="form-control" name="mula" id="mula"/>
@@ -593,7 +593,7 @@
                 <label class="form-label">Tarikh Tamat</label>
                 <input type="date" class="form-control" name="tamat" id="tamat"/>
               </div>
-            </div>
+            </div> -->
 
 
           </div>
@@ -602,10 +602,10 @@
           <button type="button" class="btn" data-bs-dismiss="modal">
             Close
           </button>
-          <button type="submit" class="btn btn-danger" name="sem_deletef">
+          <button type="submit" class="btn btn-danger" name="course_deletef">
             Delete
           </button>
-          <button type="submit" class="btn btn-primary btn-add-event" name="sem_editf">
+          <button type="submit" class="btn btn-primary btn-add-event" name="course_editf">
             Save Changes
           </button>
         </div>
