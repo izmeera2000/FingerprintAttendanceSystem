@@ -463,7 +463,7 @@
 
     $query =
 
-      "SELECT * FROM feedback ORDER BY LENGTH(content) DESC, rate1 DESC, rate2 DESC, rate3 DESC";
+      "SELECT * FROM feedback ORDER BY LENGTH(content) DESC, rate1 DESC, rate2 DESC, rate3 DESC, time_add DESC LIMIT 6";
 
     $feedback = mysqli_query($db, $query);
 
