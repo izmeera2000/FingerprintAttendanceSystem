@@ -143,11 +143,17 @@ void setup() {
 }
 
 void loop() {
-getFingerprintIDez();
 
-  // if (digitalRead(TOUCH1) == HIGH) {
-  //   Serial.println("TOUCH SENSOR 1");
-  // }
+
+  if (digitalRead(TOUCH1) == HIGH) {
+    Serial.println("TOUCH SENSOR 1");
+    getFingerprintIDez();
+  }
+
+  if (digitalRead(TOUCH2) == HIGH) {
+    Serial.println("TOUCH SENSOR 1");
+    getFingerprintIDez2();
+  }
 
 
   // String registermode = getFingerprintmode(fp_name_out);
@@ -799,6 +805,26 @@ int getFingerprintIDez() {
   // return finger.fingerID;
 }
 
+
+int getFingerprintIDez2() {
+  uint8_t p = finger2.getImage();
+  if (p != FINGERPRINT_OK) return -1;
+
+  p = finger2.image2Tz();
+  if (p != FINGERPRINT_OK) return -1;
+
+  p = finger2.fingerFastSearch();
+  if (p != FINGERPRINT_OK) return -1;
+
+  // found a match!
+  Serial.print("Found ID #");
+  Serial.print(finger2.fingerID);
+  Serial.print(" with confidence of ");
+  Serial.println(finger2.confidence);
+
+  postFingerprintID(finger2.fingerID);
+  // return finger.fingerID;
+}
 
 
 
