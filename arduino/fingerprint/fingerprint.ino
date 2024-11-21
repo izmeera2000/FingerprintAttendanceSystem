@@ -544,44 +544,44 @@ uint8_t getFingerprintEnroll2(int id) {
 
 
 
-void postFingerprintTemplate(uint8_t* fp) {
-  if (WiFi.status() == WL_CONNECTED) {
-    HTTPClient http;
-    http.begin("https://fast.e-veterinar.com/post_fp");
-    http.addHeader("Content-Type", "application/x-www-form-urlencoded");
+// void postFingerprintTemplate(uint8_t* fp) {
+//   if (WiFi.status() == WL_CONNECTED) {
+//     HTTPClient http;
+//     http.begin("https://fast.e-veterinar.com/post_fp");
+//     http.addHeader("Content-Type", "application/x-www-form-urlencoded");
 
-    // Convert the fingerprint template data to a hex string
-    String hexTemplate = "";
-    for (int i = 0; i < 512; i++) {
-      if (fp[i] < 16) hexTemplate += "0";  // Add leading zero for single hex digits
-      hexTemplate += String(fp[i], HEX);
-    }
+//     // Convert the fingerprint template data to a hex string
+//     String hexTemplate = "";
+//     for (int i = 0; i < 512; i++) {
+//       if (fp[i] < 16) hexTemplate += "0";  // Add leading zero for single hex digits
+//       hexTemplate += String(fp[i], HEX);
+//     }
 
 
-    // Prepare POST data
-    String postData = "post_fp=" + hexTemplate + "fp=" + hexTemplate;
+//     // Prepare POST data
+//     String postData = "post_fp=" + hexTemplate + "fp=" + hexTemplate;
 
-    Serial.println("posting data  data is :");
+//     Serial.println("posting data  data is :");
 
-    Serial.println(postData);
+//     Serial.println(postData);
 
-    // Send POST request
-    int httpResponseCode = http.POST(postData);  // Use .c_str() to convert String to const char*
+//     // Send POST request
+//     int httpResponseCode = http.POST(postData);  // Use .c_str() to convert String to const char*
 
-    // Handle the response
-    if (httpResponseCode > 0) {
-      String response = http.getString();
-      Serial.println("Server response: " + response);
-    } else {
-      Serial.print("Error in POST request, HTTP code: ");
-      Serial.println(httpResponseCode);
-    }
+//     // Handle the response
+//     if (httpResponseCode > 0) {
+//       String response = http.getString();
+//       Serial.println("Server response: " + response);
+//     } else {
+//       Serial.print("Error in POST request, HTTP code: ");
+//       Serial.println(httpResponseCode);
+//     }
 
-    http.end();
-  } else {
-    Serial.println("WiFi is not connected");
-  }
-}
+//     http.end();
+//   } else {
+//     Serial.println("WiFi is not connected");
+//   }
+// }
 
 void postFingerprintID(int id) {
   if (WiFi.status() == WL_CONNECTED) {
