@@ -139,8 +139,16 @@ void loop() {
 
   int id = 8;
 
-  // enrollFinger(id);
-
+  if (choice == '1') {
+  enrollFinger(id);
+  } else if (choice == '2') {
+    Serial.println("Enter Finger ID to Transfer:");
+    while (!Serial.available());
+    int id = Serial.parseInt();
+    transferFingerprintTemplate(id);
+  } else {
+    Serial.println("Invalid choice.");
+  }
 
   transferFingerprintTemplate(id);
 }
