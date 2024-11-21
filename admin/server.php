@@ -2012,7 +2012,7 @@ if (isset($_POST['login_fp'])) {
 
   $fp = $_POST['login_fp'];
 
-  $query = "SELECT id, fp FROM user WHERE fp = '$fp'";
+  $query = "SELECT id FROM user WHERE id='$fp'";
   $results = mysqli_query($db, $query);
   while ($row = mysqli_fetch_assoc($results)) {
     $id = $row['id'];
