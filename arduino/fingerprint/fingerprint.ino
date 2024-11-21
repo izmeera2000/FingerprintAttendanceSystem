@@ -136,24 +136,26 @@ void setup() {
   pinMode(TOUCH2, INPUT);
 
 
-      int test = getFingerprintEnroll(4);
-    if (test) {
-      getFingerprintEnroll2(4);
-    }
+  int test = getFingerprintEnroll(4);
+  if (test) {
+    getFingerprintEnroll2(4);
+  }
+  touchAttachInterrupt(TOUCH1, onTouch1, TOUCH_THRESHOLD);
+  touchAttachInterrupt(TOUCH2, onTouch2, TOUCH_THRESHOLD);
 }
 
 void loop() {
 
 
-  if (digitalRead(TOUCH1) == HIGH) {
-    Serial.println("TOUCH SENSOR 1");
-    getFingerprintIDez();
-  }
+  // if (digitalRead(TOUCH1) == HIGH) {
+  //   Serial.println("TOUCH SENSOR 1");
+  //   getFingerprintIDez();
+  // }
 
-  if (digitalRead(TOUCH2) == HIGH) {
-    Serial.println("TOUCH SENSOR 1");
-    getFingerprintIDez2();
-  }
+  // if (digitalRead(TOUCH2) == HIGH) {
+  //   Serial.println("TOUCH SENSOR 1");
+  //   getFingerprintIDez2();
+  // }
 
 
   // String registermode = getFingerprintmode(fp_name_out);
@@ -227,7 +229,7 @@ void loop() {
 
 uint8_t getFingerprintEnroll(int id) {
 
-  
+
   int p = -1;
   Serial.print("Waiting for valid finger to enroll as #");
   Serial.println(id);
@@ -373,7 +375,7 @@ uint8_t getFingerprintEnroll(int id) {
 }
 uint8_t getFingerprintEnroll2(int id) {
 
-  
+
   int p = -1;
   Serial.print("Waiting for valid finger 2 to enroll as #");
   Serial.println(id);
@@ -711,4 +713,13 @@ String getFingerprintmode(String fp_name) {
   } else {
     Serial.println("WiFi is not connected");
   }
+}
+
+
+void onTouch1() {
+  Serial.println("Touched 1");
+}
+
+void onTouch2() {
+  Serial.println("Touched 2");
 }
