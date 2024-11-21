@@ -126,7 +126,7 @@ void setup() {
 void loop() {
 
 
-  int id = 4;
+  int id = 2;
 
   enrollFingerprint();
   transferFingerprintTemplate(id);
@@ -134,7 +134,7 @@ void loop() {
 
 
 void enrollFingerprint() {
-  int id = 4;
+  int id = 2;
   uint8_t result = enrollFinger(id);
   if (result == FINGERPRINT_OK) {
     Serial.println("Enrollment successful.");
