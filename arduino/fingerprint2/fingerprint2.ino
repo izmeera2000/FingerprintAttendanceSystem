@@ -139,7 +139,9 @@ void loop() {
 
   int id = 8;
 
-  enrollFinger(id);
+  // enrollFinger(id);
+
+
   transferFingerprintTemplate(id);
 }
 
