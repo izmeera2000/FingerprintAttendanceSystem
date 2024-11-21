@@ -115,6 +115,17 @@ void setup() {
   }
 
 
+  finger.getTemplateCount();
+
+  if (finger.templateCount == 0) {
+    Serial.print("Sensor  1 doesn't contain any fingerprint data. Please run the 'enroll' example.");
+  } else {
+    Serial.println("Waiting for valid finger...");
+    Serial.print("Sensor 1 contains ");
+    Serial.print(finger1.templateCount);
+    Serial.println(" templates");
+  }
+
 
 
   pinMode(IR_PIN, INPUT);
@@ -126,10 +137,10 @@ void setup() {
 void loop() {
 
 
-  int id = 2;
+  int id = 8;
 
-  // enrollFinger(id);
-  // transferFingerprintTemplate(id);
+  enrollFinger(id);
+  transferFingerprintTemplate(id);
 }
 
 
