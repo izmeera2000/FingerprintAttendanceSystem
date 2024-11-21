@@ -75,16 +75,14 @@ void setup() {
       ;
   }
 
-  if (player.begin(DFPSerial)) {
-    Serial.println("OK");
-
-    // Set volume to maximum (0 to 30).
-    player.volume(10);
-    // Play the first MP3 file on the SD card
-    player.play(1);
-  } else {
-    Serial.println("Connecting to DFPlayer Mini failed!");
+  if (!myDFPlayer.begin(mySoftwareSerial)) {
+    Serial.println("DFPlayer Mini not detected!");
+    while (true);
   }
+  Serial.println("DFPlayer Mini detected!");
+
+    myDFPlayer.volume(20); // Set the volume (0 to 30)
+  myDFPlayer.play(1);    // Play the first audio file
 
   // Serial.println(F("Reading sensor parameters"));
   // finger.getParameters();
