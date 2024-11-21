@@ -297,8 +297,8 @@ uint8_t downloadFingerprintTemplate(uint16_t id, uint8_t* fingerTemplate) {
   while (i < 534 && (millis() - starttime) < 20000) {
     if (mySerialfp.available()) {
       bytesReceived[i++] = mySerialfp.read();
-      Serial.print(bytesReceived[i], HEX);
-      Serial.print(" ");
+      // Serial.print(bytesReceived[i], HEX);
+      // Serial.print(" ");
     }
   }
 
