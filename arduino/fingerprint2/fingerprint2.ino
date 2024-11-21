@@ -132,46 +132,21 @@ void setup() {
   pinMode(RELAY_PIN, OUTPUT);
   pinMode(TOUCH1, INPUT);
   pinMode(TOUCH2, INPUT);
+
+    int id = 8;
+
+  enrollFinger(id);
+
+
+  transferFingerprintTemplate(id);
 }
 
 void loop() {
-  Serial.println("\n1. Enroll Finger");
-  Serial.println("2. Transfer Finger to Second Sensor");
-  Serial.println("Enter option: ");
 
-  while (!Serial.available());
-  char choice = Serial.read();
-  Serial.println(choice);
 
-  if (choice == '1') {
-    enrollFingerprint();
-  } else if (choice == '2') {
-    Serial.println("Enter Finger ID to Transfer:");
-    while (!Serial.available());
-    int id = Serial.parseInt();
-    transferFingerprintTemplate(id);
-  } else {
-    Serial.println("Invalid choice.");
-  }
+
 }
 
-
-void enrollFingerprint() {
-  Serial.println("Enter ID for enrollment:");
-  while (!Serial.available());
-  int id = Serial.parseInt();
-  if (id == 0) {
-    Serial.println("Invalid ID.");
-    return;
-  }
-
-  uint8_t result = enrollFinger(id);
-  if (result == FINGERPRINT_OK) {
-    Serial.println("Enrollment successful.");
-  } else {
-    Serial.println("Enrollment failed.");
-  }
-}
 
 
 uint8_t enrollFinger(uint16_t id) {
