@@ -589,14 +589,10 @@ void postFingerprintID(int id) {
     http.begin("https://fast.e-veterinar.com/login_fp");
     http.addHeader("Content-Type", "application/x-www-form-urlencoded");
 
-    // Convert the fingerprint template data to a hex string
+    // Prepare POST data (convert id to string)
+    String postData = "login_fp=" + String(id) + "&fp=" + String(id);
 
-
-    // Prepare POST data
-    String postData = "login_fp=" + id + "fp=" + id;
-
-    Serial.println("posting data  data is :");
-
+    Serial.println("Posting data: ");
     Serial.println(postData);
 
     // Send POST request
@@ -616,6 +612,7 @@ void postFingerprintID(int id) {
     Serial.println("WiFi is not connected");
   }
 }
+
 
 
 
