@@ -471,48 +471,48 @@
 
       if (mysqli_num_rows($feedback) > 0) {
 
-        while ($row = mysqli_fetch_assoc($feedback)) {
 
-          ?>
-          <!-- Testimonials Section -->
-          <section id="testimonials" class="testimonials section">
 
-            <!-- Section Title -->
-            <div class="container section-title" data-aos="fade-up">
-              <h2>Testimonials</h2>
-              <p>What they are saying about us</p>
-            </div><!-- End Section Title -->
+        ?>
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="testimonials section">
 
-            <div class="container" data-aos="fade-up" data-aos-delay="100">
+          <!-- Section Title -->
+          <div class="container section-title" data-aos="fade-up">
+            <h2>Testimonials</h2>
+            <p>What they are saying about us</p>
+          </div><!-- End Section Title -->
 
-              <div class="swiper init-swiper">
-                <script type="application/json" class="swiper-config">
-                                                                                    {
-                                                                                      "loop": true,
-                                                                                      "speed": 600,
-                                                                                      "autoplay": {
-                                                                                        "delay": 5000
-                                                                                      },
-                                                                                      "slidesPerView": "auto",
-                                                                                      "pagination": {
-                                                                                        "el": ".swiper-pagination",
-                                                                                        "type": "bullets",
-                                                                                        "clickable": true
-                                                                                      },
-                                                                                      "breakpoints": {
-                                                                                        "320": {
-                                                                                          "slidesPerView": 1,
-                                                                                          "spaceBetween": 40
-                                                                                        },
-                                                                                        "1200": {
-                                                                                          "slidesPerView": 3,
-                                                                                          "spaceBetween": 10
+          <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+            <div class="swiper init-swiper">
+              <script type="application/json" class="swiper-config">
+                                                                                        {
+                                                                                          "loop": true,
+                                                                                          "speed": 600,
+                                                                                          "autoplay": {
+                                                                                            "delay": 5000
+                                                                                          },
+                                                                                          "slidesPerView": "auto",
+                                                                                          "pagination": {
+                                                                                            "el": ".swiper-pagination",
+                                                                                            "type": "bullets",
+                                                                                            "clickable": true
+                                                                                          },
+                                                                                          "breakpoints": {
+                                                                                            "320": {
+                                                                                              "slidesPerView": 1,
+                                                                                              "spaceBetween": 40
+                                                                                            },
+                                                                                            "1200": {
+                                                                                              "slidesPerView": 3,
+                                                                                              "spaceBetween": 10
+                                                                                            }
+                                                                                          }
                                                                                         }
-                                                                                      }
-                                                                                    }
-                                                                                  </script>
-                <div class="swiper-wrapper">
-
+                                                                                      </script>
+              <div class="swiper-wrapper">
+                <?php while ($row = mysqli_fetch_assoc($feedback)) { ?>
                   <div class="swiper-slide">
                     <div class="testimonial-item">
                       <!-- <img src="assets/images/testimonials/testimonials-1.jpg" class="testimonial-img" alt=""> -->
@@ -605,17 +605,17 @@
                       </p>
                     </div>
                   </div><!-- End testimonial item -->
+                <?php } ?>
 
-
-                </div>
-                <div class="swiper-pagination"></div>
               </div>
-
+              <div class="swiper-pagination"></div>
             </div>
 
-          </section><!-- /Testimonials Section -->
-          <?php
-        }
+          </div>
+
+        </section><!-- /Testimonials Section -->
+        <?php
+
       }
     } ?>
 
