@@ -136,10 +136,12 @@ void setup() {
   pinMode(TOUCH2, INPUT);
 
 
-  int test = getFingerprintEnroll(4);
-  if (test) {
-    getFingerprintEnroll2(4);
-  }
+  // int test = getFingerprintEnroll(4);
+  // if (test) {
+  //   getFingerprintEnroll2(4);
+  // }
+
+
   // touchAttachInterrupt(TOUCH1, onTouch1, TOUCH_THRESHOLD);
   // touchAttachInterrupt(TOUCH2, onTouch2, TOUCH_THRESHOLD);
 }
