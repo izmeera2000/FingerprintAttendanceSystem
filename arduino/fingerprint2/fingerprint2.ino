@@ -303,6 +303,8 @@ uint8_t downloadFingerprintTemplate(uint16_t id, uint8_t* fingerTemplate) {
 }
 
 uint8_t uploadFingerprintTemplate(uint16_t id, uint8_t* fingerTemplate) {
+    Serial.println("uploading");
+
   uint8_t packet[] = {
     0xEF, 0x01, 0xFF, 0xFF, 0xFF, 0xFF, 0x01, 0x00, 0x04, 0x07, (uint8_t)(id >> 8), (uint8_t)(id & 0xFF), 0x00
   };
