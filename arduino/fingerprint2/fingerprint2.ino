@@ -301,7 +301,11 @@ uint8_t downloadFingerprintTemplate(uint16_t id, uint8_t* fingerTemplate) {
       // Serial.print(" ");
     }
   }
-
+  Serial.print("Received bytes: ");
+  for (int a = 0; a < 534; a++) {
+    Serial.print(bytesReceived[a], HEX);
+    Serial.print(" ");
+  }
 
 
   if (i != 534) return FINGERPRINT_PACKETRECIEVEERR;
@@ -332,7 +336,16 @@ uint8_t uploadFingerprintTemplate(uint16_t id, uint8_t* fingerTemplate) {
       ack[ackLen++] = mySerial.read();
     }
   }
-  if (ackLen != 12 || ack[6] != 0x00) return FINGERPRINT_PACKETRECIEVEERR;
+  if (ackLen != 12) {
+    Serial.println("Invalid acknowledgment length");
+    return FINGERPRINT_PACKETRECIEVEERR;
+  }
+
+  if (ack[6] != 0x00) {
+    Serial.print("Error in acknowledgment: ");
+    Serial.println(ack[6], HEX);
+    return FINGERPRINT_PACKETRECIEVEERR;
+  }
 
   // Upload first 256 bytes
   uint8_t dataPacket[267] = { 0xEF, 0x01, 0xFF, 0xFF, 0xFF, 0xFF, 0x02, 0x01, 0x00, 0xA0 };
