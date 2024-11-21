@@ -219,46 +219,48 @@ uint8_t downloadFingerprintTemplate(uint16_t id, uint8_t* fingerTemplate) {
   return FINGERPRINT_OK;
 }
 
-uint8_t uploadFingerprintTemplate(uint16_t id, uint8_t* fingerTemplate) {
+uint8_t uploadFingerprintTemplate(uint16_t id, uint8_t *fingerTemplate) {
   uint8_t packet[] = {
     0xEF, 0x01, 0xFF, 0xFF, 0xFF, 0xFF, 0x01, 0x00, 0x04, 0x07, (uint8_t)(id >> 8), (uint8_t)(id & 0xFF), 0x00
   };
   packet[11] = 0x07 + (id >> 8) + (id & 0xFF);
 
-  finger2.write(packet, sizeof(packet));
+  // Send the packet to the second fingerprint sensor
+  mySerial2.write(packet, sizeof(packet));
 
   // Wait for acknowledgment
   uint8_t ack[12];
   int ackLen = 0;
   uint32_t starttime = millis();
   while ((millis() - starttime) < 2000 && ackLen < sizeof(ack)) {
-    if (finger2.available()) {
-      ack[ackLen++] = finger2.read();
+    if (mySerial2.available()) {
+      ack[ackLen++] = mySerial2.read();
     }
   }
   if (ackLen != 12 || ack[6] != 0x00) return FINGERPRINT_PACKETRECIEVEERR;
 
   // Upload first 256 bytes
-  uint8_t dataPacket[267] = { 0xEF, 0x01, 0xFF, 0xFF, 0xFF, 0xFF, 0x02, 0x01, 0x00, 0xA0 };
+  uint8_t dataPacket[267] = {0xEF, 0x01, 0xFF, 0xFF, 0xFF, 0xFF, 0x02, 0x01, 0x00, 0xA0};
   memcpy(dataPacket + 10, fingerTemplate, 256);
-  finger2.write(dataPacket, sizeof(dataPacket));
+  mySerial2.write(dataPacket, sizeof(dataPacket));
 
   // Upload second 256 bytes
   dataPacket[7] = 0x02;
   memcpy(dataPacket + 10, fingerTemplate + 256, 256);
-  finger2.write(dataPacket, sizeof(dataPacket));
+  mySerial2.write(dataPacket, sizeof(dataPacket));
 
   // Wait for acknowledgment
   ackLen = 0;
   starttime = millis();
   while ((millis() - starttime) < 2000 && ackLen < sizeof(ack)) {
-    if (finger2.available()) {
-      ack[ackLen++] = finger2.read();
+    if (mySerial2.available()) {
+      ack[ackLen++] = mySerial2.read();
     }
   }
 
   return (ackLen == 12 && ack[6] == 0x00) ? FINGERPRINT_OK : FINGERPRINT_PACKETRECIEVEERR;
 }
+
 
 uint8_t transferFingerprintTemplate(uint16_t id) {
   uint8_t fingerTemplate[512];
