@@ -122,7 +122,7 @@ void setup() {
   enrollFinger(id);
 
 
-  transferFingerprintTemplate(id);
+  enrollFinger2(id);
 }
 
 void loop() {
@@ -274,151 +274,147 @@ uint8_t enrollFinger(uint16_t id) {
   return true;
 }
 
-uint8_t downloadFingerprintTemplate(uint16_t id, uint8_t* fingerTemplate) {
-  Serial.println("Downloading");
 
-  uint8_t p = finger.loadModel(id);
-  if (p != FINGERPRINT_OK) {
-    Serial.println("Failed to load model.");
+uint8_t enrollFinger2(uint16_t id) {
+  int p = -1;
+  Serial.print("Waiting for valid finger to enroll as #");
+  Serial.println(id);
+  while (p != FINGERPRINT_OK) {
+    p = finger2.getImage();
+    switch (p) {
+      case FINGERPRINT_OK:
+        Serial.println("Image taken");
+        break;
+      case FINGERPRINT_NOFINGER:
+        Serial.print(".");
+        break;
+      case FINGERPRINT_PACKETRECIEVEERR:
+        Serial.println("Communication error");
+        break;
+      case FINGERPRINT_IMAGEFAIL:
+        Serial.println("Imaging error");
+        break;
+      default:
+        Serial.println("Unknown error");
+        break;
+    }
+  }
+
+  // OK success!
+
+  p = finger2.image2Tz(1);
+  switch (p) {
+    case FINGERPRINT_OK:
+      Serial.println("Image converted");
+      break;
+    case FINGERPRINT_IMAGEMESS:
+      Serial.println("Image too messy");
+      return p;
+    case FINGERPRINT_PACKETRECIEVEERR:
+      Serial.println("Communication error");
+      return p;
+    case FINGERPRINT_FEATUREFAIL:
+      Serial.println("Could not find fingerprint features");
+      return p;
+    case FINGERPRINT_INVALIDIMAGE:
+      Serial.println("Could not find fingerprint features");
+      return p;
+    default:
+      Serial.println("Unknown error");
+      return p;
+  }
+
+  Serial.println("Remove finger");
+  delay(2000);
+  p = 0;
+  while (p != FINGERPRINT_NOFINGER) {
+    p = finger2.getImage();
+  }
+  Serial.print("ID ");
+  Serial.println(id);
+  p = -1;
+  Serial.println("Place same finger again");
+  while (p != FINGERPRINT_OK) {
+    p = finger2.getImage();
+    switch (p) {
+      case FINGERPRINT_OK:
+        Serial.println("Image taken");
+        break;
+      case FINGERPRINT_NOFINGER:
+        Serial.print(".");
+        break;
+      case FINGERPRINT_PACKETRECIEVEERR:
+        Serial.println("Communication error");
+        break;
+      case FINGERPRINT_IMAGEFAIL:
+        Serial.println("Imaging error");
+        break;
+      default:
+        Serial.println("Unknown error");
+        break;
+    }
+  }
+
+  // OK success!
+
+  p = finger2.image2Tz(2);
+  switch (p) {
+    case FINGERPRINT_OK:
+      Serial.println("Image converted");
+      break;
+    case FINGERPRINT_IMAGEMESS:
+      Serial.println("Image too messy");
+      return p;
+    case FINGERPRINT_PACKETRECIEVEERR:
+      Serial.println("Communication error");
+      return p;
+    case FINGERPRINT_FEATUREFAIL:
+      Serial.println("Could not find fingerprint features");
+      return p;
+    case FINGERPRINT_INVALIDIMAGE:
+      Serial.println("Could not find fingerprint features");
+      return p;
+    default:
+      Serial.println("Unknown error");
+      return p;
+  }
+
+  // OK converted!
+  Serial.print("Creating model for #");
+  Serial.println(id);
+
+  p = finger2.createModel();
+  if (p == FINGERPRINT_OK) {
+    Serial.println("Prints matched!");
+  } else if (p == FINGERPRINT_PACKETRECIEVEERR) {
+    Serial.println("Communication error");
+    return p;
+  } else if (p == FINGERPRINT_ENROLLMISMATCH) {
+    Serial.println("Fingerprints did not match");
+    return p;
+  } else {
+    Serial.println("Unknown error");
     return p;
   }
 
-  p = finger.getModel();
-  if (p != FINGERPRINT_OK) {
-    Serial.println("Failed to get model.");
+  Serial.print("ID ");
+  Serial.println(id);
+  p = finger2.storeModel(id);
+  if (p == FINGERPRINT_OK) {
+    Serial.println("Stored!");
+  } else if (p == FINGERPRINT_PACKETRECIEVEERR) {
+    Serial.println("Communication error");
+    return p;
+  } else if (p == FINGERPRINT_BADLOCATION) {
+    Serial.println("Could not store in that location");
+    return p;
+  } else if (p == FINGERPRINT_FLASHERR) {
+    Serial.println("Error writing to flash");
+    return p;
+  } else {
+    Serial.println("Unknown error");
     return p;
   }
 
-  // Read template data
-  uint8_t bytesReceived[534];
-  memset(bytesReceived, 0xff, 534);
-  uint32_t starttime = millis();
-  int i = 0;
-  while (i < 534 && (millis() - starttime) < 20000) {
-    if (mySerialfp.available()) {
-      bytesReceived[i++] = mySerialfp.read();
-      // Serial.print(bytesReceived[i], HEX);
-      // Serial.print(" ");
-    }
-  }
-  Serial.print("Received bytes: ");
-  for (int a = 0; a < 534; a++) {
-    Serial.print(bytesReceived[a], HEX);
-    Serial.print(" ");
-  }
-
-
-  if (i != 534) return FINGERPRINT_PACKETRECIEVEERR;
-
-  // Filter the data packets
-  memcpy(fingerTemplate, bytesReceived + 9, 256);
-  memcpy(fingerTemplate + 256, bytesReceived + 9 + 256 + 2 + 9, 256);
-  return FINGERPRINT_OK;
-}
-
-uint8_t uploadFingerprintTemplate(uint16_t id, uint8_t* fingerTemplate) {
-  Serial.println("Uploading fingerprint template...");
-
-  uint8_t packet[] = {
-    0xEF, 0x01, 0xFF, 0xFF, 0xFF, 0xFF, 0x01, 0x00, 0x04, 0x07, (uint8_t)(id >> 8), (uint8_t)(id & 0xFF), 0x00
-  };
-  packet[11] = 0x07 + (id >> 8) + (id & 0xFF);
-
-  // Send the packet to the second fingerprint sensor
-  mySerial.write(packet, sizeof(packet));
-  Serial.println("Packet sent. Waiting for acknowledgment...");
-
-  // Wait for acknowledgment
-  uint8_t ack[12];
-  int ackLen = 0;
-  uint32_t starttime = millis();
-  while ((millis() - starttime) < 5000 && ackLen < sizeof(ack)) {
-    if (mySerial.available()) {
-      ack[ackLen++] = mySerial.read();
-    }
-  }
-
-  // Log raw acknowledgment
-  Serial.print("Acknowledgment received: ");
-  for (int i = 0; i < ackLen; i++) {
-    Serial.print(ack[i], HEX);
-    Serial.print(" ");
-  }
-  Serial.println();
-
-  // Check acknowledgment
-  if (ackLen != 12) {
-    Serial.println("Invalid acknowledgment length.");
-    return FINGERPRINT_PACKETRECIEVEERR;
-  }
-
-  if (ack[6] != 0x00) {
-    Serial.print("Error in acknowledgment: ");
-    Serial.println(ack[6], HEX);
-    return FINGERPRINT_PACKETRECIEVEERR;
-  }
-  
-  // Upload first 256 bytes of the fingerprint template
-  uint8_t dataPacket[267] = { 0xEF, 0x01, 0xFF, 0xFF, 0xFF, 0xFF, 0x02, 0x01, 0x00, 0xA0 };
-  memcpy(dataPacket + 10, fingerTemplate, 256);
-  mySerial.write(dataPacket, sizeof(dataPacket));
-  Serial.println("First 256 bytes uploaded.");
-
-  // Upload second 256 bytes
-  dataPacket[7] = 0x02;
-  memcpy(dataPacket + 10, fingerTemplate + 256, 256);
-  mySerial.write(dataPacket, sizeof(dataPacket));
-  Serial.println("Second 256 bytes uploaded.");
-
-  // Wait for acknowledgment
-  ackLen = 0;
-  starttime = millis();
-  while ((millis() - starttime) < 5000 && ackLen < sizeof(ack)) {
-    if (mySerial.available()) {
-      ack[ackLen++] = mySerial.read();
-    }
-  }
-
-  // Log second acknowledgment
-  Serial.print("Second acknowledgment received: ");
-  for (int i = 0; i < ackLen; i++) {
-    Serial.print(ack[i], HEX);
-    Serial.print(" ");
-  }
-  Serial.println();
-
-  // Check acknowledgment for the second data packet
-  if (ackLen != 12) {
-    Serial.println("Invalid acknowledgment length for second packet.");
-    return FINGERPRINT_PACKETRECIEVEERR;
-  }
-
-  if (ack[6] != 0x00) {
-    Serial.print("Error in second acknowledgment: ");
-    Serial.println(ack[6], HEX);
-    return FINGERPRINT_PACKETRECIEVEERR;
-  }
-
-  Serial.println("Template successfully uploaded to second sensor.");
-  return FINGERPRINT_OK;
-}
-
-
-
-uint8_t transferFingerprintTemplate(uint16_t id) {
-  uint8_t fingerTemplate[512];
-  uint8_t result = downloadFingerprintTemplate(id, fingerTemplate);
-  if (result != FINGERPRINT_OK) {
-    Serial.println("Failed to download template.");
-    return result;
-  }
-
-  result = uploadFingerprintTemplate(id, fingerTemplate);
-  if (result != FINGERPRINT_OK) {
-    Serial.println("Failed to upload template to second sensor.");
-    return result;
-  }
-
-  Serial.println("Template successfully transferred!");
-  return FINGERPRINT_OK;
+  return true;
 }
