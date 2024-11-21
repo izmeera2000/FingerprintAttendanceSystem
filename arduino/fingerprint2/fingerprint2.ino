@@ -24,7 +24,7 @@ if (player.begin(softwareSerial, true, false)) {  // Enable debug prints
 } else {
   Serial.println("Failed to initialize DFPlayer Mini.");
 }
-
+)
 
 void loop() {
 
