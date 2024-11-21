@@ -338,6 +338,14 @@ uint8_t uploadFingerprintTemplate(uint16_t id, uint8_t* fingerTemplate) {
     }
   }
 
+  // Log raw acknowledgment
+  Serial.print("Acknowledgment received: ");
+  for (int i = 0; i < ackLen; i++) {
+    Serial.print(ack[i], HEX);
+    Serial.print(" ");
+  }
+  Serial.println();
+
   // Check acknowledgment
   if (ackLen != 12) {
     Serial.println("Invalid acknowledgment length.");
@@ -371,6 +379,14 @@ uint8_t uploadFingerprintTemplate(uint16_t id, uint8_t* fingerTemplate) {
     }
   }
 
+  // Log second acknowledgment
+  Serial.print("Second acknowledgment received: ");
+  for (int i = 0; i < ackLen; i++) {
+    Serial.print(ack[i], HEX);
+    Serial.print(" ");
+  }
+  Serial.println();
+
   // Check acknowledgment for the second data packet
   if (ackLen != 12) {
     Serial.println("Invalid acknowledgment length for second packet.");
@@ -386,6 +402,7 @@ uint8_t uploadFingerprintTemplate(uint16_t id, uint8_t* fingerTemplate) {
   Serial.println("Template successfully uploaded to second sensor.");
   return FINGERPRINT_OK;
 }
+
 
 
 uint8_t transferFingerprintTemplate(uint16_t id) {
