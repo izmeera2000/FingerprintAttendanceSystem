@@ -127,13 +127,12 @@ void loop() {
 
 
 
-enrollFingerprint();
-
+  enrollFingerprint();
 }
 
 
 void enrollFingerprint() {
-int id = 4;
+  int id = 4;
   uint8_t result = enrollFinger(id);
   if (result == FINGERPRINT_OK) {
     Serial.println("Enrollment successful.");
@@ -165,7 +164,8 @@ uint8_t enrollFinger(uint16_t id) {
 
   Serial.println("Remove finger.");
   delay(2000);
-  while (finger.getImage() != FINGERPRINT_NOFINGER);
+  while (finger.getImage() != FINGERPRINT_NOFINGER)
+    ;
 
   // Second image
   Serial.println("Place the same finger again.");
@@ -193,7 +193,7 @@ uint8_t enrollFinger(uint16_t id) {
   return p;
 }
 
-uint8_t downloadFingerprintTemplate(uint16_t id, uint8_t *fingerTemplate) {
+uint8_t downloadFingerprintTemplate(uint16_t id, uint8_t* fingerTemplate) {
   uint8_t p = finger.loadModel(id);
   if (p != FINGERPRINT_OK) return p;
 
@@ -219,7 +219,7 @@ uint8_t downloadFingerprintTemplate(uint16_t id, uint8_t *fingerTemplate) {
   return FINGERPRINT_OK;
 }
 
-uint8_t uploadFingerprintTemplate(uint16_t id, uint8_t *fingerTemplate) {
+uint8_t uploadFingerprintTemplate(uint16_t id, uint8_t* fingerTemplate) {
   uint8_t packet[] = {
     0xEF, 0x01, 0xFF, 0xFF, 0xFF, 0xFF, 0x01, 0x00, 0x04, 0x07, (uint8_t)(id >> 8), (uint8_t)(id & 0xFF), 0x00
   };
@@ -239,7 +239,7 @@ uint8_t uploadFingerprintTemplate(uint16_t id, uint8_t *fingerTemplate) {
   if (ackLen != 12 || ack[6] != 0x00) return FINGERPRINT_PACKETRECIEVEERR;
 
   // Upload first 256 bytes
-  uint8_t dataPacket[267] = {0xEF, 0x01, 0xFF, 0xFF, 0xFF, 0xFF, 0x02, 0x01, 0x00, 0xA0};
+  uint8_t dataPacket[267] = { 0xEF, 0x01, 0xFF, 0xFF, 0xFF, 0xFF, 0x02, 0x01, 0x00, 0xA0 };
   memcpy(dataPacket + 10, fingerTemplate, 256);
   finger2.write(dataPacket, sizeof(dataPacket));
 
@@ -277,6 +277,3 @@ uint8_t transferFingerprintTemplate(uint16_t id) {
   Serial.println("Template successfully transferred!");
   return FINGERPRINT_OK;
 }
-
-
-
