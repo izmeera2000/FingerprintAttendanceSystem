@@ -7,7 +7,7 @@
 #include <HardwareSerial.h>
 
 
-const char* ssid = "NoName";
+const char* ssid = "NoName?";
 const char* password = "54548484";
 const char* fp_name_in = "testin";
 const char* fp_name_out = "testout";
