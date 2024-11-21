@@ -127,13 +127,13 @@ void loop() {
 
 
 
-getFingerprintEnroll(4);
+getFingerprintEnroll();
 
 }
 
 
-uint8_t getFingerprintEnroll(id) {
-  int id = id;
+uint8_t getFingerprintEnroll() {
+  int id = 4;
   int p = -1;
   Serial.print("Waiting for valid finger to enroll as #"); Serial.println(id);
   while (p != FINGERPRINT_OK) {
