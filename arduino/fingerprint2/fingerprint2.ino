@@ -27,9 +27,16 @@ void setup() {
   // Set the volume to a reasonable level (0-30)
   player.volume(20);
 
-  // Play the first MP3 file on the SD card
-  player.play(1);
-  Serial.println("Playing the first file...");
+    int fileCount = player.readFileCounts();  // Read number of files
+    Serial.print("Files found on SD card: ");
+    Serial.println(fileCount);
+
+    if (fileCount > 0) {
+        Serial.println("Playing the first file...");
+        player.play(1); // Play the first MP3 file (0001.mp3)
+    } else {
+        Serial.println("No MP3 files found on SD card!");
+    }
 }
 
 void loop() {

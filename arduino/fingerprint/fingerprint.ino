@@ -134,12 +134,12 @@ void setup() {
   pinMode(TOUCH1, INPUT);
   pinMode(TOUCH2, INPUT);
 
+  getFingerprintmode("testout");
 
   // int test = getFingerprintEnroll(4);
   // if (test) {
   //   getFingerprintEnroll2(4);
   // }
-
 }
 
 void loop() {
@@ -156,7 +156,7 @@ void loop() {
   }
 
 
- 
+
 
 
   // if object detect for 5 sec continous
@@ -588,7 +588,7 @@ int getFingerprintIDez2() {
 
 
 
-String getFingerprintmode(String fp_name) {
+void getFingerprintmode(String fp_name) {
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
     http.begin("https://fast.e-veterinar.com/fp_mode");
@@ -614,7 +614,6 @@ String getFingerprintmode(String fp_name) {
 
       Serial.println(response);
       Serial.println("thats all");
-      return response;
     } else {
       Serial.print("Error in POST request, HTTP code: ");
       Serial.println(httpResponseCode);
