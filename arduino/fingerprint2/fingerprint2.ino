@@ -275,6 +275,8 @@ uint8_t enrollFinger(uint16_t id) {
 }
 
 uint8_t downloadFingerprintTemplate(uint16_t id, uint8_t* fingerTemplate) {
+    Serial.println("Downloading");
+
   uint8_t p = finger.loadModel(id);
   if (p != FINGERPRINT_OK) return p;
 
@@ -344,6 +346,8 @@ uint8_t uploadFingerprintTemplate(uint16_t id, uint8_t* fingerTemplate) {
 
 
 uint8_t transferFingerprintTemplate(uint16_t id) {
+    Serial.println("Transferring");
+
   uint8_t fingerTemplate[512];
   uint8_t result = downloadFingerprintTemplate(id, fingerTemplate);
   if (result != FINGERPRINT_OK) {
