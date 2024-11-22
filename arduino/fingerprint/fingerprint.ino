@@ -174,6 +174,7 @@ void loop() {
       getFingerprintEnroll2(4);
     }
   }
+  delay(100); // Small delay to debounce (adjust as needed)
 
 
 
