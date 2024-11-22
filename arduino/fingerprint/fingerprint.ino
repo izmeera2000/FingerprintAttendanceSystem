@@ -146,6 +146,7 @@ void setup() {
   pinMode(TOUCH2, INPUT);
 
  test = getFingerprintmode("testout");
+      Serial.println(test);
 
   // int test = getFingerprintEnroll(4);
   // if (test) {
@@ -154,7 +155,7 @@ void setup() {
 }
 
 void loop() {
-  if (test != "register") {
+  if (test == "login") {
 
 
     if (digitalRead(TOUCH1) == HIGH) {
