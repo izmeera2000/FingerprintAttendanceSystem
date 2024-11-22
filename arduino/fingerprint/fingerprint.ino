@@ -38,6 +38,7 @@ DFRobotDFPlayerMini player;
 
 Adafruit_Fingerprint finger2 = Adafruit_Fingerprint(&mySerial);
 Adafruit_Fingerprint finger = Adafruit_Fingerprint(&mySerialfp);
+bool hasRun = false;  // Flag to ensure the block runs only once
 
 
 void setup() {
@@ -188,6 +189,7 @@ void loop() {
 
       if (test3) {
         postFingerprintID(id);
+        hasRun = true;  // Set the flag to true after execution
       }
     }
   }
