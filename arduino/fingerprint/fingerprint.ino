@@ -11,7 +11,7 @@ const char* ssid = "NoName?";
 const char* password = "54548484";
 const char* fp_name_in = "testin";
 const char* fp_name_out = "testout";
-  String test;
+String test;
 // Define software serial pins
 #define RX_PIN 18
 #define TX_PIN 5
@@ -142,11 +142,11 @@ void setup() {
 
   pinMode(IR_PIN, INPUT);
   pinMode(RELAY_PIN, OUTPUT);
-  pinMode(TOUCH1, INPUT);
-  pinMode(TOUCH2, INPUT);
+  pinMode(TOUCH1, INPUT_PULLUP);    // Internal pull-up resistor
+  pinMode(TOUCH2, INPUT_PULLDOWN);  // Internal pull-down resistor (if required)
 
- test = getFingerprintmode("testout");
-      Serial.println(test);
+  test = getFingerprintmode("testout");
+  Serial.println(test);
 
   // int test = getFingerprintEnroll(4);
   // if (test) {
@@ -161,6 +161,7 @@ void loop() {
     if (digitalRead(TOUCH1) == HIGH) {
       Serial.println("TOUCH SENSOR 1");
       getFingerprintIDez();
+    } else {
     }
 
     if (digitalRead(TOUCH2) == HIGH) {
