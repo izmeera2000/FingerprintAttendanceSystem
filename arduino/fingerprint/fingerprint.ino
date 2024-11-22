@@ -20,8 +20,8 @@ const char* fp_name_out = "testout";
 #define TXfp1_PIN 17
 #define TOUCH1 4
 
-#define RX2_PIN 26
-#define TX2_PIN 27
+#define RX2_PIN 27
+#define TX2_PIN 26
 
 #define IR_PIN 34     // ESP32 pin GPIO18 connected to OUT pin of IR obstacle avoidance sensor
 #define RELAY_PIN 13  // ESP32 pin GPIO16, which connects to the solenoid lock via the relay
