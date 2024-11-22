@@ -614,11 +614,13 @@ String getFingerprintmode(String fp_name) {
 
 
     // Prepare POST data
-    String postData = "fp_mode=" + fp_name + "fp_name=" + fp_name;
+    String postData = "fp_mode=" + fp_name + "&fp_name=" + fp_name;
 
     // Serial.println("posting data  data is :");
 
     // Serial.println(postData);
+    Serial.println("Posting data: ");
+    Serial.println(postData);
 
     // Send POST request
     int httpResponseCode = http.POST(postData);  // Use .c_str() to convert String to const char*
