@@ -124,6 +124,7 @@ void setup() {
     Serial.print(finger2.templateCount);
     Serial.println(" templates");
   }
+  delay(100);  // Small delay to debounce (adjust as needed)
 
 
   finger.getTemplateCount();
@@ -179,9 +180,15 @@ void loop() {
 
 
   else {
-    int test2 = getFingerprintEnroll(4);
+
+    int id = postGETID();
+    int test2 = getFingerprintEnroll(id);
     if (test2) {
-      getFingerprintEnroll2(4);
+      int test3 = getFingerprintEnroll2(id);
+
+      if (test3) {
+        postFingerprintID(id);
+      }
     }
   }
   delay(100);  // Small delay to debounce (adjust as needed)
@@ -545,6 +552,39 @@ void postFingerprintID(int id) {
     if (httpResponseCode > 0) {
       String response = http.getString();
       Serial.println("Server response: " + response);
+    } else {
+      Serial.print("Error in POST request, HTTP code: ");
+      Serial.println(httpResponseCode);
+    }
+
+    http.end();
+  } else {
+    Serial.println("WiFi is not connected");
+  }
+}
+
+
+
+int postGETID() {
+  if (WiFi.status() == WL_CONNECTED) {
+    HTTPClient http;
+    http.begin("https://fast.e-veterinar.com/post_fp2");
+    http.addHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    // Prepare POST data (convert id to string)
+    String postData = "post_fp2=" + "getid";
+
+    Serial.println("Posting data: ");
+    Serial.println(postData);
+
+    // Send POST request
+    int httpResponseCode = http.POST(postData);  // Use .c_str() to convert String to const char*
+
+    // Handle the response
+    if (httpResponseCode > 0) {
+      String response = http.getString();
+      Serial.println("GOTTEN ID : " + response);
+      return response;
     } else {
       Serial.print("Error in POST request, HTTP code: ");
       Serial.println(httpResponseCode);

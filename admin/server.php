@@ -1988,11 +1988,27 @@ if (isset($_POST['get_pdf2'])) {
 
 
 
+
+if (isset($_POST['post_fp2'])) {
+
+ 
+  $query = "SELECT id ,fp FROM `user` WHERE fp='R';";
+  $results = mysqli_query($db, $query);
+  while ($row = mysqli_fetch_assoc($results)) {
+    $id = $row['id'];
+    echo $id;
+
+  }
+
+
+}
+
+
 if (isset($_POST['post_fp'])) {
 
-  $fp = $_POST['post_fp'];
+  $id = $_POST['post_fp'];
 
-  $query = "INSERT INTO user (fp) VALUES ('$fp') ";
+  $query = "UPDATE user SET fp ='D' WHERE  id = '$id' ";
   $results = mysqli_query($db, $query);
 
   if ($results) {
@@ -2008,13 +2024,13 @@ if (isset($_POST['post_fp'])) {
 
 if (isset($_POST['login_fp'])) {
 
-  $fp = $_POST['login_fp'];
+  $id = $_POST['login_fp'];
 
-  $query = "SELECT id FROM user WHERE id='$fp'";
+  $query = "SELECT id FROM user WHERE id='$id'";
   $results = mysqli_query($db, $query);
   while ($row = mysqli_fetch_assoc($results)) {
-    $id = $row['id'];
-    echo $id;
+    $id2 = $row['id'];
+    echo $id2;
 
   }
   if ($results) {
