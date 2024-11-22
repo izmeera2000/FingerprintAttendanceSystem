@@ -142,7 +142,7 @@ void setup() {
 
   pinMode(IR_PIN, INPUT);
   pinMode(RELAY_PIN, OUTPUT);
-  pinMode(TOUCH1, INPUT);    // Internal pull-up resistor
+  pinMode(TOUCH1, INPUT);  // Internal pull-up resistor
   pinMode(TOUCH2, INPUT);  // Internal pull-down resistor (if required)
 
   test = getFingerprintmode("testout");
@@ -159,21 +159,32 @@ void loop() {
 
 
     // if (digitalRead(TOUCH1) == LOW) {
-      getFingerprintIDez();
-      // Serial.println("TOUCH SENSOR 1 activated");
-    // } 
+    getFingerprintIDez();
+    // Serial.println("TOUCH SENSOR 1 activated");
+    // }
 
     // if (digitalRead(TOUCH2) == LOW) {
-      getFingerprintIDez2();
-      // Serial.println("TOUCH SENSOR 2 activated");
+    getFingerprintIDez2();
+    // Serial.println("TOUCH SENSOR 2 activated");
     // }
-  } else {
+  } else if (test == "emptydb") {
+    finger.emptyDatabase();
+
+    Serial.println("Now database is empty :)");
+
+    finger2.emptyDatabase();
+    Serial.println("Now database2  is empty :)");
+
+  }
+
+
+  else {
     int test2 = getFingerprintEnroll(4);
     if (test2) {
       getFingerprintEnroll2(4);
     }
   }
-  delay(100); // Small delay to debounce (adjust as needed)
+  delay(100);  // Small delay to debounce (adjust as needed)
 
 
 
