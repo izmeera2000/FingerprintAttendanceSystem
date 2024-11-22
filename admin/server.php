@@ -2036,9 +2036,12 @@ if (isset($_POST['fp_mode'])) {
   $results = mysqli_query($db, $query);
   while ($row = mysqli_fetch_assoc($results)) {
     $mode = $row['mode'];
-
+    if ($mode) {
+      echo "register";
+    
+    }else{
+      echo "login";  }
   }
-echo $mode;
 
 
 }
