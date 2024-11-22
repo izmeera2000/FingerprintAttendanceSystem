@@ -11,6 +11,7 @@ const char* ssid = "NoName?";
 const char* password = "54548484";
 const char* fp_name_in = "testin";
 const char* fp_name_out = "testout";
+  String test;
 // Define software serial pins
 #define RX_PIN 18
 #define TX_PIN 5
@@ -144,7 +145,7 @@ void setup() {
   pinMode(TOUCH1, INPUT);
   pinMode(TOUCH2, INPUT);
 
-  String test = getFingerprintmode("testout");
+ test = getFingerprintmode("testout");
 
   // int test = getFingerprintEnroll(4);
   // if (test) {
