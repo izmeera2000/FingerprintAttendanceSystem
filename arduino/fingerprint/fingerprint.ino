@@ -589,7 +589,8 @@ int postGETID() {
     if (httpResponseCode > 0) {
       String response = http.getString();
       Serial.println("GOTTEN ID : " + response);
-      return response;
+      
+      return response.toInt();
     } else {
       Serial.print("Error in POST request, HTTP code: ");
       Serial.println(httpResponseCode);
