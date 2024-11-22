@@ -577,7 +577,7 @@ int postGETID() {
     http.addHeader("Content-Type", "application/x-www-form-urlencoded");
 
     // Prepare POST data (convert id to string)
-    String postData = "post_fp2=" + "getid";
+    String postData = "post_fp2=getid";
 
     Serial.println("Posting data: ");
     Serial.println(postData);
