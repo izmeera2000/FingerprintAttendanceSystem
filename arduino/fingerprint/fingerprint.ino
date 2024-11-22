@@ -38,7 +38,6 @@ DFRobotDFPlayerMini player;
 Adafruit_Fingerprint finger2 = Adafruit_Fingerprint(&mySerial);
 Adafruit_Fingerprint finger = Adafruit_Fingerprint(&mySerialfp);
 
-int loginmode = 1;
 
 void setup() {
   Serial.begin(115200);
@@ -85,16 +84,16 @@ void setup() {
   // Set the volume to a reasonable level (0-30)
   player.volume(20);
 
-    int fileCount = player.readFileCounts();  // Read number of files
-    Serial.print("Files found on SD card: ");
-    Serial.println(fileCount);
+  int fileCount = player.readFileCounts();  // Read number of files
+  Serial.print("Files found on SD card: ");
+  Serial.println(fileCount);
 
-    if (fileCount > 0) {
-        Serial.println("Playing the first file...");
-        player.play(1); // Play the first MP3 file (0001.mp3)
-    } else {
-        Serial.println("No MP3 files found on SD card!");
-    }
+  if (fileCount > 0) {
+    Serial.println("Playing the first file...");
+    player.play(1);  // Play the first MP3 file (0001.mp3)
+  } else {
+    Serial.println("No MP3 files found on SD card!");
+  }
 
   // Serial.println(F("Reading sensor parameters"));
   // finger.getParameters();
@@ -145,7 +144,7 @@ void setup() {
   pinMode(TOUCH1, INPUT);
   pinMode(TOUCH2, INPUT);
 
-  getFingerprintmode("testout");
+  String test = getFingerprintmode("testout");
 
   // int test = getFingerprintEnroll(4);
   // if (test) {
@@ -154,18 +153,24 @@ void setup() {
 }
 
 void loop() {
+  if (test != "register") {
 
 
-  if (digitalRead(TOUCH1) == HIGH) {
-    Serial.println("TOUCH SENSOR 1");
-    getFingerprintIDez();
+    if (digitalRead(TOUCH1) == HIGH) {
+      Serial.println("TOUCH SENSOR 1");
+      getFingerprintIDez();
+    }
+
+    if (digitalRead(TOUCH2) == HIGH) {
+      Serial.println("TOUCH SENSOR 2");
+      getFingerprintIDez2();
+    }
+  } else {
+    int test2 = getFingerprintEnroll(4);
+    if (test2) {
+      getFingerprintEnroll2(4);
+    }
   }
-
-  if (digitalRead(TOUCH2) == HIGH) {
-    Serial.println("TOUCH SENSOR 2");
-    getFingerprintIDez2();
-  }
-
 
 
 
@@ -599,7 +604,7 @@ int getFingerprintIDez2() {
 
 
 
-void getFingerprintmode(String fp_name) {
+String getFingerprintmode(String fp_name) {
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
     http.begin("https://fast.e-veterinar.com/fp_mode");
@@ -625,6 +630,7 @@ void getFingerprintmode(String fp_name) {
 
       Serial.println(response);
       Serial.println("thats all");
+      return response;
     } else {
       Serial.print("Error in POST request, HTTP code: ");
       Serial.println(httpResponseCode);
