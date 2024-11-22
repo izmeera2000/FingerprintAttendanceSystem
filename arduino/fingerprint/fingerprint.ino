@@ -142,7 +142,7 @@ void setup() {
 
   pinMode(IR_PIN, INPUT);
   pinMode(RELAY_PIN, OUTPUT);
-  pinMode(TOUCH1, INPUT_PULLUP);    // Internal pull-up resistor
+  pinMode(TOUCH1, INPUT_PULLDOWN);    // Internal pull-up resistor
   pinMode(TOUCH2, INPUT_PULLDOWN);  // Internal pull-down resistor (if required)
 
   test = getFingerprintmode("testout");
@@ -594,7 +594,7 @@ int getFingerprintIDez2() {
   if (p != FINGERPRINT_OK) return -1;
 
   // found a match!
-  Serial.print("Found ID #");
+  Serial.print("Found 2 ID #");
   Serial.print(finger2.fingerID);
   Serial.print(" with confidence of ");
   Serial.println(finger2.confidence);
