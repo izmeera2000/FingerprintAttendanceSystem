@@ -182,14 +182,17 @@ void loop() {
 
   else {
 
-    int id = postGETID();
-    int test2 = getFingerprintEnroll(id);
-    if (test2) {
-      int test3 = getFingerprintEnroll2(id);
+    if (!hasRun) {
+      int id = postGETID();
+      int test2 = getFingerprintEnroll(id);
 
-      if (test3) {
-        postFingerprintID(id);
-        hasRun = true;  // Set the flag to true after execution
+      if (test2) {
+        int test3 = getFingerprintEnroll2(id);
+
+        if (test3) {
+          postFingerprintID(id);
+          hasRun = true;  // Set the flag to true after execution
+        }
       }
     }
   }
