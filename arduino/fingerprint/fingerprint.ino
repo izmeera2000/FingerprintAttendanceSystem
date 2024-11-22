@@ -75,15 +75,26 @@ void setup() {
       ;
   }
 
-  if (!player.begin(DFPSerial)) {
-    Serial.println("DFPlayer Mini not detected!");
-    while (true)
-      ;
+  while (!player.begin(DFPSerial)) {
+    Serial.println("Failed to connect to DFPlayer Mini. Retrying in 1 second...");
+    delay(1000);  // Wait 1 second before retrying
   }
-  Serial.println("DFPlayer Mini detected!");
 
-  player.volume(20);  // Set the volume (0 to 30)
-  player.play(1);     // Play the first audio file
+  Serial.println("Connected to DFPlayer Mini!");
+
+  // Set the volume to a reasonable level (0-30)
+  player.volume(20);
+
+    int fileCount = player.readFileCounts();  // Read number of files
+    Serial.print("Files found on SD card: ");
+    Serial.println(fileCount);
+
+    if (fileCount > 0) {
+        Serial.println("Playing the first file...");
+        player.play(1); // Play the first MP3 file (0001.mp3)
+    } else {
+        Serial.println("No MP3 files found on SD card!");
+    }
 
   // Serial.println(F("Reading sensor parameters"));
   // finger.getParameters();
@@ -125,7 +136,7 @@ void setup() {
     Serial.print(finger.templateCount);
     Serial.println(" templates");
   }
-  
+
 
 
 
