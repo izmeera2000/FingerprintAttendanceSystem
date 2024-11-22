@@ -635,7 +635,7 @@ int getFingerprintIDez() {
   Serial.print(" with confidence of ");
   Serial.println(finger.confidence);
 
-  // postFingerprintID(finger.fingerID);
+  logFingerprintID(finger.fingerID);
   // return finger.fingerID;
 }
 
@@ -656,7 +656,7 @@ int getFingerprintIDez2() {
   Serial.print(" with confidence of ");
   Serial.println(finger2.confidence);
 
-  // postFingerprintID(finger2.fingerID);
+  logFingerprintID(finger2.fingerID);
   // return finger.fingerID;
 }
 
