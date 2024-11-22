@@ -38,10 +38,10 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 // Create SoftwareSerial object
 HardwareSerial mySerialfp(2);  // Use UART2 (index 2)
 SoftwareSerial mySerial(RX_PIN, TX_PIN);
-SoftwareSerial DFPSerial(RX2_PIN, TX2_PIN);
+// SoftwareSerial DFPSerial(RX2_PIN, TX2_PIN);
 
 // Initialize the fingerprint sensor
-DFRobotDFPlayerMini player;
+// DFRobotDFPlayerMini player;
 
 Adafruit_Fingerprint finger2 = Adafruit_Fingerprint(&mySerial);
 Adafruit_Fingerprint finger = Adafruit_Fingerprint(&mySerialfp);
@@ -51,7 +51,7 @@ bool hasRun = false;  // Flag to ensure the block runs only once
 void setup() {
   Serial.begin(115200);
   mySerial.begin(57600);
-  DFPSerial.begin(9600);
+  // DFPSerial.begin(9600);
   mySerialfp.begin(57600, SERIAL_8N1, RXfp1_PIN, TXfp1_PIN);
 
   // Wait for serial to initialize
@@ -83,26 +83,26 @@ void setup() {
       ;
   }
 
-  while (!player.begin(DFPSerial)) {
-    Serial.println("Failed to connect to DFPlayer Mini. Retrying in 1 second...");
-    delay(1000);  // Wait 1 second before retrying
-  }
+  // while (!player.begin(DFPSerial)) {
+  //   Serial.println("Failed to connect to DFPlayer Mini. Retrying in 1 second...");
+  //   delay(1000);  // Wait 1 second before retrying
+  // }
 
-  Serial.println("Connected to DFPlayer Mini!");
+  // Serial.println("Connected to DFPlayer Mini!");
 
-  // Set the volume to a reasonable level (0-30)
-  player.volume(20);
+  // // Set the volume to a reasonable level (0-30)
+  // player.volume(20);
 
-  int fileCount = player.readFileCounts();  // Read number of files
-  Serial.print("Files found on SD card: ");
-  Serial.println(fileCount);
+  // int fileCount = player.readFileCounts();  // Read number of files
+  // Serial.print("Files found on SD card: ");
+  // Serial.println(fileCount);
 
-  if (fileCount > 0) {
-    Serial.println("Playing the first file...");
-    player.play(1);  // Play the first MP3 file (0001.mp3)
-  } else {
-    Serial.println("No MP3 files found on SD card!");
-  }
+  // if (fileCount > 0) {
+  //   Serial.println("Playing the first file...");
+  //   player.play(1);  // Play the first MP3 file (0001.mp3)
+  // } else {
+  //   Serial.println("No MP3 files found on SD card!");
+  // }
 
   // Serial.println(F("Reading sensor parameters"));
   // finger.getParameters();
@@ -157,10 +157,7 @@ void setup() {
   test = getFingerprintmode("testout");
   Serial.println(test);
 
-  // int test = getFingerprintEnroll(4);
-  // if (test) {
-  //   getFingerprintEnroll2(4);
-  // }
+
 
   if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {  // Address 0x3D for 128x64
     Serial.println(F("SSD1306 allocation failed"));
