@@ -2038,12 +2038,7 @@ if (isset($_POST['fp_mode'])) {
     $mode = $row['mode'];
 
   }
-
-  if ($results) {
-    echo $mode;
-  } else {
-    echo "not Ok";
-  }
+echo $mode;
 
 
 }

@@ -125,7 +125,7 @@ void setup() {
     Serial.print(finger.templateCount);
     Serial.println(" templates");
   }
-
+  
 
 
 
