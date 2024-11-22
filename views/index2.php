@@ -487,30 +487,30 @@
 
             <div class="swiper init-swiper">
               <script type="application/json" class="swiper-config">
-                                                                                            {
-                                                                                              "loop": true,
-                                                                                              "speed": 600,
-                                                                                              "autoplay": {
-                                                                                                "delay": 5000
-                                                                                              },
-                                                                                              "slidesPerView": "auto",
-                                                                                              "pagination": {
-                                                                                                "el": ".swiper-pagination",
-                                                                                                "type": "bullets",
-                                                                                                "clickable": true
-                                                                                              },
-                                                                                              "breakpoints": {
-                                                                                                "320": {
-                                                                                                  "slidesPerView": 1,
-                                                                                                  "spaceBetween": 40
-                                                                                                },
-                                                                                                "1200": {
-                                                                                                  "slidesPerView": 3,
-                                                                                                  "spaceBetween": 10
-                                                                                                }
-                                                                                              }
-                                                                                            }
-                                                                                          </script>
+                                                                                                        {
+                                                                                                          "loop": true,
+                                                                                                          "speed": 600,
+                                                                                                          "autoplay": {
+                                                                                                            "delay": 5000
+                                                                                                          },
+                                                                                                          "slidesPerView": "auto",
+                                                                                                          "pagination": {
+                                                                                                            "el": ".swiper-pagination",
+                                                                                                            "type": "bullets",
+                                                                                                            "clickable": true
+                                                                                                          },
+                                                                                                          "breakpoints": {
+                                                                                                            "320": {
+                                                                                                              "slidesPerView": 1,
+                                                                                                              "spaceBetween": 40
+                                                                                                            },
+                                                                                                            "1200": {
+                                                                                                              "slidesPerView": 3,
+                                                                                                              "spaceBetween": 10
+                                                                                                            }
+                                                                                                          }
+                                                                                                        }
+                                                                                                      </script>
               <div class="swiper-wrapper">
                 <?php while ($row = mysqli_fetch_assoc($feedback)) { ?>
                   <div class="swiper-slide">
@@ -604,16 +604,15 @@
                           <i class="bi bi-quote quote-icon-right"></i>
                         </p>
 
-                      </div>
-                    <?php }
+                      <?php }
                       ?>
-                  </div>
-                </div><!-- End testimonial item -->
-              <?php } ?>
+                    </div>
+                  </div><!-- End testimonial item -->
+                <?php } ?>
 
+              </div>
+              <!-- <div class="swiper-pagination"></div> -->
             </div>
-            <!-- <div class="swiper-pagination"></div> -->
-          </div>
 
           </div>
 
