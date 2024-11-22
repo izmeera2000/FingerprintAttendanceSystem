@@ -133,7 +133,7 @@ void setup() {
     Serial.println(" templates");
   }
   delay(100);  // Small delay to debounce (adjust as needed)
-asd
+
 
   finger.getTemplateCount();
 
