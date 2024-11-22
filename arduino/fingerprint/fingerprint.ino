@@ -5,8 +5,7 @@
 #include <Wire.h>
 #include <HTTPClient.h>
 #include <HardwareSerial.h>
-#include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
+
 
 const char* ssid = "NoName?";
 const char* password = "54548484";
@@ -27,12 +26,6 @@ String test;
 
 #define IR_PIN 34     // ESP32 pin GPIO18 connected to OUT pin of IR obstacle avoidance sensor
 #define RELAY_PIN 13  // ESP32 pin GPIO16, which connects to the solenoid lock via the relay
-
-#define SCREEN_WIDTH 128  // OLED display width, in pixels
-#define SCREEN_HEIGHT 64  // OLED display height, in pixels
-
-
-Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 
 
 // Create SoftwareSerial object
@@ -161,28 +154,11 @@ void setup() {
   // if (test) {
   //   getFingerprintEnroll2(4);
   // }
-
-  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {  // Address 0x3D for 128x64
-    Serial.println(F("SSD1306 allocation failed"));
-    for (;;)
-      ;
-  }
-  delay(100);
-
-  display.clearDisplay();
-  delay(100);
 }
 
 void loop() {
   if (test == "login") {
 
-
-    display.setTextSize(1);
-    display.setTextColor(WHITE);
-    display.setCursor(0, 10);
-    // Display static text
-    display.println("Kelaur Masuk");
-    display.display();
 
     // if (digitalRead(TOUCH1) == LOW) {
     getFingerprintIDez();
@@ -205,13 +181,6 @@ void loop() {
 
 
   else {
-
-    display.setTextSize(1);
-    display.setTextColor(WHITE);
-    display.setCursor(0, 10);
-    // Display static text
-    display.println("Rgister");
-    display.display();
 
     if (!hasRun) {
       int id = postGETID();
@@ -273,7 +242,7 @@ void loop() {
 uint8_t getFingerprintEnroll(int id) {
   int p = -1;
   bool success = false;
-
+  
   while (!success) {
     Serial.print("Waiting 1 for valid finger to enroll as #");
     Serial.println(id);
@@ -323,7 +292,7 @@ uint8_t getFingerprintEnroll(int id) {
 
     Serial.println("Remove finger");
     delay(2000);
-
+    
     // Step 3: Wait for finger removal
     p = 0;
     while (p != FINGERPRINT_NOFINGER) {
@@ -334,7 +303,7 @@ uint8_t getFingerprintEnroll(int id) {
     Serial.println(id);
     p = -1;
     Serial.println("Place same finger again");
-
+    
     // Step 4: Capture the same finger again
     while (p != FINGERPRINT_OK) {
       p = finger.getImage();
@@ -422,7 +391,7 @@ uint8_t getFingerprintEnroll(int id) {
 uint8_t getFingerprintEnroll2(int id) {
   int p = -1;
   bool success = false;
-
+  
   while (!success) {
     Serial.print("Waiting  2 for valid finger to enroll as #");
     Serial.println(id);
@@ -472,7 +441,7 @@ uint8_t getFingerprintEnroll2(int id) {
 
     Serial.println("Remove finger");
     delay(2000);
-
+    
     // Step 3: Wait for finger removal
     p = 0;
     while (p != FINGERPRINT_NOFINGER) {
@@ -483,7 +452,7 @@ uint8_t getFingerprintEnroll2(int id) {
     Serial.println(id);
     p = -1;
     Serial.println("Place same finger again");
-
+    
     // Step 4: Capture the same finger again
     while (p != FINGERPRINT_OK) {
       p = finger2.getImage();
@@ -624,7 +593,7 @@ int postGETID() {
     if (httpResponseCode > 0) {
       String response = http.getString();
       Serial.println("GOTTEN ID : " + response);
-
+      
       return response.toInt();
     } else {
       Serial.print("Error in POST request, HTTP code: ");
