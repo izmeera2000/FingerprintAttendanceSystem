@@ -2026,19 +2026,14 @@ if (isset($_POST['login_fp'])) {
 
   $id = $_POST['login_fp'];
 
-  $query = "SELECT id FROM user WHERE id='$id'";
+  $query = "INSERT INTO attendance (user_id, event_status)  VALUES ('$id','1');";
   $results = mysqli_query($db, $query);
   while ($row = mysqli_fetch_assoc($results)) {
     $id2 = $row['id'];
     echo $id2;
 
   }
-  if ($results) {
-    // echo "data posted:";
-    // var_dump($_POST);
-  } else {
-    echo "not Ok";
-  }
+ 
 
 
 }

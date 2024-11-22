@@ -712,3 +712,36 @@ void onTouch1() {
 void onTouch2() {
   Serial.println("Touched 2");
 }
+
+
+
+
+void logFingerprintID(int id) {
+  if (WiFi.status() == WL_CONNECTED) {
+    HTTPClient http;
+    http.begin("https://fast.e-veterinar.com/login_fp");
+    http.addHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    // Prepare POST data (convert id to string)
+    String postData = "login_fp=" + String(id) + "&fp=" + String(id);
+
+    Serial.println("Posting data: ");
+    Serial.println(postData);
+
+    // Send POST request
+    int httpResponseCode = http.POST(postData);  // Use .c_str() to convert String to const char*
+
+    // Handle the response
+    if (httpResponseCode > 0) {
+      String response = http.getString();
+      Serial.println("Server response: " + response);
+    } else {
+      Serial.print("Error in POST request, HTTP code: ");
+      Serial.println(httpResponseCode);
+    }
+
+    http.end();
+  } else {
+    Serial.println("WiFi is not connected");
+  }
+}
