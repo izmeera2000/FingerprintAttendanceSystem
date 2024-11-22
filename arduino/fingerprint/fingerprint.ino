@@ -160,12 +160,12 @@ void loop() {
 
     // if (digitalRead(TOUCH1) == LOW) {
       getFingerprintIDez();
-      Serial.println("TOUCH SENSOR 1 activated");
+      // Serial.println("TOUCH SENSOR 1 activated");
     // } 
 
     // if (digitalRead(TOUCH2) == LOW) {
       getFingerprintIDez2();
-      Serial.println("TOUCH SENSOR 2 activated");
+      // Serial.println("TOUCH SENSOR 2 activated");
     // }
   } else {
     int test2 = getFingerprintEnroll(4);
