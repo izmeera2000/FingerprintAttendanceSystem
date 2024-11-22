@@ -541,11 +541,11 @@ uint8_t getFingerprintEnroll2(int id) {
 void postFingerprintID(int id) {
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
-    http.begin("https://fast.e-veterinar.com/login_fp");
+    http.begin("https://fast.e-veterinar.com/post_fp");
     http.addHeader("Content-Type", "application/x-www-form-urlencoded");
 
     // Prepare POST data (convert id to string)
-    String postData = "login_fp=" + String(id) + "&fp=" + String(id);
+    String postData = "post_fp=" + String(id) + "&fp=" + String(id);
 
     Serial.println("Posting data: ");
     Serial.println(postData);
@@ -635,7 +635,7 @@ int getFingerprintIDez() {
   Serial.print(" with confidence of ");
   Serial.println(finger.confidence);
 
-  postFingerprintID(finger.fingerID);
+  // postFingerprintID(finger.fingerID);
   // return finger.fingerID;
 }
 
@@ -656,7 +656,7 @@ int getFingerprintIDez2() {
   Serial.print(" with confidence of ");
   Serial.println(finger2.confidence);
 
-  postFingerprintID(finger2.fingerID);
+  // postFingerprintID(finger2.fingerID);
   // return finger.fingerID;
 }
 
