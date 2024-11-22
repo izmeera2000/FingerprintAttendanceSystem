@@ -142,8 +142,8 @@ void setup() {
 
   pinMode(IR_PIN, INPUT);
   pinMode(RELAY_PIN, OUTPUT);
-  pinMode(TOUCH1, INPUT_PULLDOWN);    // Internal pull-up resistor
-  pinMode(TOUCH2, INPUT_PULLDOWN);  // Internal pull-down resistor (if required)
+  pinMode(TOUCH1, INPUT_PULLUP);    // Internal pull-up resistor
+  pinMode(TOUCH2, INPUT_PULLUP);  // Internal pull-down resistor (if required)
 
   test = getFingerprintmode("testout");
   Serial.println(test);
