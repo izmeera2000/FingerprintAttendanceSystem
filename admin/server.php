@@ -145,7 +145,6 @@ if (isset($_POST['user_register'])) {
 
   if (count($errors) == 0) {
 
-
     //encrypt password
     $password = md5($password1);
 
@@ -214,7 +213,6 @@ if (isset($_POST['user_login'])) {
   }
 
 }
-
 
 
 function debug_to_console($data)

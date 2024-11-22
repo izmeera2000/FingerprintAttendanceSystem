@@ -151,7 +151,7 @@ void loop() {
   }
 
   if (digitalRead(TOUCH2) == HIGH) {
-    Serial.println("TOUCH SENSOR 1");
+    Serial.println("TOUCH SENSOR 2");
     getFingerprintIDez2();
   }
 
