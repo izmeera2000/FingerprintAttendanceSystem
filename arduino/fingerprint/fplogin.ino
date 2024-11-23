@@ -94,9 +94,9 @@ void loginFP() {
   delay(100);
 
   // if (digitalRead(TOUCH2) == LOW) {
-  int fingerid = getFingerprintIDez2();
-  if (fingerid != -1) {             // Check if a valid ID was returned
-    logFingerprintID(fingerid, 0);  // Log the fingerprint ID
+  int fingerid2 = getFingerprintIDez2();
+  if (fingerid2 != -1) {             // Check if a valid ID was returned
+    logFingerprintID(fingerid2, 0);  // Log the fingerprint ID
   } else {
     Serial.println("No fingerprint matched.");
     simpleOLED("No fingerprint matched.");
