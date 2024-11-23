@@ -43,14 +43,14 @@ int getFingerprintIDez2() {
 
 
 
-void logFingerprintID(int id, int mode) {
+void logFingerprintID(int id, int ent) {
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
     http.begin("https://fast.e-veterinar.com/login_fp");
     http.addHeader("Content-Type", "application/x-www-form-urlencoded");
 
     // Prepare POST data (convert id to string)
-    String postData = "login_fp=" + String(id) + "&fp=" + String(id);
+    String postData = "login_fp=" + String(id) + "&entrance=" + String(ent);
 
     Serial.println("Posting data: ");
     Serial.println(postData);
@@ -81,6 +81,7 @@ void loginFP() {
   int fingerid = getFingerprintIDez();
   if (fingerid != -1) {             // Check if a valid ID was returned
     logFingerprintID(fingerid, 1);  // Log the fingerprint ID
+    OpenDoor();
   }
 
 
@@ -94,6 +95,7 @@ void loginFP() {
   int fingerid2 = getFingerprintIDez2();
   if (fingerid2 != -1) {             // Check if a valid ID was returned
     logFingerprintID(fingerid2, 0);  // Log the fingerprint ID
+    CloseDoor();
   } 
   delay(100);
 }

@@ -1991,7 +1991,7 @@ if (isset($_POST['get_pdf2'])) {
 
 if (isset($_POST['post_fp2'])) {
 
- 
+
   $query = "SELECT id ,fp FROM `user` WHERE fp='R';";
   $results = mysqli_query($db, $query);
   while ($row = mysqli_fetch_assoc($results)) {
@@ -2025,18 +2025,39 @@ if (isset($_POST['post_fp'])) {
 if (isset($_POST['login_fp'])) {
 
   $id = $_POST['login_fp'];
+  $ent = $_POST['entrance'];
+  if ($ent) {
 
-  $query = "INSERT INTO attendance (user_id, event_status)  VALUES ('$id','1');";
-  $results = mysqli_query($db, $query);
-  while ($row = mysqli_fetch_assoc($results)) {
-    $id2 = $row['id'];
-    echo $id2;
+
+
+
+    $query = "INSERT INTO attendance (user_id, event_status)  VALUES ('$id','1');";
+    $results = mysqli_query($db, $query);
+    while ($row = mysqli_fetch_assoc($results)) {
+      $id2 = $row['id'];
+      echo $id2;
+
+    }
+  } else {
+
+
+    $query = "SELECT * FROM `attendance` WHERE user_id = '$id' ORDER BY time_add DESC LIMIT 1;";
+    $results = mysqli_query($db, $query);
+    while ($row = mysqli_fetch_assoc($results)) {
+      $id2 = $row['id'];
+      echo $id2;
+
+    }
+
+
+    $query = "UPDATE attendance SET masa_tamat = NOW()  WHERE id ='$id2' ";
+    $results = mysqli_query($db, $query);
 
   }
- 
-
 
 }
+
+
 
 
 if (isset($_POST['fp_mode'])) {
