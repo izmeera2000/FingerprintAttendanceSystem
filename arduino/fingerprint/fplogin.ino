@@ -43,7 +43,7 @@ int getFingerprintIDez2() {
 
 
 
-void logFingerprintID(int id, int ent) {
+String logFingerprintID(int id, int ent) {
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
     http.begin("https://fast.e-veterinar.com/login_fp");
@@ -62,6 +62,7 @@ void logFingerprintID(int id, int ent) {
     if (httpResponseCode > 0) {
       String response = http.getString();
       Serial.println("Server response: " + response);
+      return response;
     } else {
       Serial.print("Error in POST request, HTTP code: ");
       Serial.println(httpResponseCode);

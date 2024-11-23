@@ -2033,28 +2033,35 @@ if (isset($_POST['login_fp'])) {
     if (mysqli_num_rows($result) == 0) {
 
 
-    $query = "INSERT INTO attendance (user_id, event_status)  VALUES ('$id','1');";
-    $results = mysqli_query($db, $query);
-    while ($row = mysqli_fetch_assoc($results)) {
-      $id2 = $row['id'];
-      echo $id2;
+      $query = "INSERT INTO attendance (user_id, event_status)  VALUES ('$id','1');";
+      $results = mysqli_query($db, $query);
+      while ($row = mysqli_fetch_assoc($results)) {
+        $id2 = $row['id'];
+        // echo $id2;
 
+      }
     }
-  }
   } else {
 
 
-    $query = "SELECT * FROM `attendance` WHERE user_id = '$id' ORDER BY time_add DESC LIMIT 1;";
+    $query = "SELECT * FROM `attendance` WHERE user_id = '$id'  AND masa_tamat IS NULL  ORDER BY time_add DESC LIMIT 1;";
     $results = mysqli_query($db, $query);
-    while ($row = mysqli_fetch_assoc($results)) {
-      $id2 = $row['id'];
-      echo $id2;
 
+    if (mysqli_num_rows($result) == 0) {
+
+      while ($row = mysqli_fetch_assoc($results)) {
+        $id2 = $row['id'];
+        // echo $id2;
+
+      }
+
+
+      $query = "UPDATE attendance SET masa_tamat = NOW()  WHERE id ='$id2' ";
+      $results = mysqli_query($db, $query);
+
+    } else{
+      echo "no_in_detected";
     }
-
-
-    $query = "UPDATE attendance SET masa_tamat = NOW()  WHERE id ='$id2' ";
-    $results = mysqli_query($db, $query);
 
   }
 
