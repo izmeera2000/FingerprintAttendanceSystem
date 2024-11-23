@@ -81,9 +81,6 @@ void loginFP() {
   int fingerid = getFingerprintIDez();
   if (fingerid != -1) {             // Check if a valid ID was returned
     logFingerprintID(fingerid, 1);  // Log the fingerprint ID
-  } else {
-    Serial.println("No fingerprint matched.");
-    simpleOLED("No fingerprint matched.");
   }
 
 
@@ -97,9 +94,6 @@ void loginFP() {
   int fingerid2 = getFingerprintIDez2();
   if (fingerid2 != -1) {             // Check if a valid ID was returned
     logFingerprintID(fingerid2, 0);  // Log the fingerprint ID
-  } else {
-    Serial.println("No fingerprint matched.");
-    simpleOLED("No fingerprint matched.");
-  }
+  } 
   delay(100);
 }
