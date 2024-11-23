@@ -174,63 +174,18 @@ void loop() {
   if (test == "login") {
 
 
-    simpleOLED("Please Place Finger");
 
-    // if (digitalRead(TOUCH1) == LOW) {
-    getFingerprintIDez();
-    // Serial.println("TOUCH SENSOR 1 activated");
-    // }
-    digitalWrite(RELAY_PIN, HIGH);  // unlock the door
-
-    delay(100);
-
-    // if (digitalRead(TOUCH2) == LOW) {
-    getFingerprintIDez2();
-
-    delay(100);
-
+    loginFP();
     // Serial.println("TOUCH SENSOR 2 activated");
     // }
   } else if (test == "emptydb") {
-    simpleOLED("Database Emptied");
-
-    finger.emptyDatabase();
-
-    Serial.println("Now database is empty :)");
-
-    finger2.emptyDatabase();
-    Serial.println("Now database2  is empty :)");
-
+    emptyDBFP();
   }
 
 
   else {
 
-    simpleOLED("Mode Register");
-    delay(100);  // Small delay to debounce (adjust as needed)
-
-
-    if (!hasRun) {
-      int id = postGETID();
-      if (id > 0) {
-
-
-
-        int test2 = getFingerprintEnroll(id);
-
-        if (test2) {
-          int test3 = getFingerprintEnroll2(id);
-
-          if (test3) {
-            postFingerprintID(id);
-            hasRun = true;  // Set the flag to true after execution
-          }
-        }
-      } else {
-
-        simpleOLED("No ID To Register");
-      }
-    }
+    registerFP();
   }
   delay(100);  // Small delay to debounce (adjust as needed)
 
@@ -273,33 +228,3 @@ void loop() {
 
   // delay(50);  //don't ned to run this at full speed.
 }
-
-
-
-
-
-void printHex(int num, int precision) {
-  char tmp[16];
-  char format[128];
-
-  sprintf(format, "%%.%dX", precision);
-
-  sprintf(tmp, format, num);
-  Serial.print(tmp);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

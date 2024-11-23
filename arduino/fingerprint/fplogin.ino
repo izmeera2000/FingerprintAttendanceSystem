@@ -16,7 +16,6 @@ int getFingerprintIDez() {
   Serial.println(finger.confidence);
   simpleOLED("IN ID #" + String(finger.fingerID));
 
-  logFingerprintID(finger.fingerID);
   return finger.fingerID;
 }
 
@@ -38,14 +37,13 @@ int getFingerprintIDez2() {
   Serial.println(finger2.confidence);
   simpleOLED("OUT ID #" + String(finger2.fingerID));
 
-  logFingerprintID(finger2.fingerID);
-  return finger2.fingerID;
+  return true;
 }
 
 
 
 
-void logFingerprintID(int id) {
+void logFingerprintID(int id, int mode) {
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
     http.begin("https://fast.e-veterinar.com/login_fp");
@@ -73,4 +71,35 @@ void logFingerprintID(int id) {
   } else {
     Serial.println("WiFi is not connected");
   }
+}
+
+
+void loginFP() {
+
+  simpleOLED("Please Place Finger");
+
+  int fingerid = getFingerprintIDez();
+  if (fingerid != -1) {             // Check if a valid ID was returned
+    logFingerprintID(fingerid, 1);  // Log the fingerprint ID
+  } else {
+    Serial.println("No fingerprint matched.");
+    simpleOLED("No fingerprint matched.");
+  }
+
+
+  // Serial.println("TOUCH SENSOR 1 activated");
+  // }
+  digitalWrite(RELAY_PIN, HIGH);  // unlock the door
+
+  delay(100);
+
+  // if (digitalRead(TOUCH2) == LOW) {
+  int fingerid = getFingerprintIDez2();
+  if (fingerid != -1) {             // Check if a valid ID was returned
+    logFingerprintID(fingerid, 0);  // Log the fingerprint ID
+  } else {
+    Serial.println("No fingerprint matched.");
+    simpleOLED("No fingerprint matched.");
+  }
+  delay(100);
 }

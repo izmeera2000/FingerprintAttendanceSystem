@@ -380,3 +380,30 @@ int postGETID() {
   }
 }
 
+void registerFP(){
+  simpleOLED("Mode Register");
+    delay(100);  // Small delay to debounce (adjust as needed)
+
+
+    if (!hasRun) {
+      int id = postGETID();
+      if (id > 0) {
+
+
+
+        int test2 = getFingerprintEnroll(id);
+
+        if (test2) {
+          int test3 = getFingerprintEnroll2(id);
+
+          if (test3) {
+            postFingerprintID(id);
+            hasRun = true;  // Set the flag to true after execution
+          }
+        }
+      } else {
+
+        simpleOLED("No ID To Register");
+      }
+    }
+}
