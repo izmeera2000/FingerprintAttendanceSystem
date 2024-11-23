@@ -2028,7 +2028,9 @@ if (isset($_POST['login_fp'])) {
   $ent = $_POST['entrance'];
   if ($ent) {
 
-
+    $query = "SELECT * FROM attendance WHERE user_id = '$id' AND masa_tamat IS NULL  ORDER BY time_add DESC LIMIT 1;";
+    $result = mysqli_query($db, $query);
+    if (mysqli_num_rows($result) == 0) {
 
 
     $query = "INSERT INTO attendance (user_id, event_status)  VALUES ('$id','1');";
@@ -2038,6 +2040,7 @@ if (isset($_POST['login_fp'])) {
       echo $id2;
 
     }
+  }
   } else {
 
 
