@@ -174,23 +174,25 @@ void loop() {
   if (test == "login") {
 
 
-    display.setTextSize(1);
-    display.setTextColor(WHITE);
-    display.setCursor(0, 10);
-    // Display static text
-    display.println("Kelaur Masuk");
-    display.display();
+    simpleOLED("Sila Letakkan Jari");
 
     // if (digitalRead(TOUCH1) == LOW) {
     getFingerprintIDez();
     // Serial.println("TOUCH SENSOR 1 activated");
     // }
 
+    delay(100);
+
     // if (digitalRead(TOUCH2) == LOW) {
     getFingerprintIDez2();
+
+    delay(100);
+
     // Serial.println("TOUCH SENSOR 2 activated");
     // }
   } else if (test == "emptydb") {
+    simpleOLED("Database Emptied");
+
     finger.emptyDatabase();
 
     Serial.println("Now database is empty :)");
@@ -203,12 +205,9 @@ void loop() {
 
   else {
 
-    display.setTextSize(1);
-    display.setTextColor(WHITE);
-    display.setCursor(0, 10);
-    // Display static text
-    display.println("Rgister");
-    display.display();
+    simpleOLED("Mode Register");
+    delay(100);  // Small delay to debounce (adjust as needed)
+
 
     if (!hasRun) {
       int id = postGETID();
@@ -273,7 +272,10 @@ uint8_t getFingerprintEnroll(int id) {
 
   while (!success) {
     Serial.print("Waiting 1 for valid finger to enroll as #");
+
     Serial.println(id);
+
+    simpleOLED("Waiting 1 for valid finger to enroll as # :" + String(id));
 
     // Step 1: Capture the image
     while (p != FINGERPRINT_OK) {
@@ -317,6 +319,7 @@ uint8_t getFingerprintEnroll(int id) {
         Serial.println("Unknown error");
         continue;  // Retry on unknown error
     }
+    simpleOLED("Remove finger");
 
     Serial.println("Remove finger");
     delay(2000);
@@ -331,6 +334,7 @@ uint8_t getFingerprintEnroll(int id) {
     Serial.println(id);
     p = -1;
     Serial.println("Place same finger again");
+    simpleOLED("Place same finger again");
 
     // Step 4: Capture the same finger again
     while (p != FINGERPRINT_OK) {
@@ -374,6 +378,7 @@ uint8_t getFingerprintEnroll(int id) {
         Serial.println("Unknown error");
         continue;  // Retry on unknown error
     }
+    simpleOLED("Creating model for #");
 
     // Step 6: Create model
     Serial.print("Creating model for #");
@@ -423,6 +428,7 @@ uint8_t getFingerprintEnroll2(int id) {
   while (!success) {
     Serial.print("Waiting  2 for valid finger to enroll as #");
     Serial.println(id);
+    simpleOLED("Waiting  2 for valid finger to enroll as #" + String(id));
 
     // Step 1: Capture the image
     while (p != FINGERPRINT_OK) {
@@ -469,6 +475,7 @@ uint8_t getFingerprintEnroll2(int id) {
 
     Serial.println("Remove finger");
     delay(2000);
+    simpleOLED("Remove finger");
 
     // Step 3: Wait for finger removal
     p = 0;
@@ -527,6 +534,7 @@ uint8_t getFingerprintEnroll2(int id) {
     // Step 6: Create model
     Serial.print("Creating model for #");
     Serial.println(id);
+    
     p = finger2.createModel();
     if (p == FINGERPRINT_OK) {
       Serial.println("Prints matched!");
@@ -621,6 +629,7 @@ int postGETID() {
     if (httpResponseCode > 0) {
       String response = http.getString();
       Serial.println("GOTTEN ID : " + response);
+      simpleOLED("ID :" + response);
 
       return response.toInt();
     } else {
@@ -776,4 +785,14 @@ void logFingerprintID(int id) {
   } else {
     Serial.println("WiFi is not connected");
   }
+}
+
+
+void simpleOLED(String message) {
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  display.setCursor(0, 10);
+  // Display static text
+  display.println(message);
+  display.display();
 }
