@@ -37,7 +37,7 @@ int getFingerprintIDez2() {
   Serial.println(finger2.confidence);
   simpleOLED("OUT ID #" + String(finger2.fingerID));
 
-  return true;
+  return finger2.fingerID;
 }
 
 

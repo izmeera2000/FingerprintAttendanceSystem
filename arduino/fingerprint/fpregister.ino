@@ -365,7 +365,7 @@ int postGETID() {
     // Handle the response
     if (httpResponseCode > 0) {
       String response = http.getString();
-      Serial.println("GOTTEN ID : " + response);
+      // Serial.println("GOTTEN ID : " + response);
       simpleOLED("ID :" + response);
 
       return response.toInt();
@@ -380,30 +380,30 @@ int postGETID() {
   }
 }
 
-void registerFP(){
+void registerFP() {
   simpleOLED("Mode Register");
-    delay(100);  // Small delay to debounce (adjust as needed)
+  delay(100);  // Small delay to debounce (adjust as needed)
 
 
-    if (!hasRun) {
-      int id = postGETID();
-      if (id > 0) {
+  if (!hasRun) {
+    int id = postGETID();
+    if (id > 0) {
 
 
 
-        int test2 = getFingerprintEnroll(id);
+      int test2 = getFingerprintEnroll(id);
 
-        if (test2) {
-          int test3 = getFingerprintEnroll2(id);
+      if (test2) {
+        int test3 = getFingerprintEnroll2(id);
 
-          if (test3) {
-            postFingerprintID(id);
-            hasRun = true;  // Set the flag to true after execution
-          }
+        if (test3) {
+          postFingerprintID(id);
+          hasRun = true;  // Set the flag to true after execution
         }
-      } else {
-
-        simpleOLED("No ID To Register");
       }
+    } else {
+
+      simpleOLED("No ID To Register");
     }
+  }
 }
