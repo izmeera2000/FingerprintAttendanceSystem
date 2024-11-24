@@ -105,7 +105,7 @@ void loginFP() {
     // Check1UserDoor();
     bool userDetected = Check1UserDoor();
     if (userDetected) {
-      logFingerprintID(fingerid, 1);  // Log the fingerprint ID
+      logFingerprintID(fingerid, 0);  // Log the fingerprint ID
     } else {
       // No user detected
     }
