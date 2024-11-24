@@ -28,7 +28,7 @@ bool Check1UserDoor() {
 
 void OpenDoor() {
   // Read the sensor state
-  simpleOLED("Door Unlocked , Please Open");
+  // simpleOLED("Door Unlocked , Please Open");
 
   // Serial.println("The obstacle is present");
   digitalWrite(RELAY_PIN, LOW);  // unlock the door
@@ -36,7 +36,7 @@ void OpenDoor() {
 
 void CloseDoor() {
   // Read the sensor state
-  simpleOLED("Door Locked");
+  // simpleOLED("Door Locked");
 
   digitalWrite(RELAY_PIN, HIGH);  // unlock the door
 }
