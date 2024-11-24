@@ -83,6 +83,7 @@ void loginFP() {
   if (fingerid != -1) {             // Check if a valid ID was returned
     logFingerprintID(fingerid, 1);  // Log the fingerprint ID
     OpenDoor();
+    Check1UserDoor();
   }
 
 
@@ -96,7 +97,10 @@ void loginFP() {
   int fingerid2 = getFingerprintIDez2();
   if (fingerid2 != -1) {             // Check if a valid ID was returned
     logFingerprintID(fingerid2, 0);  // Log the fingerprint ID
-    CloseDoor();
-  } 
+    OpenDoor();
+    Check1UserDoor();
+  }
+
+
   delay(100);
 }
