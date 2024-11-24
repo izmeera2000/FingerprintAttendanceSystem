@@ -61,3 +61,13 @@ bool CheckDoorState(int sec) {
     }
   }
 }
+
+
+bool Checkpeople() {
+  int state = digitalRead(IR_PIN);
+  if (state == LOW) {
+    return false;
+  } else {
+    return true;
+  }
+}

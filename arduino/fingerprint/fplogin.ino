@@ -87,14 +87,14 @@ void loginFP() {
     if (userDetected) {
       logFingerprintID(fingerid, 1);  // Log the fingerprint ID
     } else {
-      // No user detected
+      return;
     }
   }
 
 
   // Serial.println("TOUCH SENSOR 1 activated");
   // }
-  digitalWrite(RELAY_PIN, HIGH);  // unlock the door
+  // digitalWrite(RELAY_PIN, HIGH);  // unlock the door
 
   delay(100);
 
@@ -107,7 +107,7 @@ void loginFP() {
     if (userDetected) {
       logFingerprintID(fingerid, 0);  // Log the fingerprint ID
     } else {
-      // No user detected
+      return;
     }
   }
 
