@@ -31,7 +31,7 @@ void OpenDoor() {
   simpleOLED("Door Unlocked , Please Open");
 
   // Serial.println("The obstacle is present");
-  digitalWrite(RELAY_PIN, HIGH);  // unlock the door
+  digitalWrite(RELAY_PIN, LOW);  // unlock the door
 }
 
 void CloseDoor() {
