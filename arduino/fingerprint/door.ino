@@ -1,5 +1,5 @@
 
-void Check1UserDoor() {
+bool Check1UserDoor() {
   simpleOLED("Only 1 user allowed");
 
   unsigned long startTime = millis();
@@ -16,7 +16,8 @@ void Check1UserDoor() {
 
         Serial.println("User Passed");
         // delay(2000);  // Message display delay if needed
-        break;  // Exit loop once a user passes
+        return userPassed;
+        // break;  // Exit loop once a user passes
       }
     }
   }
@@ -24,6 +25,8 @@ void Check1UserDoor() {
   // If no user passed within 10 seconds
   if (!userPassed) {
     Serial.println("No user passed pls close the door");
+    return userPassed;
+
     CloseDoor();
     // delay(2000);  // Message display delay
   }

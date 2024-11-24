@@ -80,10 +80,15 @@ void loginFP() {
   simpleOLED("Please Place Finger");
 
   int fingerid = getFingerprintIDez();
-  if (fingerid != -1) {             // Check if a valid ID was returned
-    logFingerprintID(fingerid, 1);  // Log the fingerprint ID
+  if (fingerid != -1) {  // Check if a valid ID was returned
     OpenDoor();
-    Check1UserDoor();
+    // Check1UserDoor();
+    bool userDetected = Check1UserDoor();
+    if (userDetected) {
+      logFingerprintID(fingerid, 1);  // Log the fingerprint ID
+    } else {
+      // No user detected
+    }
   }
 
 
@@ -95,10 +100,15 @@ void loginFP() {
 
   // if (digitalRead(TOUCH2) == LOW) {
   int fingerid2 = getFingerprintIDez2();
-  if (fingerid2 != -1) {             // Check if a valid ID was returned
-    logFingerprintID(fingerid2, 0);  // Log the fingerprint ID
+  if (fingerid != -1) {  // Check if a valid ID was returned
     OpenDoor();
-    Check1UserDoor();
+    // Check1UserDoor();
+    bool userDetected = Check1UserDoor();
+    if (userDetected) {
+      logFingerprintID(fingerid, 1);  // Log the fingerprint ID
+    } else {
+      // No user detected
+    }
   }
 
 
