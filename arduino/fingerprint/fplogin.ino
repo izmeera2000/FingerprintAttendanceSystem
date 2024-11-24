@@ -76,39 +76,36 @@ String logFingerprintID(int id, int ent) {
 
 
 void loginFP() {
-
   simpleOLED("Please Place Finger");
 
+  // First fingerprint sensor
   int fingerid = getFingerprintIDez();
   if (fingerid != -1) {  // Check if a valid ID was returned
-    OpenDoor();
-    // Check1UserDoor();
+    OpenDoor();  // Open door for user entry
     bool userDetected = Check1UserDoor();
     if (userDetected) {
-      logFingerprintID(fingerid, 1);  // Log the fingerprint ID
+      logFingerprintID(fingerid, 1);  // Log the fingerprint ID with '1' (entry)
+    } else {
+      CloseDoor();  // Close the door if no user detected
+      Serial.println("Door closed after no user passed (entry).");
     }
   }
 
+  delay(100);  // Small delay to prevent overlap
 
-  // Serial.println("TOUCH SENSOR 1 activated");
-  // }
-  // digitalWrite(RELAY_PIN, HIGH);  // unlock the door
-
-  delay(100);
-
-  // if (digitalRead(TOUCH2) == LOW) {
+  // Second fingerprint sensor
   int fingerid2 = getFingerprintIDez2();
-  if (fingerid != -1) {  // Check if a valid ID was returned
-    OpenDoor();
-    // Check1UserDoor();
+  if (fingerid2 != -1) {  // Check if a valid ID was returned
+    OpenDoor();  // Open door for user exit
     bool userDetected = Check1UserDoor();
     if (userDetected) {
-      logFingerprintID(fingerid, 0);  // Log the fingerprint ID
-    } 
+      logFingerprintID(fingerid2, 0);  // Log the fingerprint ID with '0' (exit)
+    } else {
+      CloseDoor();  // Close the door if no user detected
+      Serial.println("Door closed after no user passed (exit).");
+    }
   }
 
-  // Checkpeople();
-
-
-  delay(100);
+  delay(100);  // Small delay before function ends
 }
+
