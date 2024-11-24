@@ -10,12 +10,12 @@ void Check1UserDoor() {
 
     // Detect user passing through
     if (state == LOW && !userPassed) {
-      delay(200);                        // Debounce delay to avoid false triggers
-      if (digitalRead(IR_PIN) == LOW) {  // Confirm LOW state persists
+      delay(200);                         // Debounce delay to avoid false triggers
+      if (digitalRead(IR_PIN) == HIGH) {  // Confirm HIGH state persists (user passed)
         userPassed = true;
 
         Serial.println("User Passed");
-        // delay(2000);  // Message display delay
+        // delay(2000);  // Message display delay if needed
         break;  // Exit loop once a user passes
       }
     }
