@@ -86,8 +86,6 @@ void loginFP() {
     bool userDetected = Check1UserDoor();
     if (userDetected) {
       logFingerprintID(fingerid, 1);  // Log the fingerprint ID
-    } else {
-      return;
     }
   }
 
@@ -106,10 +104,10 @@ void loginFP() {
     bool userDetected = Check1UserDoor();
     if (userDetected) {
       logFingerprintID(fingerid, 0);  // Log the fingerprint ID
-    } else {
-      return;
-    }
+    } 
   }
+
+  // Checkpeople();
 
 
   delay(100);

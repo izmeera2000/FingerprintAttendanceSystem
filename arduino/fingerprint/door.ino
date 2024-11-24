@@ -10,11 +10,13 @@ bool Check1UserDoor() {
 
     // Detect user passing through
     if (state == LOW && !userPassed) {
-      delay(200);                         // Debounce delay to avoid false triggers
+      // delay(200);                         // Debounce delay to avoid false triggers
       if (digitalRead(IR_PIN) == HIGH) {  // Confirm HIGH state persists (user passed)
         userPassed = true;
 
         Serial.println("User Passed");
+      delay(200);                         // Debounce delay to avoid false triggers
+
         // delay(2000);  // Message display delay if needed
         return userPassed;
         // break;  // Exit loop once a user passes
@@ -27,7 +29,7 @@ bool Check1UserDoor() {
     Serial.println("No user passed pls close the door");
     return userPassed;
 
-    CloseDoor();
+    // CloseDoor();
     // delay(2000);  // Message display delay
   }
 }
@@ -66,8 +68,11 @@ bool CheckDoorState(int sec) {
 bool Checkpeople() {
   int state = digitalRead(IR_PIN);
   if (state == LOW) {
+
     return false;
   } else {
+  Serial.println("Checking Door State");
+
     return true;
   }
 }
