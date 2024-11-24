@@ -171,6 +171,10 @@ void setup() {
 }
 
 void loop() {
+
+  // 0 enroll
+  // 1 in out
+  // 2 empty db
   if (test == "login") {
 
 
