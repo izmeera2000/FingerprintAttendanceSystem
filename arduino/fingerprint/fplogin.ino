@@ -85,6 +85,8 @@ void loginFP() {
     bool userDetected = Check1UserDoor();
     if (userDetected) {
       logFingerprintID(fingerid, 1);  // Log the fingerprint ID with '1' (entry)
+      CloseDoor();  // Close the door if no user detected
+
     } else {
       CloseDoor();  // Close the door if no user detected
       Serial.println("Door closed after no user passed (entry).");
@@ -100,6 +102,8 @@ void loginFP() {
     bool userDetected = Check1UserDoor();
     if (userDetected) {
       logFingerprintID(fingerid2, 0);  // Log the fingerprint ID with '0' (exit)
+      CloseDoor();  // Close the door if no user detected
+
     } else {
       CloseDoor();  // Close the door if no user detected
       Serial.println("Door closed after no user passed (exit).");
