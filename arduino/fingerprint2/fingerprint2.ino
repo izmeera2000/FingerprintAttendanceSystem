@@ -1,43 +1,23 @@
-#include <SoftwareSerial.h>
-#include "DFRobotDFPlayerMini.h"
+/*
+ * This ESP32 code is created by esp32io.com
+ *
+ * This ESP32 code is released in the public domain
+ *
+ * For more detail (instruction and wiring diagram), visit https://esp32io.com/tutorials/esp32-solenoid-lock
+ */
 
-// Use pins 2 and 3 to communicate with DFPlayer Mini
-static const uint8_t PIN_MP3_TX = 26;  // Connects to module's RX
-static const uint8_t PIN_MP3_RX = 27;  // Connects to module's TX
-SoftwareSerial softwareSerial(PIN_MP3_RX, PIN_MP3_TX);
+#define RELAY_PIN 13 // ESP32 pin GPIO16, which connects to the solenoid lock via the relay
 
-// Create the Player object
-DFRobotDFPlayerMini player;
-
+// the setup function runs once when you press reset or power the board
 void setup() {
-
-  // Init USB serial port for debugging
-  Serial.begin(9600);
-  // Init serial port for DFPlayer Mini
-  softwareSerial.begin(9600);
-
-  // Start communication with DFPlayer Mini
-  while (!player.begin(softwareSerial)) {
-    Serial.println("Failed to connect to DFPlayer Mini. Retrying in 1 second...");
-    delay(1000);  // Wait 1 second before retrying
-  }
-
-  Serial.println("Connected to DFPlayer Mini!");
-
-  // Set the volume to a reasonable level (0-30)
-  player.volume(20);
-
-    int fileCount = player.readFileCounts();  // Read number of files
-    Serial.print("Files found on SD card: ");
-    Serial.println(fileCount);
-
-    if (fileCount > 0) {
-        Serial.println("Playing the first file...");
-        player.play(1); // Play the first MP3 file (0001.mp3)
-    } else {
-        Serial.println("No MP3 files found on SD card!");
-    }
+  // initialize digital pin  as an output.
+  pinMode(RELAY_PIN, OUTPUT);
 }
 
+// the loop function runs over and over again forever
 void loop() {
+  digitalWrite(RELAY_PIN, HIGH); // unlock the door
+  delay(5000);
+  digitalWrite(RELAY_PIN, LOW);  // lock the door
+  delay(5000);
 }

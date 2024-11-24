@@ -31,14 +31,14 @@ void OpenDoor() {
   // simpleOLED("Door Unlocked , Please Open");
 
   // Serial.println("The obstacle is present");
-  digitalWrite(RELAY_PIN, LOW);  // unlock the door
+  digitalWrite(RELAY_PIN, HIGH);  // unlock the door
 }
 
 void CloseDoor() {
   // Read the sensor state
   // simpleOLED("Door Locked");
 
-  digitalWrite(RELAY_PIN, HIGH);  // unlock the door
+  digitalWrite(RELAY_PIN, LOW);  // lock the door
 }
 
 bool CheckDoorState(int sec) {

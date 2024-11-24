@@ -153,7 +153,7 @@ void setup() {
   pinMode(RELAY_PIN, OUTPUT);
   pinMode(TOUCH1, INPUT);  // Internal pull-up resistor
   pinMode(TOUCH2, INPUT);  // Internal pull-down resistor (if required)
-
+  CloseDoor();
   test = getFingerprintmode("testout");
   Serial.println(test);
 
