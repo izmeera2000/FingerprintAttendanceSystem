@@ -24,6 +24,7 @@ void Check1UserDoor() {
   // If no user passed within 10 seconds
   if (!userPassed) {
     Serial.println("No user passed pls close the door");
+    CloseDoor();
     // delay(2000);  // Message display delay
   }
 }
