@@ -83,14 +83,14 @@
 
                 <input type="text" name="kursus">
 
-                <label for="amaron">amaron</label>
+                <!-- <label for="amaron">amaron</label>
 
                 <select name="amaran" id="amaran">
                   <option value="1">1</option>
                   <option value="2">2</option>
 
 
-                </select>
+                </select> -->
 
                 <button type="submit" name="get_pdf2">Test</button>
               </form>
