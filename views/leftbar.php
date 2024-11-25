@@ -56,13 +56,13 @@
 
         <li class="sidebar-item">
           <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>attendance/pdf2"
-            aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span class="hide-menu">Test PDF
+            aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span class="hide-menu">Test PDF Attendance
             </span></a>
         </li>
 
         <li class="sidebar-item">
           <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>attendance/pdf3"
-            aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span class="hide-menu">Test PDF 3
+            aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span class="hide-menu">Test PDF Surat Amaran
             </span></a>
         </li>
 
