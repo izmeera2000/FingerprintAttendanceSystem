@@ -2017,49 +2017,119 @@ if (isset($_POST['get_pdf2'])) {
 
 if (isset($_POST['get_pdf3'])) {
 
-  $student_id = $_POST['id'];
+  include(getcwd() . '/admin/vendor/setasign/fpdf/fpdf.php');
+  include(getcwd() . '/admin/vendor/setasign/fpdf/exfpdf.php');
+  include(getcwd() . '/admin/vendor/setasign/fpdf/easyTable.php');
+
+  $id = $_POST['id'];
 
 
-  $query = "SELECT * FROM user WHERE id ='$id' ";
+  $query = "SELECT a.id,a.nama,a.kp,a.ndp,c.nama as kursus ,d.nama as sem_start  FROM user a 
+            INNER JOIN user_enroll b ON b.user_id = a.id
+            INNER JOIN course c ON c.id = b.course_id
+            INNER JOIN sem d ON d.id = b.sem_start
+            WHERE a.id = '$id'";
   $results = mysqli_query($db, $query);
   while ($row = $results->fetch_assoc()) {
-    $id = $row['id'];
+    $nama = $row['nama'];
+    $kp = $row['kp'];
+    $kursus = $row['kursus'];
+    $ndp = $row['ndp'];
+    $sem_start = $row['sem_start'];
+
+  }
+  $sem = getSemesterByNumber($sem_start);
+  class PDF1 extends exFPDF
+  {
+    // Here, you can add any custom methods or override methods from FPDI or exFPDF
+    // For example, to avoid errors in easyTable, you can implement the get_color method
+
 
   }
 
-  $pdf = new Fpdi();
+  $pdf = new PDF1();
   // add a page
   $pdf->SetFont('arial', '', 12);
 
-  $pdf->AddPage();
+  // $pdf->AddPage();
   // set the source file
   $pdf->setSourceFile("assets/pdf/jtp2.pdf");
 
+  // // import page 1
+  // $tplId = $pdf->importPage(1);
+  // // use the imported page and place it at point 10,10 with a width of 100 mm
+  // $pdf->useTemplate($tplId, ['adjustPageSize' => true]);
+  // $pdf->SetXY(67, 102.6);
+  // $pdf->Write(0, $nama);
+
+  // $pdf->SetXY(67, 107.6);
+  // $pdf->Write(0, $kp);
+
+  // $pdf->SetXY(67, 112.6);
+  // $pdf->Write(0, $ndp);
+
+  // $pdf->SetXY(67, 117.6);
+  // $pdf->Write(0, $kursus);
+
+  // $pdf->SetXY(67, 122.6);
+  // $pdf->Write(0, $sem);
+
+  $pdf->AddPage();                // Create a new page in the output PDF
   // import page 1
-  $tplId = $pdf->importPage(1);
+  $tplId = $pdf->importPage(2);
   // use the imported page and place it at point 10,10 with a width of 100 mm
   $pdf->useTemplate($tplId, ['adjustPageSize' => true]);
-  $pdf->SetXY(64, 61.6);
 
+
+
+  $pdf->SetXY(67, 44.2);
   $pdf->Write(0, $nama);
-  $pdf->SetXY(102, 66.5);
-  $pdf->Write(0, $sem . ' ' . $kursus);
 
-  $pdf->SetFont('arial', 'B', 12);
-  if ($amaran == 1) {
+  $pdf->SetXY(67, 49.1);
+  $pdf->Write(0, $kp);
 
-    $pdf->SetXY(70, 126.9);
-    $text = '( 10/9/24 - 1 slot, 27/9/24 - 1 slot, 3/10/24 - 1 slot, 3/10/24 - 1 slot, 3/10/24 - 1 slot )';
-  } else {
-    $pdf->SetXY(70, 141.9);
-    $text = '( 10/9/24 - 1 slot, 27/9/24 - 1 slot,   3/10/24 - 1 slot, 3/10/24 - 1 slot, 3/10/24 - 1 slot )';
-  }
-  // Use MultiCell for wrapping text
-  $width = 100; // Width of the cell
-  $lineHeight = 5.9; // Height of each line
-  $pdf->MultiCell($width, $lineHeight, $text, 0, 'L');
+  $pdf->SetXY(67, 54);
+  $pdf->Write(0, $ndp);
 
-  $pdf->Output('F', 'test2.pdf');
+  $pdf->SetXY(67, 58.9);
+  $pdf->Write(0, $kursus);
+
+  $pdf->SetXY(67, 63.8);
+  $pdf->Write(0, $sem);
+  $pdf->Ln(10);
+
+
+  $table = new easyTable($pdf, '%{30, 35, 35}', 'align:R; border:1');
+  $table->easyCell('Text 1', 'rowspan:2; bgcolor:#ffb3ec');
+  $table->easyCell('Text 2', 'colspan:2; bgcolor:#FF66AA');
+  $table->printRow();
+
+  $table->easyCell('Text 3', 'bgcolor:#33ffff');
+  $table->easyCell('Text 4', 'bgcolor:#ffff33');
+  $table->printRow();
+  $table->endTable(5);
+
+
+  // $pdf->SetXY(102, 66.5);
+  // $pdf->Write(0, $sem . ' ' . $kursus);
+
+  // $pdf->SetFont('arial', 'B', 12);
+  // if ($amaran == 1) {
+
+  //   $pdf->SetXY(70, 126.9);
+  //   $text = '( 10/9/24 - 1 slot, 27/9/24 - 1 slot, 3/10/24 - 1 slot, 3/10/24 - 1 slot, 3/10/24 - 1 slot )';
+  // } else {
+  //   $pdf->SetXY(70, 141.9);
+  //   $text = '( 10/9/24 - 1 slot, 27/9/24 - 1 slot,   3/10/24 - 1 slot, 3/10/24 - 1 slot, 3/10/24 - 1 slot )';
+  // }
+  // // Use MultiCell for wrapping text
+  // $width = 100; // Width of the cell
+  // $lineHeight = 5.9; // Height of each line
+  // $pdf->MultiCell($width, $lineHeight, $text, 0, 'L');
+
+
+
+  $pdf->Output('F', 'test3.pdf');
 
   // debug_to_console("test");
 }
@@ -2327,16 +2397,11 @@ function getWeekRangeOfMonth($month, $year, $weekNumber)
     $startDay = strtotime("last Monday", $firstDayOfMonth);
   }
 
-  // Move back to the previous week if we're not in the current month
-  $startDate = date('Y-m-d', strtotime("$startDay"));
+  // Calculate the start and end date of the requested week
+  // Calculate the start date of the given week number (weekNumber starts from 1)
+  $startDate = date('Y-m-d', strtotime("+" . ($weekNumber - 1) . " weeks", $startDay));
 
-  // Check if the start date is in the previous month
-  if (date('m', strtotime($startDate)) != $month) {
-    // If the start date is in the previous month, we adjust to the last Monday of the previous month
-    $startDate = date('Y-m-d', strtotime("last Monday", strtotime("$year-$month-01")));
-  }
-
-  // Calculate the end date (6 days after the start date)
+  // Calculate the end date of the given week (6 days after the start date)
   $endDate = date('Y-m-d', strtotime("$startDate +6 days"));
 
   // If the end date is outside the current month, adjust it to the last day of the current month
@@ -2353,4 +2418,49 @@ function getWeekRangeOfMonth($month, $year, $weekNumber)
 
 
 
+function getSemesterByNumber($startSem)
+{
+  // Parse the start semester
+  list($startSemPart, $startYear) = explode('/', $startSem);
+  $startSemPart = (int) $startSemPart;  // 1 or 2
+  $startYear = (int) $startYear;        // Year as integer
+
+  // Get the current year and month
+  $currentYear = (int) date('Y');      // Current year
+  $currentMonth = (int) date('n');    // Current month (1-12)
+
+  // Determine the current semester part
+  $currentSemPart = $currentMonth < 7 ? 1 : 2;
+
+  // Calculate total semesters from the start year to the current year
+  $semesterNumber = (($currentYear - $startYear) * 2) + $currentSemPart;
+
+  // Adjust for start semester part
+  if ($startSemPart === 2) {
+    $semesterNumber--;
+  }
+
+  return $semesterNumber;
+}
+
+
+
+if (isset($_POST['fp_setnull'])) {
+  $id = $_POST['id'];
+
+  // var_dump($_POST);
+
+  $query = "UPDATE `user` SET `fp` = NULL WHERE `user`.`id` = '$id';";
+  mysqli_query($db, $query);
+
+}
+
+if (isset($_POST['fp_setregister'])) {
+  $id = $_POST['id'];
+
+
+  $query = "UPDATE user SET fp='R'  WHERE id = '$id'";
+  mysqli_query($db, $query);
+
+}
 ?>

@@ -94,10 +94,8 @@
 
                 <button type="submit" name="get_pdf3">Test</button>
               </form>
-
-
-
-              <iframe src="<?php echo $site_url ?>test2.pdf" width="100%" height="600px"></iframe>
+ 
+               <iframe src="<?php echo $site_url ?>test3.pdf" width="100%" height="600px"></iframe>
 
 
             </div>

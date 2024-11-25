@@ -146,7 +146,13 @@ function class_enrollment()
 	require_once('views/class/enrollment.php');
 
 }
+function class_org()
+{
+	check_session($site_url, 1);
 
+	require_once('views/class/org.php');
+
+}
 
 function fp_create()
 {
@@ -298,6 +304,10 @@ switch (true) {
 		break;
 	case ($request == 'class/enrollment'):
 		class_enrollment();
+		break;
+
+	case ($request == 'class/org'):
+		class_org();
 		break;
 
 	case ($request == 'fp/create'):

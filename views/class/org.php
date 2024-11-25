@@ -106,55 +106,32 @@
                         <!-- start row -->
                         <tr>
                           <th>Nama</th>
+                          <th>Semester</th>
+                          <th>Course</th>
                           <th>FP</th>
+                          <!-- <th>Bukti</th> -->
                           <th>Action</th>
+                          <!-- <th>Start date</th>
+                          <th>Salary</th> -->
                         </tr>
                         <!-- end row -->
                       </thead>
                       <tbody>
-
-                        <?php
-                        $query = "SELECT id,nama, image_url,ndp,fp FROM user WHERE role = '4' ";
-                        $results = mysqli_query($db, $query);
-                        while ($row = $results->fetch_assoc()) {
-                          $id = $row['id'];
-                          $image_url = $row['image_url'];
-                          $ndp = $row['ndp'];
-                          $fp = $row['fp'];
-                          $nama = $row['nama'];
-
-
-
-                          ?>
-                          <tr>
-
-                            <td>
-                              <div class="d-flex no-block align-items-center">
-                                <div class="m-r-10"><img
-                                    src="<?php echo $site_url ?>assets/images/user/<?php echo $id ?>/<?php echo $image_url ?>"
-                                    alt="user" class="rounded-circle" width="45"></div>
-                                <div class="">
-                                  <h5 class="m-b-0 font-16 font-medium"><?php echo $nama ?></h5><span
-                                    class="text-muted"><?php echo $ndp ?></span>
-                                </div>
-                              </div>
-                            </td>
-                            <td><?php echo $fp ?></td>
-                            <td>
-                              <form method="POST">
-
-                                <input type="hidden" name="id" value="<?php echo $id ?>">
-                                <button type="submit" name="fp_setnull">Null</button>
-                                <button type="submit" name="fp_setregister">Register</button>
-                                <!-- <button type="submit" name="fp_setreset">Reset</button> -->
-
-                              </form>
-
-
-                            </td>
-                          <tr>
-
-                          <?php } ?>
+                        <td>
+                          <div class="d-flex no-block align-items-center">
+                            <div class="m-r-10"><img src="<?php echo $site_url ?>assets/images/user/<?php echo $_SESSION['user_details']['id']?>/<?php echo $_SESSION['user_details']['image_url']?>" alt="user"
+                                class="rounded-circle" width="45"></div>
+                            <div class="">
+                              <h5 class="m-b-0 font-16 font-medium">Nama</h5><span
+                                class="text-muted">NDP</span>
+                            </div>
+                          </div>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <!-- <td></td> -->
+                        <td></td>
                       </tbody>
 
                     </table>
