@@ -70,18 +70,35 @@
           <div class="col-md-12">
             <div class="card">
               <form action="" method="POST">
- 
+
+                <label>nama</label>
+
+                <input type="text" name="nama">
+
+                <label>sem</label>
+
+                <input type="text" name="sem">
+
+                <label>kursus</label>
+
+                <input type="text" name="kursus">
+
+                <label for="amaron">amaron</label>
+
+                <select name="amaran" id="amaran">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
 
 
-
+                </select>
 
                 <button type="submit" name="get_pdf2">Test</button>
               </form>
 
- 
 
-                <iframe src="<?php echo $site_url ?>test2.pdf" width="100%" height="600px"></iframe>
-              
+
+              <iframe src="<?php echo $site_url ?>test2.pdf" width="100%" height="600px"></iframe>
+
 
             </div>
             <!-- BEGIN MODAL -->

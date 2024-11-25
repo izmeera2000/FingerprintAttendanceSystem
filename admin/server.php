@@ -1775,7 +1775,7 @@ if (isset($_POST['get_pdf'])) {
 
 
 
-      $tableB->easyCell("BULAN : " . $month . '<s "font-color:#ffffff">test123</s>' .  "    TAHUN : 2024", 'colspan:7;');
+      $tableB->easyCell("BULAN : " . $month . '<s "font-color:#ffffff">test123</s>' . "    TAHUN : 2024", 'colspan:7;');
 
 
       // $tableB->easyCell("TAHUN : 2024", 'colspan:;');
@@ -1961,6 +1961,13 @@ if (isset($_POST['get_pdf'])) {
 
 if (isset($_POST['get_pdf2'])) {
 
+  $nama = strtoupper($_POST['nama']);
+  $sem = $_POST['sem'];
+  $kursus = strtoupper($_POST['kursus']);
+  $amaran = $_POST['amaran'];
+
+
+
 
   $pdf = new Fpdi();
   // add a page
@@ -1968,27 +1975,38 @@ if (isset($_POST['get_pdf2'])) {
 
   $pdf->AddPage();
   // set the source file
-  $pdf->setSourceFile("assets/pdf/sp1b.pdf");
-  // import page 1
-  $tplId = $pdf->importPage(1);
-  // use the imported page and place it at point 10,10 with a width of 100 mm
-  $pdf->useTemplate($tplId, ['adjustPageSize' => true]);
-  $pdf->SetXY(64, 61.6);
+  if ($amaran == 1) {
 
-  $pdf->Write(0, 'MUHAMMAD HIJAZI BIN MOHD YATIM');
-  $pdf->SetXY(102, 66.5);
-  $pdf->Write(0, '5 DTK KOMPUTER');
+    $pdf->setSourceFile("assets/pdf/sp1b.pdf");
 
-  $pdf->SetFont('arial', 'B', 12);
+  }else{
+    $pdf->setSourceFile("assets/pdf/sp2b.pdf");
 
-  $pdf->SetXY(70, 126.9);
-  $text = '(10/9/24 - 1 slot, 27/9/24 - 1 slot, 3/10/24 - 1 slot, 3/10/24 - 1 slot, 3/10/24 - 1 slot)';
+  }
+    // import page 1
+    $tplId = $pdf->importPage(1);
+    // use the imported page and place it at point 10,10 with a width of 100 mm
+    $pdf->useTemplate($tplId, ['adjustPageSize' => true]);
+    $pdf->SetXY(64, 61.6);
 
-  // Use MultiCell for wrapping text
-  $width = 100; // Width of the cell
-  $lineHeight = 5.9; // Height of each line
-  $pdf->MultiCell($width, $lineHeight, $text, 0, 'L');
+    $pdf->Write(0, $nama);
+    $pdf->SetXY(102, 66.5);
+    $pdf->Write(0, $sem . ' ' . $kursus);
 
+    $pdf->SetFont('arial', 'B', 12);
+    if ($amaran == 1) {
+
+    $pdf->SetXY(70, 126.9);
+    $text = '( 10/9/24 - 1 slot, 27/9/24 - 1 slot, 3/10/24 - 1 slot, 3/10/24 - 1 slot, 3/10/24 - 1 slot )';
+    }
+    else{
+      $pdf->SetXY(70, 141.9);
+      $text = '( 10/9/24 - 1 slot, 27/9/24 - 1 slot,   3/10/24 - 1 slot, 3/10/24 - 1 slot, 3/10/24 - 1 slot )';
+    }
+    // Use MultiCell for wrapping text
+    $width = 100; // Width of the cell
+    $lineHeight = 5.9; // Height of each line
+    $pdf->MultiCell($width, $lineHeight, $text, 0, 'L');
 
   $pdf->Output('F', 'test2.pdf');
 
@@ -2245,18 +2263,19 @@ if (isset($_POST['send_rating'])) {
 
 
 
-function getWeekRangeOfMonth($month, $year, $weekNumber) {
+function getWeekRangeOfMonth($month, $year, $weekNumber)
+{
   // Calculate the first day of the month
   $firstDayOfMonth = strtotime("$year-$month-01");
 
   // Get the weekday of the first day (1 = Monday, 7 = Sunday)
   $firstDayWeekday = date('N', $firstDayOfMonth);  // 1 = Monday, 7 = Sunday
-  
+
   // Calculate the date of the first Monday of the month
   $startDay = $firstDayOfMonth;
   if ($firstDayWeekday != 1) {
-      // If the first day is not Monday, find the previous Monday
-      $startDay = strtotime("last Monday", $firstDayOfMonth);
+    // If the first day is not Monday, find the previous Monday
+    $startDay = strtotime("last Monday", $firstDayOfMonth);
   }
 
   // Move back to the previous week if we're not in the current month
@@ -2264,8 +2283,8 @@ function getWeekRangeOfMonth($month, $year, $weekNumber) {
 
   // Check if the start date is in the previous month
   if (date('m', strtotime($startDate)) != $month) {
-      // If the start date is in the previous month, we adjust to the last Monday of the previous month
-      $startDate = date('Y-m-d', strtotime("last Monday", strtotime("$year-$month-01")));
+    // If the start date is in the previous month, we adjust to the last Monday of the previous month
+    $startDate = date('Y-m-d', strtotime("last Monday", strtotime("$year-$month-01")));
   }
 
   // Calculate the end date (6 days after the start date)
@@ -2273,13 +2292,13 @@ function getWeekRangeOfMonth($month, $year, $weekNumber) {
 
   // If the end date is outside the current month, adjust it to the last day of the current month
   if (date('m', strtotime($endDate)) != $month) {
-      $endDate = date('Y-m-t', strtotime($startDate)); // Get the last day of the current month
+    $endDate = date('Y-m-t', strtotime($startDate)); // Get the last day of the current month
   }
 
   // Return the start and end dates as an associative array
   return [
-      'start_date' => $startDate,
-      'end_date' => $endDate
+    'start_date' => $startDate,
+    'end_date' => $endDate
   ];
 }
 
