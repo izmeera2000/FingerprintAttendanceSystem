@@ -1182,7 +1182,7 @@ if (isset($_POST['sem_deletef'])) {
 
 
 
-
+// akan run cron jobs setapi  1 hour 8-5
 if (isset($_POST['slot_checktime'])) {
 
 
@@ -1201,7 +1201,7 @@ if (isset($_POST['slot_checktime'])) {
   // $start_timeb = microtime(true);
 
   $time_slots = []; // Initialize an empty array
-  $time_limit = 50;
+  // $time_limit = 50;
   $nowdate = date('Y-m-d');
   $now = new DateTime();
   $now2 = $now->format('Y-m-d H:i:s');
@@ -1232,6 +1232,7 @@ if (isset($_POST['slot_checktime'])) {
 
       $late_time = clone $start_time; // Clone the start time to avoid modifying the original
       $late_time->modify('+10 minutes'); // Add 10 minutes to the start time
+      //late modifier
 
       // Check for overlap
       if ($masa_mula < $end_time && $masa_tamat > $start_time) {
@@ -1280,7 +1281,7 @@ if (isset($_POST['slot_checktime'])) {
         // No overlap case
 
         if ($now < $start_time) {
-          $slot_status = 7; // rehat
+          $slot_status = 7; // not yet
 
         } else {
 
