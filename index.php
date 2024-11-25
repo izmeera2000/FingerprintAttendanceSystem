@@ -122,6 +122,14 @@ function attendance_pdf3()
 	require_once('views/attendance/pdf3.php');
 
 }
+function attendance_pdf4()
+{
+	check_session($site_url, 1);
+
+	require_once('views/attendance/pdf4.php');
+
+}
+
 
 function class_create()
 {
@@ -255,7 +263,7 @@ switch (true) {
 	case (str_contains($request, 'login_fp')):
 	// case (str_contains($request, 'class_createf')):
 	case (str_contains($request, 'fp_mode')):
-		case (str_contains($request, 'submitrating')):
+	case (str_contains($request, 'submitrating')):
 
 
 		server();
@@ -271,6 +279,9 @@ switch (true) {
 
 	case (str_contains($request, 'eventchecktime')):
 		echecktime();
+		break;
+	case ($request == 'attendance/pdf4'):
+		attendance_pdf4();
 		break;
 	case ($request == 'attendance/pdf3'):
 		attendance_pdf3();
@@ -304,10 +315,10 @@ switch (true) {
 	case ($request == 'cuti/create'):
 		holiday_create();
 		break;
-		case ($request == 'course/create'):
-			course_create();
-			break;
-	
+	case ($request == 'course/create'):
+		course_create();
+		break;
+
 
 
 	default:
