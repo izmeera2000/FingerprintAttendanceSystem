@@ -60,7 +60,7 @@
         <!-- ============================================================== -->
         <!-- Search -->
         <!-- ============================================================== -->
-        <li class="nav-item search-box">
+        <!-- <li class="nav-item search-box">
           <a class="nav-link waves-effect waves-dark" href="javascript:void(0)">
             <div class="d-flex align-items-center">
               <i data-feather="search" class="feather-sm me-1"></i>
@@ -75,7 +75,7 @@
               <i data-feather="x" class="feather-sm"></i>
             </a>
           </form>
-        </li>
+        </li> -->
       </ul>
       <!-- ============================================================== -->
       <!-- Right side toggle and nav items -->
@@ -84,201 +84,7 @@
         <!-- ============================================================== -->
         <!-- Messages -->
         <!-- ============================================================== -->
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle waves-effect waves-dark" href="<?php echo $site_url ?>" id="2" data-bs-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            <i data-feather="mail"></i>
-          </a>
-          <div class="
-                    dropdown-menu dropdown-menu-end
-                    mailbox
-                    dropdown-menu-animate-up
-                  " aria-labelledby="2">
-            <span class="with-arrow">
-              <span class="bg-danger"></span>
-            </span>
-            <ul class="list-style-none">
-              <li>
-                <div class="drop-title text-white bg-danger">
-                  <h4 class="mb-0 m-t-5">5 New</h4>
-                  <span class="fw-light">Messages</span>
-                </div>
-              </li>
-              <li>
-                <div class="message-center message-body position-relative" style="height: 230px">
-                  <!-- Message -->
-                  <a href="javascript:void(0)" class="
-                            message-item
-                            d-flex
-                            align-items-center
-                            border-bottom
-                            px-3
-                            py-2
-                          ">
-                    <span class="user-img position-relative d-inline-block">
-                      <img src=" <?php echo $site_url ?>assets/images/users/1.jpg" alt="user"
-                        class="rounded-circle w-100" />
-                      <span class="profile-status rounded-circle online"></span>
-                    </span>
-                    <div class="w-75 d-inline-block v-middle ps-3">
-                      <h5 class="
-                                message-title
-                                mb-0
-                                mt-1
-                                fs-3
-                                font-weight-medium
-                              ">
-                        Pavan kumar
-                      </h5>
-                      <span class="
-                                fs-2
-                                text-nowrap
-                                d-block
-                                time
-                                text-truncate
-                                fw-normal
-                                mt-1
-                              ">Just see the my admin!</span>
-                      <span class="
-                                fs-2
-                                text-nowrap
-                                d-block
-                                subtext
-                                text-muted
-                              ">9:30 AM</span>
-                    </div>
-                  </a>
-                  <!-- Message -->
-                  <a href="javascript:void(0)" class="
-                            message-item
-                            d-flex
-                            align-items-center
-                            border-bottom
-                            px-3
-                            py-2
-                          ">
-                    <span class="user-img position-relative d-inline-block">
-                      <img src=" <?php echo $site_url ?>assets/images/users/2.jpg" alt="user"
-                        class="rounded-circle w-100" />
-                      <span class="profile-status rounded-circle busy"></span>
-                    </span>
-                    <div class="w-75 d-inline-block v-middle ps-3">
-                      <h5 class="
-                                message-title
-                                mb-0
-                                mt-1
-                                fs-3
-                                font-weight-medium
-                              ">
-                        Sonu Nigam
-                      </h5>
-                      <span class="
-                                fs-2
-                                text-nowrap
-                                d-block
-                                time
-                                text-truncate
-                              ">I've sung a song! See you at</span>
-                      <span class="
-                                fs-2
-                                text-nowrap
-                                d-block
-                                subtext
-                                text-muted
-                              ">9:10 AM</span>
-                    </div>
-                  </a>
-                  <!-- Message -->
-                  <a href="javascript:void(0)" class="
-                            message-item
-                            d-flex
-                            align-items-center
-                            border-bottom
-                            px-3
-                            py-2
-                          ">
-                    <span class="user-img position-relative d-inline-block">
-                      <img src=" <?php echo $site_url ?>assets/images/users/3.jpg" alt="user"
-                        class="rounded-circle w-100" />
-                      <span class="profile-status rounded-circle away"></span>
-                    </span>
-                    <div class="w-75 d-inline-block v-middle ps-3">
-                      <h5 class="
-                                message-title
-                                mb-0
-                                mt-1
-                                fs-3
-                                font-weight-medium
-                              ">
-                        Arijit Sinh
-                      </h5>
-                      <span class="
-                                fs-2
-                                text-nowrap
-                                d-block
-                                time
-                                text-truncate
-                              ">I am a singer!</span>
-                      <span class="
-                                fs-2
-                                text-nowrap
-                                d-block
-                                subtext
-                                text-muted
-                              ">9:08 AM</span>
-                    </div>
-                  </a>
-                  <!-- Message -->
-                  <a href="javascript:void(0)" class="
-                            message-item
-                            d-flex
-                            align-items-center
-                            border-bottom
-                            px-3
-                            py-2
-                          ">
-                    <span class="user-img position-relative d-inline-block">
-                      <img src=" <?php echo $site_url ?>assets/images/users/4.jpg" alt="user"
-                        class="rounded-circle w-100" />
-                      <span class="profile-status rounded-circle offline"></span>
-                    </span>
-                    <div class="w-75 d-inline-block v-middle ps-3">
-                      <h5 class="
-                                message-title
-                                mb-0
-                                mt-1
-                                fs-3
-                                font-weight-medium
-                              ">
-                        Pavan kumar
-                      </h5>
-                      <span class="
-                                fs-2
-                                text-nowrap
-                                d-block
-                                time
-                                text-truncate
-                              ">Just see the my admin!</span>
-                      <span class="
-                                fs-2
-                                text-nowrap
-                                d-block
-                                subtext
-                                text-muted
-                              ">9:02 AM</span>
-                    </div>
-                  </a>
-                </div>
-              </li>
-              <li>
-                <a class="nav-link text-center link text-dark" href="javascript:void(0);">
-                  <b>See all e-Mails</b>
-                  <i data-feather="chevron-right" class="feather-sm"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </li>
+
         <!-- ============================================================== -->
         <!-- End Messages -->
         <!-- ============================================================== -->

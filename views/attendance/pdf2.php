@@ -70,9 +70,9 @@
           <div class="col-md-12">
             <div class="card">
               <form action="" method="POST">
-                <label for="kelas">Kelas</label>
+                <label for="kursus">Kursus</label>
 
-                <select name="kelas" id="kelas">
+                <select name="kursus" id="kursus">
                   <!-- <option value="volvo">Volvo</option>
                   <option value="saab">Saab</option>
                   <option value="mercedes">Mercedes</option>
@@ -83,12 +83,12 @@
 
                   $query =
 
-                    "SELECT * FROM kelas ";
+                    "SELECT * FROM course ";
 
                   $results2 = mysqli_query($db, $query);
 
                   while ($row = mysqli_fetch_assoc($results2)) {
-                    $nama = $row['nama_kelas'];
+                    $nama = $row['nama'];
 
                     echo "<option value='$nama'>$nama</option>";
 
@@ -96,7 +96,23 @@
                   ?>
                 </select>
 
-                <label for="year">Year</label>
+
+                <label for="sem">Semester</label>
+
+                <select name="sem" id="sem">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+
+
+                </select>
+
+
+                <label for="year">Tahun</label>
 
                 <select name="year" id="year">
 
@@ -119,35 +135,50 @@
 
 
 
-                <label for="year">Tarikh 1</label>
+                <label for="month">Bulan</label>
 
-                <select name="year" id="year">
+                <select name="month" id="month">
 
                   <?php
 
                   $query =
 
-                    "SELECT DISTINCT YEAR(tarikh) AS year FROM attendance_slot ORDER BY year DESC;";
+                    "SELECT DISTINCT MONTH(tarikh) AS month FROM attendance_slot ORDER BY month DESC;";
 
                   $results2 = mysqli_query($db, $query);
 
                   while ($row = mysqli_fetch_assoc($results2)) {
-                    $year = $row['year'];
+                    $month = $row['month'];
 
-                    echo "<option value='$year'>$year</option>";
+                    echo "<option value='$month'>$month</option>";
 
                   }
                   ?>
                 </select>
 
 
-                <button type="submit" name="get_pdf">asdasd</button>
+                <label for="week">Minggu</label>
+
+                <select name="week" id="week">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+
+
+
+                </select>
+
+
+                <button type="submit" name="get_pdf">Generate PDF</button>
               </form>
 
- 
 
+
+              <div class="card">
                 <iframe src="<?php echo $site_url ?>test.pdf" width="100%" height="600px"></iframe>
-              
+              </div>
 
             </div>
             <!-- BEGIN MODAL -->

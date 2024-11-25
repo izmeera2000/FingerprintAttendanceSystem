@@ -1620,10 +1620,19 @@ if (isset($_POST['get_pdf'])) {
 
 
 
+  $week = $_POST['week'];
+  $year = $_POST['year'];
+  $month = $_POST['month'];
+  $sem = $_POST['sem'];
+  $kursus = $_POST['kursus'];
+  // $startDate = "2024-10-29";
+  // $endDate = "2024-11-05";
 
-  $startDate = "2024-10-29";
-  $endDate = "2024-11-05";
+  $weekRange = getWeekRangeOfMonth($month, $year, $week);
+  // debug_to_console($startDate);
 
+  $startDate = $weekRange['start_date'];
+  $endDate = $weekRange['end_date'];
 
 
   class PDF extends exFPDF
@@ -1766,10 +1775,10 @@ if (isset($_POST['get_pdf'])) {
 
 
 
-      $tableB->easyCell("BULAN : " . $month, 'colspan:2;');
+      $tableB->easyCell("BULAN : " . $month . '<s "font-color:#ffffff">test123</s>' .  "    TAHUN : 2024", 'colspan:7;');
 
 
-      $tableB->easyCell("TAHUN : 2024", 'colspan:;');
+      // $tableB->easyCell("TAHUN : 2024", 'colspan:;');
 
       $tableB->printRow();
       $tableB->rowStyle('font-style:B');
@@ -1945,7 +1954,7 @@ if (isset($_POST['get_pdf'])) {
     $pdf->Output('F', 'test.pdf');
 
   }
-  debug_to_console("test");
+  // debug_to_console("test");
 }
 
 
@@ -1983,7 +1992,7 @@ if (isset($_POST['get_pdf2'])) {
 
   $pdf->Output('F', 'test2.pdf');
 
-  debug_to_console("test");
+  // debug_to_console("test");
 }
 
 
@@ -2059,7 +2068,7 @@ if (isset($_POST['login_fp'])) {
       $query = "UPDATE attendance SET masa_tamat = NOW()  WHERE id ='$id2' ";
       $results = mysqli_query($db, $query);
 
-    } else{
+    } else {
       echo "no_in_detected";
     }
 
@@ -2234,6 +2243,45 @@ if (isset($_POST['send_rating'])) {
   die();
 }
 
+
+
+function getWeekRangeOfMonth($month, $year, $weekNumber) {
+  // Calculate the first day of the month
+  $firstDayOfMonth = strtotime("$year-$month-01");
+
+  // Get the weekday of the first day (1 = Monday, 7 = Sunday)
+  $firstDayWeekday = date('N', $firstDayOfMonth);  // 1 = Monday, 7 = Sunday
+  
+  // Calculate the date of the first Monday of the month
+  $startDay = $firstDayOfMonth;
+  if ($firstDayWeekday != 1) {
+      // If the first day is not Monday, find the previous Monday
+      $startDay = strtotime("last Monday", $firstDayOfMonth);
+  }
+
+  // Move back to the previous week if we're not in the current month
+  $startDate = date('Y-m-d', strtotime("$startDay"));
+
+  // Check if the start date is in the previous month
+  if (date('m', strtotime($startDate)) != $month) {
+      // If the start date is in the previous month, we adjust to the last Monday of the previous month
+      $startDate = date('Y-m-d', strtotime("last Monday", strtotime("$year-$month-01")));
+  }
+
+  // Calculate the end date (6 days after the start date)
+  $endDate = date('Y-m-d', strtotime("$startDate +6 days"));
+
+  // If the end date is outside the current month, adjust it to the last day of the current month
+  if (date('m', strtotime($endDate)) != $month) {
+      $endDate = date('Y-m-t', strtotime($startDate)); // Get the last day of the current month
+  }
+
+  // Return the start and end dates as an associative array
+  return [
+      'start_date' => $startDate,
+      'end_date' => $endDate
+  ];
+}
 
 
 
