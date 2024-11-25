@@ -71,17 +71,17 @@
             <div class="card">
               <form action="" method="POST">
 
-                <label>nama</label>
+                <label>id</label>
 
-                <input type="text" name="nama">
+                <input type="text" name="id">
 
-                <label>sem</label>
+                <!-- <label>sem</label>
 
-                <input type="text" name="sem">
+                <input type="text" name="sem"> -->
 
-                <label>kursus</label>
+                <!-- <label>kursus</label>
 
-                <input type="text" name="kursus">
+                <input type="text" name="kursus"> -->
 
                 <!-- <label for="amaron">amaron</label>
 
@@ -92,7 +92,7 @@
 
                 </select> -->
 
-                <button type="submit" name="get_pdf2">Test</button>
+                <button type="submit" name="get_pdf3">Test</button>
               </form>
 
 

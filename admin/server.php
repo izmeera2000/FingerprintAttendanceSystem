@@ -1979,34 +1979,33 @@ if (isset($_POST['get_pdf2'])) {
 
     $pdf->setSourceFile("assets/pdf/sp1b.pdf");
 
-  }else{
+  } else {
     $pdf->setSourceFile("assets/pdf/sp2b.pdf");
 
   }
-    // import page 1
-    $tplId = $pdf->importPage(1);
-    // use the imported page and place it at point 10,10 with a width of 100 mm
-    $pdf->useTemplate($tplId, ['adjustPageSize' => true]);
-    $pdf->SetXY(64, 61.6);
+  // import page 1
+  $tplId = $pdf->importPage(1);
+  // use the imported page and place it at point 10,10 with a width of 100 mm
+  $pdf->useTemplate($tplId, ['adjustPageSize' => true]);
+  $pdf->SetXY(64, 61.6);
 
-    $pdf->Write(0, $nama);
-    $pdf->SetXY(102, 66.5);
-    $pdf->Write(0, $sem . ' ' . $kursus);
+  $pdf->Write(0, $nama);
+  $pdf->SetXY(102, 66.5);
+  $pdf->Write(0, $sem . ' ' . $kursus);
 
-    $pdf->SetFont('arial', 'B', 12);
-    if ($amaran == 1) {
+  $pdf->SetFont('arial', 'B', 12);
+  if ($amaran == 1) {
 
     $pdf->SetXY(70, 126.9);
     $text = '( 10/9/24 - 1 slot, 27/9/24 - 1 slot, 3/10/24 - 1 slot, 3/10/24 - 1 slot, 3/10/24 - 1 slot )';
-    }
-    else{
-      $pdf->SetXY(70, 141.9);
-      $text = '( 10/9/24 - 1 slot, 27/9/24 - 1 slot,   3/10/24 - 1 slot, 3/10/24 - 1 slot, 3/10/24 - 1 slot )';
-    }
-    // Use MultiCell for wrapping text
-    $width = 100; // Width of the cell
-    $lineHeight = 5.9; // Height of each line
-    $pdf->MultiCell($width, $lineHeight, $text, 0, 'L');
+  } else {
+    $pdf->SetXY(70, 141.9);
+    $text = '( 10/9/24 - 1 slot, 27/9/24 - 1 slot,   3/10/24 - 1 slot, 3/10/24 - 1 slot, 3/10/24 - 1 slot )';
+  }
+  // Use MultiCell for wrapping text
+  $width = 100; // Width of the cell
+  $lineHeight = 5.9; // Height of each line
+  $pdf->MultiCell($width, $lineHeight, $text, 0, 'L');
 
   $pdf->Output('F', 'test2.pdf');
 
@@ -2017,15 +2016,15 @@ if (isset($_POST['get_pdf2'])) {
 
 if (isset($_POST['get_pdf3'])) {
 
- $student_id = $_POST['id'];
+  $student_id = $_POST['id'];
 
 
- $query = "SELECT * FROM user WHERE id ='$id' ";
- $results = mysqli_query($db, $query);
- while ($row = $results->fetch_assoc()) {
-   $id = $row['id'];
+  $query = "SELECT * FROM user WHERE id ='$id' ";
+  $results = mysqli_query($db, $query);
+  while ($row = $results->fetch_assoc()) {
+    $id = $row['id'];
 
- }
+  }
 
   $pdf = new Fpdi();
   // add a page
@@ -2033,38 +2032,31 @@ if (isset($_POST['get_pdf3'])) {
 
   $pdf->AddPage();
   // set the source file
+  $pdf->setSourceFile("assets/pdf/jtp2.pdf");
+
+  // import page 1
+  $tplId = $pdf->importPage(1);
+  // use the imported page and place it at point 10,10 with a width of 100 mm
+  $pdf->useTemplate($tplId, ['adjustPageSize' => true]);
+  $pdf->SetXY(64, 61.6);
+
+  $pdf->Write(0, $nama);
+  $pdf->SetXY(102, 66.5);
+  $pdf->Write(0, $sem . ' ' . $kursus);
+
+  $pdf->SetFont('arial', 'B', 12);
   if ($amaran == 1) {
-
-    $pdf->setSourceFile("assets/pdf/sp1b.pdf");
-
-  }else{
-    $pdf->setSourceFile("assets/pdf/sp2b.pdf");
-
-  }
-    // import page 1
-    $tplId = $pdf->importPage(1);
-    // use the imported page and place it at point 10,10 with a width of 100 mm
-    $pdf->useTemplate($tplId, ['adjustPageSize' => true]);
-    $pdf->SetXY(64, 61.6);
-
-    $pdf->Write(0, $nama);
-    $pdf->SetXY(102, 66.5);
-    $pdf->Write(0, $sem . ' ' . $kursus);
-
-    $pdf->SetFont('arial', 'B', 12);
-    if ($amaran == 1) {
 
     $pdf->SetXY(70, 126.9);
     $text = '( 10/9/24 - 1 slot, 27/9/24 - 1 slot, 3/10/24 - 1 slot, 3/10/24 - 1 slot, 3/10/24 - 1 slot )';
-    }
-    else{
-      $pdf->SetXY(70, 141.9);
-      $text = '( 10/9/24 - 1 slot, 27/9/24 - 1 slot,   3/10/24 - 1 slot, 3/10/24 - 1 slot, 3/10/24 - 1 slot )';
-    }
-    // Use MultiCell for wrapping text
-    $width = 100; // Width of the cell
-    $lineHeight = 5.9; // Height of each line
-    $pdf->MultiCell($width, $lineHeight, $text, 0, 'L');
+  } else {
+    $pdf->SetXY(70, 141.9);
+    $text = '( 10/9/24 - 1 slot, 27/9/24 - 1 slot,   3/10/24 - 1 slot, 3/10/24 - 1 slot, 3/10/24 - 1 slot )';
+  }
+  // Use MultiCell for wrapping text
+  $width = 100; // Width of the cell
+  $lineHeight = 5.9; // Height of each line
+  $pdf->MultiCell($width, $lineHeight, $text, 0, 'L');
 
   $pdf->Output('F', 'test2.pdf');
 
