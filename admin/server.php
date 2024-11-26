@@ -1696,29 +1696,7 @@ if (isset($_POST['get_pdf'])) {
     ];
   }
 
-  function getDatesFromRange($start, $end)
-  {
-    $dates = [];
-    $currentDate = new DateTime($start);
-    $endDate = new DateTime($end);
 
-    // $interval = $endDate->diff($currentDate)->days;
-
-
-    while ($currentDate <= $endDate) {
-      if ($currentDate->format('N') != 6 && $currentDate->format('N') != 7) {
-
-        if (count($dates) >= 5) {
-        } else {
-
-          $dates[] = $currentDate->format('Y-m-d');
-        }
-      }
-      $currentDate->modify('+1 day'); // Move to the next day
-    }
-
-    return $dates;
-  }
 
 
   $dates = getDatesFromRange($startDate, $endDate);
@@ -2462,5 +2440,30 @@ if (isset($_POST['fp_setregister'])) {
   $query = "UPDATE user SET fp='R'  WHERE id = '$id'";
   mysqli_query($db, $query);
 
+}
+
+
+function getDatesFromRange($start, $end)
+{
+  $dates = [];
+  $currentDate = new DateTime($start);
+  $endDate = new DateTime($end);
+
+  // $interval = $endDate->diff($currentDate)->days;
+
+
+  while ($currentDate <= $endDate) {
+    if ($currentDate->format('N') != 6 && $currentDate->format('N') != 7) {
+
+      if (count($dates) <= 5) {
+      } else {
+
+              $dates[] = $currentDate->format('Y-m-d');
+      }
+    }
+    $currentDate->modify('+1 day'); // Move to the next day
+  }
+
+  return $dates;
 }
 ?>

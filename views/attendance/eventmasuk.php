@@ -78,20 +78,17 @@
               <?php
 
               $weekRange = getWeekRangeOfMonth(11, 2024, 5);
-
-              echo $weekRange['start_date'];
-              echo $weekRange['end_date'];
-               
+              // debug_to_console($startDate);
+              
               $startDate = $weekRange['start_date'];
               $endDate = $weekRange['end_date'];
-
-              $dates[] = getDatesFromRange($startDate, $endDate);
+              $dates = getDatesFromRange($startDate, $endDate);
 
 
               // $students_attendance = [];
-
-
               
+
+
 
 
               ?>
