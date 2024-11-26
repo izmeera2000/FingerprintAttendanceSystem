@@ -1933,7 +1933,7 @@ if (isset($_POST['get_pdf'])) {
 
 
 
-      if ($pdf->GetY() > 140 || ($pelajartotal == $d + 1)) {
+      if ($pdf->GetY() > 120 || ($pelajartotal == $d + 1)) {
         tablebfooter($tableB, $dayslot, $timeslot, $slottotal, $pdf);
 
 
