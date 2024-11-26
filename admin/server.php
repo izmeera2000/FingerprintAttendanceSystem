@@ -1869,7 +1869,7 @@ if (isset($_POST['get_pdf'])) {
 
 
       $asd = $d + 1;
-      if ($pdf->GetY() > 140) {
+      if ($pdf->GetY() > 120) {
         $pdf->AddPage();
         tablebheader($tableB, $dayslot, $timeslot, $dates, $month, $pdf);
       }
