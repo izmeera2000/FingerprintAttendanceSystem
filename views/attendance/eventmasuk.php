@@ -74,7 +74,7 @@
 
                 <button type="submit" name="eventmasuk">asdasd</button>
               </form>
-
+              <p>
               <?php
               $weekRange = getWeekRangeOfMonth(11, 2024, 5);
               // debug_to_console($startDate);
@@ -198,6 +198,7 @@
 
 
               ?>
+             </p>
             </div>
             <!-- BEGIN MODAL -->
             <div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
