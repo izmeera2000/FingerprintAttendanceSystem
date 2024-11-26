@@ -119,7 +119,7 @@
               // $students_attendance = [];
               $dayslot = count($dates);
               $slottotal = $dayslot * count($timeslot);
-              var_dump($students_attendance);
+              // var_dump($students_attendance);
 
 
               foreach ($students_attendance as $student_id => $data) {
