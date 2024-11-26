@@ -111,7 +111,7 @@
               }
 
               // var_dump($students_attendance);
-
+              
               foreach ($students_attendance as $student_id => $data) {
 
 
@@ -147,7 +147,7 @@
                               // $tableB->easyCell("Z", ';align:C;valign:M');
                               break;
                             default:
-                              // $tableB->easyCell("/", ';align:C;valign:M');
+                            // $tableB->easyCell("/", ';align:C;valign:M');
                           }
                           $slot_found = true;
                           break;
