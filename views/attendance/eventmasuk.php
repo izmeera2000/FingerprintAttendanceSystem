@@ -130,18 +130,21 @@
 
                   // echo "Processing student ID: $student_id\n";
                 
-                  $asd = $d + 1;
+                  echo "<pre>";
+                  var_dump($data);  // Debugging the full structure of $data for each student
+                  echo "</pre>";
 
-
-
-                  $slot_takhadir = 0;
-                  foreach ($dates as $date) {
-
+                   foreach ($dates as $date) {
+                    echo "<pre>";
+                    var_dump($data['attendance']);  // Debugging the attendance array before processing dates
+                    echo "</pre>";
                     // echo $date;
                     // var_dump($data['attendance']);
                     foreach ($timeslot as $slot) {
-                      var_dump($data['attendance']);
-               
+                      echo "<pre>";
+                      var_dump($data['attendance'][$date]);  // Debugging the attendance for the specific date
+                      echo "</pre>";
+          
 
                     }
 
@@ -155,8 +158,7 @@
 
 
 
-                  $d = $d + 1;
-
+ 
                 }
 
 
