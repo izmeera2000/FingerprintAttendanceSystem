@@ -110,7 +110,7 @@
                 ];
               }
 
-              var_dump($students_attendance);
+              // var_dump($students_attendance);
 
               foreach ($students_attendance as $student_id => $data) {
 
