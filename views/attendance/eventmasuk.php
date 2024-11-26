@@ -127,11 +127,12 @@
 
                 $asd = $d + 1;
 
-                var_dump($data['attendance']);
 
 
                 $slot_takhadir = 0;
                 foreach ($dates as $date) {
+                var_dump($data['attendance'][$date]);
+
                   foreach ($timeslot as $slot) {
                     // $tableB->easyCell("yrst", ';align:C;valign:M');
               
