@@ -131,8 +131,8 @@
 
                 $slot_takhadir = 0;
                 foreach ($dates as $date) {
-                var_dump($data['attendance'][$date]);
-
+                // var_dump($data['attendance'][$date]);
+echo $date;
                   foreach ($timeslot as $slot) {
                     // $tableB->easyCell("yrst", ';align:C;valign:M');
               
