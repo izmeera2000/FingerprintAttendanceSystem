@@ -130,9 +130,9 @@
 
                   // echo "Processing student ID: $student_id\n";
                 
-                  echo "<pre>";
-                  var_dump($data);  // Debugging the full structure of $data for each student
-                  echo "</pre>";
+                  // echo "<pre>";
+                  // var_dump($data);  // Debugging the full structure of $data for each student
+                  // echo "</pre>";
 
                    foreach ($dates as $date) {
                     echo "<pre>";
