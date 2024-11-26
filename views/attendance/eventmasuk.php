@@ -115,7 +115,6 @@
               foreach ($students_attendance as $student_id => $data) {
 
 
-                var_dump($data['attendance']) ;
 
 
                 $slot_takhadir = 0;
@@ -127,7 +126,7 @@
                     $attendance = $data['attendance'][$date] ?? null; // Get attendance for the specific date
                     $slot_found = false;
 
-                    echo $attendance;
+                    var_dump($data['attendance'][$date]) ;
                     if ($attendance) {
                       foreach ($attendance as $att) {
                         if ($att['slot'] == $slot) {
