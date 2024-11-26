@@ -77,11 +77,11 @@
 
               <?php
 
-$students_attendance = [];
+              $students_attendance = [];
 
-$query =
+              $query =
 
-  "SELECT a.*, b.masa_mula, b.masa_tamat, c.nama, c.role, c.ndp
+                "SELECT a.*, b.masa_mula, b.masa_tamat, c.nama, c.role, c.ndp
   FROM attendance_slot a
   INNER JOIN time_slot b ON a.slot = b.slot
   INNER JOIN user c ON c.id = a.user_id
@@ -91,23 +91,23 @@ $query =
   ORDER BY a.slot ASC";
 
 
-$results2 = mysqli_query($db, $query);
+              $results2 = mysqli_query($db, $query);
 
-while ($row = mysqli_fetch_assoc($results2)) {
-  $user_id = $row['user_id']; // Group by user_id
+              while ($row = mysqli_fetch_assoc($results2)) {
+                $user_id = $row['user_id']; // Group by user_id
+              
+                // Store student's information
+                $students_attendance[$user_id]['info'] = [
+                  'nama' => strtoupper($row['nama']),
+                  'ndp' => $row['ndp']
+                ];
 
-  // Store student's information
-  $students_attendance[$user_id]['info'] = [
-    'nama' => strtoupper($row['nama']),
-    'ndp' => $row['ndp']
-  ];
-
-  // Append the attendance record grouped by date
-  $students_attendance[$user_id]['attendance'][$row['tarikh']][] = [
-    'slot' => $row['slot'],
-    'slot_status' => $row['slot_status']
-  ];
-}
+                // Append the attendance record grouped by date
+                $students_attendance[$user_id]['attendance'][$row['tarikh']][] = [
+                  'slot' => $row['slot'],
+                  'slot_status' => $row['slot_status']
+                ];
+              }
               $weekRange = getWeekRangeOfMonth(11, 2024, 5);
               // debug_to_console($startDate);
               
@@ -120,6 +120,7 @@ while ($row = mysqli_fetch_assoc($results2)) {
               $dayslot = count($dates);
               $slottotal = $dayslot * count($timeslot);
 
+              var_dump($students_attendance);
 
               foreach ($students_attendance as $student_id => $data) {
 
@@ -130,7 +131,6 @@ while ($row = mysqli_fetch_assoc($results2)) {
 
 
                 $slot_takhadir = 0;
-                var_dump($data['attendance']);
                 foreach ($dates as $date) {
                   foreach ($timeslot as $slot) {
                     // $tableB->easyCell("yrst", ';align:C;valign:M');
