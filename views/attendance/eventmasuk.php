@@ -114,8 +114,8 @@
               }
 
               $dates = getDatesFromRange($startDate, $endDate);
-              echo $startDate;
-              echo $endDate;
+              // echo $startDate;
+              // echo $endDate;
               // $students_attendance = [];
               $dayslot = count($dates);
               $slottotal = $dayslot * count($timeslot);
