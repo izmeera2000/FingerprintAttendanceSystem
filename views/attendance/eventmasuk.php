@@ -99,7 +99,7 @@
 
 
                 $slot_takhadir = 0;
-
+                var_dump($data['attendance']);
                 foreach ($dates as $date) {
                   foreach ($timeslot as $slot) {
                     // $tableB->easyCell("yrst", ';align:C;valign:M');
