@@ -1872,7 +1872,8 @@ if (isset($_POST['get_pdf'])) {
           $slot_found = false;
           if ($attendance) {
             foreach ($attendance as $att) {
-                 // Check the slot status and add the correct symbol
+              if ($att['slot'] == "slot".$slot) {
+                // Check the slot status and add the correct symbol
                 switch ($att['slot_status']) {
                   case 0:
                   case 2:
@@ -1885,14 +1886,14 @@ if (isset($_POST['get_pdf'])) {
                     $tableB->easyCell("K", ';align:C;valign:M');
                     break;
                   case 7:
-                    $tableB->easyCell("Z", ';align:C;valign:M');
+                    $tableB->easyCell(" ", ';align:C;valign:M');
                     break;
                   default:
                     $tableB->easyCell("/", ';align:C;valign:M');
                 }
                 $slot_found = true;
                 break;
-              
+              }
             }
           }
           if (!$slot_found) {

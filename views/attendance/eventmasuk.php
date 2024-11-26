@@ -94,6 +94,7 @@
             AND a.tarikh BETWEEN '$startDate' AND '$endDate'
             ORDER BY a.slot ASC";
     $timeslot = ["1", "2", "3", "4", "5"];
+    $timeslot2 = ["slot1", "slot2", "slot3", "slot4", "slot5"];
 
 
                 $results2 = mysqli_query($db, $query);
@@ -123,7 +124,7 @@
                 // echo $endDate;
                 // $students_attendance = [];
                 $dayslot = count(value: $dates);
-                $slottotal = $dayslot * count($timeslot);
+                // $slottotal = $dayslot * count($timeslot);
                 // var_dump($students_attendance);
                 
                 $d = 0;
@@ -141,16 +142,16 @@
 
                     // echo $date;
                     var_dump($data['attendance']);
-                    foreach ($timeslot as $slot) {
-                      // $tableB->easyCell("yrst", ';align:C;valign:M');'
-                      echo $date;
+                    foreach ($timeslot2 as $slot) {
+                      // $tableB->easyCell("yrst", ';align:C;valign:M');
                       $attendance = $data['attendance'][$date] ?? null; // Get attendance for the specific date
                       // echo "Checking attendance for date $date, slot $slot\n";
                       $slot_found = false;
                       if ($attendance) {
                         foreach ($attendance as $att) {
+                          if ($att['slot'] == $slot) {
                             // Check the slot status and add the correct symbol
-                             switch ($att['slot_status']) {
+                            switch ($att['slot_status']) {
                               case 0:
                               case 2:
                               case 3:
@@ -174,7 +175,7 @@
                                 echo "/";
 
                               // $tableB->easyCell("/", ';align:C;valign:M');
-                            
+                            }
                             $slot_found = true;
                             break;
                           }
