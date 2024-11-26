@@ -75,17 +75,17 @@
                 <button type="submit" name="eventmasuk">asdasd</button>
               </form>
               <p>
-              <?php
-              $weekRange = getWeekRangeOfMonth(11, 2024, 5);
-              // debug_to_console($startDate);
-              
-              $startDate = $weekRange['start_date'];
-              $endDate = $weekRange['end_date'];
-              $students_attendance = [];
+                <?php
+                $weekRange = getWeekRangeOfMonth(11, 2024, 5);
+                // debug_to_console($startDate);
+                
+                $startDate = $weekRange['start_date'];
+                $endDate = $weekRange['end_date'];
+                $students_attendance = [];
 
-              $query =
+                $query =
 
-                "SELECT a.*, b.masa_mula, b.masa_tamat, c.nama, c.role, c.ndp
+                  "SELECT a.*, b.masa_mula, b.masa_tamat, c.nama, c.role, c.ndp
   FROM attendance_slot a
   INNER JOIN time_slot b ON a.slot = b.slot
   INNER JOIN user c ON c.id = a.user_id
@@ -95,111 +95,112 @@
   ORDER BY a.slot ASC";
 
 
-              $results2 = mysqli_query($db, $query);
+                $results2 = mysqli_query($db, $query);
 
-              while ($row = mysqli_fetch_assoc($results2)) {
-                $user_id = $row['user_id']; // Group by user_id
-              
-                // Store student's information
-                $students_attendance[$user_id]['info'] = [
-                  'nama' => strtoupper($row['nama']),
-                  'ndp' => $row['ndp']
-                ];
+                while ($row = mysqli_fetch_assoc($results2)) {
+                  $user_id = $row['user_id']; // Group by user_id
+                
+                  // Store student's information
+                  $students_attendance[$user_id]['info'] = [
+                    'nama' => strtoupper($row['nama']),
+                    'ndp' => $row['ndp']
+                  ];
 
-                // Append the attendance record grouped by date
-                $students_attendance[$user_id]['attendance'][$row['tarikh']][] = [
-                  'slot' => $row['slot'],
-                  'slot_status' => $row['slot_status']
-                ];
-              }
+                  // Append the attendance record grouped by date
+                  $students_attendance[$user_id]['attendance'][$row['tarikh']][] = [
+                    'slot' => $row['slot'],
+                    'slot_status' => $row['slot_status']
+                  ];
+                }
 
-              $dates = getDatesFromRange($startDate, $endDate);
-              // echo $startDate;
-              // echo $endDate;
-              // $students_attendance = [];
-              $dayslot = count($dates);
-              $slottotal = $dayslot * count($timeslot);
-              // var_dump($students_attendance);
+                $dates = getDatesFromRange($startDate, $endDate);
+                // echo $startDate;
+                // echo $endDate;
+                // $students_attendance = [];
+                $dayslot = count($dates);
+                $slottotal = $dayslot * count($timeslot);
+                // var_dump($students_attendance);
+                
+
+                foreach ($students_attendance as $student_id => $data) {
+
+                  // echo "Processing student ID: $student_id\n";
+                
+                  $asd = $d + 1;
 
 
-              foreach ($students_attendance as $student_id => $data) {
 
-                // echo "Processing student ID: $student_id\n";
+                  $slot_takhadir = 0;
+                  foreach ($dates as $date) {
 
-                $asd = $d + 1;
+                    // echo $date;
+                    foreach ($timeslot as $slot) {
+                      var_dump($data);
 
+                      // $tableB->easyCell("yrst", ';align:C;valign:M');
+                      $attendance = $data['attendance'][$date] ?? null; // Get attendance for the specific date
+                      // echo "Checking attendance for date $date, slot $slot\n";
+                      // var_dump($attendance);  // See if attendance exists for this date and slot
+                      $slot_found = false;
+                      if ($attendance) {
+                        foreach ($attendance as $att) {
+                          if ($att['slot'] == $slot) {
+                            // Check the slot status and add the correct symbol
+                            switch ($att['slot_status']) {
+                              case 0:
+                              case 2:
+                              case 3:
+                              case 5:
+                                echo "0";
 
+                                // $tableB->easyCell("0", ';align:C;valign:M');
+                                $slot_takhadir++;
+                                break;
+                              case 4:
+                                echo "k";
 
-                $slot_takhadir = 0;
-                foreach ($dates as $date) {
-                var_dump($data);
+                                // $tableB->easyCell("K", ';align:C;valign:M');
+                                break;
+                              case 7:
+                                echo "z";
 
-                  // echo $date;
-                  foreach ($timeslot as $slot) {
-                    // $tableB->easyCell("yrst", ';align:C;valign:M');
-                    $attendance = $data['attendance'][$date] ?? null; // Get attendance for the specific date
-                    // echo "Checking attendance for date $date, slot $slot\n";
-                    // var_dump($attendance);  // See if attendance exists for this date and slot
-                    $slot_found = false;
-                    if ($attendance) {
-                      foreach ($attendance as $att) {
-                        if ($att['slot'] == $slot) {
-                          // Check the slot status and add the correct symbol
-                          switch ($att['slot_status']) {
-                            case 0:
-                            case 2:
-                            case 3:
-                            case 5:
-                              echo "0";
+                                // $tableB->easyCell("Z", ';align:C;valign:M');
+                                break;
+                              default:
+                                echo "/";
 
-                              // $tableB->easyCell("0", ';align:C;valign:M');
-                              $slot_takhadir++;
-                              break;
-                            case 4:
-                              echo "k";
-
-                              // $tableB->easyCell("K", ';align:C;valign:M');
-                              break;
-                            case 7:
-                              echo "z";
-
-                              // $tableB->easyCell("Z", ';align:C;valign:M');
-                              break;
-                            default:
-                              echo "/";
-
-                            // $tableB->easyCell("/", ';align:C;valign:M');
+                              // $tableB->easyCell("/", ';align:C;valign:M');
+                            }
+                            $slot_found = true;
+                            break;
                           }
-                          $slot_found = true;
-                          break;
                         }
                       }
+                      if (!$slot_found) {
+                        // $tableB->easyCell("a", ';align:C;valign:M');
+                        echo "a";
+                        $slot_takhadir++;
+                      }
+
                     }
-                    if (!$slot_found) {
-                      // $tableB->easyCell("a", ';align:C;valign:M');
-                      echo "a";
-                      $slot_takhadir++;
-                    }
+
 
                   }
 
 
+
+
+
+
+
+
+                  $d = $d + 1;
+
                 }
 
 
-
-
-
-
-
-
-                $d = $d + 1;
-
-              }
-
-
-              ?>
-             </p>
+                ?>
+              </p>
             </div>
             <!-- BEGIN MODAL -->
             <div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
