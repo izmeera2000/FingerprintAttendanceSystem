@@ -119,6 +119,7 @@
               // $students_attendance = [];
               $dayslot = count($dates);
               $slottotal = $dayslot * count($timeslot);
+              var_dump($students_attendance);
 
 
               foreach ($students_attendance as $student_id => $data) {
@@ -135,7 +136,6 @@
               
                   foreach ($timeslot as $slot) {
                     // $tableB->easyCell("yrst", ';align:C;valign:M');
-                    var_dump($data);
                     $attendance = $data['attendance'][$date] ?? null; // Get attendance for the specific date
                     $slot_found = false;
                     if ($attendance) {
