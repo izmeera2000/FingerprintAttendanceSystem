@@ -1954,6 +1954,8 @@ if (isset($_POST['get_pdf'])) {
 
     $pdf->Output('F', 'test.pdf');
 
+    debug_to_console(var_dump($students_attendance));
+
   }
   // debug_to_console("test");
 }
