@@ -1913,7 +1913,7 @@ if (isset($_POST['get_pdf'])) {
             }
           }
           if (!$slot_found) {
-            $tableB->easyCell(" ", ';align:C;valign:M');
+            $tableB->easyCell("a", ';align:C;valign:M');
             $slot_takhadir++;
           }
 
