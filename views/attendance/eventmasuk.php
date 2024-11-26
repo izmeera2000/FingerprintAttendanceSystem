@@ -115,7 +115,7 @@
               foreach ($students_attendance as $student_id => $data) {
 
 
-
+                var_dump($data['attendance']) ;
 
 
                 $slot_takhadir = 0;
