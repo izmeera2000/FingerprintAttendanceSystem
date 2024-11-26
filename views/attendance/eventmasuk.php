@@ -130,13 +130,12 @@
 
 
                 $slot_takhadir = 0;
-                // var_dump($dates);
                 foreach ($dates as $date) {
-                  echo $date;
+                  // echo $date;
               
                   foreach ($timeslot as $slot) {
                     // $tableB->easyCell("yrst", ';align:C;valign:M');
-              
+                    var_dump($data['attendance']);
                     $attendance = $data['attendance'][$date] ?? null; // Get attendance for the specific date
                     $slot_found = false;
                     if ($attendance) {
