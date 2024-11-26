@@ -2036,7 +2036,7 @@ if (isset($_POST['get_pdf3'])) {
     $sem_start = $row['sem_start'];
 
   }
-  $sem = getSemesterByNumber($sem_start);
+  // $sem = getSemesterByNumber($sem_start);
 
 
   $pdf = new Fpdi();
@@ -2064,7 +2064,7 @@ if (isset($_POST['get_pdf3'])) {
   $pdf->Write(0, $kursus);
 
   $pdf->SetXY(67, 122.6);
-  $pdf->Write(0, $sem);
+  // $pdf->Write(0, $sem);
 
   $pdf->AddPage();                // Create a new page in the output PDF
   // import page 1
@@ -2087,7 +2087,7 @@ if (isset($_POST['get_pdf3'])) {
   $pdf->Write(0, $kursus);
 
   $pdf->SetXY(67, 63.8);
-  $pdf->Write(0, $sem);
+  // $pdf->Write(0, $sem);
   $pdf->Ln(10);
 
 

@@ -83,7 +83,7 @@
 
                 <input type="text" name="kursus">
 
-                <label for="amaron">amaron</label>
+                <label for="amaron">amaran</label>
 
                 <select name="amaran" id="amaran">
                   <option value="1">1</option>
