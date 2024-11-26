@@ -2010,6 +2010,23 @@ if (isset($_POST['get_pdf3'])) {
   $id = $_POST['id'];
 
 
+  $query = "SELECT * 
+  FROM `sem` 
+  WHERE start_date <= NOW() 
+    AND end_date >= NOW(); ";
+  $results = mysqli_query($db, $query);
+
+  while ($row = mysqli_fetch_assoc($results)) {
+    $start_date = $row['start_date'];
+    $end_date = $row['end_date'];
+  }
+
+
+
+
+
+
+
   $query = "SELECT a.id,a.nama,a.kp,a.ndp,c.nama as kursus ,d.nama as sem_start  FROM user a 
             INNER JOIN user_enroll b ON b.user_id = a.id
             INNER JOIN course c ON c.id = b.course_id
@@ -2087,12 +2104,26 @@ if (isset($_POST['get_pdf3'])) {
 
   $table->printRow();
 
-  $table->easyCell('', 'border:0');
-  $table->easyCell('12/8/24', 'align:C;border-width:0.1;');
-  $table->easyCell('-', 'align:C;border-width:0.1;');
-  $table->easyCell('3', 'align:C;border-width:0.1; ');
-  $table->easyCell('', 'border:0');
-  $table->printRow();
+
+  $query = "SELECT  DATE_FORMAT(tarikh, '%d/%m/%Y') AS tarikh_f, COUNT(*) as count  
+                FROM `attendance_slot` 
+                WHERE user_id = '$id' 
+                  AND tarikh BETWEEN '$start_date' AND '$end_date';";
+  $results = mysqli_query($db, $query);
+  $total = 0;
+  while ($attslot = mysqli_fetch_assoc($results)) {
+
+    $table->easyCell('', 'border:0');
+    $table->easyCell($attslot['tarikh_f'], 'align:C;border-width:0.1;');
+    $table->easyCell('-', 'align:C;border-width:0.1;');
+    $table->easyCell($attslot['count'], 'align:C;border-width:0.1; ');
+    $table->easyCell('', 'border:0');
+    $table->printRow();
+    $total = $total + $attslot['count'];
+  }
+
+
+
 
   $table->easyCell('', 'border:0');
   $table->easyCell(' JUMLAH SLOT', '   bgcolor:#d9d9d9; align:L;font-style:B;border:LTB;border-width:0.1;');
@@ -2479,5 +2510,10 @@ function getDatesFromRange($start, $end)
 
   return $dates;
 }
+
+
+
+
+
 
 ?>
