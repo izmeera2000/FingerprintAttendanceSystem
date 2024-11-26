@@ -1902,7 +1902,7 @@ if (isset($_POST['get_pdf'])) {
                     $tableB->easyCell("K", ';align:C;valign:M');
                     break;
                   case 7:
-                    $tableB->easyCell(" ", ';align:C;valign:M');
+                    $tableB->easyCell("Z", ';align:C;valign:M');
                     break;
                   default:
                     $tableB->easyCell("/", ';align:C;valign:M');
