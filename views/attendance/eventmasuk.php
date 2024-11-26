@@ -128,13 +128,13 @@
 
                 $asd = $d + 1;
 
+                var_dump($data);
 
 
                 $slot_takhadir = 0;
                 foreach ($dates as $date) {
                   // echo $date;
                   foreach ($timeslot as $slot) {
-                    var_dump($data);
                     // $tableB->easyCell("yrst", ';align:C;valign:M');
                     $attendance = $data['attendance'][$date] ?? null; // Get attendance for the specific date
                     // echo "Checking attendance for date $date, slot $slot\n";
