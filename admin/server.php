@@ -1249,6 +1249,17 @@ if (isset($_POST['slot_checktime'])) {
 
         // Switch case to determine slot status
         switch (true) {
+
+          
+          case ($slot_name == "rehat1" || $slot_name == "rehat2"):
+            $slot_status = 6; // rehat
+            break;
+
+            case ($overlap_duration < ($supposed_time - 10)):
+              $slot_status = 5; // Left  Early
+              break;
+
+              
           case ($masa_mula > $late_time):
             // Attendance is more than 10 minutes past the start time
             // echo "Attendance from {$row['masa_mula']} to {$masa_tamat->format('Y-m-d H:i:s')} .<br>";
@@ -1256,18 +1267,13 @@ if (isset($_POST['slot_checktime'])) {
             $slot_status = 2; // Late
             break;
 
-          case ($overlap_duration < ($supposed_time - 10)):
-            $slot_status = 5; // Left  Early
-            break;
+
 
           // case ($masa_tamat < $end_time):
           //   // Attendance ends before the time slot ends
           //   $slot_status = 5; // Leave or another appropriate status
           //   break;
 
-          case ($slot_name == "rehat1" || $slot_name == "rehat2"):
-            $slot_status = 6; // rehat
-            break;
 
           default:
             // Default case for on-time attendance
@@ -1324,49 +1330,49 @@ if (isset($_POST['slot_checktime'])) {
 
   }
 
-  // $query = "SELECT s.id, s.role 
-  // FROM user s 
-  // LEFT JOIN attendance a 
-  // ON s.id = a.user_id 
-  // AND DATE(a.masa_mula) = CURDATE() 
-  // WHERE a.user_id IS NULL 
-  // AND s.role = '4'";
+  $query = "SELECT s.id, s.role 
+  FROM user s 
+  LEFT JOIN attendance a 
+  ON s.id = a.user_id 
+  AND DATE(a.masa_mula) = CURDATE() 
+  WHERE a.user_id IS NULL 
+  AND s.role = '4'";
 
-  // $results = mysqli_query($db, $query);
+  $results = mysqli_query($db, $query);
 
-  // while ($row = $results->fetch_assoc()) {
-  //   foreach ($time_slots as $time_slot) {
-  //     $start_time = new DateTime($nowdate . ' ' . $time_slot['masa_mula']);
-  //     $end_time = new DateTime($nowdate . ' ' . $time_slot['masa_tamat']);
-  //     $slot_name = $time_slot['slot'];
+  while ($row = $results->fetch_assoc()) {
+    foreach ($time_slots as $time_slot) {
+      $start_time = new DateTime($nowdate . ' ' . $time_slot['masa_mula']);
+      $end_time = new DateTime($nowdate . ' ' . $time_slot['masa_tamat']);
+      $slot_name = $time_slot['slot'];
 
-  //     if ($now < $start_time) {
-  //       $slot_status = 7;  // Not yet
-  //     } else {
-  //       $slot_status = 0;  // Unattended
-  //     }
+      if ($now < $start_time) {
+        $slot_status = 7;  // Not yet
+      } else {
+        $slot_status = 0;  // Unattended
+      }
 
-  //     if ($slot_name == "rehat1" || $slot_name == "rehat2") {
-  //       $slot_status = 6;  // Break
-  //     }
+      if ($slot_name == "rehat1" || $slot_name == "rehat2") {
+        $slot_status = 6;  // Break
+      }
 
-  //     $id = $row['id'];
+      $id = $row['id'];
 
-  //     $query2 = "INSERT INTO attendance_slot (user_id, slot, slot_status, tarikh)
-  //                 VALUES ('$id', '$slot_name', '$slot_status', '$nowdate')
-  //                 ON DUPLICATE KEY UPDATE
-  //                     slot_status = CASE 
-  //                         WHEN slot_status NOT IN (1,2,3, 4,5) THEN VALUES(slot_status)
-  //                         ELSE slot_status
-  //                     END,
-  //                     tarikh = CASE 
-  //                         WHEN slot_status NOT IN (1,2,3, 4,5) THEN VALUES(tarikh)
-  //                         ELSE tarikh
-  //                     END";
+      $query2 = "INSERT INTO attendance_slot (user_id, slot, slot_status, tarikh)
+                  VALUES ('$id', '$slot_name', '$slot_status', '$nowdate')
+                  ON DUPLICATE KEY UPDATE
+                      slot_status = CASE 
+                          WHEN slot_status NOT IN (1,2,3, 4,5) THEN VALUES(slot_status)
+                          ELSE slot_status
+                      END,
+                      tarikh = CASE 
+                          WHEN slot_status NOT IN (1,2,3, 4,5) THEN VALUES(tarikh)
+                          ELSE tarikh
+                      END";
 
-  //     $results2 = mysqli_query($db, $query2);
-  //   }
-  // }
+      $results2 = mysqli_query($db, $query2);
+    }
+  }
 
 
 
