@@ -130,73 +130,50 @@
 
                   // echo "Processing student ID: $student_id\n";
                 
-                  $asd = $d + 1;
-
-
-
-                  $slot_takhadir = 0;
                   foreach ($dates as $date) {
-
-                    // echo $date;
-                    var_dump($data);
-                    foreach ($timeslot as $slot) {
-                      // $tableB->easyCell("yrst", ';align:C;valign:M');
-                      $attendance = $data['attendance'][$date] ?? null; // Get attendance for the specific date
-                      // echo "Checking attendance for date $date, slot $slot\n";
-                      $slot_found = false;
-                      if ($attendance) {
-                        foreach ($attendance as $att) {
-                          if ($att['slot'] == $slot) {
-                            // Check the slot status and add the correct symbol
-                            switch ($att['slot_status']) {
-                              case 0:
-                              case 2:
-                              case 3:
-                              case 5:
-                                echo "0";
-
-                                // $tableB->easyCell("0", ';align:C;valign:M');
-                                $slot_takhadir++;
-                                break;
-                              case 4:
-                                echo "k";
-
-                                // $tableB->easyCell("K", ';align:C;valign:M');
-                                break;
-                              case 7:
-                                echo "z";
-
-                                // $tableB->easyCell("Z", ';align:C;valign:M');
-                                break;
-                              default:
-                                echo "/";
-
-                              // $tableB->easyCell("/", ';align:C;valign:M');
+                    // Ensure the attendance data exists for the specific date
+                    if (isset($data['attendance'][$date])) {
+                        // Get the attendance for the specific date
+                        $attendance = $data['attendance'][$date];
+            
+                        // Loop through the timeslots (you should have the $timeslot array)
+                        foreach ($timeslot as $slot) {
+                            $slot_found = false;
+                            // Check if the specific slot exists in the attendance for the date
+                            foreach ($attendance as $att) {
+                                if ($att['slot'] == $slot) {
+                                    // Process the slot status and handle it
+                                    switch ($att['slot_status']) {
+                                        case 0:
+                                        case 2:
+                                        case 3:
+                                        case 5:
+                                            echo "0"; // Slot status for absence
+                                            break;
+                                        case 4:
+                                            echo "k"; // Slot status for present
+                                            break;
+                                        case 7:
+                                            echo "z"; // Slot status for leave
+                                            break;
+                                        default:
+                                            echo "/"; // Default case (no status)
+                                    }
+                                    $slot_found = true;
+                                    break;
+                                }
                             }
-                            $slot_found = true;
-                            break;
-                          }
+            
+                            // If no attendance was found for the slot
+                            if (!$slot_found) {
+                                echo "a"; // Attendance not recorded
+                            }
                         }
-                      }
-                      if (!$slot_found) {
-                        // $tableB->easyCell("a", ';align:C;valign:M');
-                        echo "a";
-                        $slot_takhadir++;
-                      }
-
+                    } else {
+                        // No attendance data for the date
+                        echo "No attendance data for date: $date\n";
                     }
-
-
-                  }
-
-
-
-
-
-
-
-
-                  $d = $d + 1;
+                }
 
                 }
 
