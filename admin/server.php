@@ -1324,49 +1324,49 @@ if (isset($_POST['slot_checktime'])) {
 
   }
 
-  $query = "SELECT s.id, s.role 
-  FROM user s 
-  LEFT JOIN attendance a 
-  ON s.id = a.user_id 
-  AND DATE(a.masa_mula) = CURDATE() 
-  WHERE a.user_id IS NULL 
-  AND s.role = '4'";
+  // $query = "SELECT s.id, s.role 
+  // FROM user s 
+  // LEFT JOIN attendance a 
+  // ON s.id = a.user_id 
+  // AND DATE(a.masa_mula) = CURDATE() 
+  // WHERE a.user_id IS NULL 
+  // AND s.role = '4'";
 
-  $results = mysqli_query($db, $query);
+  // $results = mysqli_query($db, $query);
 
-  while ($row = $results->fetch_assoc()) {
-    foreach ($time_slots as $time_slot) {
-      $start_time = new DateTime($nowdate . ' ' . $time_slot['masa_mula']);
-      $end_time = new DateTime($nowdate . ' ' . $time_slot['masa_tamat']);
-      $slot_name = $time_slot['slot'];
+  // while ($row = $results->fetch_assoc()) {
+  //   foreach ($time_slots as $time_slot) {
+  //     $start_time = new DateTime($nowdate . ' ' . $time_slot['masa_mula']);
+  //     $end_time = new DateTime($nowdate . ' ' . $time_slot['masa_tamat']);
+  //     $slot_name = $time_slot['slot'];
 
-      if ($now < $start_time) {
-        $slot_status = 7;  // Not yet
-      } else {
-        $slot_status = 0;  // Unattended
-      }
+  //     if ($now < $start_time) {
+  //       $slot_status = 7;  // Not yet
+  //     } else {
+  //       $slot_status = 0;  // Unattended
+  //     }
 
-      if ($slot_name == "rehat1" || $slot_name == "rehat2") {
-        $slot_status = 6;  // Break
-      }
+  //     if ($slot_name == "rehat1" || $slot_name == "rehat2") {
+  //       $slot_status = 6;  // Break
+  //     }
 
-      $id = $row['id'];
+  //     $id = $row['id'];
 
-      $query2 = "INSERT INTO attendance_slot (user_id, slot, slot_status, tarikh)
-                  VALUES ('$id', '$slot_name', '$slot_status', '$nowdate')
-                  ON DUPLICATE KEY UPDATE
-                      slot_status = CASE 
-                          WHEN slot_status NOT IN (1,2,3, 4,5) THEN VALUES(slot_status)
-                          ELSE slot_status
-                      END,
-                      tarikh = CASE 
-                          WHEN slot_status NOT IN (1,2,3, 4,5) THEN VALUES(tarikh)
-                          ELSE tarikh
-                      END";
+  //     $query2 = "INSERT INTO attendance_slot (user_id, slot, slot_status, tarikh)
+  //                 VALUES ('$id', '$slot_name', '$slot_status', '$nowdate')
+  //                 ON DUPLICATE KEY UPDATE
+  //                     slot_status = CASE 
+  //                         WHEN slot_status NOT IN (1,2,3, 4,5) THEN VALUES(slot_status)
+  //                         ELSE slot_status
+  //                     END,
+  //                     tarikh = CASE 
+  //                         WHEN slot_status NOT IN (1,2,3, 4,5) THEN VALUES(tarikh)
+  //                         ELSE tarikh
+  //                     END";
 
-      $results2 = mysqli_query($db, $query2);
-    }
-  }
+  //     $results2 = mysqli_query($db, $query2);
+  //   }
+  // }
 
 
 
@@ -2019,7 +2019,7 @@ if (isset($_POST['get_pdf2'])) {
 
 if (isset($_POST['get_pdf3'])) {
 
- 
+
 
   $id = $_POST['id'];
 
