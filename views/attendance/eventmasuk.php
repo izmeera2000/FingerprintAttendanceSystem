@@ -106,6 +106,10 @@
                     'ndp' => $row['ndp']
                   ];
 
+                  if (!isset($students_attendance[$user_id]['attendance'][$row['tarikh']])) {
+                    $students_attendance[$user_id]['attendance'][$row['tarikh']] = [];
+                }
+
                   // Append the attendance record grouped by date
                   $students_attendance[$user_id]['attendance'][$row['tarikh']][] = [
                     'slot' => $row['slot'],
@@ -135,7 +139,6 @@
 
                     // echo $date;
                     foreach ($timeslot as $slot) {
-                      var_dump($data);
 
                       // $tableB->easyCell("yrst", ';align:C;valign:M');
                       $attendance = $data['attendance'][$date] ?? null; // Get attendance for the specific date
