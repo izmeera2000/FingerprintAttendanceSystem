@@ -2078,26 +2078,26 @@ if (isset($_POST['get_pdf3'])) {
   $pdf->Ln(10);
 
 
-  $table = new easyTable($pdf, '%{10,30, 25, 25,10}', 'align:C; border:1');
+  $table = new easyTable($pdf, '%{10,25, 30, 25,10}', 'align:C; border:1 ;border-width:0.1;');
   $table->easyCell('', 'border:0');
-  $table->easyCell('TARIKH', '  bgcolor:#d9d9d9; align:C;font-style:B');
-  $table->easyCell('KURSUS', '  bgcolor:#d9d9d9;align:C;font-style:B');
-  $table->easyCell('SLOT', '  bgcolor:#d9d9d9;align:C;font-style:B');
+  $table->easyCell('TARIKH', '  bgcolor:#d9d9d9; align:C;font-style:B;border-width:0.1;');
+  $table->easyCell('KURSUS', '  bgcolor:#d9d9d9;align:C;font-style:B;border-width:0.1;');
+  $table->easyCell('SLOT', '  bgcolor:#d9d9d9;align:C;font-style:B;border-width:0.1;');
   $table->easyCell('', 'border:0');
 
   $table->printRow();
 
   $table->easyCell('', 'border:0');
-  $table->easyCell('12/8/24', 'align:C; ');
-  $table->easyCell('-', 'align:C; ');
-  $table->easyCell('3', 'align:C; ');
+  $table->easyCell('12/8/24', 'align:C;border-width:0.1;');
+  $table->easyCell('-', 'align:C;border-width:0.1;');
+  $table->easyCell('3', 'align:C;border-width:0.1; ');
   $table->easyCell('', 'border:0');
   $table->printRow();
 
   $table->easyCell('', 'border:0');
-  $table->easyCell('JUMLAH SLOT', '   bgcolor:#d9d9d9; align:L;font-style:B');
-  $table->easyCell(' ', '  border:0');
-  $table->easyCell('22', '  bgcolor:#d9d9d9;align:C;font-style:B');
+  $table->easyCell(' JUMLAH SLOT', '   bgcolor:#d9d9d9; align:L;font-style:B;border:LTB;border-width:0.1;');
+  $table->easyCell(' ', ' bgcolor:#d9d9d9; border:BT;border-width:0.1;');
+  $table->easyCell('22', '  bgcolor:#d9d9d9;align:C;font-style:B;border-width:0.1;');
   $table->easyCell('', 'border:0');
   $table->printRow();
 
