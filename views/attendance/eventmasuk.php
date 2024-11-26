@@ -85,8 +85,8 @@
 
               $dates = getDatesFromRange($startDate, $endDate);
 
-              $startDate = "2024-11-25";
-              $endDate = "2024-11-29";
+              // $startDate = "2024-11-25";
+              // $endDate = "2024-11-29";
               $students_attendance = [];
 
 
