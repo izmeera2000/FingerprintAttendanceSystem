@@ -2536,24 +2536,24 @@ if (isset($_POST['check_slot_email'])) {
     AND end_date >= NOW(); ";
   $results = mysqli_query($db, $query);
 
-  while ($row = mysqli_fetch_assoc($results)) {
-    $start_date = $row['start_date'];
-    $end_date = $row['end_date'];
+  while ($date = mysqli_fetch_assoc($results)) {
+    $start_date = $date['start_date'];
+    $end_date = $date['end_date'];
   }
 
 
 
-  $query = "SELECT user_id, COUNT(*) AS count
+  $querya = "SELECT user_id, COUNT(*) AS count
 FROM `attendance_slot`
 WHERE tarikh BETWEEN '$start_date' AND '$end_date'
 GROUP BY user_id, tarikh
 ORDER BY user_id, tarikh;";
 
-  $results = mysqli_query($db, $query);
+  $resultsa = mysqli_query($db, $querya);
 
-  while ($attslot = mysqli_fetch_assoc($results)) {
+  while ($attslot = mysqli_fetch_assoc($resultsa)) {
     if ($attslot['count'] >= 7) {
-      echo $attslot['user_id'];
+      echo $attslot['user_id'] . "\n";
 
       $id = $attslot['user_id'];
 
@@ -2563,13 +2563,13 @@ ORDER BY user_id, tarikh;";
 
 
 
-      $query = "SELECT a.id,a.nama,a.kp,a.ndp,c.nama as kursus ,d.nama as sem_start, a.email  FROM user a 
+      $query2 = "SELECT a.id,a.nama,a.kp,a.ndp,c.nama as kursus ,d.nama as sem_start, a.email  FROM user a 
             INNER JOIN user_enroll b ON b.user_id = a.id
             INNER JOIN course c ON c.id = b.course_id
             INNER JOIN sem d ON d.id = b.sem_start
             WHERE a.id = '$id'";
-      $results = mysqli_query($db, $query);
-      while ($row = $results->fetch_assoc()) {
+      $results2 = mysqli_query($db, $query2);
+      while ($row = $results2->fetch_assoc()) {
         $nama = $row['nama'];
         $kp = $row['kp'];
         $kursus = $row['kursus'];
@@ -2683,7 +2683,7 @@ ORDER BY user_id, tarikh;";
         'attachment_name' => 'jtp2.pdf',
         'alasan' => "test", // Example variable
       );
-      echo "test2";
+      // echo "test2";
       sendmail($email, "Aduan Disiplin Pelajar", 'jtp2.php', $var);
       unlink('jtp2.pdf'); // Removes the file after sending the email
 
