@@ -2036,7 +2036,7 @@ if (isset($_POST['get_pdf3'])) {
     $sem_start = $row['sem_start'];
 
   }
-  // $sem = getSemesterByNumber($sem_start);
+  $sem = getSemesterByNumber($sem_start);
 
 
   $pdf = new Fpdi();
