@@ -86,9 +86,81 @@
 
 
               // $students_attendance = [];
+              $dayslot = count($dates);
+              $slottotal = $dayslot * count($timeslot);
+
+
+              foreach ($students_attendance as $student_id => $data) {
+
+
+
+                $asd = $d + 1;
+
+
+
+                $slot_takhadir = 0;
+
+                foreach ($dates as $date) {
+                  foreach ($timeslot as $slot) {
+                    // $tableB->easyCell("yrst", ';align:C;valign:M');
               
+                    $attendance = $data['attendance'][$date] ?? null; // Get attendance for the specific date
+                    $slot_found = false;
+                    if ($attendance) {
+                      foreach ($attendance as $att) {
+                        if ($att['slot'] == $slot) {
+                          // Check the slot status and add the correct symbol
+                          switch ($att['slot_status']) {
+                            case 0:
+                            case 2:
+                            case 3:
+                            case 5:
+                              echo "0";
+
+                              // $tableB->easyCell("0", ';align:C;valign:M');
+                              $slot_takhadir++;
+                              break;
+                            case 4:
+                              echo "k";
+
+                              // $tableB->easyCell("K", ';align:C;valign:M');
+                              break;
+                            case 7:
+                              echo "z";
+
+                              // $tableB->easyCell("Z", ';align:C;valign:M');
+                              break;
+                            default:
+                              echo "/";
+
+                            // $tableB->easyCell("/", ';align:C;valign:M');
+                          }
+                          $slot_found = true;
+                          break;
+                        }
+                      }
+                    }
+                    if (!$slot_found) {
+                      // $tableB->easyCell("a", ';align:C;valign:M');
+                      echo "a";
+                      $slot_takhadir++;
+                    }
+
+                  }
 
 
+                }
+
+
+
+
+
+
+
+
+                $d = $d + 1;
+
+              }
 
 
               ?>
