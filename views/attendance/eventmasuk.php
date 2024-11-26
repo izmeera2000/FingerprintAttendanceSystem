@@ -114,8 +114,8 @@
               }
 
               $dates = getDatesFromRange($startDate, $endDate);
-echo $startDate;
-echo $endDate;
+              echo $startDate;
+              echo $endDate;
               // $students_attendance = [];
               $dayslot = count($dates);
               $slottotal = $dayslot * count($timeslot);
@@ -130,10 +130,10 @@ echo $endDate;
 
 
                 $slot_takhadir = 0;
-                var_dump($dates);
+                // var_dump($dates);
                 foreach ($dates as $date) {
-                  // echo $date;
-
+                  echo $date;
+              
                   foreach ($timeslot as $slot) {
                     // $tableB->easyCell("yrst", ';align:C;valign:M');
               
