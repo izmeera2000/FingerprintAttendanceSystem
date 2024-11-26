@@ -124,7 +124,7 @@
 
               foreach ($students_attendance as $student_id => $data) {
 
-
+                echo "Processing student ID: $student_id\n";
 
                 $asd = $d + 1;
 
