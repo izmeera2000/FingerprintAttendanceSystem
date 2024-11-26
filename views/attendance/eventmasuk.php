@@ -110,6 +110,7 @@
                 ];
               }
 
+              var_dump($students_attendance);
 
               foreach ($students_attendance as $student_id => $data) {
 
@@ -134,17 +135,17 @@
                             case 2:
                             case 3:
                             case 5:
-                              $tableB->easyCell("0", ';align:C;valign:M');
+                              // $tableB->easyCell("0", ';align:C;valign:M');
                               $slot_takhadir++;
                               break;
                             case 4:
-                              $tableB->easyCell("K", ';align:C;valign:M');
+                              // $tableB->easyCell("K", ';align:C;valign:M');
                               break;
                             case 7:
-                              $tableB->easyCell("Z", ';align:C;valign:M');
+                              // $tableB->easyCell("Z", ';align:C;valign:M');
                               break;
                             default:
-                              $tableB->easyCell("/", ';align:C;valign:M');
+                              // $tableB->easyCell("/", ';align:C;valign:M');
                           }
                           $slot_found = true;
                           break;
@@ -152,7 +153,7 @@
                       }
                     }
                     if (!$slot_found) {
-                      $tableB->easyCell("a", ';align:C;valign:M');
+                      // $tableB->easyCell("a", ';align:C;valign:M');
                       $slot_takhadir++;
                     }
 
