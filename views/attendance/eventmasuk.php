@@ -82,10 +82,10 @@
               echo $weekRange['start_date'];
               echo $weekRange['end_date'];
                
-              // $startDate = $weekRange['start_date'];
-              // $endDate = $weekRange['end_date'];
+              $startDate = $weekRange['start_date'];
+              $endDate = $weekRange['end_date'];
 
-              // $dates = getDatesFromRange($startDate, $endDate);
+              $dates = getDatesFromRange($startDate, $endDate);
 
 
               // $students_attendance = [];
