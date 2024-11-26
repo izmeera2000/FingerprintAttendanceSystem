@@ -78,6 +78,9 @@
               <?php
 
               $weekRange = getWeekRangeOfMonth(11, 2024, 5);
+
+              echo $weekRange['start_date'];
+              echo $weekRange['end_date'];
                
               // $startDate = $weekRange['start_date'];
               // $endDate = $weekRange['end_date'];
