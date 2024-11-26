@@ -124,7 +124,7 @@
 
               foreach ($students_attendance as $student_id => $data) {
 
-                echo "Processing student ID: $student_id\n";
+                // echo "Processing student ID: $student_id\n";
 
                 $asd = $d + 1;
 
@@ -134,7 +134,7 @@
                 foreach ($dates as $date) {
                   // echo $date;
                   foreach ($timeslot as $slot) {
-                    var_dump($data['attendance']);
+                    var_dump($data);
                     // $tableB->easyCell("yrst", ';align:C;valign:M');
                     $attendance = $data['attendance']['$date'] ?? null; // Get attendance for the specific date
                     // echo "Checking attendance for date $date, slot $slot\n";
