@@ -120,7 +120,6 @@
               $dayslot = count($dates);
               $slottotal = $dayslot * count($timeslot);
 
-              var_dump($students_attendance);
 
               foreach ($students_attendance as $student_id => $data) {
 
@@ -128,6 +127,7 @@
 
                 $asd = $d + 1;
 
+                var_dump($data['attendance']);
 
 
                 $slot_takhadir = 0;
