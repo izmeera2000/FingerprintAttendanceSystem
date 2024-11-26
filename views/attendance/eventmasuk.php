@@ -138,8 +138,10 @@
                   foreach ($dates as $date) {
 
                     // echo $date;
+                    $data2 = [];
+                    $data2 = $data['attendance'];
                     foreach ($timeslot as $slot) {
-                      var_dump($data['attendance']);
+                      var_dump($data2);
                       // $tableB->easyCell("yrst", ';align:C;valign:M');
                       $attendance = $data['attendance'][$date] ?? null; // Get attendance for the specific date
                       // echo "Checking attendance for date $date, slot $slot\n";
