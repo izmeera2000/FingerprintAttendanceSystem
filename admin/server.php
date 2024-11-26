@@ -2064,31 +2064,31 @@ if (isset($_POST['get_pdf3'])) {
   $pdf->Write(0, $kursus);
 
   $pdf->SetXY(67, 122.6);
-  // $pdf->Write(0, $sem);
+  $pdf->Write(0, $sem);
 
-  // $pdf->AddPage();                // Create a new page in the output PDF
+  $pdf->AddPage();                // Create a new page in the output PDF
   // // import page 1
-  // $tplId = $pdf->importPage(2);
-  // // use the imported page and place it at point 10,10 with a width of 100 mm
-  // $pdf->useTemplate($tplId, ['adjustPageSize' => true]);
+  $tplId = $pdf->importPage(2);
+  // use the imported page and place it at point 10,10 with a width of 100 mm
+  $pdf->useTemplate($tplId, ['adjustPageSize' => true]);
 
 
 
-  // $pdf->SetXY(67, 44.2);
-  // $pdf->Write(0, $nama);
+  $pdf->SetXY(67, 44.2);
+  $pdf->Write(0, $nama);
 
-  // $pdf->SetXY(67, 49.1);
-  // $pdf->Write(0, $kp);
+  $pdf->SetXY(67, 49.1);
+  $pdf->Write(0, $kp);
 
-  // $pdf->SetXY(67, 54);
-  // $pdf->Write(0, $ndp);
+  $pdf->SetXY(67, 54);
+  $pdf->Write(0, $ndp);
 
-  // $pdf->SetXY(67, 58.9);
-  // $pdf->Write(0, $kursus);
+  $pdf->SetXY(67, 58.9);
+  $pdf->Write(0, $kursus);
 
-  // $pdf->SetXY(67, 63.8);
-  // // $pdf->Write(0, $sem);
-  // $pdf->Ln(10);
+  $pdf->SetXY(67, 63.8);
+  $pdf->Write(0, $sem);
+  $pdf->Ln(10);
 
 
   // $table = new easyTable($pdf, '%{30, 35, 35}', 'align:R; border:1');
