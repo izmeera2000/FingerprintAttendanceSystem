@@ -2449,16 +2449,13 @@ function getDatesFromRange($start, $end)
   $currentDate = new DateTime($start);
   $endDate = new DateTime($end);
 
-  // $interval = $endDate->diff($currentDate)->days;
-
-
   while ($currentDate <= $endDate) {
+    // Check for weekdays (Monday to Friday)
     if ($currentDate->format('N') != 6 && $currentDate->format('N') != 7) {
-
-      if (count($dates) <= 5) {
-      } else {
-
-              $dates[] = $currentDate->format('Y-m-d');
+      
+      // Stop if we have 5 valid weekdays
+      if (count($dates) < 5) {
+        $dates[] = $currentDate->format('Y-m-d'); // Add the date
       }
     }
     $currentDate->modify('+1 day'); // Move to the next day
@@ -2466,4 +2463,5 @@ function getDatesFromRange($start, $end)
 
   return $dates;
 }
+
 ?>
