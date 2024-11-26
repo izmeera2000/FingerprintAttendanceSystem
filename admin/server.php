@@ -2017,9 +2017,7 @@ if (isset($_POST['get_pdf2'])) {
 
 if (isset($_POST['get_pdf3'])) {
 
-  include(getcwd() . '/admin/vendor/setasign/fpdf/fpdf.php');
-  include(getcwd() . '/admin/vendor/setasign/fpdf/exfpdf.php');
-  include(getcwd() . '/admin/vendor/setasign/fpdf/easyTable.php');
+ 
 
   $id = $_POST['id'];
 
@@ -2039,40 +2037,34 @@ if (isset($_POST['get_pdf3'])) {
 
   }
   $sem = getSemesterByNumber($sem_start);
-  class PDF1 extends exFPDF
-  {
-    // Here, you can add any custom methods or override methods from FPDI or exFPDF
-    // For example, to avoid errors in easyTable, you can implement the get_color method
 
 
-  }
-
-  $pdf = new PDF1();
+  $pdf = new Fpdi();
   // add a page
   $pdf->SetFont('arial', '', 12);
 
-  // $pdf->AddPage();
+  $pdf->AddPage();
   // set the source file
   $pdf->setSourceFile("assets/pdf/jtp2.pdf");
 
-  // // import page 1
-  // $tplId = $pdf->importPage(1);
-  // // use the imported page and place it at point 10,10 with a width of 100 mm
-  // $pdf->useTemplate($tplId, ['adjustPageSize' => true]);
-  // $pdf->SetXY(67, 102.6);
-  // $pdf->Write(0, $nama);
+  // import page 1
+  $tplId = $pdf->importPage(1);
+  // use the imported page and place it at point 10,10 with a width of 100 mm
+  $pdf->useTemplate($tplId, ['adjustPageSize' => true]);
+  $pdf->SetXY(67, 102.6);
+  $pdf->Write(0, $nama);
 
-  // $pdf->SetXY(67, 107.6);
-  // $pdf->Write(0, $kp);
+  $pdf->SetXY(67, 107.6);
+  $pdf->Write(0, $kp);
 
-  // $pdf->SetXY(67, 112.6);
-  // $pdf->Write(0, $ndp);
+  $pdf->SetXY(67, 112.6);
+  $pdf->Write(0, $ndp);
 
-  // $pdf->SetXY(67, 117.6);
-  // $pdf->Write(0, $kursus);
+  $pdf->SetXY(67, 117.6);
+  $pdf->Write(0, $kursus);
 
-  // $pdf->SetXY(67, 122.6);
-  // $pdf->Write(0, $sem);
+  $pdf->SetXY(67, 122.6);
+  $pdf->Write(0, $sem);
 
   $pdf->AddPage();                // Create a new page in the output PDF
   // import page 1
@@ -2099,15 +2091,15 @@ if (isset($_POST['get_pdf3'])) {
   $pdf->Ln(10);
 
 
-  $table = new easyTable($pdf, '%{30, 35, 35}', 'align:R; border:1');
-  $table->easyCell('Text 1', 'rowspan:2; bgcolor:#ffb3ec');
-  $table->easyCell('Text 2', 'colspan:2; bgcolor:#FF66AA');
-  $table->printRow();
+  // $table = new easyTable($pdf, '%{30, 35, 35}', 'align:R; border:1');
+  // $table->easyCell('Text 1', 'rowspan:2; bgcolor:#ffb3ec');
+  // $table->easyCell('Text 2', 'colspan:2; bgcolor:#FF66AA');
+  // $table->printRow();
 
-  $table->easyCell('Text 3', 'bgcolor:#33ffff');
-  $table->easyCell('Text 4', 'bgcolor:#ffff33');
-  $table->printRow();
-  $table->endTable(5);
+  // $table->easyCell('Text 3', 'bgcolor:#33ffff');
+  // $table->easyCell('Text 4', 'bgcolor:#ffff33');
+  // $table->printRow();
+  // $table->endTable(5);
 
 
   // $pdf->SetXY(102, 66.5);
