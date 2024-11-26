@@ -1715,7 +1715,7 @@ if (isset($_POST['get_pdf'])) {
 
 
 
- 
+
 
     $timeslot = ["1", "2", "3", "4", "5"];
 
@@ -1872,7 +1872,7 @@ if (isset($_POST['get_pdf'])) {
           $slot_found = false;
           if ($attendance) {
             foreach ($attendance as $att) {
-              if ($att['slot'] == "slot".$slot) {
+              if ($att['slot'] == "slot" . $slot) {
                 // Check the slot status and add the correct symbol
                 switch ($att['slot_status']) {
                   case 0:
@@ -2005,6 +2005,8 @@ if (isset($_POST['get_pdf3'])) {
 
 
 
+  include(getcwd() . '/admin/vendor/setasign/fpdf/exfpdf.php');
+  include(getcwd() . '/admin/vendor/setasign/fpdf/easyTable.php');
   $id = $_POST['id'];
 
 
@@ -2024,8 +2026,7 @@ if (isset($_POST['get_pdf3'])) {
   }
   $sem = getSemesterByNumber($sem_start);
 
-
-  $pdf = new Fpdi();
+  $pdf = new exFPDF();
   // add a page
   $pdf->SetFont('arial', '', 12);
 
@@ -2077,15 +2078,22 @@ if (isset($_POST['get_pdf3'])) {
   $pdf->Ln(10);
 
 
-  // $table = new easyTable($pdf, '%{30, 35, 35}', 'align:R; border:1');
-  // $table->easyCell('Text 1', 'rowspan:2; bgcolor:#ffb3ec');
-  // $table->easyCell('Text 2', 'colspan:2; bgcolor:#FF66AA');
-  // $table->printRow();
+  $table = new easyTable($pdf, '%{10,30, 25, 25,10}', 'align:C; border:1');
+  $table->easyCell('', 'border:0');
+  $table->easyCell('TARIKH', '  bgcolor:#d9d9d9; align:C;font-style:B');
+  $table->easyCell('KURSUS', '  bgcolor:#d9d9d9;align:C;font-style:B');
+  $table->easyCell('SLOT', '  bgcolor:#d9d9d9;align:C;font-style:B');
+  $table->easyCell('', 'border:0');
 
-  // $table->easyCell('Text 3', 'bgcolor:#33ffff');
-  // $table->easyCell('Text 4', 'bgcolor:#ffff33');
-  // $table->printRow();
-  // $table->endTable(5);
+  $table->printRow();
+
+  $table->easyCell('', 'border:0');
+  $table->easyCell('12/8/24', 'align:C; ');
+  $table->easyCell('-', 'align:C; ');
+  $table->easyCell('3', 'align:C; ');
+  $table->easyCell('', 'border:0');
+
+  $table->endTable(5);
 
 
   // $pdf->SetXY(102, 66.5);
@@ -2452,7 +2460,7 @@ function getDatesFromRange($start, $end)
   while ($currentDate <= $endDate) {
     // Check for weekdays (Monday to Friday)
     if ($currentDate->format('N') != 6 && $currentDate->format('N') != 7) {
-      
+
       // Stop if we have 5 valid weekdays
       if (count($dates) < 5) {
         $dates[] = $currentDate->format('Y-m-d'); // Add the date
