@@ -658,7 +658,16 @@ if (isset($_POST['eventkeluar'])) {
 
 
 
+function getEmailContent($filePath, $var = "")
+{
+  ob_start(); // Start output buffering
+  extract($var);
+  include(getcwd() . '/views/email/' . $filePath); // Include the PHP file
+  $content = ob_get_clean(); // Get the content of the output buffer and clean it
+  return $content;
 
+
+}
 
 function sendmail($receiver, $title, $filepath, $var = "")
 {
@@ -673,15 +682,15 @@ function sendmail($receiver, $title, $filepath, $var = "")
 
     $mail->isSMTP();
     $mail->SMTPDebug = SMTP::DEBUG_OFF;
-    $mail->Host = 'kaunselingadtectaiping.com.my';
+    $mail->Host = 'fast.e-veterinar.com';
     $mail->SMTPAuth = true;
-    $mail->Username = $_ENV['email2_username'];
-    $mail->Password = $_ENV['email2_password'];
+    $mail->Username = $_ENV['email4_username'];
+    $mail->Password = $_ENV['email4_password'];
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
     $mail->Port = 465; // Adjust as needed (e.g., 465 for SSL)
 
 
-    $mail->setFrom('appointment@kaunselingadtectaiping.com.my', 'Temu Janji');
+    $mail->setFrom('attendance@fast.e-veterinar.com', 'Attendance');
     $mail->addAddress($receiver);
 
 
@@ -690,8 +699,11 @@ function sendmail($receiver, $title, $filepath, $var = "")
 
     // $mail->addEmbeddedImage(getcwd() . '/assets/img/logo3.png', 'logo_cid'); // 'logo_cid' is a unique ID
 
+    if ($var['attachment']) {
 
 
+      $mail->addAttachment($var['attachment'], $var['attachment_name']);
+    }
 
 
     $mail->isHTML(true);
@@ -2513,7 +2525,172 @@ function getDatesFromRange($start, $end)
 
 
 
+if (isset($_POST['check_slot_email'])) {
 
+
+  include(getcwd() . '/admin/vendor/setasign/fpdf/exfpdf.php');
+  include(getcwd() . '/admin/vendor/setasign/fpdf/easyTable.php');
+  $query = "SELECT * 
+  FROM `sem` 
+  WHERE start_date <= NOW() 
+    AND end_date >= NOW(); ";
+  $results = mysqli_query($db, $query);
+
+  while ($row = mysqli_fetch_assoc($results)) {
+    $start_date = $row['start_date'];
+    $end_date = $row['end_date'];
+  }
+
+
+
+  $query = "SELECT user_id, COUNT(*) AS count
+FROM `attendance_slot`
+WHERE tarikh BETWEEN '$start_date' AND '$end_date'
+GROUP BY user_id, tarikh
+ORDER BY user_id, tarikh;";
+
+  $results = mysqli_query($db, $query);
+
+  while ($attslot = mysqli_fetch_assoc($results)) {
+    if ($attslot['count'] >= 7) {
+      echo $attslot['user_id'];
+
+      $id = $attslot['user_id'];
+
+
+
+
+
+
+
+      $query = "SELECT a.id,a.nama,a.kp,a.ndp,c.nama as kursus ,d.nama as sem_start, a.email  FROM user a 
+            INNER JOIN user_enroll b ON b.user_id = a.id
+            INNER JOIN course c ON c.id = b.course_id
+            INNER JOIN sem d ON d.id = b.sem_start
+            WHERE a.id = '$id'";
+      $results = mysqli_query($db, $query);
+      while ($row = $results->fetch_assoc()) {
+        $nama = $row['nama'];
+        $kp = $row['kp'];
+        $kursus = $row['kursus'];
+        $ndp = $row['ndp'];
+        $sem_start = $row['sem_start'];
+        $email = $row['email'];
+
+      }
+      $sem = getSemesterByNumber($sem_start);
+
+      $pdf = new exFPDF();
+      // add a page
+      $pdf->SetFont('arial', '', 12);
+
+      $pdf->AddPage();
+      // set the source file
+      $pdf->setSourceFile("assets/pdf/jtp2.pdf");
+
+      // import page 1
+      $tplId = $pdf->importPage(1);
+      // use the imported page and place it at point 10,10 with a width of 100 mm
+      $pdf->useTemplate($tplId, ['adjustPageSize' => true]);
+      $pdf->SetXY(67, 102.6);
+      $pdf->Write(0, $nama);
+
+      $pdf->SetXY(67, 107.6);
+      $pdf->Write(0, $kp);
+
+      $pdf->SetXY(67, 112.6);
+      $pdf->Write(0, $ndp);
+
+      $pdf->SetXY(67, 117.6);
+      $pdf->Write(0, $kursus);
+
+      $pdf->SetXY(67, 122.6);
+      $pdf->Write(0, $sem);
+
+      $pdf->AddPage();                // Create a new page in the output PDF
+      // // import page 1
+      $tplId = $pdf->importPage(2);
+      // use the imported page and place it at point 10,10 with a width of 100 mm
+      $pdf->useTemplate($tplId, ['adjustPageSize' => true]);
+
+
+
+      $pdf->SetXY(67, 44.2);
+      $pdf->Write(0, $nama);
+
+      $pdf->SetXY(67, 49.1);
+      $pdf->Write(0, $kp);
+
+      $pdf->SetXY(67, 54);
+      $pdf->Write(0, $ndp);
+
+      $pdf->SetXY(67, 58.9);
+      $pdf->Write(0, $kursus);
+
+      $pdf->SetXY(67, 63.8);
+      $pdf->Write(0, $sem);
+      $pdf->Ln(10);
+
+
+      $table = new easyTable($pdf, '%{10,25, 30, 25,10}', 'align:C; border:1 ;border-width:0.1;');
+      $table->easyCell('', 'border:0');
+      $table->easyCell('TARIKH', '  bgcolor:#d9d9d9; align:C;font-style:B;border-width:0.1;');
+      $table->easyCell('KURSUS', '  bgcolor:#d9d9d9;align:C;font-style:B;border-width:0.1;');
+      $table->easyCell('SLOT', '  bgcolor:#d9d9d9;align:C;font-style:B;border-width:0.1;');
+      $table->easyCell('', 'border:0');
+
+      $table->printRow();
+
+
+      $query = "SELECT  DATE_FORMAT(tarikh, '%d/%m/%Y') AS tarikh_f, COUNT(*) as count  
+                FROM `attendance_slot` 
+                WHERE user_id = '$id' 
+                  AND tarikh BETWEEN '$start_date' AND '$end_date';";
+      $results = mysqli_query($db, $query);
+      $total = 0;
+      while ($attslot = mysqli_fetch_assoc($results)) {
+
+        $table->easyCell('', 'border:0');
+        $table->easyCell($attslot['tarikh_f'], 'align:C;border-width:0.1;');
+        $table->easyCell('-', 'align:C;border-width:0.1;');
+        $table->easyCell($attslot['count'], 'align:C;border-width:0.1; ');
+        $table->easyCell('', 'border:0');
+        $table->printRow();
+        $total = $total + $attslot['count'];
+      }
+
+
+
+
+      $table->easyCell('', 'border:0');
+      $table->easyCell(' JUMLAH SLOT', '   bgcolor:#d9d9d9; align:L;font-style:B;border:LTB;border-width:0.1;');
+      $table->easyCell(' ', ' bgcolor:#d9d9d9; border:BT;border-width:0.1;');
+      $table->easyCell('22', '  bgcolor:#d9d9d9;align:C;font-style:B;border-width:0.1;');
+      $table->easyCell('', 'border:0');
+      $table->printRow();
+
+      $table->endTable(5);
+
+
+
+
+      $pdf->Output('F', 'jtp2.pdf');
+      $filePath = __DIR__ . '/../jtp2.pdf';
+
+      $var = array(
+        // 'link' => $site_url . "kaunseling/temujanji/$event_id", // Example variable
+        'attachment' => $filePath,
+        'attachment_name' => 'jtp2.pdf',
+        'alasan' => "test", // Example variable
+      );
+      echo "test2";
+      sendmail($email, "Aduan Disiplin Pelajar", 'jtp2.php', $var);
+      unlink('jtp2.pdf'); // Removes the file after sending the email
+
+    }
+
+  }
+}
 
 
 ?>

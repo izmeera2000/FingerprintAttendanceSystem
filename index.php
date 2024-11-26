@@ -190,6 +190,14 @@ function course_create()
 	require_once('views/course/createcourse.php');
 }
 
+function jtp2()
+{
+	check_session($site_url, 1);
+
+	require_once('views/email/jtp2.php');
+}
+
+
 function check_session(&$site_url, $admin = 0)
 {
 	if (!isset($_SESSION['user_details'])) {
@@ -270,6 +278,7 @@ switch (true) {
 	// case (str_contains($request, 'class_createf')):
 	case (str_contains($request, 'fp_mode')):
 	case (str_contains($request, 'submitrating')):
+	case (str_contains($request, 'check_slot_email')):
 
 
 		server();
@@ -329,6 +338,9 @@ switch (true) {
 		course_create();
 		break;
 
+	case ($request == 'email/jtp2'):
+		jtp2();
+		break;
 
 
 	default:
