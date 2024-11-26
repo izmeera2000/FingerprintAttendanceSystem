@@ -2092,6 +2092,14 @@ if (isset($_POST['get_pdf3'])) {
   $table->easyCell('-', 'align:C; ');
   $table->easyCell('3', 'align:C; ');
   $table->easyCell('', 'border:0');
+  $table->printRow();
+
+  $table->easyCell('', 'border:0');
+  $table->easyCell('JUMLAH SLOT', '   bgcolor:#d9d9d9; align:L;font-style:B');
+  $table->easyCell(' ', '  border:0');
+  $table->easyCell('22', '  bgcolor:#d9d9d9;align:C;font-style:B');
+  $table->easyCell('', 'border:0');
+  $table->printRow();
 
   $table->endTable(5);
 
