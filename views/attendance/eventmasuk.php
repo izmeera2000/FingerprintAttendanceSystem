@@ -119,7 +119,7 @@
               // $students_attendance = [];
               $dayslot = count($dates);
               $slottotal = $dayslot * count($timeslot);
-              // var_dump($students_attendance);
+              var_dump($students_attendance);
 
 
               foreach ($students_attendance as $student_id => $data) {
@@ -133,10 +133,10 @@
                 $slot_takhadir = 0;
                 foreach ($dates as $date) {
                   // echo $date;
-              
+                  var_dump($data);
                   foreach ($timeslot as $slot) {
                     // $tableB->easyCell("yrst", ';align:C;valign:M');
-                    $attendance = $data['attendance']['2024-11-26'] ?? null; // Get attendance for the specific date
+                    $attendance = $data['attendance']['$date'] ?? null; // Get attendance for the specific date
                     // echo "Checking attendance for date $date, slot $slot\n";
                     // var_dump($attendance);  // See if attendance exists for this date and slot
                     $slot_found = false;
