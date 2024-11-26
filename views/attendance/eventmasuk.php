@@ -86,13 +86,14 @@
                 $query =
 
                   "SELECT a.*, b.masa_mula, b.masa_tamat, c.nama, c.role, c.ndp
-                    FROM attendance_slot a
-                    INNER JOIN time_slot b ON a.slot = b.slot
-                    INNER JOIN user c ON c.id = a.user_id
-                    WHERE c.role = 4
-                    AND a.slot NOT IN ('rehat1', 'rehat2')
-                    AND a.tarikh BETWEEN '$startDate' AND '$endDate'
-                    ORDER BY a.slot ASC";
+            FROM attendance_slot a
+            INNER JOIN time_slot b ON a.slot = b.slot
+            INNER JOIN user c ON c.id = a.user_id
+            WHERE c.role = 4
+            AND a.slot NOT IN ('rehat1', 'rehat2')
+            AND a.tarikh BETWEEN '$startDate' AND '$endDate'
+            ORDER BY a.slot ASC";
+    $timeslot = ["1", "2", "3", "4", "5"];
 
 
                 $results2 = mysqli_query($db, $query);
@@ -121,30 +122,69 @@
                 // echo $startDate;
                 // echo $endDate;
                 // $students_attendance = [];
-                $dayslot = count($dates);
+                $dayslot = count(value: $dates);
                 $slottotal = $dayslot * count($timeslot);
                 // var_dump($students_attendance);
                 
+                $d = 0;
 
                 foreach ($students_attendance as $student_id => $data) {
 
                   // echo "Processing student ID: $student_id\n";
                 
-                  // echo "<pre>";
-                  // var_dump($data);  // Debugging the full structure of $data for each student
-                  // echo "</pre>";
+                  $asd = $d + 1;
 
-                   foreach ($dates as $date) {
-                    echo "<pre>";
-                    var_dump($data['attendance']);  // Debugging the attendance array before processing dates
-                    echo "</pre>";
+
+
+                  $slot_takhadir = 0;
+                  foreach ($dates as $date) {
+
                     // echo $date;
-                    // var_dump($data['attendance']);
+                    var_dump($data['attendance']);
                     foreach ($timeslot as $slot) {
-                      echo "<pre>";
-                      var_dump($data['attendance'][$date]);  // Debugging the attendance for the specific date
-                      echo "</pre>";
-          
+                      // $tableB->easyCell("yrst", ';align:C;valign:M');'
+                      echo $date;
+                      $attendance = $data['attendance'][$date] ?? null; // Get attendance for the specific date
+                      // echo "Checking attendance for date $date, slot $slot\n";
+                      $slot_found = false;
+                      if ($attendance) {
+                        foreach ($attendance as $att) {
+                            // Check the slot status and add the correct symbol
+                             switch ($att['slot_status']) {
+                              case 0:
+                              case 2:
+                              case 3:
+                              case 5:
+                                echo "0";
+
+                                // $tableB->easyCell("0", ';align:C;valign:M');
+                                $slot_takhadir++;
+                                break;
+                              case 4:
+                                echo "k";
+
+                                // $tableB->easyCell("K", ';align:C;valign:M');
+                                break;
+                              case 7:
+                                echo "z";
+
+                                // $tableB->easyCell("Z", ';align:C;valign:M');
+                                break;
+                              default:
+                                echo "/";
+
+                              // $tableB->easyCell("/", ';align:C;valign:M');
+                            
+                            $slot_found = true;
+                            break;
+                          }
+                        }
+                      }
+                      if (!$slot_found) {
+                        // $tableB->easyCell("a", ';align:C;valign:M');
+                        echo "a";
+                        $slot_takhadir++;
+                      }
 
                     }
 
@@ -158,7 +198,8 @@
 
 
 
- 
+                  $d = $d + 1;
+
                 }
 
 
