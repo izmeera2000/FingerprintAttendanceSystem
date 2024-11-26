@@ -76,7 +76,11 @@
               </form>
 
               <?php
-
+              $weekRange = getWeekRangeOfMonth(11, 2024, 5);
+              // debug_to_console($startDate);
+              
+              $startDate = $weekRange['start_date'];
+              $endDate = $weekRange['end_date'];
               $students_attendance = [];
 
               $query =
@@ -108,11 +112,7 @@
                   'slot_status' => $row['slot_status']
                 ];
               }
-              $weekRange = getWeekRangeOfMonth(11, 2024, 5);
-              // debug_to_console($startDate);
-              
-              $startDate = $weekRange['start_date'];
-              $endDate = $weekRange['end_date'];
+
               $dates = getDatesFromRange($startDate, $endDate);
 
 
