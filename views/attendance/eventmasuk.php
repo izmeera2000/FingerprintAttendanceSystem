@@ -136,9 +136,9 @@
               
                   foreach ($timeslot as $slot) {
                     // $tableB->easyCell("yrst", ';align:C;valign:M');
-                    $attendance = $data['attendance'][$date] ?? null; // Get attendance for the specific date
-                    echo "Checking attendance for date $date, slot $slot\n";
-                    var_dump($attendance);  // See if attendance exists for this date and slot
+                    $attendance = $data['attendance']['2024-11-26'] ?? null; // Get attendance for the specific date
+                    // echo "Checking attendance for date $date, slot $slot\n";
+                    // var_dump($attendance);  // See if attendance exists for this date and slot
                     $slot_found = false;
                     if ($attendance) {
                       foreach ($attendance as $att) {
