@@ -76,6 +76,15 @@
               </form>
 
               <?php
+
+$weekRange = getWeekRangeOfMonth($month, $year, $week);
+// debug_to_console($startDate);
+
+$startDate = $weekRange['start_date'];
+$endDate = $weekRange['end_date'];
+
+$dates = getDatesFromRange($startDate, $endDate);
+
               $startDate = "2024-11-25";
               $endDate = "2024-11-29";
               $students_attendance = [];
