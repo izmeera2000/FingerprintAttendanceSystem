@@ -6,7 +6,7 @@ if ($_ENV['site1'] == "http://localhost/FingerprintAttendanceSystem/"){
   
 }
 if (isset($request)){
-if (str_contains($request, 'email/jtp2')) {
+if (str_contains($request, 'email/amaran')) {
 
 include(getcwd() . '/admin/server.php'); 
 
@@ -25,7 +25,7 @@ include(getcwd() . '/admin/server.php');
   <meta name="x-apple-disable-message-reformatting">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
-  <title>JTP 2</title>
+  <title>Amaran</title>
   <link rel="icon" type="image/png" sizes="192x192" href="<?php echo $site_url ?>assets/favicon/android-icon-192x192.png">
 
   <style type="text/css">
@@ -216,7 +216,7 @@ include(getcwd() . '/admin/server.php');
                                   <h1 class="h3 fw-700"
                                     style="padding-top: 0; padding-bottom: 0; font-weight: 700 !important; vertical-align: baseline; font-size: 28px; line-height: 33.6px; margin: 0;"
                                     align="left">
-                                    ADUAN DISIPLIN PELAJAR
+                                    SURAT PERINGATAN TIDAK HADIR LATIHAN
                                   </h1>
                                   <table class="s-4 w-full" role="presentation" border="0" cellpadding="0"
                                     cellspacing="0" style="width: 100%;" width="100%">
@@ -236,7 +236,7 @@ include(getcwd() . '/admin/server.php');
                                   </p> -->
                                   <p class="" style="line-height: 24px; font-size: 16px; width: 100%; margin: 0;"
                                     align="left">
-                                    Anda dikenakan JTP2
+                                    Didapati melakukan kesalahan tataertib dan dikenakan tindakan seperti lampiran.
                                   </p>
                                   <table class="s-4 w-full" role="presentation" border="0" cellpadding="0"
                                     cellspacing="0" style="width: 100%;" width="100%">

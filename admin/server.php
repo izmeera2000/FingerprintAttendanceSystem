@@ -2544,17 +2544,18 @@ if (isset($_POST['check_slot_email'])) {
 
 
   $querya = "SELECT user_id, COUNT(*) AS count
-FROM `attendance_slot`
-WHERE tarikh BETWEEN '$start_date' AND '$end_date'
-GROUP BY user_id, tarikh
-ORDER BY user_id, tarikh;";
+      FROM `attendance_slot`
+      WHERE tarikh BETWEEN '$start_date' AND '$end_date'
+      GROUP BY user_id, tarikh
+      ORDER BY user_id, tarikh;";
 
   $resultsa = mysqli_query($db, $querya);
 
   while ($attslot = mysqli_fetch_assoc($resultsa)) {
-    if ($attslot['count'] >= 7) {
+    $id = $attslot['user_id'];
 
-      $id = $attslot['user_id'];
+    if ($attslot['count'] >= 12) {
+
 
 
 
@@ -2684,9 +2685,181 @@ ORDER BY user_id, tarikh;";
           'alasan' => "test", // Example variable
         );
         // echo "test2";
-        sendmail($email, "Aduan Disiplin Pelajar", 'jtp2.php', $var);
+        // sendmail($email, "Aduan Disiplin Pelajar", 'jtp2.php', $var);
         // unlink('jtp2.pdf'); // Removes the file after sending the email
       }
+    } else if ($attslot['count'] >= 10) {
+
+      // $nama = strtoupper($_POST['nama']);
+      // $sem = $_POST['sem'];
+      // $kursus = strtoupper($_POST['kursus']);
+      // $amaran = $_POST['amaran'];
+
+
+      $query2 = "SELECT a.id,a.nama,a.kp,a.ndp,c.nama as kursus ,d.nama as sem_start, a.email  FROM user a 
+            INNER JOIN user_enroll b ON b.user_id = a.id
+            INNER JOIN course c ON c.id = b.course_id
+            INNER JOIN sem d ON d.id = b.sem_start
+            WHERE a.id = '$id'";
+      $results2 = mysqli_query($db, $query2);
+      while ($row = $results2->fetch_assoc()) {
+
+        $id2 = $row['id'];
+        $nama = $row['nama'];
+        $kp = $row['kp'];
+        $kursus = $row['kursus'];
+        $ndp = $row['ndp'];
+        $sem_start = $row['sem_start'];
+        $email = $row['email'];
+        $sem = getSemesterByNumber($sem_start);
+
+        $pdf = new Fpdi();
+        // add a page
+        $pdf->SetFont('arial', '', 12);
+
+        $pdf->AddPage();
+        // set the source file
+
+        $pdf->setSourceFile("assets/pdf/sp2b.pdf");
+
+
+        // import page 1
+        $tplId = $pdf->importPage(1);
+        // use the imported page and place it at point 10,10 with a width of 100 mm
+        $pdf->useTemplate($tplId, ['adjustPageSize' => true]);
+        $pdf->SetXY(64, 61.6);
+
+        $pdf->Write(0, $nama);
+        $pdf->SetXY(102, 66.5);
+        $pdf->Write(0, $sem . ' ' . $kursus);
+
+        $pdf->SetFont('arial', 'B', 12);
+
+        $pdf->SetXY(70, 141.9);
+        $query = "SELECT  DATE_FORMAT(tarikh, '%d/%m/%Y') AS tarikh_f, COUNT(*) as count  
+        FROM `attendance_slot` 
+        WHERE user_id = '$id' 
+          AND tarikh BETWEEN '$start_date' AND '$end_date';";
+        $results = mysqli_query($db, $query);
+        $text = '( ';
+        $textArray = []; // Initialize an array to store the parts
+        while ($attslot = mysqli_fetch_assoc($results)) {
+
+
+          // $text .= $attslot['tarikh_f'] . " - " . $attslot['count'] . " ,";
+          $textArray[] = $attslot['tarikh_f'] . " - " . $attslot['count']; // Add each part to the array
+
+        }
+        $text .= implode(', ', $textArray); // Join with a comma and a space
+
+        $text .= ' )';
+
+        // Use MultiCell for wrapping text
+        $width = 100; // Width of the cell
+        $lineHeight = 5.9; // Height of each line
+        $pdf->MultiCell($width, $lineHeight, $text, 0, 'L');
+
+        $pdf->Output('F', 'amaran2.pdf');
+
+
+        $filePath = __DIR__ . '/../amaran2.pdf';
+
+        $var = array(
+          // 'link' => $site_url . "kaunseling/temujanji/$event_id", // Example variable
+          'attachment' => $filePath,
+          'attachment_name' => 'amaran2.pdf',
+          'alasan' => "test", // Example variable
+        );
+
+        sendmail($email, "SURAT PERINGATAN TIDAK HADIR LATIHAN", 'amaran.php', $var);
+
+      }
+    } else if ($attslot['count'] >= 5) {
+
+      // $nama = strtoupper($_POST['nama']);
+      // $sem = $_POST['sem'];
+      // $kursus = strtoupper($_POST['kursus']);
+      // $amaran = $_POST['amaran'];
+
+
+      $query2 = "SELECT a.id,a.nama,a.kp,a.ndp,c.nama as kursus ,d.nama as sem_start, a.email  FROM user a 
+            INNER JOIN user_enroll b ON b.user_id = a.id
+            INNER JOIN course c ON c.id = b.course_id
+            INNER JOIN sem d ON d.id = b.sem_start
+            WHERE a.id = '$id'";
+      $results2 = mysqli_query($db, $query2);
+      while ($row = $results2->fetch_assoc()) {
+
+        $id2 = $row['id'];
+        $nama = $row['nama'];
+        $kp = $row['kp'];
+        $kursus = $row['kursus'];
+        $ndp = $row['ndp'];
+        $sem_start = $row['sem_start'];
+        $email = $row['email'];
+        $sem = getSemesterByNumber($sem_start);
+
+        $pdf = new Fpdi();
+        // add a page
+        $pdf->SetFont('arial', '', 12);
+
+        $pdf->AddPage();
+        // set the source file
+
+        $pdf->setSourceFile("assets/pdf/sp1b.pdf");
+
+
+        // import page 1
+        $tplId = $pdf->importPage(1);
+        // use the imported page and place it at point 10,10 with a width of 100 mm
+        $pdf->useTemplate($tplId, ['adjustPageSize' => true]);
+        $pdf->SetXY(64, 61.6);
+
+        $pdf->Write(0, $nama);
+        $pdf->SetXY(102, 66.5);
+        $pdf->Write(0, $sem . ' ' . $kursus);
+
+        $pdf->SetFont('arial', 'B', 12);
+
+        $pdf->SetXY(70, 126.9);
+        $query = "SELECT  DATE_FORMAT(tarikh, '%d/%m/%Y') AS tarikh_f, COUNT(*) as count  
+        FROM `attendance_slot` 
+        WHERE user_id = '$id' 
+          AND tarikh BETWEEN '$start_date' AND '$end_date';";
+        $results = mysqli_query($db, $query);
+        $text = '( ';
+        $textArray = []; // Initialize an array to store the parts
+        while ($attslot = mysqli_fetch_assoc($results)) {
+
+
+          // $text .= $attslot['tarikh_f'] . " - " . $attslot['count'] . " ,";
+          $textArray[] = $attslot['tarikh_f'] . " - " . $attslot['count']; // Add each part to the array
+
+        }
+        $text .= implode(', ', $textArray); // Join with a comma and a space
+
+        $text .= ' )';
+        // Use MultiCell for wrapping text
+        $width = 100; // Width of the cell
+        $lineHeight = 5.9; // Height of each line
+        $pdf->MultiCell($width, $lineHeight, $text, 0, 'L');
+
+        $pdf->Output('F', 'amaran1.pdf');
+
+
+        $filePath = __DIR__ . '/../amaran1.pdf';
+
+        $var = array(
+          // 'link' => $site_url . "kaunseling/temujanji/$event_id", // Example variable
+          'attachment' => $filePath,
+          'attachment_name' => 'amaran1.pdf',
+          'alasan' => "test", // Example variable
+        );
+        sendmail($email, "SURAT PERINGATAN TIDAK HADIR LATIHAN", 'amaran.php', $var);
+
+      }
+    } else {
+
     }
 
   }
