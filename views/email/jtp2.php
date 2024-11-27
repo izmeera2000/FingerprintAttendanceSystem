@@ -303,7 +303,7 @@ include(getcwd() . '/admin/server.php');
                             </tbody>
                           </table>
                           <div>
-                            <img class="" src="<?php echo $site_url ?>/assets/img/banner.jpg">
+                            <img class="" src="<?php echo $site_url ?>/assets/images/banner.jpg">
                           </div>
                           <!-- <div class="text-muted text-center" style="color: #718096;" align="center">
                               Sent with &lt;3 from Hip Corp. <br>

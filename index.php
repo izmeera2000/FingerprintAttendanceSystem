@@ -198,6 +198,12 @@ function jtp2()
 }
 
 
+function amaran()
+{
+	check_session($site_url, 1);
+
+	require_once('views/email/amaran.php');
+}
 function check_session(&$site_url, $admin = 0)
 {
 	if (!isset($_SESSION['user_details'])) {
@@ -341,7 +347,9 @@ switch (true) {
 	case ($request == 'email/jtp2'):
 		jtp2();
 		break;
-
+		case ($request == 'email/amaran'):
+			amaran();
+			break;
 
 	default:
 		// echo $request;
