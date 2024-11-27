@@ -681,7 +681,7 @@ function sendmail($receiver, $title, $filepath, $var = "")
   try {
 
     $mail->isSMTP();
-    $mail->SMTPDebug = SMTP::DEBUG_OFF;
+    $mail->SMTPDebug = SMTP::DEBUG_SERVER;
     $mail->Host = 'fast.e-veterinar.com';
     $mail->SMTPAuth = true;
     $mail->Username = $_ENV['email4_username'];
@@ -690,7 +690,7 @@ function sendmail($receiver, $title, $filepath, $var = "")
     $mail->Port = 465; // Adjust as needed (e.g., 465 for SSL)
 
 
-    $mail->setFrom('attendance@fast.e-veterinar.com', 'Attendance');
+    $mail->setFrom('kedatangan@fast.e-veterinar.com', 'Attendance');
     $mail->addAddress($receiver);
 
 
@@ -2576,7 +2576,7 @@ ORDER BY user_id, tarikh;";
         $ndp = $row['ndp'];
         $sem_start = $row['sem_start'];
         $email = $row['email'];
-echo $email;
+        echo $email;
 
         $sem = getSemesterByNumber($sem_start);
 
