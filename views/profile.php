@@ -38,7 +38,9 @@
       <!-- ============================================================== -->
       <!-- Bread crumb and right sidebar toggle -->
       <!-- ============================================================== -->
- 
+      <?php
+      renderBreadcrumb($pagetitle, $breadcrumbs); // Use the global breadcrumbs variable
+      ?>
       <!-- ============================================================== -->
       <!-- End Bread crumb and right sidebar toggle -->
       <!-- ============================================================== -->
@@ -76,14 +78,7 @@
                 <small class="text-muted p-t-30 db">NDP</small>
                 <h6><?php  echo $_SESSION['user_details']['np'] ?></h6> -->
                 <div>
-                  <?php
-                  $data = "ndp://" . $_SESSION['user_details']['ndp'];
-                  $logoPath = __DIR__ . '/../assets/images/logo-w.png'; // Path to your logo image
-                  
-                  $base64QRCode = generateQRCodeWithLogo($data, $logoPath);
-                  ?>
 
-                  <img src="data:image/png;base64,<?php echo $base64QRCode; ?>" alt="QR Code" />
                 </div>
                 <!-- <h6>71 Pilgrim Avenue Chevy Chase, MD 20815</h6> -->
                 <!-- <div class="map-box">
