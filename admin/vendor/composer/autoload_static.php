@@ -17,6 +17,11 @@ class ComposerStaticInite875ae8441d070d7dda5f4b47a2117aa
         array (
             'setasign\\Fpdi\\' => 14,
         ),
+        'c' => 
+        array (
+            'chillerlan\\Settings\\' => 20,
+            'chillerlan\\QRCode\\' => 18,
+        ),
         'S' => 
         array (
             'Symfony\\Polyfill\\Php80\\' => 23,
@@ -46,6 +51,14 @@ class ComposerStaticInite875ae8441d070d7dda5f4b47a2117aa
         'setasign\\Fpdi\\' => 
         array (
             0 => __DIR__ . '/..' . '/setasign/fpdi/src',
+        ),
+        'chillerlan\\Settings\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/chillerlan/php-settings-container/src',
+        ),
+        'chillerlan\\QRCode\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/chillerlan/php-qrcode/src',
         ),
         'Symfony\\Polyfill\\Php80\\' => 
         array (

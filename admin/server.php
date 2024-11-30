@@ -10,6 +10,8 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 use setasign\Fpdi\Fpdi;
+use chillerlan\QRCode\QRCode;
+use chillerlan\QRCode\QROptions;
 
 $errors = array();
 $toast = array();
@@ -316,161 +318,6 @@ function sendmail($receiver, $title, $filepath, $var = "")
 
 
 
-if (isset($_POST['fingerprintlogin'])) {
-
-  $user_id = "";
-
-  $query = "SELECT * FROM attendance WHERE DATE(masa_mula) = CURRENT_DATE AND masa_tamat IS  NULL;";
-  $results = mysqli_query($db, $query);
-  if ($result->num_rows > 0) {
-
-    while ($row = mysqli_fetch_assoc($results)) {
-      $id = $row['id'];
-      $query = "UPDATE `attendance` SET `masa_tamat` = NOW() WHERE id = $id";
-    }
-
-  } else {
-
-    $query = "INSERT INTO attendance (user_id) VALUES ('$user_id') ";
-    $results = mysqli_query($db, $query);
-
-
-  }
-}
-
-
-if (isset($_POST['fingerprintregister'])) {
-
-  $user_id = "";
-
-  $query = "SELECT * FROM user WHERE fp = '1' ";
-  $results = mysqli_query($db, $query);
-  if ($result->num_rows > 0) {
-
-    while ($row = mysqli_fetch_assoc($results)) {
-      $id = $row['id'];
-      $query = "UPDATE `attendance` SET `masa_tamat` = NOW() WHERE id = $id";
-    }
-
-  } else {
-
-    $query = "INSERT INTO attendance (user_id) VALUES ('$user_id') ";
-    $results = mysqli_query($db, $query);
-
-
-  }
-}
-
-
-
-
-if (isset($_POST['post_fp2'])) {
-
-
-  $query = "SELECT id ,fp FROM `user` WHERE fp='R';";
-  $results = mysqli_query($db, $query);
-  while ($row = mysqli_fetch_assoc($results)) {
-    $id = $row['id'];
-    echo $id;
-
-  }
-
-
-}
-
-
-if (isset($_POST['post_fp'])) {
-
-  $id = $_POST['post_fp'];
-
-  $query = "UPDATE user SET fp ='D' WHERE  id = '$id' ";
-  $results = mysqli_query($db, $query);
-
-  if ($results) {
-    echo "data posted:";
-    var_dump($_POST);
-  } else {
-    echo "not Ok";
-  }
-
-
-}
-
-
-if (isset($_POST['login_fp'])) {
-
-  $id = $_POST['login_fp'];
-  $ent = $_POST['entrance'];
-  if ($ent) {
-
-    $query = "SELECT * FROM attendance WHERE user_id = '$id' AND masa_tamat IS NULL  ORDER BY time_add DESC LIMIT 1;";
-    $result = mysqli_query($db, $query);
-    if (mysqli_num_rows($result) == 0) {
-
-
-      $query = "INSERT INTO attendance (user_id, event_status)  VALUES ('$id','1');";
-      $results = mysqli_query($db, $query);
-      while ($row = mysqli_fetch_assoc($results)) {
-        $id2 = $row['id'];
-        // echo $id2;
-
-      }
-    }
-  } else {
-
-
-    $query = "SELECT * FROM `attendance` WHERE user_id = '$id'  AND masa_tamat IS NULL  ORDER BY time_add DESC LIMIT 1;";
-    $results = mysqli_query($db, $query);
-
-    if (mysqli_num_rows($result) == 0) {
-
-      while ($row = mysqli_fetch_assoc($results)) {
-        $id2 = $row['id'];
-        // echo $id2;
-
-      }
-
-
-      $query = "UPDATE attendance SET masa_tamat = NOW()  WHERE id ='$id2' ";
-      $results = mysqli_query($db, $query);
-
-    } else {
-      echo "no_in_detected";
-    }
-
-  }
-
-}
-
-
-
-
-if (isset($_POST['fp_mode'])) {
-
-  $fp = $_POST['fp_name'];
-
-  $query = "SELECT a.*, b.nama  FROM fp_settings a  INNER JOIN fp_device b ON b.id = a.fp_id WHERE nama= '$fp' ";
-  $results = mysqli_query($db, $query);
-  while ($row = mysqli_fetch_assoc($results)) {
-    $mode = $row['mode'];
-    if ($mode == 0) {
-      echo "register";
-    }
-    if ($mode == 1) {
-      echo "login";
-    }
-    if ($mode == 2) {
-      echo "emptydb";
-    }
-  }
-
-
-}
-
-
-
-
-
 
 
 
@@ -562,8 +409,93 @@ function getDatesFromRange($start, $end)
 }
 
 
+ 
+function generateQRCodeWithLogo($data, $logoPath){
+  $options = new QROptions([
+      'outputType' => QRCode::OUTPUT_IMAGE_PNG,
+      'eccLevel' => QRCode::ECC_H,
+      'scale' => 10,
+      'imageBase64' => false, // We will convert to base64 manually
+  ]);
+
+  // Generate the QR code image
+  $qrOutputInterface = new QRCode($options);
+  $qrImage = $qrOutputInterface->render($data);
+
+  // Load the QR code and logo images
+  $qrImageResource = imagecreatefromstring($qrImage);
+  $logoImageResource = imagecreatefrompng($logoPath);
+
+  // Get dimensions
+  $qrWidth = imagesx($qrImageResource);
+  $qrHeight = imagesy($qrImageResource);
+  $logoWidth = imagesx($logoImageResource);
+  $logoHeight = imagesy($logoImageResource);
+
+  // Calculate logo placement
+  $logoQRWidth = $qrWidth / 5; // Logo will cover 1/5th of the QR code
+  $scaleFactor = $logoWidth / $logoQRWidth;
+  $logoQRHeight = $logoHeight / $scaleFactor;
+
+  $xPos = ($qrWidth - $logoQRWidth) / 2;
+  $yPos = ($qrHeight - $logoQRHeight) / 2;
+
+  // Merge logo onto QR code
+  imagecopyresampled(
+      $qrImageResource,
+      $logoImageResource,
+      $xPos,
+      $yPos,
+      0,
+      0,
+      $logoQRWidth,
+      $logoQRHeight,
+      $logoWidth,
+      $logoHeight
+  );
+
+  // Output QR code with logo to a string
+  ob_start();
+  imagepng($qrImageResource);
+  $outputImage = ob_get_clean();
+
+  // Convert to base64
+  $base64 = base64_encode($outputImage);
+
+  // Free memory
+  imagedestroy($qrImageResource);
+  imagedestroy($logoImageResource);
+
+  return $base64;
+}
 
 
-
-
+function renderBreadcrumb($pageTitle, $breadcrumbs = []) {
+    ?>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-5 align-self-center">
+                <h4 class="page-title"><?php echo htmlspecialchars($pageTitle); ?></h4>
+            </div>
+            <div class="col-7 align-self-center">
+                <div class="d-flex align-items-center justify-content-end">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <?php foreach ($breadcrumbs as $breadcrumb) : ?>
+                                <li class="breadcrumb-item<?php echo $breadcrumb['active'] ? ' active' : ''; ?>"<?php echo $breadcrumb['active'] ? ' aria-current="page"' : ''; ?>>
+                                    <?php if (!$breadcrumb['active']) : ?>
+                                        <a href="<?php echo htmlspecialchars($breadcrumb['url']); ?>"><?php echo htmlspecialchars($breadcrumb['label']); ?></a>
+                                    <?php else : ?>
+                                        <?php echo htmlspecialchars($breadcrumb['label']); ?>
+                                    <?php endif; ?>
+                                </li>
+                            <?php endforeach; ?>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php
+}
 ?>

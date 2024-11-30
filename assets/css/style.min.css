@@ -41370,7 +41370,7 @@ html[dir="rtl"]
 }
 .page-breadcrumb .page-title {
   margin-bottom: 0;
-  font-weight: 400;
+  font-weight: 500;
   font-size: 21px;
 }
 .page-breadcrumb .breadcrumb {
@@ -41903,6 +41903,11 @@ button:focus {
 .nav-pills.custom-pills .nav-link {
   border-radius: 0;
   opacity: 0.7;
+}
+
+.nav-pills.custom-pills .nav-link:hover {
+  cursor: pointer;
+
 }
 .nav-pills.custom-pills .nav-link.active {
   color: #2962ff;

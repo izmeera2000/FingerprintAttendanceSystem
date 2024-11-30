@@ -11,7 +11,15 @@ function index2()
 function index()
 {
 	check_session($site_url);
+
+	$pagetitle = "Dashboard";
+
+	$breadcrumbs = [
+		['label' => 'Home', 'url' => &$site_url, 'active' => false],
+		['label' => 'Dashboard', 'url' => $site_url . '/dashboard', 'active' => true],
+	];
 	require_once('views/index.php');
+
 }
 
 
@@ -27,6 +35,17 @@ function register()
 	require_once('views/register.php');
 }
 
+function profile()
+{
+	check_session($site_url);
+	$pagetitle = "User Profile";
+
+	$breadcrumbs = [
+		['label' => 'Home', 'url' => &$site_url, 'active' => false],
+		['label' => 'User Profile', 'url' => $site_url . '/profile', 'active' => true],
+	];
+	require_once('views/profile.php');
+}
 
 function admin_register()
 {
@@ -35,6 +54,8 @@ function admin_register()
 }
 function login()
 {
+	check_session2($site_url);
+
 	require_once('views/login.php');
 }
 function logout()
@@ -62,7 +83,12 @@ function page404()
 function attendance_view()
 {
 	check_session($site_url, 1);
+	$pagetitle = "Log View";
 
+	$breadcrumbs = [
+		['label' => 'Home', 'url' => &$site_url, 'active' => false],
+		['label' => 'Log View', 'url' => $site_url . '/view', 'active' => true],
+	];
 	require_once('views/attendance/timeline.php');
 
 }
@@ -70,7 +96,12 @@ function attendance_view()
 function attendance_view2()
 {
 	check_session($site_url, 1);
+	$pagetitle = "Slot View";
 
+	$breadcrumbs = [
+		['label' => 'Home', 'url' => &$site_url, 'active' => false],
+		['label' => 'Slot View', 'url' => $site_url . '/slotview', 'active' => true],
+	];
 	require_once('views/attendance/timeline2.php');
 
 }
@@ -134,7 +165,13 @@ function attendance_pdf4()
 function class_create()
 {
 	check_session($site_url, 1);
+	$pagetitle = "Create Class";
 
+	$breadcrumbs = [
+		['label' => 'Home', 'url' => &$site_url, 'active' => false],
+		['label' => 'Class', 'url' => $site_url . '', 'active' => true],
+		['label' => 'Create', 'url' => $site_url . '/class/create', 'active' => true],
+	];
 	require_once('views/class/createclass.php');
 
 }
@@ -157,21 +194,39 @@ function class_org()
 function fp_create()
 {
 	check_session($site_url, 1);
+	$pagetitle = "Create Fingerprint Device";
 
+	$breadcrumbs = [
+		['label' => 'Home', 'url' => &$site_url, 'active' => false],
+		['label' => 'Fingerprint', 'url' => $site_url . '', 'active' => true],
+		['label' => 'Create', 'url' => $site_url . '/fp/create', 'active' => true],
+	];
 	require_once('views/fp/createfp.php');
 }
 
 function subjek_create()
 {
 	check_session($site_url, 1);
+	$pagetitle = "Create Subjek";
 
+	$breadcrumbs = [
+		['label' => 'Home', 'url' => &$site_url, 'active' => false],
+		['label' => 'Subjek', 'url' => $site_url . '', 'active' => true],
+		['label' => 'Create', 'url' => $site_url . '/subjek/create', 'active' => true],
+	];
 	require_once('views/subjek/createsubjek.php');
 }
 
 function sem_create()
 {
 	check_session($site_url, 1);
+	$pagetitle = "Create Semester";
 
+	$breadcrumbs = [
+		['label' => 'Home', 'url' => &$site_url, 'active' => false],
+		['label' => 'Semester', 'url' => $site_url . '', 'active' => true],
+		['label' => 'Create', 'url' => $site_url . '/sem/create', 'active' => true],
+	];
 	require_once('views/sem/createsem.php');
 }
 
@@ -179,14 +234,26 @@ function sem_create()
 function holiday_create()
 {
 	check_session($site_url, 1);
+	$pagetitle = "Create Holiday";
 
+	$breadcrumbs = [
+		['label' => 'Home', 'url' => &$site_url, 'active' => false],
+		['label' => 'Holiday', 'url' => $site_url . '', 'active' => true],
+		['label' => 'Create', 'url' => $site_url . '/holiday/create', 'active' => true],
+	];
 	require_once('views/holiday/createholiday.php');
 }
 
 function course_create()
 {
 	check_session($site_url, 1);
+	$pagetitle = "Create Course";
 
+	$breadcrumbs = [
+		['label' => 'Home', 'url' => &$site_url, 'active' => false],
+		['label' => 'Course', 'url' => $site_url . '', 'active' => true],
+		['label' => 'Create', 'url' => $site_url . '/course/create', 'active' => true],
+	];
 	require_once('views/course/createcourse.php');
 }
 
@@ -227,6 +294,17 @@ function check_session(&$site_url, $admin = 0)
 	}
 
 }
+function check_session2(&$site_url)
+{
+	if (isset($_SESSION['user_details'])) {
+
+
+		header("location: " . $site_url . "dashboard");
+
+ 
+	}
+
+}
 
 // debug_to_console2($current_url);
 
@@ -244,7 +322,9 @@ switch (true) {
 	case ($request == 'register'):
 		register();
 		break;
-
+	case ($request == 'profile'):
+		profile();
+		break;
 
 	case ($request == 'admin/register'):
 		admin_register();
@@ -347,9 +427,9 @@ switch (true) {
 	case ($request == 'email/jtp2'):
 		jtp2();
 		break;
-		case ($request == 'email/amaran'):
-			amaran();
-			break;
+	case ($request == 'email/amaran'):
+		amaran();
+		break;
 
 	default:
 		// echo $request;

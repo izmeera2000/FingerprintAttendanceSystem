@@ -25,7 +25,7 @@
             <!-- <img src=" <?php echo $site_url ?>assets/images/logo-text.png" alt="homepage" class="dark-logo" /> -->
             <!-- Light Logo text -->
             <img src="<?php echo $site_url ?>assets/images/logo-w-text.png" class="light-logo" alt="homepage" />
-             <!-- <p class="text-white light-logo">FINGERPRINT <br>ATTENDANCE SYSTEM</p> -->
+            <!-- <p class="text-white light-logo">FINGERPRINT <br>ATTENDANCE SYSTEM</p> -->
           </span>
         </a>
         <a class="sidebartoggler d-none d-md-block" href="javascript:void(0)" data-sidebartype="mini-sidebar">
@@ -314,8 +314,12 @@
                     waves-effect waves-dark
                     pro-pic
                   " href="index.html" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <img src="<?php echo $site_url ?>assets/images/user/<?php echo $_SESSION['user_details']['id']?>/<?php echo $_SESSION['user_details']['image_url']?>" alt="user" class="rounded-circle" width="40" />
-            <span class="ms-1 font-weight-medium d-none d-sm-inline-block"><?php echo $_SESSION['user_details']['nama'] ?>
+                  <img
+                  src="<?php echo $site_url ?>assets/images/user/<?php echo $_SESSION['user_details']['id'] ?>/<?php echo $_SESSION['user_details']['image_url']; ?>"
+                  alt="user" class="rounded-circle" width="60"
+                  onerror="this.onerror=null; this.src='<?php echo $site_url; ?>assets/images/user/0.jpg';" />
+            <span
+              class="ms-1 font-weight-medium d-none d-sm-inline-block"><?php echo $_SESSION['user_details']['nama'] ?>
               <i data-feather="chevron-down" class="feather-sm"></i></span>
           </a>
           <div class="
@@ -337,35 +341,38 @@
                       mb-2
                     ">
               <div class="">
-                <img src="<?php echo $site_url ?>assets/images/user/<?php echo $_SESSION['user_details']['id']?>/<?php echo $_SESSION['user_details']['image_url']?>" alt="user" class="rounded-circle"
-                  width="60" />
+                <img
+                  src="<?php echo $site_url ?>assets/images/user/<?php echo $_SESSION['user_details']['id'] ?>/<?php echo $_SESSION['user_details']['image_url']; ?>"
+                  alt="user" class="rounded-circle" width="60"
+                  onerror="this.onerror=null; this.src='<?php echo $site_url; ?>assets/images/user/0.jpg';" />
               </div>
               <div class="ms-2">
                 <h4 class="mb-0 text-white"><?php echo $_SESSION['user_details']['nama'] ?></h4>
                 <p class="mb-0"><?php echo $_SESSION['user_details']['email'] ?></p>
               </div>
             </div>
-            <a class="dropdown-item" href="index.html#"><i data-feather="user"
+            <a class="dropdown-item" href="<?php echo $site_url ?>profile"><i data-feather="user"
                 class="feather-sm text-info me-1 ms-1"></i>
               My Profile</a>
-            <a class="dropdown-item" href="index.html#"><i data-feather="credit-card"
+            <!-- <a class="dropdown-item" href="index.html#"><i data-feather="credit-card"
                 class="feather-sm text-info me-1 ms-1"></i>
               My Balance</a>
             <a class="dropdown-item" href="index.html#"><i data-feather="mail"
                 class="feather-sm text-success me-1 ms-1"></i>
-              Inbox</a>
-            <div class="dropdown-divider"></div>
+              Inbox</a> -->
+            <!-- <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="index.html#"><i data-feather="settings"
                 class="feather-sm text-warning me-1 ms-1"></i>
-              Account Setting</a>
+              Account Setting</a> -->
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="<?php echo $site_url ?>logout"><i data-feather="log-out"
                 class="feather-sm text-danger me-1 ms-1"></i>
               Logout</a>
             <div class="dropdown-divider"></div>
-            <div class="p-2">
-              <a href="index.html#" class="btn d-block w-100 btn-primary rounded-pill">View Profile</a>
-            </div>
+            <!-- <div class="p-2">
+              <a href="<?php echo $site_url ?>profile" class="btn d-block w-100 btn-primary rounded-pill">View
+                Profile</a>
+            </div> -->
           </div>
         </li>
         <!-- ============================================================== -->

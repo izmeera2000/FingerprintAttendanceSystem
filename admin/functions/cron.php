@@ -26,16 +26,40 @@ if (isset($_POST['slot_checktime'])) {
     $nowdate = date('Y-m-d');
     $now = new DateTime();
     $now2 = $now->format('Y-m-d H:i:s');
+    $day_of_week = date('l'); // Get the day of the week (e.g., "Monday", "Friday")
+
 
     $query = "SELECT * FROM time_slot ORDER BY id ASC";
     $results = mysqli_query($db, $query);
     while ($row = mysqli_fetch_assoc($results)) {
+
+        if ($day_of_week === 'Friday' && $row['slot'] === 'rehat2') {
+            $row['masa_mula'] = $row['masa_mula2'];
+            $row['masa_tamat'] = $row['masa_tamat2'];
+        }
         $time_slots[] = $row;
     }
 
 
 
-    $query = "SELECT a.*,b.role FROM attendance a INNER JOIN user b ON b.id = a.user_id WHERE DATE(masa_mula) = CURDATE()  AND `role`='4'";
+    $query = "SELECT 
+                    a.*, 
+                    b.role, 
+                    CASE 
+                        WHEN h.user_id IS NOT NULL THEN 'Yes' 
+                        ELSE 'No' 
+                    END AS on_holiday
+                FROM 
+                    attendance a
+                INNER JOIN 
+                    user b ON b.id = a.user_id
+                LEFT JOIN 
+                    user_holiday h ON h.user_id = a.user_id 
+                    AND CURDATE() >= DATE(h.tarikh_mula) 
+                    AND CURDATE() <= DATE(h.tarikh_tamat)
+                WHERE 
+                    DATE(a.masa_mula) = CURDATE() 
+                    AND b.role = '4';";
     $results = mysqli_query($db, $query);
 
     while ($row = $results->fetch_assoc()) {
@@ -143,7 +167,7 @@ if (isset($_POST['slot_checktime'])) {
                 $end_time2 = $end_time->format('Y-m-d H:i:s');
                 $masa_tamat2 = $masa_tamat->format('Y-m-d H:i:s');
                 $masa_mula2 = $masa_mula->format('Y-m-d H:i:s');
-                echo " $slot_status  $slot_name  ($masa_mula2 < $end_time2 && $masa_tamat2 > $start_time2 ) <br> ";
+                echo " $slot_status  $slot_name  ($masa_mula2 < $end_time2 && $masa_tamat2 > $start_time2 ) \n";
             }
 
 
@@ -367,8 +391,8 @@ if (isset($_POST['check_slot_email'])) {
                         'alasan' => "test", // Example variable
                     );
                     // echo "test2";
-                    // sendmail($email, "Aduan Disiplin Pelajar", 'jtp2.php', $var);
-                    // unlink('jtp2.pdf'); // Removes the file after sending the email
+                    sendmail($email, "Aduan Disiplin Pelajar", 'jtp2.php', $var);
+                    unlink('jtp2.pdf'); // Removes the file after sending the email
                 }
             } else if ($attslot['count'] >= 10) {
 
@@ -453,7 +477,8 @@ if (isset($_POST['check_slot_email'])) {
                         'alasan' => "test", // Example variable
                     );
 
-                    sendmail($email, "SURAT PERINGATAN TIDAK HADIR LATIHAN", 'amaran.php', $var);
+                    sendmail($email, "SURAT PERINGATAN TIDAK HADIR LATIHAN", 'amaran2.php', $var);
+                    unlink('amaran2.pdf'); // Removes the file after sending the email
 
                 }
             } else if ($attslot['count'] >= 5) {
@@ -537,7 +562,8 @@ if (isset($_POST['check_slot_email'])) {
                         'attachment_name' => 'amaran1.pdf',
                         'alasan' => "test", // Example variable
                     );
-                    sendmail($email, "SURAT PERINGATAN TIDAK HADIR LATIHAN", 'amaran.php', $var);
+                    sendmail($email, "SURAT PERINGATAN TIDAK HADIR LATIHAN", 'amaran1.php', $var);
+                    unlink('amaran1.pdf'); // Removes the file after sending the email
 
                 }
             } else {
