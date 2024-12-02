@@ -14265,8 +14265,9 @@ svg.tea #steamR {
   color: #fff;
 }
 .sidebar-nav ul .sidebar-item .sidebar-link.active {
-  font-weight: 400;
+  font-weight: 800;
 }
+
 .sidebar-nav ul .sidebar-item.selected > .sidebar-link {
   border-left: 3px solid #fff;
   opacity: 1;

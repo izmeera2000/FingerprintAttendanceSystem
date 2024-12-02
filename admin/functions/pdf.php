@@ -2,8 +2,7 @@
 if (isset($_POST['get_pdf'])) {
 
 
-
-
+ 
 
     include(getcwd() . '/admin/vendor/setasign/fpdf/fpdf.php');
     include(getcwd() . '/admin/vendor/setasign/fpdf/exfpdf.php');
@@ -381,12 +380,18 @@ if (isset($_POST['get_pdf'])) {
 
 
 
-        $pdf->Output('F', 'test.pdf');
+        $pdf->Output('F', 'assets/pdf_gen/attendance.pdf');
+
+
+        // header('location:' . $site_url . 'attendance/generate_pdf');
+
 
         // debug_to_console(var_dump($students_attendance));
 
     }
     // debug_to_console("test");
+    echo $site_url. "assets/pdf_gen/attendance.pdf";    
+
 }
 
 

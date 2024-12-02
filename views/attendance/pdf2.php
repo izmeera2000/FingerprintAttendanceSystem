@@ -51,14 +51,11 @@
         <div class="row">
           <div class="col-12">
             <div class="card">
-              <form action="" method="POST">
+              <form action="" method="POST" id="generatePDFForm">
                 <label for="kursus">Kursus</label>
-
+                <input type="hidden" name="get_pdf" value="1">
                 <select name="kursus" id="kursus">
-                  <!-- <option value="volvo">Volvo</option>
-                  <option value="saab">Saab</option>
-                  <option value="mercedes">Mercedes</option>
-                  <option value="audi">Audi</option> -->
+
 
 
                   <?php
@@ -86,13 +83,7 @@
                 <label for="sem">Semester</label>
 
                 <select name="sem" id="sem">
-                  <!-- <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option> -->
+
                   <?php
 
                   $query =
@@ -178,13 +169,9 @@
 
 
                 </select>
-                <?php
-                var_dump(getWeekRangeOfMonth(12, 2024, 2));
-                echo json_encode($events);
 
-                ?>
 
-                <button type="submit" name="get_pdf">Generate PDF</button>
+                <button type="button" id="generatePDFButton">Generate PDF</button>
               </form>
 
 
@@ -193,16 +180,15 @@
             </div>
 
           </div>
-          <!-- <div class="card">
-              </div> -->
-          <?php if (isset($_POST['get_pdf'])) { ?>
 
-            <div class="col-12 ">
-              <div class="card " style='height: 75vh ; overflow: hidden; '>
-                <iframe src="<?php echo $site_url ?>test.pdf" width="100%" height="100%"></iframe>
-              </div>
+
+          <div class="col-12">
+            <div class="card  d-none " style='height: 75vh ; overflow: hidden; '>
+              <iframe src=" " width="100%" height="100%" id="test"></iframe>
             </div>
-          <?php } ?>
+          </div>
+
+
 
 
         </div>
@@ -236,7 +222,40 @@
   <!-- All Jquery -->
   <!-- ============================================================== -->
   <?php include(getcwd() . '/views/script.php'); ?>
+  <script>
 
+    $(document).ready(function () {
+      $('#generatePDFButton').click(function () {
+        // Serialize form data
+        const formData = $('#generatePDFForm').serialize();  // Using serializeArray() instead of serialize()
+
+
+
+
+        // Send AJAX request
+        $.ajax({
+          url: 'get_pdf', // Your PHP script to generate the PDF
+          method: 'POST',
+          data: formData,
+          success: function (response) {
+            console.log(response);
+            const pdfFilePath = response;
+
+            // Set the iframe's src to the generated PDF file path
+            $('#test').attr('src', pdfFilePath);
+            $('#test').parent().removeClass('d-none');  // Remove the 'd-none' class from the parent of #test
+
+          },
+          error: function (xhr, status, error) {
+            // Handle errors
+            console.error('Error generating PDF:', error);
+            // alert('An error occurred while generating the PDF.');
+          },
+        });
+      });
+    });
+
+  </script>
 </body>
 
 </html>

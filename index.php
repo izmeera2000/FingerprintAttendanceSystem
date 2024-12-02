@@ -19,11 +19,11 @@ function dashboard()
 		['label' => 'Dashboard', 'url' => $site_url . '/dashboard', 'active' => true],
 	];
 
-	if ($_SESSION['user_details']['role'] != 4){
+	if ($_SESSION['user_details']['role'] != 4) {
 
 
 		require_once('views/dashboard_admin.php');
-	} else{
+	} else {
 		require_once('views/dashboard_user.php');
 
 	}
@@ -380,6 +380,7 @@ switch (true) {
 	case (str_contains($request, 'fp_mode')):
 	case (str_contains($request, 'submitrating')):
 	case (str_contains($request, 'check_slot_email')):
+	case (str_contains($request, 'get_pdf')):
 
 
 		server();

@@ -26,6 +26,7 @@
     <link rel="stylesheet" href=" <?php  echo $site_url ?>assets/libs/jvectormap/jquery-jvectormap.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="<?php  echo $site_url ?>assets/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="<?php  echo $site_url ?>assets/vendor/bootstrap-icons/bootstrap-icons.css">
     <link href="<?php  echo $site_url ?>assets/css/style.min.css" rel="stylesheet" />
     
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

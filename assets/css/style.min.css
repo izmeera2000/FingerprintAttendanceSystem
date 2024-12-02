@@ -38290,6 +38290,7 @@ svg.tea #steamR {
 .sidebar-nav ul .sidebar-item .sidebar-link.active {
   font-weight: 400;
 }
+
 .sidebar-nav ul .sidebar-item.selected > .sidebar-link {
   border-left: 3px solid #fff;
   opacity: 1;

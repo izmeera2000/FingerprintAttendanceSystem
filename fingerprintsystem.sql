@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 30, 2024 at 09:35 AM
+-- Generation Time: Dec 02, 2024 at 09:35 AM
 -- Server version: 8.3.0
 -- PHP Version: 8.2.18
 
@@ -55,7 +55,7 @@ INSERT INTO `attendance` (`id`, `user_id`, `fp_id_in`, `fp_id_out`, `event_statu
 (74, 22, NULL, NULL, 1, '2024-11-26 10:14:49', '2024-11-26 10:15:49', NULL, '2024-11-26 10:14:49', '2024-11-29 04:05:13'),
 (76, 6, NULL, NULL, 1, '2024-11-26 12:42:16', '2024-11-26 12:46:16', NULL, '2024-11-26 12:42:16', '2024-11-29 04:05:07'),
 (77, 6, NULL, NULL, 1, '2024-11-29 09:42:16', '2024-11-29 11:42:16', NULL, '2024-11-26 12:42:16', '2024-11-29 20:13:44'),
-(78, 6, NULL, NULL, 1, '2024-11-29 14:42:16', '2024-11-29 15:42:16', NULL, '2024-11-26 12:42:16', '2024-11-29 20:13:44');
+(78, 6, NULL, NULL, 1, '2024-12-01 14:42:16', '2024-12-01 15:42:16', NULL, '2024-11-26 12:42:16', '2024-12-01 03:49:10');
 
 -- --------------------------------------------------------
 
@@ -79,48 +79,76 @@ CREATE TABLE IF NOT EXISTS `attendance_slot` (
   `time_edit` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_id` (`user_id`,`slot`)
-) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `attendance_slot`
 --
 
 INSERT INTO `attendance_slot` (`id`, `user_id`, `slot`, `slot_status`, `tarikh`, `reason`, `file_path`, `tarikh2`, `verify`, `lect_id`, `time_add`, `time_edit`) VALUES
-(1, 6, 'slot1', 0, '2024-11-30', NULL, NULL, NULL, NULL, NULL, '2024-11-29 20:27:38', '2024-11-30 11:45:00'),
-(2, 6, 'rehat1', 6, '2024-11-30', NULL, NULL, NULL, NULL, NULL, '2024-11-29 20:27:38', '2024-11-30 11:45:00'),
-(3, 6, 'slot2', 1, '2024-11-29', NULL, NULL, NULL, NULL, NULL, '2024-11-29 20:27:38', '2024-11-29 20:27:38'),
-(4, 6, 'slot3', 5, '2024-11-29', NULL, NULL, NULL, NULL, NULL, '2024-11-29 20:27:38', '2024-11-29 20:27:38'),
-(5, 6, 'rehat2', 6, '2024-11-30', NULL, NULL, NULL, NULL, NULL, '2024-11-29 20:27:38', '2024-11-30 11:45:00'),
-(6, 6, 'slot4', 5, '2024-11-29', NULL, NULL, NULL, NULL, NULL, '2024-11-29 20:27:38', '2024-11-29 20:27:38'),
-(7, 6, 'slot5', 5, '2024-11-29', NULL, NULL, NULL, NULL, NULL, '2024-11-29 20:27:38', '2024-11-29 20:27:38'),
-(15, 18, 'slot1', 0, '2024-11-30', NULL, NULL, NULL, NULL, NULL, '2024-11-29 20:27:38', '2024-11-30 11:45:00'),
-(16, 18, 'rehat1', 6, '2024-11-30', NULL, NULL, NULL, NULL, NULL, '2024-11-29 20:27:38', '2024-11-30 11:45:00'),
-(17, 18, 'slot2', 0, '2024-11-30', NULL, NULL, NULL, NULL, NULL, '2024-11-29 20:27:38', '2024-11-30 11:45:00'),
-(18, 18, 'slot3', 0, '2024-11-30', NULL, NULL, NULL, NULL, NULL, '2024-11-29 20:27:38', '2024-11-30 11:45:00'),
-(19, 18, 'rehat2', 6, '2024-11-30', NULL, NULL, NULL, NULL, NULL, '2024-11-29 20:27:38', '2024-11-30 11:45:00'),
-(20, 18, 'slot4', 7, '2024-11-30', NULL, NULL, NULL, NULL, NULL, '2024-11-29 20:27:38', '2024-11-30 11:45:00'),
-(21, 18, 'slot5', 7, '2024-11-30', NULL, NULL, NULL, NULL, NULL, '2024-11-29 20:27:38', '2024-11-30 11:45:00'),
-(22, 21, 'slot1', 0, '2024-11-30', NULL, NULL, NULL, NULL, NULL, '2024-11-29 20:27:38', '2024-11-30 11:45:00'),
-(23, 21, 'rehat1', 6, '2024-11-30', NULL, NULL, NULL, NULL, NULL, '2024-11-29 20:27:38', '2024-11-30 11:45:00'),
-(24, 21, 'slot2', 0, '2024-11-30', NULL, NULL, NULL, NULL, NULL, '2024-11-29 20:27:38', '2024-11-30 11:45:00'),
-(25, 21, 'slot3', 0, '2024-11-30', NULL, NULL, NULL, NULL, NULL, '2024-11-29 20:27:38', '2024-11-30 11:45:00'),
-(26, 21, 'rehat2', 6, '2024-11-30', NULL, NULL, NULL, NULL, NULL, '2024-11-29 20:27:38', '2024-11-30 11:45:00'),
-(27, 21, 'slot4', 7, '2024-11-30', NULL, NULL, NULL, NULL, NULL, '2024-11-29 20:27:38', '2024-11-30 11:45:00'),
-(28, 21, 'slot5', 7, '2024-11-30', NULL, NULL, NULL, NULL, NULL, '2024-11-29 20:27:38', '2024-11-30 11:45:00'),
-(29, 22, 'slot1', 0, '2024-11-30', NULL, NULL, NULL, NULL, NULL, '2024-11-29 20:27:38', '2024-11-30 11:45:00'),
-(30, 22, 'rehat1', 6, '2024-11-30', NULL, NULL, NULL, NULL, NULL, '2024-11-29 20:27:38', '2024-11-30 11:45:00'),
-(31, 22, 'slot2', 0, '2024-11-30', NULL, NULL, NULL, NULL, NULL, '2024-11-29 20:27:38', '2024-11-30 11:45:00'),
-(32, 22, 'slot3', 0, '2024-11-30', NULL, NULL, NULL, NULL, NULL, '2024-11-29 20:27:38', '2024-11-30 11:45:00'),
-(33, 22, 'rehat2', 6, '2024-11-30', NULL, NULL, NULL, NULL, NULL, '2024-11-29 20:27:38', '2024-11-30 11:45:00'),
-(34, 22, 'slot4', 7, '2024-11-30', NULL, NULL, NULL, NULL, NULL, '2024-11-29 20:27:38', '2024-11-30 11:45:00'),
-(35, 22, 'slot5', 7, '2024-11-30', NULL, NULL, NULL, NULL, NULL, '2024-11-29 20:27:38', '2024-11-30 11:45:00'),
-(36, 23, 'slot1', 0, '2024-11-30', NULL, NULL, NULL, NULL, NULL, '2024-11-29 20:27:38', '2024-11-30 11:45:00'),
-(37, 23, 'rehat1', 6, '2024-11-30', NULL, NULL, NULL, NULL, NULL, '2024-11-29 20:27:38', '2024-11-30 11:45:00'),
-(38, 23, 'slot2', 0, '2024-11-30', NULL, NULL, NULL, NULL, NULL, '2024-11-29 20:27:38', '2024-11-30 11:45:00'),
-(39, 23, 'slot3', 0, '2024-11-30', NULL, NULL, NULL, NULL, NULL, '2024-11-29 20:27:38', '2024-11-30 11:45:00'),
-(40, 23, 'rehat2', 6, '2024-11-30', NULL, NULL, NULL, NULL, NULL, '2024-11-29 20:27:38', '2024-11-30 11:45:00'),
-(41, 23, 'slot4', 7, '2024-11-30', NULL, NULL, NULL, NULL, NULL, '2024-11-29 20:27:38', '2024-11-30 11:45:00'),
-(42, 23, 'slot5', 7, '2024-11-30', NULL, NULL, NULL, NULL, NULL, '2024-11-29 20:27:38', '2024-11-30 11:45:00');
+(1, 6, 'slot1', 0, '2024-12-02', NULL, NULL, NULL, 1, NULL, '2024-12-01 03:58:29', '2024-12-02 15:34:46'),
+(2, 6, 'rehat1', 6, '2024-12-02', NULL, NULL, NULL, NULL, NULL, '2024-12-01 03:58:29', '2024-12-02 12:56:52'),
+(3, 6, 'slot2', 0, '2024-12-02', NULL, NULL, NULL, 1, NULL, '2024-12-01 03:58:29', '2024-12-02 15:35:12'),
+(4, 6, 'slot3', 0, '2024-12-02', NULL, NULL, '0000-00-00', 1, NULL, '2024-12-01 03:58:29', '2024-12-02 15:35:10'),
+(5, 6, 'rehat2', 6, '2024-12-02', NULL, NULL, NULL, NULL, NULL, '2024-12-01 03:58:29', '2024-12-02 12:56:52'),
+(6, 6, 'slot4', 5, '2024-12-01', NULL, NULL, NULL, NULL, NULL, '2024-12-01 03:58:29', '2024-12-01 03:58:29'),
+(7, 6, 'slot5', 5, '2024-12-01', NULL, NULL, NULL, NULL, NULL, '2024-12-01 03:58:29', '2024-12-01 03:58:29'),
+(8, 18, 'slot1', 0, '2024-12-02', NULL, NULL, NULL, NULL, NULL, '2024-12-01 03:58:29', '2024-12-02 12:56:52'),
+(9, 18, 'rehat1', 6, '2024-12-02', NULL, NULL, NULL, NULL, NULL, '2024-12-01 03:58:29', '2024-12-02 12:56:52'),
+(10, 18, 'slot2', 0, '2024-12-02', NULL, NULL, NULL, 1, NULL, '2024-12-01 03:58:29', '2024-12-02 15:42:52'),
+(11, 18, 'slot3', 0, '2024-12-02', NULL, NULL, NULL, NULL, NULL, '2024-12-01 03:58:29', '2024-12-02 12:56:52'),
+(12, 18, 'rehat2', 6, '2024-12-02', NULL, NULL, NULL, NULL, NULL, '2024-12-01 03:58:29', '2024-12-02 12:56:52'),
+(13, 18, 'slot4', 7, '2024-12-02', NULL, NULL, NULL, NULL, NULL, '2024-12-01 03:58:29', '2024-12-02 12:56:52'),
+(14, 18, 'slot5', 7, '2024-12-02', NULL, NULL, NULL, NULL, NULL, '2024-12-01 03:58:29', '2024-12-02 12:56:52'),
+(15, 21, 'slot1', 0, '2024-12-02', NULL, NULL, NULL, NULL, NULL, '2024-12-01 03:58:29', '2024-12-02 12:56:52'),
+(16, 21, 'rehat1', 6, '2024-12-02', NULL, NULL, NULL, NULL, NULL, '2024-12-01 03:58:29', '2024-12-02 12:56:52'),
+(17, 21, 'slot2', 0, '2024-12-02', NULL, NULL, NULL, 1, NULL, '2024-12-01 03:58:29', '2024-12-02 15:42:54'),
+(18, 21, 'slot3', 0, '2024-12-02', NULL, NULL, NULL, NULL, NULL, '2024-12-01 03:58:29', '2024-12-02 12:56:52'),
+(19, 21, 'rehat2', 6, '2024-12-02', NULL, NULL, NULL, NULL, NULL, '2024-12-01 03:58:29', '2024-12-02 12:56:52'),
+(20, 21, 'slot4', 7, '2024-12-02', NULL, NULL, NULL, NULL, NULL, '2024-12-01 03:58:29', '2024-12-02 12:56:52'),
+(21, 21, 'slot5', 7, '2024-12-02', NULL, NULL, NULL, NULL, NULL, '2024-12-01 03:58:29', '2024-12-02 12:56:52'),
+(22, 22, 'slot1', 0, '2024-12-02', NULL, NULL, NULL, NULL, NULL, '2024-12-01 03:58:29', '2024-12-02 12:56:52'),
+(23, 22, 'rehat1', 6, '2024-12-02', NULL, NULL, NULL, NULL, NULL, '2024-12-01 03:58:29', '2024-12-02 12:56:52'),
+(24, 22, 'slot2', 0, '2024-12-02', NULL, NULL, NULL, 1, NULL, '2024-12-01 03:58:29', '2024-12-02 15:42:55'),
+(25, 22, 'slot3', 0, '2024-12-02', NULL, NULL, NULL, NULL, NULL, '2024-12-01 03:58:29', '2024-12-02 12:56:52'),
+(26, 22, 'rehat2', 6, '2024-12-02', NULL, NULL, NULL, NULL, NULL, '2024-12-01 03:58:29', '2024-12-02 12:56:52'),
+(27, 22, 'slot4', 7, '2024-12-02', NULL, NULL, NULL, NULL, NULL, '2024-12-01 03:58:29', '2024-12-02 12:56:52'),
+(28, 22, 'slot5', 7, '2024-12-02', NULL, NULL, NULL, NULL, NULL, '2024-12-01 03:58:29', '2024-12-02 12:56:52'),
+(29, 23, 'slot1', 0, '2024-12-02', NULL, NULL, NULL, NULL, NULL, '2024-12-01 03:58:29', '2024-12-02 12:56:52'),
+(30, 23, 'rehat1', 6, '2024-12-02', NULL, NULL, NULL, NULL, NULL, '2024-12-01 03:58:29', '2024-12-02 12:56:52'),
+(31, 23, 'slot2', 0, '2024-12-02', NULL, NULL, NULL, 1, NULL, '2024-12-01 03:58:29', '2024-12-02 15:42:56'),
+(32, 23, 'slot3', 0, '2024-12-02', NULL, NULL, NULL, NULL, NULL, '2024-12-01 03:58:29', '2024-12-02 12:56:52'),
+(33, 23, 'rehat2', 6, '2024-12-02', NULL, NULL, NULL, NULL, NULL, '2024-12-01 03:58:29', '2024-12-02 12:56:52'),
+(34, 23, 'slot4', 7, '2024-12-02', NULL, NULL, NULL, NULL, NULL, '2024-12-01 03:58:29', '2024-12-02 12:56:52'),
+(35, 23, 'slot5', 7, '2024-12-02', NULL, NULL, NULL, NULL, NULL, '2024-12-01 03:58:29', '2024-12-02 12:56:52');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bengkel`
+--
+
+DROP TABLE IF EXISTS `bengkel`;
+CREATE TABLE IF NOT EXISTS `bengkel` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nama` text COLLATE utf8mb4_unicode_ci,
+  `time_add` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `time_edit` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `bengkel`
+--
+
+INSERT INTO `bengkel` (`id`, `nama`, `time_add`, `time_edit`) VALUES
+(1, 'Komputer\r\n', '2024-12-01 02:36:57', '2024-12-01 02:36:57'),
+(2, 'MEKA', '2024-12-01 02:37:16', '2024-12-01 02:37:16'),
+(3, 'MICROE', '2024-12-01 02:37:21', '2024-12-01 02:37:21'),
+(4, 'JK', '2024-12-01 02:37:24', '2024-12-01 02:37:24'),
+(5, 'POLIMER', '2024-12-01 02:37:27', '2024-12-01 02:37:27'),
+(6, 'KOMPOSIT', '2024-12-01 02:37:53', '2024-12-01 02:37:53'),
+(7, 'SERAMIK', '2024-12-01 02:37:56', '2024-12-01 02:37:56');
 
 -- --------------------------------------------------------
 
@@ -132,6 +160,7 @@ DROP TABLE IF EXISTS `course`;
 CREATE TABLE IF NOT EXISTS `course` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nama` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_by` int DEFAULT NULL,
   `masa_mula` datetime DEFAULT NULL,
   `time_add` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `time_edit` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -142,8 +171,8 @@ CREATE TABLE IF NOT EXISTS `course` (
 -- Dumping data for table `course`
 --
 
-INSERT INTO `course` (`id`, `nama`, `masa_mula`, `time_add`, `time_edit`) VALUES
-(1, 'DTK Komputer', NULL, '2024-11-21 12:45:35', '2024-11-21 12:49:16');
+INSERT INTO `course` (`id`, `nama`, `created_by`, `masa_mula`, `time_add`, `time_edit`) VALUES
+(1, 'DTK Komputer', NULL, NULL, '2024-11-21 12:45:35', '2024-11-21 12:49:16');
 
 -- --------------------------------------------------------
 
@@ -284,6 +313,7 @@ CREATE TABLE IF NOT EXISTS `kelas` (
   `location` text COLLATE utf8mb4_unicode_ci,
   `fp_entrance` int DEFAULT NULL,
   `fp_exit` int DEFAULT NULL,
+  `bengkel_id` int DEFAULT NULL,
   `time_add` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `time_edit` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
@@ -293,8 +323,8 @@ CREATE TABLE IF NOT EXISTS `kelas` (
 -- Dumping data for table `kelas`
 --
 
-INSERT INTO `kelas` (`id`, `nama_kelas`, `location`, `fp_entrance`, `fp_exit`, `time_add`, `time_edit`) VALUES
-(1, 'Makmal Komputer', 'Makmal Test', 1, 2, '2024-11-02 17:52:09', '2024-11-29 03:44:19');
+INSERT INTO `kelas` (`id`, `nama_kelas`, `location`, `fp_entrance`, `fp_exit`, `bengkel_id`, `time_add`, `time_edit`) VALUES
+(1, 'Makmal Komputer', 'Makmal Test', 1, 2, NULL, '2024-11-02 17:52:09', '2024-11-29 03:44:19');
 
 -- --------------------------------------------------------
 
@@ -306,6 +336,7 @@ DROP TABLE IF EXISTS `sem`;
 CREATE TABLE IF NOT EXISTS `sem` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nama` text COLLATE utf8mb4_unicode_ci,
+  `created_by` int DEFAULT NULL,
   `start_date` date DEFAULT NULL,
   `end_date` date DEFAULT NULL,
   `time_add` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -317,11 +348,11 @@ CREATE TABLE IF NOT EXISTS `sem` (
 -- Dumping data for table `sem`
 --
 
-INSERT INTO `sem` (`id`, `nama`, `start_date`, `end_date`, `time_add`, `time_edit`) VALUES
-(1, '1/2024', '2024-01-01', '2024-06-06', '2024-11-02 17:57:50', '2024-11-02 17:57:50'),
-(2, '2/2024', '2024-07-01', '2024-12-06', '2024-11-21 12:17:11', '2024-11-27 07:58:38'),
-(3, 'asdasdasda', '0000-00-00', '0000-00-00', '2024-11-21 12:18:10', '2024-11-21 12:18:10'),
-(4, 'sadasdas', '0000-00-00', '0000-00-00', '2024-11-21 12:18:24', '2024-11-21 12:18:24');
+INSERT INTO `sem` (`id`, `nama`, `created_by`, `start_date`, `end_date`, `time_add`, `time_edit`) VALUES
+(1, '1/2024', NULL, '2024-01-01', '2024-06-06', '2024-11-02 17:57:50', '2024-11-02 17:57:50'),
+(2, '2/2024', NULL, '2024-07-01', '2024-12-06', '2024-11-21 12:17:11', '2024-11-27 07:58:38'),
+(3, 'asdasdasda', NULL, '2025-01-01', '2025-06-06', '2024-11-21 12:18:10', '2024-12-02 01:53:08'),
+(4, 'sadasdas', NULL, '2025-07-01', '2025-12-06', '2024-11-21 12:18:24', '2024-12-02 01:53:17');
 
 -- --------------------------------------------------------
 
@@ -334,6 +365,7 @@ CREATE TABLE IF NOT EXISTS `subjek` (
   `id` int NOT NULL AUTO_INCREMENT,
   `subjek_nama` text COLLATE utf8mb4_unicode_ci,
   `subjek_kod` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_by` int DEFAULT NULL,
   `time_add` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `time_edit` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
@@ -343,8 +375,8 @@ CREATE TABLE IF NOT EXISTS `subjek` (
 -- Dumping data for table `subjek`
 --
 
-INSERT INTO `subjek` (`id`, `subjek_nama`, `subjek_kod`, `time_add`, `time_edit`) VALUES
-(1, 'test', 'test', '2024-11-30 11:51:36', '2024-11-30 11:51:36');
+INSERT INTO `subjek` (`id`, `subjek_nama`, `subjek_kod`, `created_by`, `time_add`, `time_edit`) VALUES
+(1, 'test', 'test', 7, '2024-11-30 11:51:36', '2024-12-02 03:14:13');
 
 -- --------------------------------------------------------
 
@@ -404,7 +436,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `time_edit` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `role` (`role`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `user`
@@ -416,7 +448,8 @@ INSERT INTO `user` (`id`, `role`, `ndp`, `nama`, `email`, `phone`, `kp`, `jantin
 (18, 4, '29124021', 'SITI', '29124021@adtectaiping.edu.my', '143915786', '213213122', '0', 'Lain-lain', 'Tidak Berkahwin', 'Melayu', 'gambar.png', 'a8f5f167f44f4964e6c998dee827110c', 'D', '2024-08-28 14:58:58', '2024-08-28 14:58:58'),
 (21, 4, '29124074', 'HIJAZI', '29124074@adtectaiping.edu.my', '1112456300', '5151', '0', 'Islam', 'Tidak Berkahwin', 'Melayu', 'gambar.png', '717d8b3d60d9eea997b35b02b6a4e867', 'D', '2024-09-02 20:03:02', '2024-09-02 20:03:02'),
 (22, 4, '29224158', 'nurin', 'nurin7@gmail.com', '713028758', '2147483647', 'Perempuan', 'Hindu', 'Tidak Berkahwin', 'India', 'gambar.jpg', 'a8f5f167f44f4964e6c998dee827110c', NULL, '2024-11-26 01:32:21', '2024-11-26 01:32:21'),
-(23, 4, '29224159', 'test', 'saerahhassan603@gmail.com\n', '13082', '2147483647', 'Lelaki', 'Kristian', 'Tidak Berkahwin', 'India', 'gambar.jpg', 'a8f5f167f44f4964e6c998dee827110c', NULL, '2024-11-26 03:47:22', '2024-11-26 03:47:22');
+(23, 4, '29224159', 'test', 'saerahhassan603@gmail.com\n', '13082', '2147483647', 'Lelaki', 'Kristian', 'Tidak Berkahwin', 'India', 'gambar.jpg', 'a8f5f167f44f4964e6c998dee827110c', NULL, '2024-11-26 03:47:22', '2024-11-26 03:47:22'),
+(24, 1, NULL, 'JAZA', 'aa5@gmail.com', '51512', '21321325', '0', 'Lain-lain', 'Tidak Berkahwin', 'Melayu', 'gambar.png', 'a8f5f167f44f4964e6c998dee827110c', NULL, '2024-08-28 14:58:58', '2024-08-28 14:58:58');
 
 -- --------------------------------------------------------
 
@@ -447,8 +480,8 @@ CREATE TABLE IF NOT EXISTS `user_enroll` (
 
 INSERT INTO `user_enroll` (`id`, `user_id`, `course_id`, `sem_start`, `sem_end`, `sem_now`, `user_status`, `verified`, `time_add`, `time_edit`) VALUES
 (1, 21, 1, 1, 2, 2, 1, NULL, '2024-11-25 18:33:29', '2024-11-25 21:39:18'),
-(2, 18, 1, 1, 2, 2, 1, NULL, '2024-11-25 18:33:29', '2024-11-25 21:39:18'),
-(3, 6, 1, 1, 2, 2, 1, NULL, '2024-11-25 18:33:29', '2024-11-25 21:39:18'),
+(2, 18, 1, 1, 2, 2, 1, NULL, '2024-11-25 18:33:29', '2024-12-02 17:21:34'),
+(3, 6, 1, 1, 3, 2, 1, NULL, '2024-11-25 18:33:29', '2024-12-02 13:25:15'),
 (5, 22, 1, 1, 2, 2, 1, NULL, '2024-11-25 18:33:29', '2024-11-25 21:39:18'),
 (6, 23, 1, 1, 2, 2, 1, NULL, '2024-11-25 18:33:29', '2024-11-25 21:39:18');
 
@@ -529,17 +562,74 @@ CREATE TABLE IF NOT EXISTS `user_staff` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int DEFAULT NULL,
   `course_id` int NOT NULL,
+  `sign_path` text COLLATE utf8mb4_unicode_ci,
+  `time_add` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `time_edit` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `user_staff`
+--
+
+INSERT INTO `user_staff` (`id`, `user_id`, `course_id`, `sign_path`, `time_add`, `time_edit`) VALUES
+(1, 7, 1, '7.png', '2024-11-30 17:00:27', '2024-12-02 16:01:17'),
+(2, 24, 1, NULL, '2024-11-30 17:00:27', '2024-11-30 17:00:27');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_staff_absence`
+--
+
+DROP TABLE IF EXISTS `user_staff_absence`;
+CREATE TABLE IF NOT EXISTS `user_staff_absence` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `tarikh_mula` date NOT NULL,
+  `tarikh_tamat` date NOT NULL,
+  `assign_to` int NOT NULL,
+  `verify` int DEFAULT '0',
   `time_add` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `time_edit` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `user_staff`
+-- Dumping data for table `user_staff_absence`
 --
 
-INSERT INTO `user_staff` (`id`, `user_id`, `course_id`, `time_add`, `time_edit`) VALUES
-(1, 6, 1, '2024-11-30 17:00:27', '2024-11-30 17:00:27');
+INSERT INTO `user_staff_absence` (`id`, `user_id`, `tarikh_mula`, `tarikh_tamat`, `assign_to`, `verify`, `time_add`, `time_edit`) VALUES
+(1, 7, '2024-12-01', '2024-12-05', 24, 1, '2024-12-02 16:18:33', '2024-12-02 16:59:40');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_subjek`
+--
+
+DROP TABLE IF EXISTS `user_subjek`;
+CREATE TABLE IF NOT EXISTS `user_subjek` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `course_id` int DEFAULT NULL,
+  `subjek_id` int DEFAULT NULL,
+  `assign_to` int DEFAULT NULL,
+  `day` int DEFAULT NULL,
+  `slot_id` int DEFAULT NULL,
+  `status` int DEFAULT NULL,
+  `sem_id` int DEFAULT NULL,
+  `time_add` datetime NOT NULL,
+  `time_edit` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `user_subjek`
+--
+
+INSERT INTO `user_subjek` (`id`, `course_id`, `subjek_id`, `assign_to`, `day`, `slot_id`, `status`, `sem_id`, `time_add`, `time_edit`) VALUES
+(2, 1, 1, 7, 3, 3, 1, 1, '2024-12-01 19:23:24', '2024-12-01 19:23:24'),
+(3, 1, 1, 7, 2, 4, 1, 1, '2024-12-01 19:23:24', '2024-12-01 19:23:24');
 
 --
 -- Constraints for dumped tables
