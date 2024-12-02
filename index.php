@@ -4,11 +4,11 @@ session_start();
 require('route.php');
 
 
-function index2()
-{
-	require_once('views/index2.php');
-}
 function index()
+{
+	require_once('views/index.php');
+}
+function dashboard()
 {
 	check_session($site_url);
 
@@ -18,7 +18,15 @@ function index()
 		['label' => 'Home', 'url' => &$site_url, 'active' => false],
 		['label' => 'Dashboard', 'url' => $site_url . '/dashboard', 'active' => true],
 	];
-	require_once('views/index.php');
+
+	if ($_SESSION['user_details']['role'] != 4){
+
+
+		require_once('views/dashboard_admin.php');
+	} else{
+		require_once('views/dashboard_user.php');
+
+	}
 
 }
 
@@ -141,7 +149,13 @@ function attendance_pdf()
 function attendance_pdf2()
 {
 	check_session($site_url, 1);
+	$pagetitle = "Attendance";
 
+	$breadcrumbs = [
+		['label' => 'Home', 'url' => &$site_url, 'active' => false],
+		['label' => 'Attendance', 'url' => $site_url . '', 'active' => true],
+		['label' => 'Generate', 'url' => $site_url . 'attendance/pdf2', 'active' => true],
+	];
 	require_once('views/attendance/pdf2.php');
 
 }
@@ -301,7 +315,7 @@ function check_session2(&$site_url)
 
 		header("location: " . $site_url . "dashboard");
 
- 
+
 	}
 
 }
@@ -312,11 +326,11 @@ function check_session2(&$site_url)
 switch (true) {
 	case ($request == '' || $request == '/'):
 		// echo $request;
-		index2();
+		index();
 		break;
 	case ($request == 'dashboard'):
 		// echo $request;
-		index();
+		dashboard();
 		break;
 
 	case ($request == 'register'):
@@ -349,6 +363,7 @@ switch (true) {
 	// case (str_contains($request, 'eventcheck')):
 	case (str_contains($request, 'fingerprintesp')):
 	case (str_contains($request, 'fetchresource')):
+	case (str_contains($request, 'fetchresource2')):
 	case (str_contains($request, 'fetchevent')):
 	case (str_contains($request, 'fetchevent2')):
 	case (str_contains($request, 'arduino')):
@@ -387,7 +402,7 @@ switch (true) {
 	case ($request == 'attendance/pdf3'):
 		attendance_pdf3();
 		break;
-	case ($request == 'attendance/pdf2'):
+	case ($request == 'attendance/generate_pdf'):
 		attendance_pdf2();
 		break;
 	case ($request == 'attendance/pdf'):

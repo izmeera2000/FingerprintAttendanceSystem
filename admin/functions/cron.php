@@ -28,6 +28,9 @@ if (isset($_POST['slot_checktime'])) {
     $now2 = $now->format('Y-m-d H:i:s');
     $day_of_week = date('l'); // Get the day of the week (e.g., "Monday", "Friday")
 
+    // if ($day_of_week != "Saturday" || $day_of_week != "Sunday") {
+    //     exit;
+    // }
 
     $query = "SELECT * FROM time_slot ORDER BY id ASC";
     $results = mysqli_query($db, $query);

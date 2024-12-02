@@ -53,6 +53,7 @@ require  'admin/functions/landing.php';
 require  'admin/functions/sem.php';
 require  'admin/functions/subjek.php';
 require  'admin/functions/calendar.php';
+require  'admin/functions/pdf.php';
 
 
 
@@ -344,7 +345,7 @@ function getWeekRangeOfMonth($month, $year, $weekNumber)
   $startDate = date('Y-m-d', strtotime("+" . ($weekNumber - 1) . " weeks", $startDay));
 
   // Calculate the end date of the given week (6 days after the start date)
-  $endDate = date('Y-m-d', strtotime("$startDate +6 days"));
+  $endDate = date('Y-m-d', strtotime("$startDate +4 days"));
 
   // If the end date is outside the current month, adjust it to the last day of the current month
   if (date('m', strtotime($endDate)) != $month) {
@@ -385,7 +386,25 @@ function getSemesterByNumber($startSem)
   return $semesterNumber;
 }
 
+function calculateSemesterIndex($semStart, $semNow) {
+  // Split the semesters into semester number and year
+  list($startSem, $startYear) = explode('/', $semStart);
+  list($nowSem, $nowYear) = explode('/', $semNow);
 
+  // Convert to integers
+  $startSem = (int)$startSem;
+  $startYear = (int)$startYear;
+  $nowSem = (int)$nowSem;
+  $nowYear = (int)$nowYear;
+
+  // Calculate the difference in years
+  $yearDifference = $nowYear - $startYear;
+
+  // Calculate the semester index
+  $semesterIndex = ($yearDifference * 2) + ($nowSem - $startSem + 1);
+
+  return $semesterIndex;
+}
 
 function getDatesFromRange($start, $end)
 {

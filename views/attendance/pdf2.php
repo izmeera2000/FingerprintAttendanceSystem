@@ -38,27 +38,9 @@
       <!-- ============================================================== -->
       <!-- Bread crumb and right sidebar toggle -->
       <!-- ============================================================== -->
-      <div class="page-breadcrumb">
-        <div class="row">
-          <div class="col-5 align-self-center">
-            <h4 class="page-title">Test PDF 2</h4>
-          </div>
-          <div class="col-7 align-self-center">
-            <div class="d-flex align-items-center justify-content-end">
-              <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                  <li class="breadcrumb-item">
-                    <a href="index.html#">Home</a>
-                  </li>
-                  <li class="breadcrumb-item active" aria-current="page">
-                    Dashboard
-                  </li>
-                </ol>
-              </nav>
-            </div>
-          </div>
-        </div>
-      </div>
+      <?php
+      renderBreadcrumb($pagetitle, $breadcrumbs); // Use the global breadcrumbs variable
+      ?>
       <!-- ============================================================== -->
       <!-- End Bread crumb and right sidebar toggle -->
       <!-- ============================================================== -->
@@ -67,7 +49,7 @@
       <!-- ============================================================== -->
       <div class="container-fluid">
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-12">
             <div class="card">
               <form action="" method="POST">
                 <label for="kursus">Kursus</label>
@@ -83,14 +65,18 @@
 
                   $query =
 
-                    "SELECT * FROM course ";
+                    "SELECT b.id, b.nama FROM user_enroll a
+                    INNER JOIN course b ON b.id = a.course_id
+                    WHERE user_status = 1
+                    GROUP BY b.nama;";
 
                   $results2 = mysqli_query($db, $query);
 
                   while ($row = mysqli_fetch_assoc($results2)) {
                     $nama = $row['nama'];
+                    $id = $row['id'];
 
-                    echo "<option value='$nama'>$nama</option>";
+                    echo "<option value='$id'>$nama</option>";
 
                   }
                   ?>
@@ -100,13 +86,36 @@
                 <label for="sem">Semester</label>
 
                 <select name="sem" id="sem">
-                  <option value="1">1</option>
+                  <!-- <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
                   <option value="4">4</option>
                   <option value="5">5</option>
                   <option value="6">6</option>
-                  <option value="7">7</option>
+                  <option value="7">7</option> -->
+                  <?php
+
+                  $query =
+
+                    "SELECT b1.nama AS sem_start2, b2.nama AS sem_now2 FROM user_enroll a 
+                    INNER JOIN sem b1 ON b1.id = a.sem_start 
+                    INNER JOIN sem b2 ON b2.id = a.sem_now 
+                    WHERE user_status = 1
+                    GROUP BY b1.nama, b2.nama;";
+
+                  $results2 = mysqli_query($db, $query);
+
+                  while ($row = mysqli_fetch_assoc($results2)) {
+                    // $nama = $row['nama'];
+                  
+                    $currentIndex = calculateSemesterIndex($row['sem_start2'], $row['sem_now2']);
+                    $sem_start = $row['sem_start2'];
+                    echo "<option value='$sem_start'>$currentIndex</option>";
+
+                  }
+
+
+                  ?>
 
 
                 </select>
@@ -169,118 +178,51 @@
 
 
                 </select>
+                <?php
+                var_dump(getWeekRangeOfMonth(12, 2024, 2));
+                echo json_encode($events);
 
+                ?>
 
                 <button type="submit" name="get_pdf">Generate PDF</button>
               </form>
 
 
 
-              <div class="card">
-                <iframe src="<?php echo $site_url ?>test.pdf" width="100%" height="600px"></iframe>
-              </div>
 
             </div>
-            <!-- BEGIN MODAL -->
-            <div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="eventModalLabel">
-                      Add / Edit Event
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="">
-                          <label class="form-label">Event Title</label>
-                          <input id="event-title" type="text" class="form-control" />
-                        </div>
-                      </div>
-                      <div class="col-md-12 mt-4">
-                        <div><label class="form-label">Event Color</label></div>
-                        <div class="d-flex">
-                          <div class="n-chk">
-                            <div class="form-check form-check-primary form-check-inline">
-                              <input class="form-check-input" type="radio" name="event-level" value="Danger"
-                                id="modalDanger" />
-                              <label class="form-check-label" for="modalDanger">Danger</label>
-                            </div>
-                          </div>
-                          <div class="n-chk">
-                            <div class="form-check form-check-warning form-check-inline">
-                              <input class="form-check-input" type="radio" name="event-level" value="Success"
-                                id="modalSuccess" />
-                              <label class="form-check-label" for="modalSuccess">Success</label>
-                            </div>
-                          </div>
-                          <div class="n-chk">
-                            <div class="form-check form-check-success form-check-inline">
-                              <input class="form-check-input" type="radio" name="event-level" value="Primary"
-                                id="modalPrimary" />
-                              <label class="form-check-label" for="modalPrimary">Primary</label>
-                            </div>
-                          </div>
-                          <div class="n-chk">
-                            <div class="form-check form-check-danger form-check-inline">
-                              <input class="form-check-input" type="radio" name="event-level" value="Warning"
-                                id="modalWarning" />
-                              <label class="form-check-label" for="modalWarning">Warning</label>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
 
-                      <div class="col-md-12 d-none">
-                        <div class="">
-                          <label class="form-label">Enter Start Date</label>
-                          <input id="event-start-date" type="text" class="form-control" />
-                        </div>
-                      </div>
-
-                      <div class="col-md-12 d-none">
-                        <div class="">
-                          <label class="form-label">Enter End Date</label>
-                          <input id="event-end-date" type="text" class="form-control" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn" data-bs-dismiss="modal">
-                      Close
-                    </button>
-                    <button type="button" class="btn btn-success btn-update-event" data-fc-event-public-id="">
-                      Update changes
-                    </button>
-                    <button type="button" class="btn btn-primary btn-add-event">
-                      Add Event
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- END MODAL -->
           </div>
+          <!-- <div class="card">
+              </div> -->
+          <?php if (isset($_POST['get_pdf'])) { ?>
+
+            <div class="col-12 ">
+              <div class="card " style='height: 75vh ; overflow: hidden; '>
+                <iframe src="<?php echo $site_url ?>test.pdf" width="100%" height="100%"></iframe>
+              </div>
+            </div>
+          <?php } ?>
+
+
         </div>
       </div>
-      <!-- ============================================================== -->
-      <!-- End Container fluid  -->
-      <!-- ============================================================== -->
-      <!-- ============================================================== -->
-      <!-- footer -->
-      <!-- ============================================================== -->
-      <?php include(getcwd() . '/views/footer.php'); ?>
-
-      <!-- ============================================================== -->
-      <!-- End footer -->
-      <!-- ============================================================== -->
     </div>
     <!-- ============================================================== -->
-    <!-- End Page wrapper  -->
+    <!-- End Container fluid  -->
     <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- footer -->
+    <!-- ============================================================== -->
+    <?php include(getcwd() . '/views/footer.php'); ?>
+
+    <!-- ============================================================== -->
+    <!-- End footer -->
+    <!-- ============================================================== -->
+  </div>
+  <!-- ============================================================== -->
+  <!-- End Page wrapper  -->
+  <!-- ============================================================== -->
   </div>
   <!-- ============================================================== -->
   <!-- End Wrapper -->

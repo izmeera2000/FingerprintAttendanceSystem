@@ -18,10 +18,17 @@ use chillerlan\QRCode\Output\Image\PngImage;
     <h1>Test Form</h1>
     <form action="" method="post">
         <label for="name">Name:</label>
-        <input type="text" id="fp_name" name="test" required><br><br>
+        <input type="text" id="fp_name" name="get_pdf" required><br><br>
+
+        <input type="text"  name="week" required><br><br>
+        <input type="text"   name="month" required><br><br>
+        <input type="text"   name="year" required><br><br>
+        <input type="text"   name="sem" required><br><br>
+        <input type="text"   name="kursus" required><br><br>
+
         <!-- <label for="email">fp:</label>
         <input type="email" id="fp" name="fp" required><br><br> -->
-        <input type="submit" value="Submit" name="check_slot_email">
+        <input type="submit" value="Submit" name="get_pdf">
     </form>
 
     <?php

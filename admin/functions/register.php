@@ -145,6 +145,9 @@ if (isset($_POST['user_register'])) {
     $results = mysqli_query($db, $query);
     $user = mysqli_fetch_assoc($results);
     $user['password'] = "";
+    $query = "INSERT INTO user_enroll (role, ndp,password, nama,email,phone,kp,jantina,agama,status_kahwin,bangsa) 
+                          VALUES('$role','$ndp','$password','$fullname','$email','$phone','$kp','$jantina','$agama','$statuskahwin','$bangsa')";
+    mysqli_query($db, $query);
 
     //array
     $_SESSION['user_details'] = $user;

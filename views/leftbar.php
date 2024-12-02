@@ -37,8 +37,8 @@
 
 
           <li class="sidebar-item">
-            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>attendance/pdf2"
-              aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span class="hide-menu">Test PDF
+            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>attendance/generate_pdf"
+              aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span class="hide-menu">PDF
                 Attendance
               </span></a>
           </li>

@@ -48,56 +48,55 @@
       <!-- Container fluid  -->
       <!-- ============================================================== -->
       <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Sales chart -->
+        <!-- ============================================================== -->
         <div class="row">
-          <div class="col-md-12">
+          <div class="col">
             <div class="card">
-              <div>
-                <div class="row gx-0">
-                  <div class="col-lg-12">
-                    <div class="p-4 calender-sidebar app-calendar">
-                      <div id="calendar"></div>
-                    </div>
+              <div class="card-title">Time Table
+              </div>
+
+              <div class="row gx-0">
+                <div class="col-lg-12">
+                  <div class="p-4 calender-sidebar app-calendar">
+                    <div class="d-none" id="user_id"><?php echo $_SESSION['user_details']['id'] ?></div>
+                    <div id="calendar2"></div>
                   </div>
                 </div>
-
-                <?php
-                // $todaysDate = date("Y-m-d");
-                // $query = "SELECT a.*, b.email FROM `attendance` a INNER JOIN user b ON b.id=a.user_id WHERE (DATE(masa_mula)='$todaysDate')";
-                // $results = mysqli_query($db, $query);
-                // $masa_tamat = date("Y-m-d H:i:s", strtotime("today 18:00"));
-                // $now = date("Y-m-d H:i:s", strtotime("now"));
-                
-
-                // while ($row = $results->fetch_assoc()) {
-                
-                //   $masa_keluar = strtotime("+15 minutes", strtotime($row['masa_mula']));
-                
-
-                //   var_dump($row);
-                
-                //   if ($row['event_status'] == 0) {
-                //     if ($row['masa_tamat'] == "" && ($masa_keluar < $now)) {
-                //       sendmail($row['email'], "Lambat", "Anda Lambat masuk kelas");
-                
-
-                //     }
-                //   } else {
-                //     if ($row['masa_tamat'] == "" && ($masa_tamat < $now)) {
-                //       sendmail($row['email'], "anda x kelaur lagi", "gpa 4.3");
-                
-                //     }
-                //   }
-                // }
-                
-                ?>
               </div>
             </div>
-            <!-- BEGIN MODAL -->
-            <?php include(getcwd() . '/views/modals.php'); ?>
 
-            <!-- END MODAL -->
+
+
           </div>
+
         </div>
+
+        <!-- ============================================================== -->
+        <!-- Sales chart -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Email campaign chart -->
+        <!-- ============================================================== -->
+
+        <!-- ============================================================== -->
+        <!-- Email campaign chart -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Ravenue - page-view-bounce rate -->
+        <!-- ============================================================== -->
+
+        <!-- ============================================================== -->
+        <!-- Ravenue - page-view-bounce rate -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Recent comment and chats -->
+        <!-- ============================================================== -->
+
+        <!-- ============================================================== -->
+        <!-- Recent comment and chats -->
+        <!-- ============================================================== -->
       </div>
       <!-- ============================================================== -->
       <!-- End Container fluid  -->
@@ -111,14 +110,9 @@
       <!-- End footer -->
       <!-- ============================================================== -->
     </div>
-
     <!-- ============================================================== -->
     <!-- End Page wrapper  -->
     <!-- ============================================================== -->
-
-
-
-
   </div>
   <!-- ============================================================== -->
   <!-- End Wrapper -->
@@ -131,7 +125,6 @@
   <!-- ============================================================== -->
   <!-- All Jquery -->
   <!-- ============================================================== -->
-
   <?php include(getcwd() . '/views/script.php'); ?>
   <script>
 
@@ -171,7 +164,7 @@
       /*=====================*/
       // Calendar Elements and options
       /*=====================*/
-      var calendarEl = document.querySelector("#calendar");
+      var calendarEl = document.querySelector("#calendar2");
       var checkWidowWidth = function () {
         if (window.innerWidth <= 1199) {
           return true;
@@ -279,71 +272,6 @@
       /*=====================*/
       // Calender Event Function
       /*=====================*/
-      var calendarEventClick = function (info) {
-        // var eventObj = info.event;
-        // console.log(info.event.start);
-        // console.log(info.event.end);
-        var myModal = new bootstrap.Modal(document.getElementById("UpdateAttendance"));
-
-        const tarikh = document.getElementById("event-tarikh");
-        const masa = document.getElementById("event-masa");
-        const status = document.getElementById("event-status");
-        const sebab = document.getElementById("event-reason");
-        const proof = document.getElementById("event-proof");
-
-
-        let starttime = new Date(info.event.start);
-        let starttime2 = starttime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-        let endtime = new Date(info.event.end);
-        let endtime2 = endtime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-        tarikh.value = info.event.extendedProps.tarikh;
-        masa.value = starttime2 + " - " + endtime2;
-        status.value = info.event.extendedProps.status_description;
-
-        if (info.event.extendedProps.status == "0" || info.event.extendedProps.status == "5") {
-          sebab.classList.remove("d-none");
-          proof.classList.add("d-none");
-
-        }
-        else if (info.event.extendedProps.status == "3") {
-          sebab.classList.remove("d-none");
-          proof.classList.remove("d-none");
-          let link = document.querySelector('#event-proof a');
-          link.innerHTML = "test";
-
-        }
-        else {
-          sebab.classList.add("d-none");
-          proof.classList.add("d-none");
-
-        }
-
-        myModal.show();
-
-        // if (eventObj.url) {
-        //   window.open(eventObj.url);
-
-        //   info.jsEvent.preventDefault();
-        // } else {
-        //   var getModalEventId = eventObj._def.publicId;
-        //   var getModalEventLevel = eventObj._def.extendedProps["calendar"];
-        //   var getModalCheckedRadioBtnEl = document.querySelector(
-        //     `input[value="${getModalEventLevel}"]`
-        //   );
-
-        //   getModalTitleEl.value = eventObj.title;
-        //   getModalCheckedRadioBtnEl.checked = true;
-        //   getModalUpdateBtnEl.setAttribute(
-        //     "data-fc-event-public-id",
-        //     getModalEventId
-        //   );
-        //   getModalAddBtnEl.style.display = "none";
-        //   getModalUpdateBtnEl.style.display = "block";
-        //   myModal.show();
-        // }
-      };
 
       /*=====================*/
       // Active Calender
@@ -371,13 +299,20 @@
         slotDuration: "00:30:00",
         nowIndicator: true,
         events: getAllEvents,
+        resourceAreaColumns: [
+          {
+            field: 'title',
+            headerContent: 'Day'
+          },
+          
+        ],
         resources: getResources,
         lazyFetching: true,
         selectable: true,
         selectHelper: true,
         // height: 650,
         hiddenDays: [0, 6],
-        eventClick: calendarEventClick,
+        // eventClick: calendarEventClick,
         contentHeight: "auto",
         height: "auto",
 
@@ -391,14 +326,15 @@
     function getAllEvents(info, successCallback, failureCallback) {
       // console.log((info.startStr));
       // console.log((info.endStr));
-
+      var user_id = document.getElementById('user_id').innerHTML;
       $.ajax({
         type: "POST",
-        url: "fetchevent2",
+        url: "fetchevent3",
         data: {
-          fetchevent2: {
+          fetchevent3: {
             start: info.startStr,
             end: info.endStr,
+            user_id: user_id,
           },
         },
         success: function (response) {
@@ -413,9 +349,9 @@
     function getResources(info, successCallback, failureCallback) {
       $.ajax({
         type: "POST",
-        url: "fetchresource",
+        url: "fetchresource2",
         data: {
-          fetchresource: {
+          fetchresource2: {
             start: "info.startStr",
             end: "info.endStr",
           },
