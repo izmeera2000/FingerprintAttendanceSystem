@@ -180,10 +180,7 @@ void loop() {
   Serial.print("Number of MP3 files: ");
   Serial.println(fileCount);
 
-  if (player.available()) {
-    Serial.print("Detail: ");
-    player.printDetail(Serial); // Print error or status detail
-  }
+ 
   delay(1000);
 
   // if (test == "login") {
