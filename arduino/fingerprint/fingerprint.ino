@@ -176,10 +176,17 @@ void loop() {
   // 1 in out
   // 2 empty db
 
- if (player.available()) {
+  static unsigned long timer = millis();
+  
+  if (millis() - timer > 3000) {
+    timer = millis();
+    player.next();  //Play next mp3 every 3 second.
+  }
+  
+  if (player.available()) {
     printDetail(player.readType(), player.read()); //Print the detail message from DFPlayer to handle different errors and states.
   }
-  delay(1000);
+}
 
   // if (test == "login") {
 
@@ -237,4 +244,6 @@ void loop() {
 
 
   // delay(50);  //don't ned to run this at full speed.
+}
+void printDetail(uint8_t type, int value){
 }
