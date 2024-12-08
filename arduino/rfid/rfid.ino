@@ -5,13 +5,13 @@ void setup() {
   Serial.begin(9600);  // Initialize serial communications with the PC
 
   pinMode(RELAY_PIN, OUTPUT);    // Set the relay pin as output
-  pinMode(BUTTON_PIN, INPUT); // Set the emergency button pin as input
+  pinMode(BUTTON_PIN, INPUT_PULLUP); // Set the emergency button pin as input
   digitalWrite(RELAY_PIN, LOW);  // Ensure the solenoid is off initially
 }
 
 void loop() {
   // Check the state of the emergency button
-  bool buttonState = digitalRead(BUTTON_PIN) == LOW;
+  bool buttonState = digitalRead(BUTTON_PIN) == HIGH;
 
   if (buttonState) {
     digitalWrite(RELAY_PIN, HIGH); // Activate solenoid when button is pressed
