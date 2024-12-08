@@ -53,6 +53,49 @@
             <div class="card">
               <div>
                 <div class="row gx-0">
+                <input type="hidden" id="select_bengkel" value="<?php echo $_SESSION['user_details']['bengkel_id'] ?>">
+                  <div class="col-12">
+                    <select class="form-control" id="select_course" aria-label="Floating label select example">
+
+                      <?php
+                      $bengkel_id = $_SESSION['user_details']['bengkel_id'] ;
+                      $query = "SELECT id, nama FROM course WHERE bengkel_id = '$bengkel_id'";
+                      $results = mysqli_query($db, $query);
+                      while ($row = $results->fetch_assoc()) {
+                        $id = $row['id'];
+                        $nama = $row['nama'];
+                        ?>
+                        <option value="<?php echo $id ?>"><?php echo $nama ?></option>
+
+                      <?php } ?>
+
+                    </select>
+
+
+                  </div>
+                  <div class="col-12 mt-2">
+                    <select class="form-control" id="select_subjek" aria-label="Floating label select example">
+          <?php if ($_SESSION['user_details']['role'] == 1) { ?>
+
+                    <option value="">Semua</option>
+                    <?php } ?>
+
+                      <?php
+                      $query = "SELECT id, subjek_nama , subjek_kod FROM subjek";
+                      $results = mysqli_query($db, $query);
+                      while ($row = $results->fetch_assoc()) {
+                        $id = $row['id'];
+                        $kod = $row['subjek_kod'];
+                        $nama = $row['subjek_nama'] . " ( $kod )";
+                        ?>
+                        <option value="<?php echo $id ?>"><?php echo $nama ?></option>
+
+                      <?php } ?>
+
+                    </select>
+
+
+                  </div>
                   <div class="col-lg-12">
                     <div class="p-4 calender-sidebar app-calendar">
                       <div id="calendar"></div>
@@ -385,12 +428,24 @@
 
 
       calendar.render();
+      $('#select_course').on('change', function () {
+        // Refetch events based on the selected filter
+        calendar.refetchResources();  // This will call the events function again and refresh the calendar
+      });
 
+      $('#select_subjek').on('change', function () {
+        // Refetch events based on the selected filter
+      var subjek = $('#select_subjek').val();
+
+        console.log(subjek);
+        calendar.refetchEvents();  // This will call the events function again and refresh the calendar
+      });
     });
 
     function getAllEvents(info, successCallback, failureCallback) {
       // console.log((info.startStr));
       // console.log((info.endStr));
+      var subjek = $('#select_subjek').val();
 
       $.ajax({
         type: "POST",
@@ -399,6 +454,7 @@
           fetchevent2: {
             start: info.startStr,
             end: info.endStr,
+            subjek: subjek,
           },
         },
         success: function (response) {
@@ -411,14 +467,18 @@
       // successCallback((data));
     }
     function getResources(info, successCallback, failureCallback) {
-      $.ajax({
+      var bengkel = $('#select_bengkel').val();
+      var course = $('#select_course').val();
+       $.ajax({
         type: "POST",
         url: "fetchresource",
         data: {
           fetchresource: {
             start: "info.startStr",
             end: "info.endStr",
-          },
+            bengkel: bengkel,
+            course: course,
+           },
         },
         success: function (response) {
           console.log(JSON.parse(response));

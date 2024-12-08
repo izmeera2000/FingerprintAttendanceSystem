@@ -72,21 +72,21 @@
               </div>
               <div class="card-body">
                 <small class="text-muted">Email address </small>
-                <h6><?php  echo $_SESSION['user_details']['email'] ?></h6>
-                <!-- <small class="text-muted p-t-30 db">Phone</small>
-                <h6>+91 654 784 547</h6>
-                <small class="text-muted p-t-30 db">NDP</small>
-                <h6><?php  echo $_SESSION['user_details']['np'] ?></h6> -->
-                <div>
-                  <?php
-                  $data = "ndp://" . $_SESSION['user_details']['ndp'];
-                  $logoPath = __DIR__ . '/../assets/images/logo-w.png'; // Path to your logo image
-                  
-                  $base64QRCode = generateQRCodeWithLogo($data, $logoPath);
-                  ?>
+                <h6><?php echo $_SESSION['user_details']['email'] ?></h6>
+                <?php if ($_SESSION['user_details']['role'] == 4) { ?>
 
-                  <img src="data:image/png;base64,<?php echo $base64QRCode; ?>" alt="QR Code" />
-                </div>
+                  <div class="d-flex justify-content-center">
+                    <?php
+                    $data = "ndp://" . $_SESSION['user_details']['ndp'];
+                    $logoPath = __DIR__ . '/../assets/images/logo-w.png'; // Path to your logo image
+                  
+                    $base64QRCode = generateQRCodeWithLogo($data, $logoPath);
+                    ?>
+
+                    <img src="data:image/png;base64,<?php echo $base64QRCode; ?>" alt="QR Code" />
+                  </div>
+                <?php } ?>
+
                 <!-- <h6>71 Pilgrim Avenue Chevy Chase, MD 20815</h6> -->
                 <!-- <div class="map-box">
                   <iframe
@@ -212,36 +212,36 @@
                     <div class="row">
                       <div class="col-md-3 col-xs-6 b-r"> <strong>Nama</strong>
                         <br>
-                        <p class="text-muted"><?php  echo $_SESSION['user_details']['nama'] ?></p>
+                        <p class="text-muted"><?php echo $_SESSION['user_details']['nama'] ?></p>
                       </div>
                       <div class="col-md-3 col-xs-6 b-r"> <strong>Phone</strong>
                         <br>
-                        <p class="text-muted"><?php  echo $_SESSION['user_details']['phone'] ?></p>
+                        <p class="text-muted"><?php echo $_SESSION['user_details']['phone'] ?></p>
                       </div>
                       <div class="col-md-3 col-xs-6 b-r"> <strong>Email</strong>
                         <br>
-                        <p class="text-muted"><?php  echo $_SESSION['user_details']['email'] ?></p>
+                        <p class="text-muted"><?php echo $_SESSION['user_details']['email'] ?></p>
                       </div>
                       <div class="col-md-3 col-xs-6"> <strong>Kad Pengenalan</strong>
                         <br>
-                        <p class="text-muted"><?php  echo $_SESSION['user_details']['kp'] ?></p>
+                        <p class="text-muted"><?php echo $_SESSION['user_details']['kp'] ?></p>
                       </div>
                     </div>
 
                     <div class="row mt-3 mt-md-0">
                       <div class="col-md-3 col-xs-6 b-r"> <strong>Agama</strong>
                         <br>
-                        <p class="text-muted"><?php  echo $_SESSION['user_details']['agama'] ?></p>
+                        <p class="text-muted"><?php echo $_SESSION['user_details']['agama'] ?></p>
                       </div>
                       <div class="col-md-3 col-xs-6 b-r"> <strong>Status Perkahwinan</strong>
                         <br>
-                        <p class="text-muted"><?php  echo $_SESSION['user_details']['status_kahwin'] ?></p>
+                        <p class="text-muted"><?php echo $_SESSION['user_details']['status_kahwin'] ?></p>
                       </div>
                       <div class="col-md-3 col-xs-6 b-r"> <strong>Bangsa</strong>
                         <br>
-                        <p class="text-muted"><?php  echo $_SESSION['user_details']['bangsa'] ?></p>
+                        <p class="text-muted"><?php echo $_SESSION['user_details']['bangsa'] ?></p>
                       </div>
- 
+
                     </div>
                     <hr>
                     <!-- <p class="m-t-30">Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo,

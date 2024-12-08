@@ -178,13 +178,14 @@ if (isset($_POST['get_pdf'])) {
 
 
 
+    $user_status = ['BH' , ' ' , 'TG', 'DBH'];
 
 
     $students_attendance = [];
 
     $query =
 
-        "SELECT a.*, b.masa_mula, b.masa_tamat, c.nama, c.role, c.ndp , d.course_id   , e.nama AS  sem_start
+        "SELECT a.*, b.masa_mula, b.masa_tamat, c.nama, c.role, c.ndp , d.course_id   , e.nama  AS  sem_start ,d.user_status as user_status
   FROM attendance_slot a
   INNER JOIN time_slot b ON a.slot = b.slot
   INNER JOIN user c ON c.id = a.user_id
@@ -206,7 +207,8 @@ if (isset($_POST['get_pdf'])) {
         // Store student's information
         $students_attendance[$user_id]['info'] = [
             'nama' => strtoupper($row['nama']),
-            'ndp' => $row['ndp']
+            'ndp' => $row['ndp'], 
+            'user_status' =>$row['user_status'],
         ];
 
         // Append the attendance record grouped by date
@@ -353,7 +355,7 @@ if (isset($_POST['get_pdf'])) {
             $tableB->easyCell($slottotal, 'rowspan:' . 1 . ';align:C;valign:M');
             $tableB->easyCell($slot_takhadir, ';align:C;valign:M');
             $tableB->easyCell((($slottotal - $slot_takhadir) / $slottotal) * 100 . "%", ';align:C;valign:M');
-            $tableB->easyCell("Catatan", ';align:C;valign:M');
+            $tableB->easyCell($user_status[$data['info']['user_status']], ';align:C;valign:M');
             $tableB->printRow();
 
 

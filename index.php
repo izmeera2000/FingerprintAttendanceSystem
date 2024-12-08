@@ -39,6 +39,7 @@ function server()
 
 function register()
 {
+	check_session2($site_url);
 
 	require_once('views/register.php');
 }
@@ -190,17 +191,29 @@ function class_create()
 
 }
 
-function class_enrollment()
+function class_fingerprint()
 {
 	check_session($site_url, 1);
+	$pagetitle = "Fingerprint ";
 
-	require_once('views/class/enrollment.php');
+	$breadcrumbs = [
+		['label' => 'Home', 'url' => &$site_url, 'active' => false],
+		['label' => 'Class', 'url' => $site_url . '', 'active' => true],
+		['label' => 'Fingerprint', 'url' => $site_url . '/class/fingeprrint', 'active' => true],
+	];
+	require_once('views/class/fingerprint.php');
 
 }
-function class_org()
+function student_enrollment()
 {
 	check_session($site_url, 1);
+	$pagetitle = "Enroll Student";
 
+	$breadcrumbs = [
+		['label' => 'Home', 'url' => &$site_url, 'active' => false],
+		['label' => 'Student', 'url' => $site_url . '', 'active' => true],
+		['label' => 'Enrollment', 'url' => $site_url . '/student/enrollment', 'active' => true],
+	];
 	require_once('views/class/org.php');
 
 }
@@ -374,6 +387,11 @@ switch (true) {
 	case (str_contains($request, 'sem_findall')):
 	case (str_contains($request, 'holiday_findall')):
 	case (str_contains($request, 'course_findall')):
+	case (str_contains($request, 'enroll_findall')):
+	case (str_contains($request, 'kelas_findall')):
+	case (str_contains($request, 'kelas_insertfp')):
+	case (str_contains($request, 'kelas_deletefp')):
+
 	case (str_contains($request, 'post_fp')):
 	case (str_contains($request, 'login_fp')):
 	// case (str_contains($request, 'class_createf')):
@@ -413,12 +431,12 @@ switch (true) {
 	case ($request == 'class/create'):
 		class_create();
 		break;
-	case ($request == 'class/enrollment'):
-		class_enrollment();
+	case ($request == 'class/fingerprint'):
+		class_fingerprint();
 		break;
 
-	case ($request == 'class/org'):
-		class_org();
+	case ($request == 'student/enrollment'):
+		student_enrollment();
 		break;
 
 	case ($request == 'fp/create'):

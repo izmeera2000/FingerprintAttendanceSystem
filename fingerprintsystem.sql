@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 02, 2024 at 09:35 AM
+-- Generation Time: Dec 08, 2024 at 01:36 PM
 -- Server version: 8.3.0
 -- PHP Version: 8.2.18
 
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `attendance` (
   `time_edit` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `attendance`
@@ -55,7 +55,8 @@ INSERT INTO `attendance` (`id`, `user_id`, `fp_id_in`, `fp_id_out`, `event_statu
 (74, 22, NULL, NULL, 1, '2024-11-26 10:14:49', '2024-11-26 10:15:49', NULL, '2024-11-26 10:14:49', '2024-11-29 04:05:13'),
 (76, 6, NULL, NULL, 1, '2024-11-26 12:42:16', '2024-11-26 12:46:16', NULL, '2024-11-26 12:42:16', '2024-11-29 04:05:07'),
 (77, 6, NULL, NULL, 1, '2024-11-29 09:42:16', '2024-11-29 11:42:16', NULL, '2024-11-26 12:42:16', '2024-11-29 20:13:44'),
-(78, 6, NULL, NULL, 1, '2024-12-01 14:42:16', '2024-12-01 15:42:16', NULL, '2024-11-26 12:42:16', '2024-12-01 03:49:10');
+(78, 6, NULL, NULL, 1, '2024-12-01 14:42:16', '2024-12-01 15:42:16', NULL, '2024-11-26 12:42:16', '2024-12-01 03:49:10'),
+(79, 6, NULL, NULL, 1, '2024-12-08 14:42:16', '2024-12-08 15:42:16', NULL, '2024-11-26 12:42:16', '2024-12-01 03:49:10');
 
 -- --------------------------------------------------------
 
@@ -160,19 +161,21 @@ DROP TABLE IF EXISTS `course`;
 CREATE TABLE IF NOT EXISTS `course` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nama` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `bengkel_id` int DEFAULT NULL,
   `created_by` int DEFAULT NULL,
   `masa_mula` datetime DEFAULT NULL,
   `time_add` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `time_edit` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `course`
 --
 
-INSERT INTO `course` (`id`, `nama`, `created_by`, `masa_mula`, `time_add`, `time_edit`) VALUES
-(1, 'DTK Komputer', NULL, NULL, '2024-11-21 12:45:35', '2024-11-21 12:49:16');
+INSERT INTO `course` (`id`, `nama`, `bengkel_id`, `created_by`, `masa_mula`, `time_add`, `time_edit`) VALUES
+(1, 'DTK Komputer', 1, NULL, NULL, '2024-11-21 12:45:35', '2024-12-08 14:39:16'),
+(2, 'DT KOMPUTER', 1, NULL, NULL, '2024-12-08 11:32:44', '2024-12-08 14:39:14');
 
 -- --------------------------------------------------------
 
@@ -324,7 +327,28 @@ CREATE TABLE IF NOT EXISTS `kelas` (
 --
 
 INSERT INTO `kelas` (`id`, `nama_kelas`, `location`, `fp_entrance`, `fp_exit`, `bengkel_id`, `time_add`, `time_edit`) VALUES
-(1, 'Makmal Komputer', 'Makmal Test', 1, 2, NULL, '2024-11-02 17:52:09', '2024-11-29 03:44:19');
+(1, 'Makmal Komputer', 'Makmal Test', 1, 2, 1, '2024-11-02 17:52:09', '2024-12-08 16:34:11');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `program`
+--
+
+DROP TABLE IF EXISTS `program`;
+CREATE TABLE IF NOT EXISTS `program` (
+  `int` int NOT NULL AUTO_INCREMENT,
+  `created_by` int NOT NULL,
+  `course_id` int DEFAULT NULL,
+  `semester` int DEFAULT NULL,
+  `bengkel_id` int DEFAULT NULL,
+  `nama` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `masa_mula` datetime NOT NULL,
+  `masa_tamat` datetime NOT NULL,
+  `time_add` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `time_edit` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`int`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -351,8 +375,8 @@ CREATE TABLE IF NOT EXISTS `sem` (
 INSERT INTO `sem` (`id`, `nama`, `created_by`, `start_date`, `end_date`, `time_add`, `time_edit`) VALUES
 (1, '1/2024', NULL, '2024-01-01', '2024-06-06', '2024-11-02 17:57:50', '2024-11-02 17:57:50'),
 (2, '2/2024', NULL, '2024-07-01', '2024-12-06', '2024-11-21 12:17:11', '2024-11-27 07:58:38'),
-(3, 'asdasdasda', NULL, '2025-01-01', '2025-06-06', '2024-11-21 12:18:10', '2024-12-02 01:53:08'),
-(4, 'sadasdas', NULL, '2025-07-01', '2025-12-06', '2024-11-21 12:18:24', '2024-12-02 01:53:17');
+(3, '1/2025', NULL, '2025-01-01', '2025-06-06', '2024-11-21 12:18:10', '2024-12-07 15:45:08'),
+(4, '2/2025', NULL, '2025-07-01', '2025-12-06', '2024-11-21 12:18:24', '2024-12-07 15:45:14');
 
 -- --------------------------------------------------------
 
@@ -369,14 +393,15 @@ CREATE TABLE IF NOT EXISTS `subjek` (
   `time_add` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `time_edit` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `subjek`
 --
 
 INSERT INTO `subjek` (`id`, `subjek_nama`, `subjek_kod`, `created_by`, `time_add`, `time_edit`) VALUES
-(1, 'test', 'test', 7, '2024-11-30 11:51:36', '2024-12-02 03:14:13');
+(1, 'test', 'test', 7, '2024-11-30 11:51:36', '2024-12-02 03:14:13'),
+(2, 'test2', 'test2', 7, '2024-11-30 11:51:36', '2024-12-02 03:14:13');
 
 -- --------------------------------------------------------
 
@@ -405,9 +430,9 @@ INSERT INTO `time_slot` (`id`, `slot`, `masa_mula`, `masa_tamat`, `masa_mula2`, 
 (1, 'slot1', '08:00:00', '09:30:00', NULL, NULL, '2024-10-29 15:45:48', '2024-11-02 17:26:21'),
 (2, 'rehat1', '09:30:00', '10:00:00', NULL, NULL, '2024-10-29 15:45:48', '2024-11-02 17:26:21'),
 (3, 'slot2', '10:00:00', '11:30:00', NULL, NULL, '2024-10-29 15:45:48', '2024-11-02 17:26:21'),
-(4, 'slot3', '11:30:00', '13:00:00', NULL, NULL, '2024-10-29 15:45:48', '2024-11-02 17:26:21'),
+(4, 'slot3', '11:30:00', '13:00:00', '11:30:00', '12:15:00', '2024-10-29 15:45:48', '2024-12-03 16:26:21'),
 (5, 'rehat2', '13:00:00', '14:00:00', '12:15:00', '14:45:00', '2024-10-29 15:45:48', '2024-11-29 04:13:01'),
-(6, 'slot4', '14:00:00', '15:30:00', NULL, NULL, '2024-10-29 15:45:48', '2024-11-02 17:28:04'),
+(6, 'slot4', '14:00:00', '15:30:00', '14:45:00', '15:30:00', '2024-10-29 15:45:48', '2024-12-03 16:27:20'),
 (7, 'slot5', '15:30:00', '17:00:00', NULL, NULL, '2024-10-29 15:45:48', '2024-11-02 17:26:21');
 
 -- --------------------------------------------------------
@@ -431,25 +456,26 @@ CREATE TABLE IF NOT EXISTS `user` (
   `bangsa` varchar(99) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `image_url` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `password` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `fp` text COLLATE utf8mb4_unicode_ci,
+  `bengkel_id` int DEFAULT NULL,
   `time_add` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `time_edit` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `role` (`role`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `role`, `ndp`, `nama`, `email`, `phone`, `kp`, `jantina`, `agama`, `status_kahwin`, `bangsa`, `image_url`, `password`, `fp`, `time_add`, `time_edit`) VALUES
-(6, 4, '29124075', 'DIN', 'morax8000@gmail.com', '1123606009', '21321312', '0', 'Lain-lain', 'Tidak Berkahwin', 'Melayu', 'gambar.png', 'a8f5f167f44f4964e6c998dee827110c', 'D', '2024-08-28 14:58:58', '2024-08-28 14:58:58'),
-(7, 1, NULL, 'JAZ', 'aa@gmail.com', '51511', '21321321', '0', 'Lain-lain', 'Tidak Berkahwin', 'Melayu', 'gambar.png', 'a8f5f167f44f4964e6c998dee827110c', NULL, '2024-08-28 14:58:58', '2024-08-28 14:58:58'),
-(18, 4, '29124021', 'SITI', '29124021@adtectaiping.edu.my', '143915786', '213213122', '0', 'Lain-lain', 'Tidak Berkahwin', 'Melayu', 'gambar.png', 'a8f5f167f44f4964e6c998dee827110c', 'D', '2024-08-28 14:58:58', '2024-08-28 14:58:58'),
-(21, 4, '29124074', 'HIJAZI', '29124074@adtectaiping.edu.my', '1112456300', '5151', '0', 'Islam', 'Tidak Berkahwin', 'Melayu', 'gambar.png', '717d8b3d60d9eea997b35b02b6a4e867', 'D', '2024-09-02 20:03:02', '2024-09-02 20:03:02'),
-(22, 4, '29224158', 'nurin', 'nurin7@gmail.com', '713028758', '2147483647', 'Perempuan', 'Hindu', 'Tidak Berkahwin', 'India', 'gambar.jpg', 'a8f5f167f44f4964e6c998dee827110c', NULL, '2024-11-26 01:32:21', '2024-11-26 01:32:21'),
-(23, 4, '29224159', 'test', 'saerahhassan603@gmail.com\n', '13082', '2147483647', 'Lelaki', 'Kristian', 'Tidak Berkahwin', 'India', 'gambar.jpg', 'a8f5f167f44f4964e6c998dee827110c', NULL, '2024-11-26 03:47:22', '2024-11-26 03:47:22'),
-(24, 1, NULL, 'JAZA', 'aa5@gmail.com', '51512', '21321325', '0', 'Lain-lain', 'Tidak Berkahwin', 'Melayu', 'gambar.png', 'a8f5f167f44f4964e6c998dee827110c', NULL, '2024-08-28 14:58:58', '2024-08-28 14:58:58');
+INSERT INTO `user` (`id`, `role`, `ndp`, `nama`, `email`, `phone`, `kp`, `jantina`, `agama`, `status_kahwin`, `bangsa`, `image_url`, `password`, `bengkel_id`, `time_add`, `time_edit`) VALUES
+(6, 4, '29124075', 'DIN', 'morax8000@gmail.com', '1123606009', '21321312', '0', 'Lain-lain', 'Tidak Berkahwin', 'Melayu', 'gambar.png', 'a8f5f167f44f4964e6c998dee827110c', 1, '2024-08-28 14:58:58', '2024-08-28 14:58:58'),
+(7, 1, NULL, 'JAZ', 'aa@gmail.com', '51511', '21321321', '0', 'Lain-lain', 'Tidak Berkahwin', 'Melayu', 'gambar.png', 'a8f5f167f44f4964e6c998dee827110c', 1, '2024-08-28 14:58:58', '2024-08-28 14:58:58'),
+(18, 4, '29124021', 'SITI', '29124021@adtectaiping.edu.my', '143915786', '213213122', '0', 'Lain-lain', 'Tidak Berkahwin', 'Melayu', 'gambar.png', 'a8f5f167f44f4964e6c998dee827110c', 1, '2024-08-28 14:58:58', '2024-08-28 14:58:58'),
+(21, 4, '29124074', 'HIJAZI', '29124074@adtectaiping.edu.my', '1112456300', '5151', '0', 'Islam', 'Tidak Berkahwin', 'Melayu', 'gambar.png', '717d8b3d60d9eea997b35b02b6a4e867', 1, '2024-09-02 20:03:02', '2024-09-02 20:03:02'),
+(22, 4, '29224158', 'nurin', 'nurin7@gmail.com', '713028758', '2147483647', 'Perempuan', 'Hindu', 'Tidak Berkahwin', 'India', 'gambar.jpg', 'a8f5f167f44f4964e6c998dee827110c', 1, '2024-11-26 01:32:21', '2024-11-26 01:32:21'),
+(23, 4, '29224159', 'test', 'saerahhassan603@gmail.com\n', '13082', '2147483647', 'Lelaki', 'Kristian', 'Tidak Berkahwin', 'India', 'gambar.jpg', 'a8f5f167f44f4964e6c998dee827110c', 1, '2024-11-26 03:47:22', '2024-11-26 03:47:22'),
+(24, 1, NULL, 'JAZA', 'aa5@gmail.com', '51512', '21321325', '0', 'Lain-lain', 'Tidak Berkahwin', 'Melayu', 'gambar.png', 'a8f5f167f44f4964e6c998dee827110c', 1, '2024-08-28 14:58:58', '2024-08-28 14:58:58'),
+(25, 4, '12312321', '12312312', '312312@gmail.com', '0112321', '1322131231', 'Lelaki', 'Hindu', 'Tidak Berkahwin', 'asdasd', 'gambar.jpg', 'a8f5f167f44f4964e6c998dee827110c', 1, '2024-12-06 06:05:12', '2024-12-06 06:05:12');
 
 -- --------------------------------------------------------
 
@@ -472,18 +498,19 @@ CREATE TABLE IF NOT EXISTS `user_enroll` (
   PRIMARY KEY (`id`),
   KEY `course_id` (`course_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `user_enroll`
 --
 
 INSERT INTO `user_enroll` (`id`, `user_id`, `course_id`, `sem_start`, `sem_end`, `sem_now`, `user_status`, `verified`, `time_add`, `time_edit`) VALUES
-(1, 21, 1, 1, 2, 2, 1, NULL, '2024-11-25 18:33:29', '2024-11-25 21:39:18'),
-(2, 18, 1, 1, 2, 2, 1, NULL, '2024-11-25 18:33:29', '2024-12-02 17:21:34'),
-(3, 6, 1, 1, 3, 2, 1, NULL, '2024-11-25 18:33:29', '2024-12-02 13:25:15'),
-(5, 22, 1, 1, 2, 2, 1, NULL, '2024-11-25 18:33:29', '2024-11-25 21:39:18'),
-(6, 23, 1, 1, 2, 2, 1, NULL, '2024-11-25 18:33:29', '2024-11-25 21:39:18');
+(1, 21, 1, 1, 2, 2, 1, NULL, '2024-11-25 18:33:29', '2024-12-06 13:52:52'),
+(2, 18, 1, 1, 2, 2, 0, NULL, '2024-11-25 18:33:29', '2024-12-07 16:48:34'),
+(3, 6, 2, 2, 3, 2, 1, NULL, '2024-11-25 18:33:29', '2024-12-08 12:02:48'),
+(5, 22, 1, 1, 2, 2, 1, NULL, '2024-11-25 18:33:29', '2024-12-06 13:52:56'),
+(6, 23, 1, 1, 2, 2, 1, NULL, '2024-11-25 18:33:29', '2024-12-06 13:52:58'),
+(7, 25, 1, 1, 2, 2, 1, NULL, '2024-12-06 14:05:12', '2024-12-06 14:12:48');
 
 -- --------------------------------------------------------
 
@@ -496,11 +523,20 @@ CREATE TABLE IF NOT EXISTS `user_fp` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
   `kelas_id` int NOT NULL,
+  `fp_num` int DEFAULT NULL,
   `fp_status` varchar(2) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `time_add` datetime DEFAULT CURRENT_TIMESTAMP,
   `time_edit` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `user_fp`
+--
+
+INSERT INTO `user_fp` (`id`, `user_id`, `kelas_id`, `fp_num`, `fp_status`, `time_add`, `time_edit`) VALUES
+(4, 18, 1, 2, 'R', '2024-12-08 19:12:54', '2024-12-08 19:12:54'),
+(5, 6, 1, 1, 'R', '2024-12-08 19:18:09', '2024-12-08 19:18:09');
 
 -- --------------------------------------------------------
 
@@ -618,6 +654,8 @@ CREATE TABLE IF NOT EXISTS `user_subjek` (
   `slot_id` int DEFAULT NULL,
   `status` int DEFAULT NULL,
   `sem_id` int DEFAULT NULL,
+  `tarikh_mula` date DEFAULT NULL,
+  `tarikh_tamat` date DEFAULT NULL,
   `time_add` datetime NOT NULL,
   `time_edit` datetime NOT NULL,
   PRIMARY KEY (`id`)
@@ -627,9 +665,9 @@ CREATE TABLE IF NOT EXISTS `user_subjek` (
 -- Dumping data for table `user_subjek`
 --
 
-INSERT INTO `user_subjek` (`id`, `course_id`, `subjek_id`, `assign_to`, `day`, `slot_id`, `status`, `sem_id`, `time_add`, `time_edit`) VALUES
-(2, 1, 1, 7, 3, 3, 1, 1, '2024-12-01 19:23:24', '2024-12-01 19:23:24'),
-(3, 1, 1, 7, 2, 4, 1, 1, '2024-12-01 19:23:24', '2024-12-01 19:23:24');
+INSERT INTO `user_subjek` (`id`, `course_id`, `subjek_id`, `assign_to`, `day`, `slot_id`, `status`, `sem_id`, `tarikh_mula`, `tarikh_tamat`, `time_add`, `time_edit`) VALUES
+(2, 1, 1, 7, 3, 3, 1, 1, '2024-11-01', '2024-12-31', '2024-12-01 19:23:24', '2024-12-01 19:23:24'),
+(3, 1, 2, 7, 2, 4, 1, 1, '2024-11-01', '2024-12-31', '2024-12-01 19:23:24', '2024-12-01 19:23:24');
 
 --
 -- Constraints for dumped tables

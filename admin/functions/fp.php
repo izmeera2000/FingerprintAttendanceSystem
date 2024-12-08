@@ -185,10 +185,10 @@ if (isset($_POST['fingerprintregister'])) {
 if (isset($_POST['post_fp2'])) {
 
 
-    $query = "SELECT id ,fp FROM `user` WHERE fp='R';";
+    $query = "SELECT id ,fp_num FROM `user_enroll` WHERE fp='R';";
     $results = mysqli_query($db, $query);
     while ($row = mysqli_fetch_assoc($results)) {
-        $id = $row['id'];
+        $id = $row['fp_num'];
         echo $id;
 
     }
@@ -201,17 +201,37 @@ if (isset($_POST['post_fp'])) {
 
     $id = $_POST['post_fp'];
 
-    $query = "UPDATE user SET fp ='D' WHERE  id = '$id' ";
+    $query = "SELECT id, fp_num FROM `user_enroll` WHERE fp_status = 'R';";
     $results = mysqli_query($db, $query);
 
+    // Check if the SELECT query was successful
     if ($results) {
-        echo "data posted:";
-        var_dump($_POST);
+        // Loop through each row and update corresponding user record
+        while ($row = mysqli_fetch_assoc($results)) {
+            $id = $row['id'];  // Assuming `id` is the column for user id
+            $fp_num = $row['fp_num'];  // The `fp_num` value
+
+            // Output the id and fp_num for debugging
+            echo "Updating user with ID: $id and fp_num: $fp_num<br>";
+
+            // Update user record: set fp to 'D' for this user
+            $updateQuery = "UPDATE user_enroll SET fp_status = 'D' WHERE id = '$id'";  // Be careful with raw queries
+            $updateResult = mysqli_query($db, $updateQuery);
+
+            // Check if the update was successful
+            if ($updateResult) {
+                echo "User with ID $id updated successfully.<br>";
+            } else {
+                echo "Failed to update user with ID $id. Error: " . mysqli_error($db) . "<br>";
+            }
+        }
+
+        // Optionally, you can return a response after all updates
+        echo "Data processed.";
     } else {
-        echo "not Ok";
+        // Handle case when the SELECT query fails
+        echo "Error retrieving data: " . mysqli_error($db);
     }
-
-
 }
 
 

@@ -63,8 +63,8 @@
                     <a href="https://datatables.net/">Datatables</a>
                   </h6> -->
                 <div class="d-flex flex-row-reverse p-2 ">
-                  <button type="button" class="btn waves-effect waves-light btn-rounded btn-primary "
-                    id="buttoncreateholiday">Create holiday</button>
+                  <!-- <button type="button" class="btn waves-effect waves-light btn-rounded btn-primary "
+                    id="buttoncreateholiday">Create holiday</button> -->
                   <!-- <button type="button"
                     class="btn waves-effect waves-light btn-rounded btn-secondary">Secondary</button>
                   <button type="button" class="btn waves-effect waves-light btn-rounded btn-success">Success</button>

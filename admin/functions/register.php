@@ -3,77 +3,107 @@ if (isset($_POST['user_register'])) {
 
 
   if (empty($_POST['ndp'])) {
-    $errors['ndp'] = "NDP requred";
+    $errors['ndp'] = "NDP required";
   } else {
     $ndp = mysqli_real_escape_string($db, $_POST['ndp']);
 
   }
   if (empty($_POST['fullname'])) {
-    $errors['fullname'] = "fullname requred";
+    $errors['fullname'] = "fullname required";
   } else {
     $fullname = mysqli_real_escape_string($db, $_POST['fullname']);
 
   }
   if (empty($_POST['kp'])) {
-    $errors['kp'] = "kp requred";
+    $errors['kp'] = "kp required";
   } else {
     $kp = mysqli_real_escape_string($db, $_POST['kp']);
 
   }
   if (empty($_POST['jantina'])) {
-    $errors['jantina'] = "jantina requred";
+    $errors['jantina'] = "jantina required";
   } else {
     $jantina = mysqli_real_escape_string($db, $_POST['jantina']);
 
   }
   if (empty($_POST['agama'])) {
-    $errors['agama'] = "agama requred";
+    $errors['agama'] = "agama required";
   } else {
     $agama = mysqli_real_escape_string($db, $_POST['agama']);
 
   }
   if (empty($_POST['statuskahwin'])) {
-    $errors['statuskahwin'] = "statuskahwin requred";
+    $errors['statuskahwin'] = "statuskahwin required";
   } else {
     $statuskahwin = mysqli_real_escape_string($db, $_POST['statuskahwin']);
 
   }
   if (empty($_POST['bangsa'])) {
-    $errors['bangsa'] = "bangsa requred";
+    $errors['bangsa'] = "bangsa required";
   } else {
     $bangsa = mysqli_real_escape_string($db, $_POST['bangsa']);
 
   }
   if (empty($_POST['email'])) {
-    $errors['email'] = "email requred";
+    $errors['email'] = "email required";
   } else {
     $email = mysqli_real_escape_string($db, $_POST['email']);
 
   }
   if (empty($_POST['phone'])) {
-    $errors['phone'] = "phone requred";
+    $errors['phone'] = "Phone required";
   } else {
     $phone = mysqli_real_escape_string($db, $_POST['phone']);
 
   }
   if (empty($_POST['password1'])) {
-    $errors['password1'] = "password1 requred";
+    $errors['password1'] = "Password 1 required";
   } else {
     $password1 = mysqli_real_escape_string($db, $_POST['password1']);
 
   }
   if (empty($_POST['password2'])) {
-    $errors['password2'] = "password2 requred";
+    $errors['password2'] = "Password 2 required";
   } else {
     $password2 = mysqli_real_escape_string($db, $_POST['password2']);
 
   }
+  if (empty($_POST['bengkel'])) {
+    $errors['bengkel'] = "Bengekel required";
+  } else {
+    $bengkel = mysqli_real_escape_string($db, $_POST['bengkel']);
 
+  }
+  if (empty($_POST['sem1'])) {
+    $errors['sem1'] = "Semester required";
+  } else {
+    $sem1 = mysqli_real_escape_string($db, $_POST['sem1']);
 
+  }
+  if (empty($_POST['sem2'])) {
+    $errors['sem2'] = "Semester required";
+  } else {
+    $sem2 = mysqli_real_escape_string($db, $_POST['sem2']);
+
+  }
+
+  if (empty($_POST['course'])) {
+    $errors['course'] = "kursus required";
+  } else {
+    $course = mysqli_real_escape_string($db, $_POST['course']);
+
+  }
 
 
   $role = 4;
 
+
+  
+  $sem_q = "SELECT * FROM `sem` WHERE CURDATE() BETWEEN start_date AND end_date;";
+  $resultsem = mysqli_query($db, $sem_q);
+  $sem = mysqli_fetch_assoc($resultsem);
+
+  $sem_now =$sem['id'];
 
 
   if (!empty($_POST['password1']) && !empty($_POST['password2'])) {
@@ -126,28 +156,31 @@ if (isset($_POST['user_register'])) {
     //encrypt password
     $password = md5($password1);
 
-    $query = "INSERT INTO user (role, ndp,password, nama,email,phone,kp,jantina,agama,status_kahwin,bangsa) 
-                          VALUES('$role','$ndp','$password','$fullname','$email','$phone','$kp','$jantina','$agama','$statuskahwin','$bangsa')";
+    $query = "INSERT INTO user (role, ndp,password, nama,email,phone,kp,jantina,agama,status_kahwin,bangsa,bengkel_id) 
+                          VALUES('$role','$ndp','$password','$fullname','$email','$phone','$kp','$jantina','$agama','$statuskahwin','$bangsa','$bengkel')";
     mysqli_query($db, $query);
 
 
     //verify
     $query = "SELECT a.*, b.nama as role_name FROM `user` a INNER JOIN user_role b ON a.role = b.id WHERE (ndp='$ndp' OR email='$email') AND password='$password'";
     $results = mysqli_query($db, $query);
-    $user = mysqli_fetch_assoc($results);
-
-    $filename = uploadpic_id($user['id'], $errors);
+    $user3 = mysqli_fetch_assoc($results);
+    $id3 = $user3['id'];
+    $filename = uploadpic_id($user3['id'], $errors);
     // echo $filename;
 
-    $query2 = "UPDATE user SET image_url='$filename' WHERE email='$email'";
+    $query2 = "UPDATE user SET image_url='$filename' WHERE id='$id3'";
     mysqli_query($db, $query2);
 
     $results = mysqli_query($db, $query);
     $user = mysqli_fetch_assoc($results);
-    $user['password'] = "";
-    $query = "INSERT INTO user_enroll (role, ndp,password, nama,email,phone,kp,jantina,agama,status_kahwin,bangsa) 
-                          VALUES('$role','$ndp','$password','$fullname','$email','$phone','$kp','$jantina','$agama','$statuskahwin','$bangsa')";
+
+    $query = "INSERT INTO user_enroll (user_id, course_id sem_start,sem_now,sem_end,user_status) 
+                          VALUES('$id3','$course','$sem1','$sem_now','$sem2','1')";
     mysqli_query($db, $query);
+
+    $user3['password'] = "";
+
 
     //array
     $_SESSION['user_details'] = $user;

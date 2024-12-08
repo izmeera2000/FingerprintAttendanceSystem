@@ -54,6 +54,7 @@ require  'admin/functions/sem.php';
 require  'admin/functions/subjek.php';
 require  'admin/functions/calendar.php';
 require  'admin/functions/pdf.php';
+require  'admin/functions/enroll.php';
 
 
 

@@ -71,103 +71,6 @@
                 </div>
                 <div class="col-12 ">
                   <div class="form-group row mb-3">
-                    <label for="FS_Bengkel">Bengkel</label>
-
-                    <select class="form-control  <?php formvalidatelabel("bengkel", $errors) ?>" id="FS_Bengkel"
-                      aria-label="Floating label select example" name="bengkel" required>
-
-                      <option selected disabled> Pilih Bengkel</option>
-                      <?php
-                      $query = "SELECT id, nama FROM bengkel";
-                      $results = mysqli_query($db, $query);
-                      while ($row = $results->fetch_assoc()) {
-                        $id = $row['id'];
-                        $nama = $row['nama'];
-                        ?>
-                        <option value="<?php echo $id ?>"><?php echo $nama ?></option>
-
-                      <?php } ?>
-
-
-                    </select>
-
-                  </div>
-                </div>
-                <div class="col-12 ">
-                  <div class="form-group row mb-3">
-                    <label for="FS_Kursus">Kursus</label>
-
-                    <select class="form-control  <?php formvalidatelabel("course", $errors) ?>" id="FS_Kursus"
-                      aria-label="Floating label select example" name="course" required>
-
-                      <option selected disabled> Pilih Kursus</option>
-                      <?php
-                      $query = "SELECT id, nama FROM course";
-                      $results = mysqli_query($db, $query);
-                      while ($row = $results->fetch_assoc()) {
-                        $id = $row['id'];
-                        $nama = $row['nama'];
-                        ?>
-                        <option value="<?php echo $id ?>"><?php echo $nama ?></option>
-
-                      <?php } ?>
-
-                    </select>
-
-                  </div>
-                </div>
-
-                <div class="col-6 ">
-                  <div class="form-group row mb-3">
-                    <label for="FS_Sem1">Sem Mula</label>
-
-                    <select class="form-control  <?php formvalidatelabel("sem1", $errors) ?>" id="FS_Sem1"
-                      aria-label="Floating label select example" name="sem1" required>
-
-                      <option selected disabled> Pilih Semester Mula</option>
-                      <?php
-                      $query = "SELECT id, nama FROM sem";
-                      $results = mysqli_query($db, $query);
-                      while ($row = $results->fetch_assoc()) {
-                        $id = $row['id'];
-                        $nama = $row['nama'];
-                        ?>
-                        <option value="<?php echo $id ?>"><?php echo $nama ?></option>
-
-                      <?php } ?>
-
-                    </select>
-
-                  </div>
-                </div>
-
-                <div class="col-6 ">
-                  <div class="form-group row mb-3">
-                    <label for="FS_Sem2">Sem Tamat</label>
-
-                    <select class="form-control  <?php formvalidatelabel("sem2", $errors) ?>" id="FS_Sem2"
-                      aria-label="Floating label select example" name="sem2" required>
-
-                      <option selected disabled> Pilih Semester Mula</option>
-                      <?php
-                      $query = "SELECT id, nama FROM sem";
-                      $results = mysqli_query($db, $query);
-                      while ($row = $results->fetch_assoc()) {
-                        $id = $row['id'];
-                        $nama = $row['nama'];
-                        ?>
-                        <option value="<?php echo $id ?>"><?php echo $nama ?></option>
-
-                      <?php } ?>
-
-                    </select>
-
-                  </div>
-                </div>
-
-
-                <div class="col-12 ">
-                  <div class="form-group row mb-3">
                     <label for="FS_Jantina">Jantina</label>
 
                     <select class="form-control  <?php formvalidatelabel("jantina", $errors) ?>" id="FS_Jantina"
@@ -243,10 +146,11 @@
                   </div>
                 </div>
                 <div class="d-flex align-items-stretch">
-                  <button type="submit" name="user_register" class="btn btn-info d-block w-100">
-                    Sign up
-                  </button>
-                </div>
+                    <button  type="submit"
+                    name="user_register" class="btn btn-info d-block w-100">
+                      Sign up
+                    </button>
+                  </div>
                 <div class="form-group m-b-0 m-t-10 ">
                   <div class="col-sm-12 text-center ">
                     Already have an account? <a href="<?php echo $site_url ?>login" class="text-info m-l-5 "><b>Sign

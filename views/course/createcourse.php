@@ -64,7 +64,7 @@
                   </h6> -->
                 <div class="d-flex flex-row-reverse p-2 ">
                   <button type="button" class="btn waves-effect waves-light btn-rounded btn-primary "
-                    id="buttoncreatecourse">Create Device</button>
+                    id="buttoncreatecourse">Create Course</button>
                   <!-- <button type="button"
                     class="btn waves-effect waves-light btn-rounded btn-secondary">Secondary</button>
                   <button type="button" class="btn waves-effect waves-light btn-rounded btn-success">Success</button>

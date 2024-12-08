@@ -50,67 +50,77 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-12">
+
+
             <div class="card">
-              <!-- <div class="border-bottom title-part-padding">
-                  <h4 class="card-title mb-0">Create Class</h4>
-                </div> -->
+
               <div class="card-body">
-                <!-- <h6 class="card-subtitle mb-3">
-                    DataTables has most features enabled by default, so all you
-                    need to do to use it with your own tables is to call the
-                    construction function:<code> $().DataTable();</code>. You
-                    can refer full documentation from here
-                    <a href="https://datatables.net/">Datatables</a>
-                  </h6> -->
-
-
-                <div class="d-flex flex-row-reverse p-2 ">
-                  <!-- <button type="button" class="btn waves-effect waves-light btn-rounded btn-primary "
-                    id="buttoncreateclass">Create Class</button> -->
-                  <!-- <button type="button"
-                    class="btn waves-effect waves-light btn-rounded btn-secondary">Secondary</button>
-                  <button type="button" class="btn waves-effect waves-light btn-rounded btn-success">Success</button>
-                  <button type="button" class="btn waves-effect waves-light btn-rounded btn-info">Info</button>
-                  <button type="button" class="btn waves-effect waves-light btn-rounded btn-warning">Warning</button>
-                  <button type="button" class="btn waves-effect waves-light btn-rounded btn-danger">Danger</button>
-                  <button type="button" class="btn waves-effect waves-light btn-rounded btn-light">Light</button>
-                  <button type="button" class="btn waves-effect waves-light btn-rounded btn-dark">Dark</button> -->
-                </div>
 
                 <div class="row">
-
                   <div class="table-responsive">
+                    <?php
+                    ?>
+
+
+
+
                     <table id="enrollment" class="table table-striped table-bordered text-nowrap">
                       <thead>
                         <!-- start row -->
+
                         <tr>
                           <th>Nama</th>
-                          <th>Semester</th>
-                          <th>Course</th>
-                          <th>FP</th>
-                          <!-- <th>Bukti</th> -->
-                          <th>Action</th>
-                          <!-- <th>Start date</th>
-                          <th>Salary</th> -->
+                          <th>Semester<br>
+                            <select id="searchCol2">
+                              <option value="">Select Semester</option>
+
+                              <?php
+                              $query = "SELECT * FROM sem WHERE end_date <= CURDATE();";
+                              $results = mysqli_query($db, $query);
+                              while ($row = $results->fetch_assoc()) {
+                                $id = $row['id'];
+                                $nama = $row['nama'];
+                                ?>
+                                <option value="<?php echo $nama ?>"><?php echo getSemesterByNumber($nama) ?></option>
+
+                              <?php } ?>
+                            </select>
+                          </th>
+                          <th>Course<br>
+                            <select id="searchCol3">
+                              <option value="">Select Kursus</option>
+                              <?php
+                              $query = "SELECT * FROM course  ";
+                              $results = mysqli_query($db, $query);
+                              while ($row = $results->fetch_assoc()) {
+                                $id = $row['id'];
+                                $nama = $row['nama'];
+                                ?>
+                                <option value="<?php echo $nama ?>"><?php echo $nama ?></option>
+
+                              <?php } ?>
+                            </select>
+                          </th>
+                          <th>Status</th>
+                          <th></th>
+
                         </tr>
                         <!-- end row -->
                       </thead>
                       <tbody>
-                        <td>
+                        <!-- <td>
                           <div class="d-flex no-block align-items-center">
-                            <div class="m-r-10"><img src="<?php echo $site_url ?>assets/images/user/<?php echo $_SESSION['user_details']['id']?>/<?php echo $_SESSION['user_details']['image_url']?>" alt="user"
-                                class="rounded-circle" width="45"></div>
+                            <div class="m-r-10"><img
+                                src="<?php echo $site_url ?>assets/images/user/<?php echo $_SESSION['user_details']['id'] ?>/<?php echo $_SESSION['user_details']['image_url'] ?>"
+                                alt="user" class="rounded-circle" width="45"></div>
                             <div class="">
-                              <h5 class="m-b-0 font-16 font-medium">Nama</h5><span
-                                class="text-muted">NDP</span>
+                              <h5 class="m-b-0 font-16 font-medium">Nama</h5><span class="text-muted">NDP</span>
                             </div>
                           </div>
                         </td>
                         <td></td>
                         <td></td>
-                        <td></td>
-                        <!-- <td></td> -->
-                        <td></td>
+                        <td></td> -->
                       </tbody>
 
                     </table>
@@ -158,10 +168,11 @@
   <!-- ============================================================== -->
   <?php include(getcwd() . '/views/script.php'); ?>
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
 
-      // Initialize DataTable
-      var dt1 = $('#class_create').DataTable({
+
+    document.addEventListener("DOMContentLoaded", function () {
+      // Initialize the DataTable and handle dynamic updates for col2 and col3
+      var dt1 = $('#enrollment').DataTable({
         scrollY: 600,  // Adjust table height
         fixedHeader: {
           header: true,
@@ -169,14 +180,20 @@
         },
         ajax: {
           type: "POST",
-          url: "class_findall",
+          url: "enroll_findall",
           data: function (d) {
-            console.log(d);
+            // Get the current values of col2 and col3
+            var col2 = document.getElementById("searchCol2").value;
+            var col3 = document.getElementById("searchCol3").value;
+
+            // Return additional data for the AJAX request
             return {
-              class_findall: {
+              enroll_findall: {
                 limit: d.length,
                 offset: d.start,
                 draw: d.draw,
+                col2: col2,
+                col3: col3,
               },
             };
           },
@@ -191,48 +208,28 @@
             className: "text-center",
             responsivePriority: 1,
             render: function (data, type, row, meta) {
-              return '<button type="button" class="btn btn-primary edit-class" data-id="' + row.id + '">Show Details</button>';
+              return '<button type="button" class="btn btn-primary edit-class" data-id="' + row.id + '"><i class="bi bi-pencil-square"></i></button>';
             }
           },
         ],
+        ordering: false,
+        searching: false,
         processing: true,
         serverSide: true,
         stateSave: true,
         responsive: true,
       });
 
-      // Button to open "Create Class" modal
-      document.getElementById('buttoncreateclass').onclick = function () {
-        var myModal = new bootstrap.Modal(document.getElementById('CreateClassModal'));
-        myModal.show();
-        console.log("Create class button clicked");
-      };
+      // Function to update DataTable on dropdown change
+      function updateTableOnChange() {
+        // Trigger the DataTable to reload with the new filter values
+        dt1.ajax.reload();
+      }
 
-      // Handle row button click to open "Edit Class" modal and populate with data
-      $('#class_create').on('click', '.edit-class', function () {
-        var id = $(this).data('id');  // Get the ID from the button's data attribute
-        var myModal = new bootstrap.Modal(document.getElementById('EditClassModal'));
-        myModal.show();
+      // Attach event listeners to dropdowns to update table when values change
+      document.getElementById("searchCol2").addEventListener("change", updateTableOnChange);
+      document.getElementById("searchCol3").addEventListener("change", updateTableOnChange);
 
-        // Get row data
-        var rowData = dt1.row($(this).closest('tr')).data();
-
-        if (rowData.d == "Not Assigned") {
-          rowData.d = "NULL";
-        }
-        if (rowData.c == "Not Assigned") {
-          rowData.c = "NULL";
-        }
-
-        // Populate modal fields with row data
-        $('#id').val(id);
-        $('#nama').val(rowData.a);
-        $('#location').val(rowData.b);
-        $('#fpin').val(rowData.c);
-        $('#fpout').val(rowData.d);
-
-        // console.log("Row data:", rowData);
-      });
     });
 
   </script>

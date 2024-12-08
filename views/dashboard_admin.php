@@ -175,7 +175,7 @@
       var calendarHeaderToolbar = {
         left: "prev next",
         center: "title",
-        right: "resourceTimelineDay,resourceTimelineWeek,resourceTimelineMonth",
+        right: "resourceTimelineDay,dayGridWeek,dayGridMonth",
       };
       // var calendarEventsList = [
       //   {
@@ -339,7 +339,7 @@
         },
         success: function (response) {
           console.log(JSON.parse(response));
-          // console.log(info.startStr);
+          console.log(info.startStr);
           successCallback(JSON.parse(response));
         },
       });

@@ -531,7 +531,7 @@
                 <input type="text" class="form-control" name="nama" />
               </div>
             </div>
-
+<!-- 
             <div class="col-md-6 mt-2">
               <div class="">
                 <label class="form-label">Tarikh Mula</label>
@@ -543,7 +543,7 @@
                 <label class="form-label">Tarikh Tamat</label>
                 <input type="date" class="form-control" name="tamat" />
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="modal-footer">

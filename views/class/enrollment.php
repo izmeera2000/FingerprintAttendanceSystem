@@ -50,6 +50,7 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-12">
+            
             <div class="card">
               <!-- <div class="border-bottom title-part-padding">
                   <h4 class="card-title mb-0">Create Class</h4>

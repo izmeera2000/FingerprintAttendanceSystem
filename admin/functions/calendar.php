@@ -2,8 +2,16 @@
 
 
 if (isset($_POST['fetchresource'])) {
+
+  // $subjek = $_POST['fetchresource']['subjek'];
+  $course = $_POST['fetchresource']['course'];
+  $bengkel = $_POST['fetchresource']['bengkel'];
   $query =
-    "SELECT * FROM user WHERE role = 4";
+    "SELECT a.* FROM user a 
+INNER JOIN user_enroll b ON b.user_id = a.id WHERE bengkel_id = '$bengkel' AND course_id ='$course'";
+
+  //  $query .= "  AND subjek='$subjek' ";
+
   $results = mysqli_query($db, $query);
   $resources = array();
 
@@ -21,7 +29,7 @@ if (isset($_POST['fetchresource'])) {
 
 
 if (isset($_POST['fetchresource2'])) {
-  $resources = array( 
+  $resources = array(
     array(
       'id' => 2,       // Unique identifier for the resource
       'title' => 'Monday',  // Title of the resource (Day of the week)
@@ -105,6 +113,7 @@ if (isset($_POST['fetchevent'])) {
 
 if (isset($_POST['fetchevent2'])) {
 
+  $subjek_id = $_POST['fetchevent2']['subjek'];
 
   $start_date = new DateTime($_POST['fetchevent2']['start']);
   $start_date2 = $start_date->format('Y-m-d');
@@ -114,13 +123,34 @@ if (isset($_POST['fetchevent2'])) {
   //slot
   ;
 
-
-  $query = "SELECT a.*, b.masa_mula, b.masa_tamat, c.role
+  if ($subjek_id != "") {
+    $query = "SELECT a.*, 
+       DAYOFWEEK(a.tarikh) AS day_of_week, 
+       b.masa_mula, 
+       b.masa_tamat, 
+       c.role, 
+       d.subjek_id, 
+       d.slot_id,
+       ts.masa_mula AS ts_masa_mula, 
+       ts.masa_tamat AS ts_masa_tamat
+FROM attendance_slot a
+INNER JOIN time_slot b ON a.slot = b.slot   
+INNER JOIN user c ON c.id = a.user_id   
+INNER JOIN user_subjek d ON DAYOFWEEK(a.tarikh) = d.day   
+INNER JOIN time_slot ts ON d.slot_id = ts.id   
+WHERE a.slot = ts.slot 
+AND subjek_id = '$subjek_id' 
+  AND DATE(a.tarikh) BETWEEN '$start_date2' AND '$end_date2'
+ ";
+  } else {
+    $query = "SELECT a.*, DAYOFWEEK(a.tarikh)  ,  b.masa_mula, b.masa_tamat, c.role , d.subjek_id
   FROM attendance_slot a
   INNER JOIN time_slot b ON a.slot = b.slot
   INNER JOIN user c ON c.id = a.user_id
-  WHERE c.role = 4
-  AND DATE(a.tarikh) BETWEEN '$start_date2' AND '$end_date2' ";
+  INNER JOIN user_subjek d ON DAYOFWEEK(a.tarikh) = d.day
+ 
+  WHERE DATE(a.tarikh) BETWEEN '$start_date2' AND '$end_date2'";
+  }
   $results = mysqli_query($db, $query);
   $events = array();
 

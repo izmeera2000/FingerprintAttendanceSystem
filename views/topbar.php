@@ -313,10 +313,10 @@
                     dropdown-toggle
                     waves-effect waves-dark
                     pro-pic
-                  " href="index.html" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  " href="javascript:void(0)" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <img
                   src="<?php echo $site_url ?>assets/images/user/<?php echo $_SESSION['user_details']['id'] ?>/<?php echo $_SESSION['user_details']['image_url']; ?>"
-                  alt="user" class="rounded-circle" width="60"
+                  alt="user" class="rounded-circle object-fit-cover" width="40" height="40"
                   onerror="this.onerror=null; this.src='<?php echo $site_url; ?>assets/images/user/0.jpg';" />
             <span
               class="ms-1 font-weight-medium d-none d-sm-inline-block"><?php echo $_SESSION['user_details']['nama'] ?>
@@ -343,7 +343,7 @@
               <div class="">
                 <img
                   src="<?php echo $site_url ?>assets/images/user/<?php echo $_SESSION['user_details']['id'] ?>/<?php echo $_SESSION['user_details']['image_url']; ?>"
-                  alt="user" class="rounded-circle" width="60"
+                  alt="user" class="rounded-circle object-fit-cover" width="100" height="100"
                   onerror="this.onerror=null; this.src='<?php echo $site_url; ?>assets/images/user/0.jpg';" />
               </div>
               <div class="ms-2">
