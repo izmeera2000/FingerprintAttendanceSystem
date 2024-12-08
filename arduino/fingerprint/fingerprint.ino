@@ -179,8 +179,9 @@ void loop() {
   int fileCount = player.readFileCounts();
   Serial.print("Number of MP3 files: ");
   Serial.println(fileCount);
+  player.play(1);  // Play the first MP3 file (0001.mp3)
 
- 
+
   delay(1000);
 
   // if (test == "login") {
