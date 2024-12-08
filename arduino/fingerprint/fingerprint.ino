@@ -176,8 +176,15 @@ void loop() {
   // 1 in out
   // 2 empty db
 
-    player.play(1);  // Play the first MP3 file (0001.mp3)
+  int fileCount = myDFPlayer.readFileCounts();
+  Serial.print("Number of MP3 files: ");
+  Serial.println(fileCount);
 
+  if (player.available()) {
+    Serial.print("Detail: ");
+    player.printDetail(Serial); // Print error or status detail
+  }
+  delay(1000);
 
   // if (test == "login") {
 
@@ -195,7 +202,7 @@ void loop() {
 
   //   registerFP();
   // }
-  delay(100);  // Small delay to debounce (adjust as needed)
+  delay(1000);  // Small delay to debounce (adjust as needed)
 
 
 
