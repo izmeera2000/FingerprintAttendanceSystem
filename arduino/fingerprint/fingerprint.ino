@@ -175,22 +175,26 @@ void loop() {
   // 0 enroll
   // 1 in out
   // 2 empty db
-  if (test == "login") {
+
+    player.play(1);  // Play the first MP3 file (0001.mp3)
+
+
+  // if (test == "login") {
 
 
 
-    loginFP();
-    // Serial.println("TOUCH SENSOR 2 activated");
-    // }
-  } else if (test == "emptydb") {
-    emptyDBFP();
-  }
+  //   loginFP();
+  //   // Serial.println("TOUCH SENSOR 2 activated");
+  //   // }
+  // } else if (test == "emptydb") {
+  //   emptyDBFP();
+  // }
 
 
-  else {
+  // else {
 
-    registerFP();
-  }
+  //   registerFP();
+  // }
   delay(100);  // Small delay to debounce (adjust as needed)
 
 
