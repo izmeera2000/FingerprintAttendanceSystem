@@ -176,7 +176,7 @@ void loop() {
   // 1 in out
   // 2 empty db
 
-  int fileCount = myDFPlayer.readFileCounts();
+  int fileCount = player.readFileCounts();
   Serial.print("Number of MP3 files: ");
   Serial.println(fileCount);
 
