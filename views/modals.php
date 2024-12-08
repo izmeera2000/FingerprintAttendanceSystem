@@ -516,19 +516,19 @@
             <div class="row">
               <input type="hidden" class="form-control" name="id2" id="id2" />
 
-              <div class="col-md-12">
+              <div class="col-md-6">
                 <div class="">
                   <label class="form-label">Nama</label>
                   <input type="text" class="form-control" name="nama2" id="nama2" />
                 </div>
               </div>
-              <div class="col-md-12 mt-2">
+              <div class="col-md-6 mt-2">
                 <div class="">
                   <label class="form-label">Kod</label>
                   <input type="text" class="form-control" name="kod2" id="kod2" />
                 </div>
               </div>
-              <div class="col-md-6 mt-2">
+              <div class="col-md-12 mt-2">
                 <div class="">
                   <label class="form-label">User</label>
                   <select class="form-control  " id="user" aria-label="Floating label select example" name="user"
@@ -576,18 +576,26 @@
                 </div>
               </div>
 
-              <div class="col-md-6 mt-2">
-                <div class="">
-                  <label class="form-label">Tarikh Mula</label>
-                  <input type="date" class="form-control" name="start" id="start" />
-                </div>
-              </div>
-              <div class="col-md-6 mt-2">
-                <div class="">
-                  <label class="form-label">Tarikh Tamat</label>
-                  <input type="date" class="form-control" name="end" id="end" />
-                </div>
-              </div>
+              <div class="col-6 mt-2">
+                    <label class="form-label">Semester</label>
+
+                    <select class="form-control" id="select_sem" aria-label="Floating label select example">
+
+                      <?php
+                      $query = "SELECT  b.id, b.nama FROM user_enroll a 
+INNER JOIN sem b ON b.id = a.sem_start GROUP BY b.nama; ";
+                      $results = mysqli_query($db, $query);
+                      while ($row = $results->fetch_assoc()) {
+                        $id = $row['id'];
+                        $nama = $row['nama'];
+                        ?>
+                        <option value="<?php echo $id ?>"><?php echo getSemesterByNumber($nama) ?></option>
+
+                      <?php } ?>
+
+                    </select>
+
+                  </div>
 
               <div class="col-md-6 mt-2">
                 <div class="">
@@ -614,7 +622,7 @@
 
                     <option selected disabled> Pilih Slot</option>
                     <?php
-                    $query = "SELECT id, slot FROM time_slot";
+                    $query = "SELECT id, slot FROM time_slot WHERE slot != 'rehat1' AND slot != 'rehat2' ";
                     $results = mysqli_query($db, $query);
                     while ($row = $results->fetch_assoc()) {
                       $id = $row['id'];

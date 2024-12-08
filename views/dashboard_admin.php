@@ -302,10 +302,11 @@
         resourceAreaColumns: [
           {
             field: 'title',
-            headerContent: 'Day'
+            headerContent: 'Course'
           },
           
         ],
+        resourceGroupField: 'semester',
         resources: getResources,
         lazyFetching: true,
         selectable: true,

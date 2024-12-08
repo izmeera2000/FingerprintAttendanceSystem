@@ -30,30 +30,40 @@ INNER JOIN user_enroll b ON b.user_id = a.id WHERE bengkel_id = '$bengkel' AND c
 
 
 if (isset($_POST['fetchresource2'])) {
-  $resources = array(
-    array(
-      'id' => 2,       // Unique identifier for the resource
-      'title' => 'Monday',  // Title of the resource (Day of the week)
-    ),
-    array(
-      'id' => 3,
-      'title' => 'Tuesday',
-    ),
-    array(
-      'id' => 4,
-      'title' => 'Wednesday',
-    ),
-    array(
-      'id' => 5,
-      'title' => 'Thursday',
-    ),
-    array(
-      'id' => 6,
-      'title' => 'Friday',
-    ),
-  );
 
-  // Convert the array to JSON format
+  // $course = $_POST['fetchresource']['course'];
+  // $bengkel = $_POST['fetchresource']['bengkel'];
+  // $sem = $_POST['fetchresource']['sem'];
+  $query =
+    "SELECT 
+    c.nama AS course,
+    d.nama AS sem
+ FROM 
+    user a
+INNER JOIN 
+    user_enroll b ON b.user_id = a.id
+INNER JOIN 
+    course c ON c.id = b.course_id
+INNER JOIN 
+    sem d ON d.id = b.sem_start
+WHERE 
+    a.bengkel_id = '1'
+GROUP BY 
+    c.nama, d.nama;";
+
+  //  $query .= "  AND subjek='$subjek' ";
+
+  $results = mysqli_query($db, $query);
+  $resources = array();
+
+  while ($row = $results->fetch_assoc()) {
+    $resources[] = array(
+      'id' => $row['id'],       // Unique identifier for the resource
+      'title' => $row['course'],  // Name or title for the resource
+      'sem' => $row['sem'],  // Name or title for the resource
+    );
+  }
+
   echo json_encode($resources);
   die();
 }
