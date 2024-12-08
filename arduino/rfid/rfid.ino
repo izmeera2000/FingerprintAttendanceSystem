@@ -2,6 +2,8 @@
 #define BUTTON_PIN 33      // GPIO Pin for emergency button
 
 void setup() {
+  Serial.begin(9600);  // Initialize serial communications with the PC
+
   pinMode(RELAY_PIN, OUTPUT);    // Set the relay pin as output
   pinMode(BUTTON_PIN, INPUT_PULLUP); // Set the emergency button pin as input
   digitalWrite(RELAY_PIN, LOW);  // Ensure the solenoid is off initially
