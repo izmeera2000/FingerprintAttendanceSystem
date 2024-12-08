@@ -107,8 +107,19 @@ if (isset($_POST['subjek_findall'])) {
   
   }
   
-  if (isset($_POST['subjek_createf'])) {
-
-    
-  }
+  if (isset($_POST['subjek_assign'])) {
+    // echo "test";
+    // var_dump(($_POST));
   
+    $nama = $_POST['nama'];  // Records per page
+    $kod = $_POST['kod'];  // Records per page
+  
+  
+  
+    $query = "INSERT INTO user_subjek (course_id,subjek_id,assign_to,day,slot_id,status,'sem_id') VALUES ('$nama','$kod');";
+  
+    // debug_to_console($query);
+    $results = mysqli_query($db, $query);
+    header('location:' . $site_url . 'subjek/create');
+  
+  }

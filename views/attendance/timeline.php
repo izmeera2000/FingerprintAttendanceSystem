@@ -54,11 +54,13 @@
               <div>
                 <div class="row gx-0">
                   <input type="hidden" id="select_bengkel" value="<?php echo $_SESSION['user_details']['bengkel_id'] ?>">
-                  <div class="col-12">
+                  <div class="col-6  px-2">
+                    <label class="form-label">Kursus</label>
+
                     <select class="form-control" id="select_course" aria-label="Floating label select example">
 
                       <?php
-                      $bengkel_id = $_SESSION['user_details']['bengkel_id'] ;
+                      $bengkel_id = $_SESSION['user_details']['bengkel_id'];
                       $query = "SELECT id, nama FROM course WHERE bengkel_id = '$bengkel_id'";
                       $results = mysqli_query($db, $query);
                       while ($row = $results->fetch_assoc()) {
@@ -71,6 +73,24 @@
 
                     </select>
 
+                  </div>
+                  <div class="col-6 px-2">
+                    <label class="form-label">Semester</label>
+                    <select class="form-control" id="select_sem" aria-label="Floating label select example">
+
+                      <?php
+                      $query = "SELECT  b.id, b.nama FROM user_enroll a 
+INNER JOIN sem b ON b.id = a.sem_start GROUP BY b.nama; ";
+                      $results = mysqli_query($db, $query);
+                      while ($row = $results->fetch_assoc()) {
+                        $id = $row['id'];
+                        $nama = $row['nama'];
+                        ?>
+                        <option value="<?php echo $id ?>"><?php echo getSemesterByNumber($nama) ?></option>
+
+                      <?php } ?>
+
+                    </select>
 
                   </div>
             
@@ -520,7 +540,10 @@
         // Refetch events based on the selected filter
         calendar.refetchResources();  // This will call the events function again and refresh the calendar
       });
-
+      $('#select_sem').on('change', function () {
+        // Refetch events based on the selected filter
+        calendar.refetchResources();  // This will call the events function again and refresh the calendar
+      });
 
     });
 
@@ -550,6 +573,8 @@
     function getResources(info, successCallback, failureCallback) {
       var bengkel = $('#select_bengkel').val();
       var course = $('#select_course').val();
+      var sem = $('#select_sem').val();
+
       $.ajax({
         type: "POST",
         url: "fetchresource",
@@ -559,6 +584,7 @@
             end: "info.endStr",
             bengkel: bengkel,
             course: course,
+            sem:sem,
           },
         },
         success: function (response) {

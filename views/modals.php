@@ -461,7 +461,7 @@
         <div class="modal-content">
           <div class="modal-header d-flex align-items-center">
             <h5 class="modal-title" id="EditSubjekModalLabel">
-              Edit FP Device
+              Edit Subjek
             </h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
@@ -476,7 +476,7 @@
                 </div>
               </div>
               <div class="col-md-12 mt-2">
-              <div class="">
+                <div class="">
                   <label class="form-label">Kod</label>
                   <input type="text" class="form-control" name="kod" id="kod" />
                 </div>
@@ -501,7 +501,150 @@
     </div>
   </div>
 
+  <div class="modal fade" id="AssignSubjekModal" tabindex="-1" aria-labelledby="AssignSubjekModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+      <form method="POST">
+        <div class="modal-content">
+          <div class="modal-header d-flex align-items-center">
+            <h5 class="modal-title" id="AssignSubjekModalLabel">
+              Assign Subjek
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <input type="hidden" class="form-control" name="id2" id="id2" />
 
+              <div class="col-md-12">
+                <div class="">
+                  <label class="form-label">Nama</label>
+                  <input type="text" class="form-control" name="nama2" id="nama2" />
+                </div>
+              </div>
+              <div class="col-md-12 mt-2">
+                <div class="">
+                  <label class="form-label">Kod</label>
+                  <input type="text" class="form-control" name="kod2" id="kod2" />
+                </div>
+              </div>
+              <div class="col-md-6 mt-2">
+                <div class="">
+                  <label class="form-label">User</label>
+                  <select class="form-control  " id="user" aria-label="Floating label select example" name="user"
+                    required>
+
+
+                    <option selected disabled> Pilih User</option>
+                    <?php
+                    $bengkel_id = $_SESSION['user_details']['bengkel_id'];
+                    $query = "SELECT id, nama FROM user  WHERE bengkel_id = '$bengkel_id' AND `user`.`role` != 4";
+                    $results = mysqli_query($db, $query);
+                    while ($row = $results->fetch_assoc()) {
+                      $id = $row['id'];
+                      $nama = $row['nama'];
+                      ?>
+                      <option value="<?php echo $id ?>"><?php echo $nama ?></option>
+
+                    <?php } ?>
+
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-md-6 mt-2">
+                <div class="">
+                  <label class="form-label">Kursus</label>
+                  <select class="form-control  " id="course" aria-label="Floating label select example" name="course"
+                    required>
+
+
+                    <option selected disabled> Pilih Kursus</option>
+                    <?php
+                    $bengkel_id = $_SESSION['user_details']['bengkel_id'];
+                    $query = "SELECT id, nama FROM course  WHERE bengkel_id = '$bengkel_id' ";
+                    $results = mysqli_query($db, $query);
+                    while ($row = $results->fetch_assoc()) {
+                      $id = $row['id'];
+                      $nama = $row['nama'];
+                      ?>
+                      <option value="<?php echo $id ?>"><?php echo $nama ?></option>
+
+                    <?php } ?>
+
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-md-6 mt-2">
+                <div class="">
+                  <label class="form-label">Tarikh Mula</label>
+                  <input type="date" class="form-control" name="start" id="start" />
+                </div>
+              </div>
+              <div class="col-md-6 mt-2">
+                <div class="">
+                  <label class="form-label">Tarikh Tamat</label>
+                  <input type="date" class="form-control" name="end" id="end" />
+                </div>
+              </div>
+
+              <div class="col-md-6 mt-2">
+                <div class="">
+                  <label class="form-label">Hari</label>
+                  <select class="form-control  " id="day" aria-label="Floating label select example" name="day" required>
+
+                    <option selected disabled> Pilih Hari</option>
+                    <option value="2">Isnin</option>
+                    <option value="3">Selasa</option>
+                    <option value="4">Rabu</option>
+                    <option value="5">Khamis</option>
+                    <option value="6">Jumaat</option>
+                  </select>
+
+                </div>
+              </div>
+
+              <div class="col-md-6 mt-2">
+                <div class="">
+                  <label class="form-label">Slot</label>
+                  <select class="form-control  " id="slot" aria-label="Floating label select example" name="slot"
+                    required>
+
+
+                    <option selected disabled> Pilih Slot</option>
+                    <?php
+                    $query = "SELECT id, slot FROM time_slot";
+                    $results = mysqli_query($db, $query);
+                    while ($row = $results->fetch_assoc()) {
+                      $id = $row['id'];
+                      $nama = $row['slot'];
+                      ?>
+                      <option value="<?php echo $id ?>"><?php echo $nama ?></option>
+
+                    <?php } ?>
+
+                  </select>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn" data-bs-dismiss="modal">
+              Close
+            </button>
+            <!-- <button type="submit" class="btn btn-danger" name="subjek_deletef">
+              Delete
+            </button> -->
+            <button type="submit" class="btn btn-primary btn-add-event" name="subjek_assign">
+              Save Changes
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 
 <?php }
 ?>
@@ -512,26 +655,26 @@
 <?php if ($request == 'course/create') { ?>
 
 
-<div class="modal fade" id="CreateCourseModal" tabindex="-1" aria-labelledby="CreateCourseModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-    <form method="POST">
-      <div class="modal-content">
-        <div class="modal-header d-flex align-items-center">
-          <h5 class="modal-title" id="CreateCourseModalLabel">
-            Create Course
-          </h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="">
-                <label class="form-label">Nama</label>
-                <input type="text" class="form-control" name="nama" />
+  <div class="modal fade" id="CreateCourseModal" tabindex="-1" aria-labelledby="CreateCourseModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+      <form method="POST">
+        <div class="modal-content">
+          <div class="modal-header d-flex align-items-center">
+            <h5 class="modal-title" id="CreateCourseModalLabel">
+              Create Course
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="">
+                  <label class="form-label">Nama</label>
+                  <input type="text" class="form-control" name="nama" />
+                </div>
               </div>
-            </div>
-<!-- 
+              <!-- 
             <div class="col-md-6 mt-2">
               <div class="">
                 <label class="form-label">Tarikh Mula</label>
@@ -544,45 +687,45 @@
                 <input type="date" class="form-control" name="tamat" />
               </div>
             </div> -->
+            </div>
           </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn" data-bs-dismiss="modal">
-            Close
-          </button>
-          <!-- <button type="button" class="btn btn-success btn-update-event" data-fc-event-public-id="">
+          <div class="modal-footer">
+            <button type="button" class="btn" data-bs-dismiss="modal">
+              Close
+            </button>
+            <!-- <button type="button" class="btn btn-success btn-update-event" data-fc-event-public-id="">
         Update changes
       </button> -->
-          <button type="submit" class="btn btn-primary btn-add-event" name="course_createf">
-            Create
-          </button>
+            <button type="submit" class="btn btn-primary btn-add-event" name="course_createf">
+              Create
+            </button>
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
-</div>
 
-<div class="modal fade" id="EditCourseModal" tabindex="-1" aria-labelledby="EditCourseModalLabel" aria-hidden="true">
-  <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-    <form method="POST">
-      <div class="modal-content">
-        <div class="modal-header d-flex align-items-center">
-          <h5 class="modal-title" id="EditCourseModalLabel">
-            Edit FP Device
-          </h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <input type="hidden" class="form-control" name="id" id="id" />
+  <div class="modal fade" id="EditCourseModal" tabindex="-1" aria-labelledby="EditCourseModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+      <form method="POST">
+        <div class="modal-content">
+          <div class="modal-header d-flex align-items-center">
+            <h5 class="modal-title" id="EditCourseModalLabel">
+              Edit FP Device
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <input type="hidden" class="form-control" name="id" id="id" />
 
-            <div class="col-md-12">
-              <div class="">
-                <label class="form-label">Nama</label>
-                <input type="text" class="form-control" name="nama" id="nama" />
+              <div class="col-md-12">
+                <div class="">
+                  <label class="form-label">Nama</label>
+                  <input type="text" class="form-control" name="nama" id="nama" />
+                </div>
               </div>
-            </div>
-            <!-- <div class="col-md-6 mt-2">
+              <!-- <div class="col-md-6 mt-2">
               <div class="">
                 <label class="form-label">Tarikh Mula</label>
                 <input type="date" class="form-control" name="mula" id="mula"/>
@@ -596,23 +739,23 @@
             </div> -->
 
 
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn" data-bs-dismiss="modal">
+              Close
+            </button>
+            <button type="submit" class="btn btn-danger" name="course_deletef">
+              Delete
+            </button>
+            <button type="submit" class="btn btn-primary btn-add-event" name="course_editf">
+              Save Changes
+            </button>
           </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn" data-bs-dismiss="modal">
-            Close
-          </button>
-          <button type="submit" class="btn btn-danger" name="course_deletef">
-            Delete
-          </button>
-          <button type="submit" class="btn btn-primary btn-add-event" name="course_editf">
-            Save Changes
-          </button>
-        </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
-</div>
 
 
 

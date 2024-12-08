@@ -171,7 +171,7 @@
             className: "text-center",
             responsivePriority: 1,
             render: function (data, type, row, meta) {
-              return '<button type="button" class="btn btn-primary edit-subjek" data-id="' + row.id + '">Show Details</button>';
+              return '<button type="button" class="btn btn-primary assign-subjek m-2" data-id="' + row.id + '">Assign</button><button type="button" class="btn btn-primary edit-subjek m-2" data-id="' + row.id + '">Show Details</button>';
             }
           },
         ],
@@ -204,6 +204,27 @@
         $('#id').val(id);
         $('#nama').val(rowData.a);
         $('#kod').val(rowData.b);
+        console.log(rowData.b);
+
+
+        // console.log("Row data:", rowData);
+      });
+
+      $('#subjek_create').on('click', '.assign-subjek', function () {
+        var id = $(this).data('id');  // Get the ID from the button's data attribute
+        var myModal = new bootstrap.Modal(document.getElementById('AssignSubjekModal'));
+        myModal.show();
+
+        // Get row data
+        var rowData = dt1.row($(this).closest('tr')).data();
+
+ 
+ 
+
+        // Populate modal fields with row data
+        $('#id2').val(id);
+        $('#nama2').val(rowData.a);
+        $('#kod2').val(rowData.b);
         console.log(rowData.b);
 
 

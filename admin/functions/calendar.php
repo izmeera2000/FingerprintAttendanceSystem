@@ -6,9 +6,10 @@ if (isset($_POST['fetchresource'])) {
   // $subjek = $_POST['fetchresource']['subjek'];
   $course = $_POST['fetchresource']['course'];
   $bengkel = $_POST['fetchresource']['bengkel'];
+  $sem = $_POST['fetchresource']['sem'];
   $query =
     "SELECT a.* FROM user a 
-INNER JOIN user_enroll b ON b.user_id = a.id WHERE bengkel_id = '$bengkel' AND course_id ='$course'";
+INNER JOIN user_enroll b ON b.user_id = a.id WHERE bengkel_id = '$bengkel' AND course_id ='$course' and b.sem_start = '$sem'";
 
   //  $query .= "  AND subjek='$subjek' ";
 
