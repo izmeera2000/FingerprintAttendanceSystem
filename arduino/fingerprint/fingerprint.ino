@@ -51,7 +51,7 @@ bool hasRun = false;  // Flag to ensure the block runs only once
 void setup() {
   Serial.begin(115200);
   mySerial.begin(57600);
-  DFPSerial.begin(9600);
+  // DFPSerial.begin(9600);
   mySerialfp.begin(57600, SERIAL_8N1, RXfp1_PIN, TXfp1_PIN);
 
   // Wait for serial to initialize
