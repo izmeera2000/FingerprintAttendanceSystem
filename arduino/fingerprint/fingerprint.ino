@@ -199,13 +199,9 @@ void loop() {
     loginFP();
     // Serial.println("TOUCH SENSOR 2 activated");
     // }
-  }
-  if (test == "emptydb") {
+  } else if (test == "emptydb") {
     emptyDBFP();
-  }
-
-
-  if (test == "register") {
+  } else {
 
     registerFP();
   }
