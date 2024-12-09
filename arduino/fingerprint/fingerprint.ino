@@ -38,10 +38,10 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 // Create SoftwareSerial object
 HardwareSerial mySerialfp(2);  // Use UART2 (index 2)
 SoftwareSerial mySerial(RX_PIN, TX_PIN);
-SoftwareSerial DFPSerial(RX2_PIN, TX2_PIN);
+// SoftwareSerial DFPSerial(RX2_PIN, TX2_PIN);
 
 // Initialize the fingerprint sensor
-DFRobotDFPlayerMini player;
+// DFRobotDFPlayerMini player;
 
 Adafruit_Fingerprint finger2 = Adafruit_Fingerprint(&mySerial);
 Adafruit_Fingerprint finger = Adafruit_Fingerprint(&mySerialfp);
@@ -55,29 +55,15 @@ void setup() {
   mySerialfp.begin(57600, SERIAL_8N1, RXfp1_PIN, TXfp1_PIN);
 
   // Wait for serial to initialize
-  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {  // Address 0x3D for 128x64
-    Serial.println(F("SSD1306 allocation failed"));
-    for (;;)
-      ;
-  }
-  delay(100);
-
-  display.clearDisplay();
-  delay(100);
-
-
-
+  while (!Serial)
+    ;
 
   WiFi.begin(ssid, password);
-  simpleOLED("Connecting to WiFi...");
-  delay(100);  // Small delay to debounce (adjust as needed)
   while (WiFi.status() != WL_CONNECTED) {
     delay(1000);
     Serial.println("Connecting to WiFi...");
   }
   Serial.println("Connected to WiFi");
-  simpleOLED("Connected to WiFi");
-  delay(100);  // Small delay to debounce (adjust as needed)
 
 
   // Initialize the fingerprint sensor
@@ -104,7 +90,7 @@ void setup() {
 
   // Serial.println("Connected to DFPlayer Mini!");
 
-  // Set the volume to a reasonable level (0-30)
+  // // Set the volume to a reasonable level (0-30)
   // player.volume(20);
 
   // int fileCount = player.readFileCounts();  // Read number of files
@@ -113,7 +99,7 @@ void setup() {
 
   // if (fileCount > 0) {
   //   Serial.println("Playing the first file...");
-  //   player.play(5);  // Play the first MP3 file (0001.mp3)
+  //   player.play(1);  // Play the first MP3 file (0001.mp3)
   // } else {
   //   Serial.println("No MP3 files found on SD card!");
   // }
@@ -170,6 +156,18 @@ void setup() {
   CloseDoor();
   test = getFingerprintmode("testout");
   Serial.println(test);
+
+
+
+  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {  // Address 0x3D for 128x64
+    Serial.println(F("SSD1306 allocation failed"));
+    for (;;)
+      ;
+  }
+  delay(100);
+
+  display.clearDisplay();
+  delay(100);
 }
 
 void loop() {
@@ -177,21 +175,6 @@ void loop() {
   // 0 enroll
   // 1 in out
   // 2 empty db
-
-  // static unsigned long timer = millis();
-
-  // if (millis() - timer > 3000) {
-  //   timer = millis();
-  //   player.next();  //Play next mp3 every 3 second.
-  // }
-
-  // if (player.available()) {
-  //   printDetail(player.readType(), player.read()); //Print the detail message from DFPlayer to handle different errors and states.
-  // }
-
-
-  // delay(1000);
-
   if (test == "login") {
 
 
@@ -201,7 +184,10 @@ void loop() {
     // }
   } else if (test == "emptydb") {
     emptyDBFP();
-  } else {
+  }
+
+
+  else {
 
     registerFP();
   }
@@ -238,6 +224,11 @@ void loop() {
 
   // dobule fp
   //test touchsense
+
+
+
+
+
 
   // delay(50);  //don't ned to run this at full speed.
 }
