@@ -178,35 +178,35 @@ void loop() {
 
   // static unsigned long timer = millis();
   
-  // if (millis() - timer > 3000) {
-  //   timer = millis();
-  //   player.next();  //Play next mp3 every 3 second.
-  // }
+  if (millis() - timer > 3000) {
+    timer = millis();
+    player.next();  //Play next mp3 every 3 second.
+  }
   
-  // if (player.available()) {
-  //   printDetail(player.readType(), player.read()); //Print the detail message from DFPlayer to handle different errors and states.
-  // }
+  if (player.available()) {
+    printDetail(player.readType(), player.read()); //Print the detail message from DFPlayer to handle different errors and states.
+  }
 
 
   // delay(1000);
 
-  if (test == "login") {
+  // if (test == "login") {
 
 
 
-    loginFP();
-    // Serial.println("TOUCH SENSOR 2 activated");
-    // }
-  } else if (test == "emptydb") {
-    emptyDBFP();
-  }
+  //   loginFP();
+  //   // Serial.println("TOUCH SENSOR 2 activated");
+  //   // }
+  // } else if (test == "emptydb") {
+  //   emptyDBFP();
+  // }
 
 
-  else {
+  // else {
 
-    registerFP();
-  }
-  delay(100);  // Small delay to debounce (adjust as needed)
+  //   registerFP();
+  // }
+  // delay(100);  // Small delay to debounce (adjust as needed)
 
 
 
