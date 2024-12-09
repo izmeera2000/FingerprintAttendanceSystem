@@ -190,10 +190,7 @@ void loop() {
     // }
   } else if (test == "emptydb") {
     emptyDBFP();
-  }
-
-
-  else {
+  }else {
 
     registerFP();
   }
