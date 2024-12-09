@@ -99,7 +99,7 @@ void setup() {
 
   if (fileCount > 0) {
     Serial.println("Playing the first file...");
-    player.play(1);  // Play the first MP3 file (0001.mp3)
+    player.play(5);  // Play the first MP3 file (0001.mp3)
   } else {
     Serial.println("No MP3 files found on SD card!");
   }
@@ -176,35 +176,37 @@ void loop() {
   // 1 in out
   // 2 empty db
 
-  static unsigned long timer = millis();
+  // static unsigned long timer = millis();
   
-  if (millis() - timer > 3000) {
-    timer = millis();
-    player.next();  //Play next mp3 every 3 second.
-  }
+  // if (millis() - timer > 3000) {
+  //   timer = millis();
+  //   player.next();  //Play next mp3 every 3 second.
+  // }
   
-  if (player.available()) {
-    printDetail(player.readType(), player.read()); //Print the detail message from DFPlayer to handle different errors and states.
-  }
+  // if (player.available()) {
+  //   printDetail(player.readType(), player.read()); //Print the detail message from DFPlayer to handle different errors and states.
+  // }
+
+
   // delay(1000);
 
-  // if (test == "login") {
+  if (test == "login") {
 
 
 
-  //   loginFP();
-  //   // Serial.println("TOUCH SENSOR 2 activated");
-  //   // }
-  // } else if (test == "emptydb") {
-  //   emptyDBFP();
-  // }
+    loginFP();
+    // Serial.println("TOUCH SENSOR 2 activated");
+    // }
+  } else if (test == "emptydb") {
+    emptyDBFP();
+  }
 
 
-  // else {
+  else {
 
-  //   registerFP();
-  // }
-  // delay(1000);  // Small delay to debounce (adjust as needed)
+    registerFP();
+  }
+  delay(100);  // Small delay to debounce (adjust as needed)
 
 
 
