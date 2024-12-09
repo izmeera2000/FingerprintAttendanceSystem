@@ -176,7 +176,7 @@ void loop() {
   // 1 in out
   // 2 empty db
 
-  // static unsigned long timer = millis();
+  static unsigned long timer = millis();
   
   if (millis() - timer > 3000) {
     timer = millis();
