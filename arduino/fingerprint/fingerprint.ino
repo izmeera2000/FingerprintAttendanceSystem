@@ -69,13 +69,15 @@ void setup() {
 
 
   WiFi.begin(ssid, password);
+  simpleOLED("Connecting to WiFi...");
+  delay(100);  // Small delay to debounce (adjust as needed)
   while (WiFi.status() != WL_CONNECTED) {
     delay(1000);
     Serial.println("Connecting to WiFi...");
-    simpleOLED("Connecting to WiFi...");
   }
   Serial.println("Connected to WiFi");
   simpleOLED("Connected to WiFi");
+  delay(100);  // Small delay to debounce (adjust as needed)
 
 
   // Initialize the fingerprint sensor
