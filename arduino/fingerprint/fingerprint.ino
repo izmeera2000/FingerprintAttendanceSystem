@@ -55,15 +55,27 @@ void setup() {
   mySerialfp.begin(57600, SERIAL_8N1, RXfp1_PIN, TXfp1_PIN);
 
   // Wait for serial to initialize
-  while (!Serial)
-    ;
+  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {  // Address 0x3D for 128x64
+    Serial.println(F("SSD1306 allocation failed"));
+    for (;;)
+      ;
+  }
+  delay(100);
+
+  display.clearDisplay();
+  delay(100);
+
+
+
 
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) {
     delay(1000);
     Serial.println("Connecting to WiFi...");
+    simpleOLED("Connecting to WiFi...");
   }
   Serial.println("Connected to WiFi");
+  simpleOLED("Connected to WiFi");
 
 
   // Initialize the fingerprint sensor
@@ -156,18 +168,6 @@ void setup() {
   CloseDoor();
   test = getFingerprintmode("testout");
   Serial.println(test);
-
-
-
-  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {  // Address 0x3D for 128x64
-    Serial.println(F("SSD1306 allocation failed"));
-    for (;;)
-      ;
-  }
-  delay(100);
-
-  display.clearDisplay();
-  delay(100);
 }
 
 void loop() {
@@ -198,12 +198,12 @@ void loop() {
     // Serial.println("TOUCH SENSOR 2 activated");
     // }
   }
-    if (test == "emptydb") {
+  if (test == "emptydb") {
     emptyDBFP();
   }
 
 
- if (test == "register")  {
+  if (test == "register") {
 
     registerFP();
   }

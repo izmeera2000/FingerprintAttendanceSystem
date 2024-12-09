@@ -77,6 +77,7 @@ String logFingerprintID(int id, int ent) {
 
 void loginFP() {
   simpleOLED("Please Place Finger");
+  Serial.println("Please Place Finger");
 
   // First fingerprint sensor
   int fingerid = getFingerprintIDez();
@@ -91,11 +92,10 @@ void loginFP() {
       CloseDoor();  // Close the door if no user detected
       Serial.println("Door closed after no user passed (entry).");
     }
-  // player.play(1);  // Play the first MP3 file (0001.mp3)
+    // player.play(1);  // Play the first MP3 file (0001.mp3)
 
-  } else{
-  // player.play(6);  // Play the first MP3 file (0001.mp3)
-
+  } else {
+    // player.play(6);  // Play the first MP3 file (0001.mp3)
   }
 
   delay(100);  // Small delay to prevent overlap
@@ -113,10 +113,9 @@ void loginFP() {
       CloseDoor();  // Close the door if no user detected
       Serial.println("Door closed after no user passed (exit).");
     }
-  // player.play(1);  // Play the first MP3 file (0001.mp3)
-  }else{
-      // player.play(6);  // Play the first MP3 file (0001.mp3)
-
+    // player.play(1);  // Play the first MP3 file (0001.mp3)
+  } else {
+    // player.play(6);  // Play the first MP3 file (0001.mp3)
   }
 
   delay(100);  // Small delay before function ends
