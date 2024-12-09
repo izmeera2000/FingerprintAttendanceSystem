@@ -22,10 +22,10 @@ String getFingerprintmode(String fp_name) {
     // Handle the response
     if (httpResponseCode > 0) {
       String response = http.getString();
-      Serial.println("response  data is :");
+      // Serial.println("response  data is :");
 
-      Serial.println(response);
-      Serial.println("thats all");
+      // Serial.println(response);
+      // Serial.println("thats all");
       return response;
     } else {
       Serial.print("Error in POST request, HTTP code: ");

@@ -58,12 +58,26 @@ void setup() {
   while (!Serial)
     ;
 
+
+  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {  // Address 0x3D for 128x64
+    Serial.println(F("SSD1306 allocation failed"));
+    for (;;)
+      ;
+  }
+  delay(100);
+
+  display.clearDisplay();
+  delay(100);
+
+  simpleOLED("Connecting to WiFi...");
+
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) {
     delay(1000);
     Serial.println("Connecting to WiFi...");
   }
   Serial.println("Connected to WiFi");
+  simpleOLED("Connected to WiFi");
 
 
   // Initialize the fingerprint sensor
@@ -155,19 +169,11 @@ void setup() {
   pinMode(TOUCH2, INPUT);  // Internal pull-down resistor (if required)
   CloseDoor();
   test = getFingerprintmode("testout");
+  Serial.print("mode : ");
+  
   Serial.println(test);
+  simpleOLED("Connected to WiFi");
 
-
-
-  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {  // Address 0x3D for 128x64
-    Serial.println(F("SSD1306 allocation failed"));
-    for (;;)
-      ;
-  }
-  delay(100);
-
-  display.clearDisplay();
-  delay(100);
 }
 
 void loop() {
