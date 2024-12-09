@@ -177,12 +177,12 @@ void loop() {
   // 2 empty db
 
   // static unsigned long timer = millis();
-  
+
   // if (millis() - timer > 3000) {
   //   timer = millis();
   //   player.next();  //Play next mp3 every 3 second.
   // }
-  
+
   // if (player.available()) {
   //   printDetail(player.readType(), player.read()); //Print the detail message from DFPlayer to handle different errors and states.
   // }
@@ -197,12 +197,13 @@ void loop() {
     loginFP();
     // Serial.println("TOUCH SENSOR 2 activated");
     // }
-  } else if (test == "emptydb") {
+  }
+    if (test == "emptydb") {
     emptyDBFP();
   }
 
 
-  else {
+ if (test == "register")  {
 
     registerFP();
   }
@@ -242,4 +243,3 @@ void loop() {
 
   // delay(50);  //don't ned to run this at full speed.
 }
-
