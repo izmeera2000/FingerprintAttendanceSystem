@@ -172,6 +172,7 @@ void setup() {
   Serial.print("mode : ");
   Serial.println(test);
   simpleOLED(test);
+  delay(2000);  // Small delay to debounce (adjust as needed)
 
 }
 
