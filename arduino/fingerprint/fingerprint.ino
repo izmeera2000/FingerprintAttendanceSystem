@@ -171,8 +171,8 @@ void setup() {
   test = getFingerprintmode("testout");
   Serial.print("mode : ");
   Serial.println(test);
-  simpleOLED(test);
-  delay(2000);  // Small delay to debounce (adjust as needed)
+  // simpleOLED(test);
+  // delay(2000);  // Small delay to debounce (adjust as needed)
 
 }
 
@@ -181,13 +181,14 @@ void loop() {
   // 0 enroll
   // 1 in out
   // 2 empty db
-  simpleOLED(test);
+  // simpleOLED(test);
 
   Serial.print("mode : z"  + test +"z");
 
   if (test == "login") {
 
 
+  simpleOLED("login");
 
     // loginFP();
     Serial.println("login");
@@ -198,6 +199,7 @@ void loop() {
 
   }else {
     Serial.println("register");
+  simpleOLED("register");
 
     // registerFP();
   }
