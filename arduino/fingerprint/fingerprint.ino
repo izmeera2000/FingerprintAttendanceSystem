@@ -177,7 +177,7 @@ void setup() {
   // simpleOLED("init MODE");
 
 
-   test = getFingerprintmode("testout");  // Get the response
+  test = getFingerprintmode("testout");  // Get the response
   // test.trim();  // Trim leading and trailing whitespaces/newlines
   Serial.print("mode: ");
   Serial.println(test);
@@ -207,12 +207,12 @@ void loop() {
     // }
   }
 
-  if (test == "emptydb") {
+  else if (test == "emptydb") {
     // emptyDBFP();
     Serial.println("empty");
   }
 
-  if (test == "register") {
+  else {
 
     Serial.println("register");
     // simpleOLED("register");
