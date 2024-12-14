@@ -24,7 +24,7 @@ String getFingerprintmode(String fp_name) {
       String response = http.getString();
       // Serial.println("response  data is :");
 
-      // Serial.println(response);
+      Serial.println(response);
       // Serial.println("thats all");
       return response;
     } else {

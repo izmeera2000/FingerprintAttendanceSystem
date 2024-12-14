@@ -2,7 +2,7 @@
 if (isset($_POST['get_pdf'])) {
 
 
- 
+
 
     include(getcwd() . '/admin/vendor/setasign/fpdf/fpdf.php');
     include(getcwd() . '/admin/vendor/setasign/fpdf/exfpdf.php');
@@ -48,13 +48,13 @@ if (isset($_POST['get_pdf'])) {
                 e.start_date,
                 e.end_date,
                 att.user_id,
-                att.verify,
+                att.verify_att,
                 a.assign_to,
                 usa.assign_to as assign2,
                 usa.tarikh_mula as assign2_m,
                 usa.tarikh_tamat as assign2_t,
                 CASE WHEN COUNT(
-                    CASE WHEN att.verify = 1 THEN 1
+                    CASE WHEN att.verify_att = 1 THEN 1
                 END
             ) = COUNT(att.user_id) THEN 'All' ELSE 'Not_All'
             END AS verification_status
@@ -178,7 +178,7 @@ if (isset($_POST['get_pdf'])) {
 
 
 
-    $user_status = ['BH' , ' ' , 'TG', 'DBH'];
+    $user_status = ['BH', ' ', 'TG', 'DBH'];
 
 
     $students_attendance = [];
@@ -207,8 +207,8 @@ if (isset($_POST['get_pdf'])) {
         // Store student's information
         $students_attendance[$user_id]['info'] = [
             'nama' => strtoupper($row['nama']),
-            'ndp' => $row['ndp'], 
-            'user_status' =>$row['user_status'],
+            'ndp' => $row['ndp'],
+            'user_status' => $row['user_status'],
         ];
 
         // Append the attendance record grouped by date
@@ -392,7 +392,7 @@ if (isset($_POST['get_pdf'])) {
 
     }
     // debug_to_console("test");
-    echo $site_url. "assets/pdf_gen/attendance.pdf";    
+    echo $site_url . "assets/pdf_gen/attendance.pdf";
 
 }
 

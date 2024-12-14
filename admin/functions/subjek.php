@@ -116,7 +116,7 @@ if (isset($_POST['subjek_findall'])) {
   
   
   
-    $query = "INSERT INTO user_subjek (course_id,subjek_id,assign_to,day,slot_id,status,'sem_id') VALUES ('$nama','$kod');";
+    $query = "INSERT INTO user_subjek (course_id,subjek_id,assign_to,day,slot_id,status,sem_id,tarikh_mula,tarikh_tamat) VALUES ('$nama','$kod');";
   
     // debug_to_console($query);
     $results = mysqli_query($db, $query);

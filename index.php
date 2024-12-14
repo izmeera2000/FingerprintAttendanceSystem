@@ -391,6 +391,9 @@ switch (true) {
 	case (str_contains($request, 'kelas_findall')):
 	case (str_contains($request, 'kelas_insertfp')):
 	case (str_contains($request, 'kelas_deletefp')):
+	case (str_contains($request, 'fetchslot')):
+
+	case (str_contains($request, 'updateslot')):
 
 	case (str_contains($request, 'post_fp')):
 	case (str_contains($request, 'login_fp')):

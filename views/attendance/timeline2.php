@@ -119,9 +119,48 @@ INNER JOIN sem b ON b.id = a.sem_start GROUP BY b.nama; ";
 
 
                   </div>
+
+
                   <div class="col-lg-12">
                     <div class="p-4 calender-sidebar app-calendar">
                       <div id="calendar"></div>
+                    </div>
+                  </div>
+                </div>
+                <button type="button" id="floatingButton"
+                  class="btn btn-info btn-circle btn-xl position-fixed bottom-0 end-0 m-3 z-3 d-none"><i
+                    class="fa fa-check"></i></button>
+                <!-- #region -->
+
+                <!-- Modal -->
+                <div class="modal fade" id="verifyday" tabindex="-1" aria-labelledby="exampleModalLabel"
+                  aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Verify Day</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <form class="d-flex justify-content-center">
+                          <!-- <label for="exampleFormControlInput1">Date</label> -->
+                          <input type="hidden" id="date" name="date">
+                          <!-- <label for="exampleFormControlInput1">User ID</label> -->
+                          <input type="hidden" id="user_id" name="user_id"
+                            value="<?php echo $_SESSION['user_details']['id'] ?>">
+                          <div class="btn-group" data-toggle="buttons" id="btggroupslot">
+
+
+
+
+                          </div>
+
+                        </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="updateverify">Save changes</button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -207,18 +246,12 @@ INNER JOIN sem b ON b.id = a.sem_start GROUP BY b.nama; ";
     /*==========================*/
 
     document.addEventListener("DOMContentLoaded", function () {
-      /*=================*/
-      //  Calender Date variable
-      /*=================*/
-      // var newDate = new Date();
-      // function getDynamicMonth() {
-      //   getMonthValue = newDate.getMonth();
-      //   _getUpdatedMonthValue = getMonthValue + 1;
-      //   if (_getUpdatedMonthValue < 10) {
-      //     return `0${_getUpdatedMonthValue}`;
-      //   } else {
-      //     return `${_getUpdatedMonthValue}`;
-      //   }
+
+
+
+
+
+
       // }
       /*=================*/
       // Calender Modal Elements
@@ -250,97 +283,6 @@ INNER JOIN sem b ON b.id = a.sem_start GROUP BY b.nama; ";
         center: "title",
         right: "resourceTimelineDay,resourceTimelineWeek,resourceTimelineMonth",
       };
-      // var calendarEventsList = [
-      //   {
-      //     id: 1,
-      //     title: "Event Conf.",
-      //     start: `${newDate.getFullYear()}-${getDynamicMonth()}-01`,
-      //     extendedProps: { calendar: "Danger" },
-      //   },
-      //   {
-      //     id: 2,
-      //     title: "Seminar #4",
-      //     start: `${newDate.getFullYear()}-${getDynamicMonth()}-07`,
-      //     end: `${newDate.getFullYear()}-${getDynamicMonth()}-10`,
-      //     extendedProps: { calendar: "Success" },
-      //   },
-      //   {
-      //     groupId: "999",
-      //     id: 3,
-      //     title: "Meeting #5",
-      //     start: `${newDate.getFullYear()}-${getDynamicMonth()}-09T16:00:00`,
-      //     extendedProps: { calendar: "Primary" },
-      //   },
-      //   {
-      //     groupId: "999",
-      //     id: 4,
-      //     title: "Submission #1",
-      //     start: `${newDate.getFullYear()}-${getDynamicMonth()}-16T16:00:00`,
-      //     extendedProps: { calendar: "Warning" },
-      //   },
-      //   {
-      //     id: 5,
-      //     title: "Seminar #6",
-      //     start: `${newDate.getFullYear()}-${getDynamicMonth()}-11`,
-      //     end: `${newDate.getFullYear()}-${getDynamicMonth()}-13`,
-      //     extendedProps: { calendar: "Danger" },
-      //   },
-      //   {
-      //     id: 6,
-      //     title: "Meeting 3",
-      //     start: `${newDate.getFullYear()}-${getDynamicMonth()}-12T10:30:00`,
-      //     end: `${newDate.getFullYear()}-${getDynamicMonth()}-12T12:30:00`,
-      //     extendedProps: { calendar: "Success" },
-      //   },
-      //   {
-      //     id: 7,
-      //     title: "Meetup #",
-      //     start: `${newDate.getFullYear()}-${getDynamicMonth()}-12T12:00:00`,
-      //     extendedProps: { calendar: "Primary" },
-      //   },
-      //   {
-      //     id: 8,
-      //     title: "Submission",
-      //     start: `${newDate.getFullYear()}-${getDynamicMonth()}-12T14:30:00`,
-      //     extendedProps: { calendar: "Warning" },
-      //   },
-      //   {
-      //     id: 9,
-      //     title: "Attend event",
-      //     start: `${newDate.getFullYear()}-${getDynamicMonth()}-13T07:00:00`,
-      //     extendedProps: { calendar: "Success" },
-      //   },
-      //   {
-      //     id: 10,
-      //     title: "Project submission #2",
-      //     start: `${newDate.getFullYear()}-${getDynamicMonth()}-28`,
-      //     extendedProps: { calendar: "Primary" },
-      //   },
-      // ];
-      /*=====================*/
-      // Calendar Select fn.
-      /*=====================*/
-      // var calendarSelect = function (info) {
-      //   getModalAddBtnEl.style.display = "block";
-      //   getModalUpdateBtnEl.style.display = "none";
-      //   myModal.show();
-      //   getModalStartDateEl.value = info.startStr;
-      //   getModalEndDateEl.value = info.endStr;
-      // };
-      /*=====================*/
-      // Calendar AddEvent fn.
-      /*=====================*/
-      // var calendarAddEvent = function () {
-      //   var currentDate = new Date();
-      //   var dd = String(currentDate.getDate()).padStart(2, "0");
-      //   var mm = String(currentDate.getMonth() + 1).padStart(2, "0"); //January is 0!
-      //   var yyyy = currentDate.getFullYear();
-      //   var combineDate = `${yyyy}-${mm}-${dd}T00:00:00`;
-      //   getModalAddBtnEl.style.display = "block";
-      //   getModalUpdateBtnEl.style.display = "none";
-      //   myModal.show();
-      //   getModalStartDateEl.value = combineDate;
-      // };
 
       /*=====================*/
       // Calender Event Function
@@ -414,6 +356,14 @@ INNER JOIN sem b ON b.id = a.sem_start GROUP BY b.nama; ";
       /*=====================*/
       // Active Calender
       /*=====================*/
+
+      var floatingButton = document.getElementById('floatingButton');
+
+
+      var myModal2 = new bootstrap.Modal(document.getElementById('verifyday'), {
+        keyboard: true // Enable closing with ESC key
+      });
+      // Show the modal
       var calendar = new FullCalendar.Calendar(calendarEl, {
         selectable: true,
         // height: checkWidowWidth() ? 900 : 1052,
@@ -446,7 +396,18 @@ INNER JOIN sem b ON b.id = a.sem_start GROUP BY b.nama; ";
         eventClick: calendarEventClick,
         contentHeight: "auto",
         height: "auto",
+        datesSet: function (info) {
+          console.log('datesSet:', info.startStr); // Debug log
+          if (info.view.type === 'resourceTimelineDay') {
+            floatingButton.classList.remove('d-none');
+          } else {
+            floatingButton.classList.add('d-none');
+          }
+          const timestamp = new Date(info.startStr).getTime() / 1000; // Divide by 1000 for PHP time
 
+          $('#date').val(timestamp);
+
+        }
       });
 
 
@@ -468,6 +429,92 @@ INNER JOIN sem b ON b.id = a.sem_start GROUP BY b.nama; ";
         console.log(subjek);
         calendar.refetchEvents();  // This will call the events function again and refresh the calendar
       });
+
+
+
+
+      $('#floatingButton').on('click', function () {
+        // alert('Floating button clicked!');
+
+        var date = $('#date').val();
+        var user_id = $('#user_id').val();
+        // var checkedSlotIds = $('#btggroupslot').find('input[type="checkbox"]:checked').map(function() {
+        //     return this.id;
+        // }).get(); // Convert jQuery object to array
+        var bengkel = $('#select_bengkel').val();
+        var course = $('#select_course').val();
+        var sem = $('#select_sem').val();
+
+        $.ajax({
+          type: "POST",
+          url: "fetchslot",
+          data: {
+            fetchslot: {
+              date: date,
+              user_id: user_id,
+              bengkel: bengkel,
+              course: course,
+              sem: sem,
+              // check : checkedSlotIds,
+
+            },
+          },
+          success: function (response) {
+            console.log(response);
+            // console.log(date);
+            $('#btggroupslot').html(response);
+            myModal2.show();
+
+          },
+        });
+
+        // Add your custom functionality here
+      });
+      $('#updateverify').on('click', function () {
+
+        var date = $('#date').val();
+        var user_id = $('#user_id').val();
+        var checkedSlotIds = $('#btggroupslot').find('input[type="checkbox"]:checked').map(function () {
+          return this.id;
+        }).get(); // Convert jQuery object to array
+        var uncheckedSlotIds = $('#btggroupslot').find('input[type="checkbox"]:not(:checked)').map(function () {
+          return this.id;
+        }).get(); // Convert jQuery object to array
+
+        console.log(checkedSlotIds);
+        var bengkel = $('#select_bengkel').val();
+        var course = $('#select_course').val();
+        var sem = $('#select_sem').val();
+
+
+        $.ajax({
+          type: "POST",
+          url: "updateslot",
+          data: {
+            updateslot: {
+              date: date,
+              user_id: user_id,
+              bengkel: bengkel,
+              course: course,
+              sem: sem,
+              check: checkedSlotIds,
+              uncheck: uncheckedSlotIds,
+
+            },
+          },
+          success: function (response) {
+            console.log(response);
+            // console.log(date);
+            // $('#btggroupslot').html(response);
+            myModal2.hide();
+
+          },
+        });
+
+
+      });
+
+
     });
 
     function getAllEvents(info, successCallback, failureCallback) {
@@ -517,6 +564,9 @@ INNER JOIN sem b ON b.id = a.sem_start GROUP BY b.nama; ";
         },
       });
     }
+
+
+
   </script>
 </body>
 

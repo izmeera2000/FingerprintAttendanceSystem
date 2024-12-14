@@ -170,7 +170,6 @@ void setup() {
   CloseDoor();
   test = getFingerprintmode("testout");
   Serial.print("mode : ");
-  
   Serial.println(test);
   simpleOLED("Connected to WiFi");
 
@@ -181,16 +180,22 @@ void loop() {
   // 0 enroll
   // 1 in out
   // 2 empty db
+
+  Serial.print("mode : z"  + test +"z");
+
   if (test == "login") {
 
 
 
     loginFP();
-    // Serial.println("TOUCH SENSOR 2 activated");
+    Serial.println("login");
     // }
   } else if (test == "emptydb") {
     emptyDBFP();
+    Serial.println("empty");
+
   }else {
+    Serial.println("register");
 
     registerFP();
   }
