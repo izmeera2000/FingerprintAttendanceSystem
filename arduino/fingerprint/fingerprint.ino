@@ -195,7 +195,7 @@ void loop() {
   // simpleOLED(test);
   // simpleOLED(test + "line");
 
-  Serial.print("mode : z" + test + "z");
+  // Serial.print("mode : z" + test + "z");
 
   if (test == "login") {
 
