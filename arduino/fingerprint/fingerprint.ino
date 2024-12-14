@@ -181,6 +181,7 @@ void loop() {
   // 0 enroll
   // 1 in out
   // 2 empty db
+  simpleOLED(test);
 
   Serial.print("mode : z"  + test +"z");
 
@@ -188,17 +189,17 @@ void loop() {
 
 
 
-    loginFP();
+    // loginFP();
     Serial.println("login");
     // }
   } else if (test == "emptydb") {
-    emptyDBFP();
+    // emptyDBFP();
     Serial.println("empty");
 
   }else {
     Serial.println("register");
 
-    registerFP();
+    // registerFP();
   }
   delay(100);  // Small delay to debounce (adjust as needed)
 
