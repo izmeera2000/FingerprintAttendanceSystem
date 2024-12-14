@@ -180,7 +180,7 @@ void setup() {
   Serial.print("mode : ");
   Serial.println(test);
   // delay(2000);  // Small delay to debounce (adjust as needed)
-  simpleOLED("init GoT");
+  simpleOLED(test);
 
 }
 
@@ -196,7 +196,7 @@ void loop() {
   if (test == "login") {
 
 
-  simpleOLED("login");
+  // simpleOLED("login");
 
     // loginFP();
     Serial.println("login");
@@ -207,7 +207,7 @@ void loop() {
 
   }else {
     Serial.println("register");
-  simpleOLED("register");
+  // simpleOLED("register");
 
     // registerFP();
   }
