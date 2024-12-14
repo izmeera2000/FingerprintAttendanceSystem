@@ -171,7 +171,7 @@ void setup() {
   test = getFingerprintmode("testout");
   Serial.print("mode : ");
   Serial.println(test);
-  simpleOLED("Connected to WiFi");
+  simpleOLED(test);
 
 }
 
