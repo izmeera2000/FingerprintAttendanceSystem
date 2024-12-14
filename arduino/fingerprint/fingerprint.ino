@@ -58,11 +58,11 @@ void setup() {
 
   pinMode(IR_PIN, INPUT);
   pinMode(RELAY_PIN, OUTPUT);
-  pinMode(TOUCH1, INPUT);  // Internal pull-up resistor
-  pinMode(TOUCH2, INPUT);  // Internal pull-down resistor (if required)
+  pinMode(TOUCH1, INPUT);               // Internal pull-up resistor
+  pinMode(TOUCH2, INPUT);               // Internal pull-down resistor (if required)
   pinMode(btnEmergency, INPUT_PULLUP);  // Internal pull-down resistor (if required)
 
-  
+
   // Wait for serial to initialize
   while (!Serial)
     ;
@@ -180,8 +180,7 @@ void setup() {
   Serial.print("mode : ");
   Serial.println(test);
   // delay(2000);  // Small delay to debounce (adjust as needed)
-  simpleOLED(test);
-
+  // simpleOLED(test);
 }
 
 void loop() {
@@ -191,23 +190,27 @@ void loop() {
   // 2 empty db
   // simpleOLED(test);
 
-  Serial.print("mode : z"  + test +"z");
+  Serial.print("mode : z" + test + "z");
 
   if (test == "login") {
 
 
-  // simpleOLED("login");
+    simpleOLED("login");
 
     // loginFP();
     Serial.println("login");
     // }
-  } else if (test == "emptydb") {
+  }
+
+  if (test == "emptydb") {
     // emptyDBFP();
     Serial.println("empty");
+  }
 
-  }else {
+  if (test == "register") {
+
     Serial.println("register");
-  // simpleOLED("register");
+    simpleOLED("register");
 
     // registerFP();
   }
