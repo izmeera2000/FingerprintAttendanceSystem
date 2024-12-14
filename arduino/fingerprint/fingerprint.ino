@@ -176,9 +176,10 @@ void setup() {
   CloseDoor();
   simpleOLED("init MODE");
 
-  test = getFingerprintmode("testout");
+  String test = getFingerprintmode("testout").trim();
   Serial.print("mode : ");
   Serial.println(test);
+  
   // delay(2000);  // Small delay to debounce (adjust as needed)
   // simpleOLED(test);
 }
