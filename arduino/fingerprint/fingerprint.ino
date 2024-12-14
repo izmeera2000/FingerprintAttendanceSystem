@@ -96,6 +96,7 @@ void setup() {
     while (1)
       ;
   }
+  simpleOLED("all FP detected");
 
   // while (!player.begin(DFPSerial)) {
   //   Serial.println("Failed to connect to DFPlayer Mini. Retrying in 1 second...");
