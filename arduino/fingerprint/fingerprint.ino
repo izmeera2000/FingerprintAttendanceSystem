@@ -68,11 +68,11 @@ void setup() {
     ;
 
 
-  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {  // Address 0x3D for 128x64
-    Serial.println(F("SSD1306 allocation failed"));
-    for (;;)
-      ;
-  }
+  // if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {  // Address 0x3D for 128x64
+  //   Serial.println(F("SSD1306 allocation failed"));
+  //   for (;;)
+  //     ;
+  // }
   delay(100);
 
   display.clearDisplay();
@@ -89,23 +89,23 @@ void setup() {
   simpleOLED("Connected to WiFi");
 
 
-  // Initialize the fingerprint sensor
-  if (finger2.verifyPassword()) {
-    Serial.println("Fingerprint sftwr sensor detected!");
-  } else {
-    Serial.println("Fingerprint sftwr sensor not detected!");
-    while (1)
-      ;
-  }
+  // // Initialize the fingerprint sensor
+  // if (finger2.verifyPassword()) {
+  //   Serial.println("Fingerprint sftwr sensor detected!");
+  // } else {
+  //   Serial.println("Fingerprint sftwr sensor not detected!");
+  //   while (1)
+  //     ;
+  // }
 
-  if (finger.verifyPassword()) {
-    Serial.println("Fingerprint hrdwr detected!");
-  } else {
-    Serial.println("Fingerprint hrdwr sensor not detected!");
-    while (1)
-      ;
-  }
-  simpleOLED("all FP detected");
+  // if (finger.verifyPassword()) {
+  //   Serial.println("Fingerprint hrdwr detected!");
+  // } else {
+  //   Serial.println("Fingerprint hrdwr sensor not detected!");
+  //   while (1)
+  //     ;
+  // }
+  // simpleOLED("all FP detected");
 
   // while (!player.begin(DFPSerial)) {
   //   Serial.println("Failed to connect to DFPlayer Mini. Retrying in 1 second...");
