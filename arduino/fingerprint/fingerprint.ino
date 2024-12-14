@@ -52,9 +52,9 @@ bool hasRun = false;  // Flag to ensure the block runs only once
 
 void setup() {
   Serial.begin(115200);
-  mySerial.begin(57600);
+  // mySerial.begin(57600);
   // DFPSerial.begin(9600);
-  mySerialfp.begin(57600, SERIAL_8N1, RXfp1_PIN, TXfp1_PIN);
+  // mySerialfp.begin(57600, SERIAL_8N1, RXfp1_PIN, TXfp1_PIN);
 
   pinMode(IR_PIN, INPUT);
   pinMode(RELAY_PIN, OUTPUT);
@@ -64,8 +64,8 @@ void setup() {
 
 
   // Wait for serial to initialize
-  while (!Serial)
-    ;
+  // while (!Serial)
+  //   ;
 
 
   // if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {  // Address 0x3D for 128x64
@@ -75,10 +75,10 @@ void setup() {
   // }
   delay(100);
 
-  display.clearDisplay();
+  // display.clearDisplay();
   delay(100);
 
-  simpleOLED("Connecting to WiFi...");
+  // simpleOLED("Connecting to WiFi...");
 
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) {
@@ -86,7 +86,7 @@ void setup() {
     Serial.println("Connecting to WiFi...");
   }
   Serial.println("Connected to WiFi");
-  simpleOLED("Connected to WiFi");
+  // simpleOLED("Connected to WiFi");
 
 
   // // Initialize the fingerprint sensor
@@ -173,8 +173,8 @@ void setup() {
 
 
 
-  CloseDoor();
-  simpleOLED("init MODE");
+  // CloseDoor();
+  // simpleOLED("init MODE");
 
 
   String test = getFingerprintmode("testout");  // Get the response
@@ -193,7 +193,7 @@ void loop() {
   // 1 in out
   // 2 empty db
   // simpleOLED(test);
-  simpleOLED(test + "line");
+  // simpleOLED(test + "line");
 
   Serial.print("mode : z" + test + "z");
 
