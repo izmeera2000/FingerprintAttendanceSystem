@@ -25,6 +25,8 @@ String test;
 #define RX2_PIN 27
 #define TX2_PIN 26
 
+#define btnEmergency 33
+
 #define IR_PIN 34     // ESP32 pin GPIO18 connected to OUT pin of IR obstacle avoidance sensor
 #define RELAY_PIN 13  // ESP32 pin GPIO16, which connects to the solenoid lock via the relay
 
@@ -54,6 +56,13 @@ void setup() {
   // DFPSerial.begin(9600);
   mySerialfp.begin(57600, SERIAL_8N1, RXfp1_PIN, TXfp1_PIN);
 
+  pinMode(IR_PIN, INPUT);
+  pinMode(RELAY_PIN, OUTPUT);
+  pinMode(TOUCH1, INPUT);  // Internal pull-up resistor
+  pinMode(TOUCH2, INPUT);  // Internal pull-down resistor (if required)
+  pinMode(btnEmergency, INPUT);  // Internal pull-down resistor (if required)
+
+  
   // Wait for serial to initialize
   while (!Serial)
     ;
@@ -164,10 +173,6 @@ void setup() {
 
 
 
-  pinMode(IR_PIN, INPUT);
-  pinMode(RELAY_PIN, OUTPUT);
-  pinMode(TOUCH1, INPUT);  // Internal pull-up resistor
-  pinMode(TOUCH2, INPUT);  // Internal pull-down resistor (if required)
   CloseDoor();
   simpleOLED("init MODE");
 
