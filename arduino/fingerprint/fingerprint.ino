@@ -177,8 +177,8 @@ void setup() {
   simpleOLED("init MODE");
 
 
-String test = getFingerprintmode("testout");  // Get the response
-test.trim();  // Trim leading and trailing whitespaces/newlines
+ test = getFingerprintmode("testout");  // Get the response
+// test.trim();  // Trim leading and trailing whitespaces/newlines
 Serial.print("mode: ");
 Serial.println(test);
 
@@ -193,7 +193,7 @@ void loop() {
   // 1 in out
   // 2 empty db
   // simpleOLED(test);
-  simpleOLED(test);
+  simpleOLED(test). "line";
 
   Serial.print("mode : z" + test + "z");
 
