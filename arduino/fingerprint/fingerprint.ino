@@ -60,7 +60,7 @@ void setup() {
   pinMode(RELAY_PIN, OUTPUT);
   pinMode(TOUCH1, INPUT);  // Internal pull-up resistor
   pinMode(TOUCH2, INPUT);  // Internal pull-down resistor (if required)
-  pinMode(btnEmergency, INPUT);  // Internal pull-down resistor (if required)
+  pinMode(btnEmergency, INPUT_PULLUP);  // Internal pull-down resistor (if required)
 
   
   // Wait for serial to initialize
