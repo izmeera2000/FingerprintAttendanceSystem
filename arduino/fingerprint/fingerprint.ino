@@ -142,29 +142,29 @@ void setup() {
   // Serial.println(finger.baud_rate);
 
 
-  // finger2.getTemplateCount();
+  finger2.getTemplateCount();
 
-  // if (finger2.templateCount == 0) {
-  //   Serial.print("Sensor  2 doesn't contain any fingerprint data. Please run the 'enroll' example.");
-  // } else {
-  //   Serial.println("Waiting for valid finger...");
-  //   Serial.print("Sensor 2 contains ");
-  //   Serial.print(finger2.templateCount);
-  //   Serial.println(" templates");
-  // }
-  // delay(100);  // Small delay to debounce (adjust as needed)
+  if (finger2.templateCount == 0) {
+    Serial.print("Sensor  2 doesn't contain any fingerprint data. Please run the 'enroll' example.");
+  } else {
+    Serial.println("Waiting for valid finger...");
+    Serial.print("Sensor 2 contains ");
+    Serial.print(finger2.templateCount);
+    Serial.println(" templates");
+  }
+  delay(100);  // Small delay to debounce (adjust as needed)
 
 
-  // finger.getTemplateCount();
+  finger.getTemplateCount();
 
-  // if (finger.templateCount == 0) {
-  //   Serial.print("Sensor  1 doesn't contain any fingerprint data. Please run the 'enroll' example.");
-  // } else {
-  //   Serial.println("Waiting for valid finger...");
-  //   Serial.print("Sensor 1 contains ");
-  //   Serial.print(finger.templateCount);
-  //   Serial.println(" templates");
-  // }
+  if (finger.templateCount == 0) {
+    Serial.print("Sensor  1 doesn't contain any fingerprint data. Please run the 'enroll' example.");
+  } else {
+    Serial.println("Waiting for valid finger...");
+    Serial.print("Sensor 1 contains ");
+    Serial.print(finger.templateCount);
+    Serial.println(" templates");
+  }
 
 
 
