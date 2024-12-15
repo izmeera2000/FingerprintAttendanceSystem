@@ -140,6 +140,7 @@ void setup() {
   // Serial.println(finger.packet_len);
   // Serial.print(F("Baud rate: "));
   // Serial.println(finger.baud_rate);
+  delay(1000);  // Small delay to debounce (adjust as needed)
 
 
   finger2.getTemplateCount();
@@ -195,14 +196,14 @@ void loop() {
 
   if (test == "login") {
     Serial.println("login");
-    simpleOLED("login");
+    // simpleOLED("login");
     loginFP();
   } else if (test == "emptydb") {
     Serial.println("empty");
     emptyDBFP();
   } else if (test == "register") {
     Serial.println("register");
-    simpleOLED("register");
+    // simpleOLED("register");
     registerFP();
   }
 
