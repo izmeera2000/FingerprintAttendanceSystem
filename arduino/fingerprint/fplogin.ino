@@ -51,6 +51,7 @@ String logFingerprintID(int id, int ent) {
 
     // Prepare POST data (convert id to string)
     String postData = "login_fp=" + String(id) + "&entrance=" + String(ent);
+    simpleOLED(postData);
 
     Serial.println("Posting data: ");
     Serial.println(postData);
@@ -62,7 +63,6 @@ String logFingerprintID(int id, int ent) {
     if (httpResponseCode > 0) {
       String response = http.getString();
       Serial.println("Server response: " + response);
-      simpleOLED(response);
 
       return response;
     } else {
