@@ -178,7 +178,7 @@ void setup() {
 
 
    test = getFingerprintmode("testout");  // Get the response
-  // test.trim();  // Trim leading and trailing whitespaces/newlines
+  test.trim();  // Trim leading and trailing whitespaces/newlines
   Serial.print("mode: ");
   Serial.println(test);
 
@@ -197,28 +197,21 @@ void loop() {
 
   // Serial.print("mode : z" + test + "z");
 
-  if (test == "login") {
-
-
-    // simpleOLED("login");
-
-    // loginFP();
+if (test == "login") {
     Serial.println("login");
-    // }
-  }
-
-  if (test == "emptydb") {
-    // emptyDBFP();
+    // simpleOLED("login");
+    // loginFP();
+} 
+else if (test == "emptydb") {
     Serial.println("empty");
-  }
-
-  if (test == "register") {
-
+    // emptyDBFP();
+} 
+else if (test == "register") {
     Serial.println("register");
     // simpleOLED("register");
-
     // registerFP();
-  }
+}
+
   delay(100);  // Small delay to debounce (adjust as needed)
 
 

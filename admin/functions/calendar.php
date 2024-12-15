@@ -407,7 +407,7 @@ if (isset($_POST['fetchevent3'])) {
 if (isset($_POST['fetchslot'])) {
   $user_id = $_POST['fetchslot']['user_id'];
   $date = date('Y-m-d', $_POST['fetchslot']['date']);
-  $dayOfWeek = date('w', strtotime($date)); // 'l' returns the full name of the day (e.g., Monday)
+  $dayOfWeek = date('w', strtotime($date));  
   $day2 = $dayOfWeek + 1;
 
   $course = $_POST['fetchslot']['course'];

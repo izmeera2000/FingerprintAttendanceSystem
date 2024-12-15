@@ -34,111 +34,159 @@ if (isset($_POST['get_pdf'])) {
 
 
 
-    $query = "SELECT
-                a.*,
-                d.slot,
-                b.nama AS course,
-                c.subjek_nama,
-                c.subjek_kod,
-                d.masa_mula,
-                d.masa_tamat,
-                d.masa_mula2,
-                d.masa_tamat2,
-                e.nama AS sem2,
-                e.start_date,
-                e.end_date,
-                att.user_id,
-                att.verify_att,
-                a.assign_to,
-                usa.assign_to as assign2,
-                usa.tarikh_mula as assign2_m,
-                usa.tarikh_tamat as assign2_t,
-                CASE WHEN COUNT(
-                    CASE WHEN att.verify_att = 1 THEN 1
-                END
-            ) = COUNT(att.user_id) THEN 'All' ELSE 'Not_All'
-            END AS verification_status
-            FROM
-                user_subjek a
-            INNER JOIN course b ON
-                b.id = a.course_id
-            INNER JOIN subjek c ON
-                c.id = a.subjek_id
-            INNER JOIN time_slot d ON
-                d.id = a.slot_id
-            INNER JOIN sem e ON
-                e.id = a.sem_id
-            INNER JOIN user_staff st ON
-                st.user_id = a.assign_to
-            LEFT JOIN attendance_slot att ON
-                att.slot = d.slot
-            LEFT JOIN user_staff_absence usa ON usa.user_id = st.user_id
-            WHERE b.id = '$kursus' AND e.nama = '$sem_start'
-            GROUP BY
-                d.slot,
-                a.day;";
-    $results = mysqli_query($db, $query);
-    $events = array();
+    // $query = "SELECT
+    //             a.*,
+    //             d.slot,
+    //             b.nama AS course,
+    //             c.subjek_nama,
+    //             c.subjek_kod,
+    //             d.masa_mula,
+    //             d.masa_tamat,
+    //             d.masa_mula2,
+    //             d.masa_tamat2,
+    //             e.nama AS sem2,
+    //             e.start_date,
+    //             e.end_date,
+    //             att.user_id,
+    //             att.verify_att,
+    //             a.assign_to,
+    //             usa.assign_to as assign2,
+    //             usa.tarikh_mula as assign2_m,
+    //             usa.tarikh_tamat as assign2_t,
+    //             CASE WHEN COUNT(
+    //                 CASE WHEN att.verify_att = 1 THEN 1
+    //             END
+    //         ) = COUNT(att.user_id) THEN 'All' ELSE 'Not_All'
+    //         END AS verification_status
+    //         FROM
+    //             user_subjek a
+    //         INNER JOIN course b ON
+    //             b.id = a.course_id
+    //         INNER JOIN subjek c ON
+    //             c.id = a.subjek_id
+    //         INNER JOIN time_slot d ON
+    //             d.id = a.slot_id
+    //         INNER JOIN sem e ON
+    //             e.id = a.sem_id
+    //         INNER JOIN user_staff st ON
+    //             st.user_id = a.assign_to
+    //         LEFT JOIN attendance_slot att ON
+    //             att.slot = d.slot
+    //         LEFT JOIN user_staff_absence usa ON usa.user_id = st.user_id
+    //         WHERE b.id = '$kursus' AND e.nama = '$sem_start'
+    //         GROUP BY
+    //             d.slot,
+    //             a.day;";
+    // $results = mysqli_query($db, $query);
+    // $events = array();
 
 
-    while ($row = $results->fetch_assoc()) {
-        $start_time = new DateTime($row['masa_mula']);  // Start time of the slot
-        $end_time = new DateTime($row['masa_tamat']);  // End time of the slot
+    // while ($row = $results->fetch_assoc()) {
+    //     $start_time = new DateTime($row['masa_mula']);  // Start time of the slot
+    //     $end_time = new DateTime($row['masa_tamat']);  // End time of the slot
 
-        // Get the day for recurrence (adjusting 1=Sunday, 2=Monday, ...)
-        $day_of_week = (int) $row['day'];  // Assuming `day` column uses 1=Sunday, 2=Monday, ...
-        $day_of_week_php = $day_of_week - 1; // Convert to PHP's day numbering (0=Sunday)
+    //     // Get the day for recurrence (adjusting 1=Sunday, 2=Monday, ...)
+    //     $day_of_week = (int) $row['day'];  // Assuming `day` column uses 1=Sunday, 2=Monday, ...
+    //     $day_of_week_php = $day_of_week - 1; // Convert to PHP's day numbering (0=Sunday)
 
-        // Generate events for the specified day until the end_date
-        $current_date = clone $start_datea;
-        // Find the first occurrence of the specified day on or after the start_date
-        if ((int) $current_date->format('w') !== $day_of_week_php) {
-            $current_date->modify('next ' . jddayofweek($day_of_week_php, 1));
-        }
-
-
-
-        // Compare the event's start date with the absence period
+    //     // Generate events for the specified day until the end_date
+    //     $current_date = clone $start_datea;
+    //     // Find the first occurrence of the specified day on or after the start_date
+    //     if ((int) $current_date->format('w') !== $day_of_week_php) {
+    //         $current_date->modify('next ' . jddayofweek($day_of_week_php, 1));
+    //     }
 
 
-        while ($current_date <= $end_datea) {
-            $start_datetime = clone $current_date;
-            $start_datetime->setTime((int) $start_time->format('H'), (int) $start_time->format('i'));
 
-            $end_datetime = clone $current_date;
-            $end_datetime->setTime((int) $end_time->format('H'), (int) $end_time->format('i'));
+    //     // Compare the event's start date with the absence period
 
-            $assign = $row['assign_to'];
-            if (isset($row['assign2'])) {
-                $assign2_m = new DateTime($row['assign2_m']); // Assign start date
-                $assign2_t = new DateTime($row['assign2_t']); // Assign end date
 
-                if ($start_datetime >= $assign2_m && $start_datetime <= $assign2_t) {
-                    // Event start date is within the absence period, do something (e.g., exclude or mark)
-                    // You can add this to your $events array or handle it differently
-                    // echo  " falls within the absence period.\n";
-                    $assign = $row['assign2'];
-                }
+    //     while ($current_date <= $end_datea) {
+    //         $start_datetime = clone $current_date;
+    //         $start_datetime->setTime((int) $start_time->format('H'), (int) $start_time->format('i'));
+
+    //         $end_datetime = clone $current_date;
+    //         $end_datetime->setTime((int) $end_time->format('H'), (int) $end_time->format('i'));
+
+    //         $assign = $row['assign_to'];
+    //         if (isset($row['assign2'])) {
+    //             $assign2_m = new DateTime($row['assign2_m']); // Assign start date
+    //             $assign2_t = new DateTime($row['assign2_t']); // Assign end date
+
+    //             if ($start_datetime >= $assign2_m && $start_datetime <= $assign2_t) {
+    //                 // Event start date is within the absence period, do something (e.g., exclude or mark)
+    //                 // You can add this to your $events array or handle it differently
+    //                 // echo  " falls within the absence period.\n";
+    //                 $assign = $row['assign2'];
+    //             }
+    //         }
+    //         // Add event to the array
+    //         $events[$start_datetime->format('Y-m-d')] = array(
+    //             'id' => $row['id'],                 // Unique identifier for the event
+    //             'resourceId' => $day_of_week,       // Day value (1=Sunday, 2=Monday, ...)
+    //             'title' => $row['subjek_nama'],     // Event title (subject name)
+    //             'slot' => $row['slot'],     // Event title (subject name)
+    //             'verify' => $row['verification_status'],
+    //             'assign' => $assign,
+    //         );
+
+    //         // Modify to the next week's occurrence only if the date range is > 7 days
+    //         if ($date_diff > 7) {
+    //             $current_date->modify('+1 week');
+    //         } else {
+    //             break;
+    //         }
+    //     }
+    // }
+
+
+    $dates_verify = getDatesFromRange($startDate, $endDate); // Array of dates
+
+    $att_verify = []; // Initialize an empty array to store attendance verification data
+    
+    foreach ($dates_verify as $date) {
+        // Initialize the date with an empty array
+        $att_verify[$date] = [];
+
+        $dayOfWeek = date('w', strtotime($date));  
+        $day2 = $dayOfWeek + 1;
+    
+        $query = "SELECT a.slot_id, 
+                   c.nama AS slot_nama, 
+                   b.verify_att,
+                   CASE 
+                       WHEN SUM(CASE WHEN (b.verify_att IS NULL OR b.verify_att = 0) THEN 1 ELSE 0 END) = 0 THEN 1
+                       ELSE 0
+                   END AS all_verified
+            FROM user_subjek a
+            INNER JOIN attendance_slot b ON b.tarikh = '$date'
+            INNER JOIN time_slot c ON c.slot = b.slot
+            INNER JOIN user d ON d.id = b.user_id
+            INNER JOIN user_enroll e ON b.user_id = e.user_id
+            WHERE '$date' BETWEEN a.tarikh_mula AND a.tarikh_tamat
+              AND a.day = '$day2'
+              AND a.slot_id = c.id
+              AND e.course_id = '$kursus'
+              AND e.sem_start = '$sem_start'
+            GROUP BY a.slot_id;
+        ";
+    
+        $results3 = mysqli_query($db, $query);
+    
+        if ($results3 && mysqli_num_rows($results3) > 0) {
+            // Fetch results if available
+            while ($row3 = mysqli_fetch_assoc($results3)) {
+                $att_verify[$date][] = [
+                    'slot' => $row3['slot_nama'],
+                    'slot_status' => $row3['all_verified'],
+                    'verified_by' => $row3['verify_att']
+                ];
             }
-            // Add event to the array
-            $events[$start_datetime->format('Y-m-d')] = array(
-                'id' => $row['id'],                 // Unique identifier for the event
-                'resourceId' => $day_of_week,       // Day value (1=Sunday, 2=Monday, ...)
-                'title' => $row['subjek_nama'],     // Event title (subject name)
-                'slot' => $row['slot'],     // Event title (subject name)
-                'verify' => $row['verification_status'],
-                'assign' => $assign,
-            );
-
-            // Modify to the next week's occurrence only if the date range is > 7 days
-            if ($date_diff > 7) {
-                $current_date->modify('+1 week');
-            } else {
-                break;
-            }
+        } else {
+            // Leave the entry as an empty array for dates with no results
+            $att_verify[$date] = [];
         }
     }
-
 
     // $query = "SELECT * FROM `user_staff_absence`";
     // $results = mysqli_query($db, $query);
@@ -196,7 +244,7 @@ if (isset($_POST['get_pdf'])) {
   AND (a.tarikh BETWEEN '$startDate' AND '$endDate')
   AND e.nama = '$sem_start'
   AND course_id = '$kursus'
-  ORDER BY a.slot ASC";
+   ORDER BY a.slot ASC";
 
 
     $results2 = mysqli_query($db, $query);
@@ -364,7 +412,7 @@ if (isset($_POST['get_pdf'])) {
 
 
             if ($pdf->GetY() > 140 || ($pelajartotal == $d + 1)) {
-                tablebfooter($tableB, $dates, $timeslot, $slottotal, $events, $pdf);
+                tablebfooter($tableB, $dates, $timeslot, $slottotal, $pdf,$att_verify);
 
 
             }
@@ -452,39 +500,51 @@ function tablebheader($tableB, $dayslot, $timeslot, $dates, $month, $pdf)
     $tableB->printRow();
 }
 
-function tablebfooter($tableB, $days, $timeslot, $slottotal, $events, $pdf)
+function tablebfooter($tableB, $days, $timeslot, $slottotal, $pdf , $att_verify)
 {
     $tableB->easyCell("", 'rowspan:2');
     $tableB->easyCell("Tanda-tanda yang digunakan dalam Senarai Kehadiran adalah seperti berikut:\n/ - Hadir\n0 - Tidak Hadir\nK - Cuti Dengan Kebenaran/Lain-lain aktiviti", 'rowspan:2;colspan:2');
     $tableB->easyCell("Disahkan oleh:", ';align:C;valign:M');
 
     foreach ($days as $day) {
-
-
-        foreach ($timeslot as $slot) {
-            $slot2 = "slot" . $slot;
-            if (isset($events[$day]['slot'])) {
-
-                if (($events[$day]['slot'] == $slot2) && ($events[$day]['verify'] == 'All')) {
-                    // $signpath = $events[$dayofdate]['sign'];
-                    $id = $events[$day]['assign'];
-                    $tableB->easyCell(
-                        " ",
-                        ";align:C;valign:M;img:assets/images/sign/$id/$id.png;paddingX:0.5;paddingY:0.5"
-                    );
-
-                } else {
-                    $tableB->easyCell("", ';align:C;valign:M;paddingX:0.5;paddingY:0.5');
-
+        if (isset($att_verify[$day])) {
+            foreach ($timeslot as $slot) {
+                $slot2 = "slot" . $slot; // Construct the slot name
+    
+                $found = false; // Flag to check if the slot is found in the day's data
+    
+                foreach ($att_verify[$day] as $event) {
+                    if ($event['slot'] == $slot) {
+                        $found = true;
+    
+                        // Check if all are verified (slot_status = 1)
+                        if ($event['slot_status'] == 1) {
+                            $id = $event['verified_by']; // Assuming 'verified_by' is the ID
+                            $tableB->easyCell(
+                                " ",
+                                ";align:C;valign:M;img:assets/images/sign/$id/$id.png;paddingX:0.5;paddingY:0.5"
+                            );
+                        } else {
+                            $tableB->easyCell("", ';align:C;valign:M;paddingX:0.5;paddingY:0.5');
+                        }
+    
+                        break; // Exit the loop since the slot is found
+                    }
                 }
-
-                // If the slot and day match, add the image to the table cell
-            } else {
-                // $new = $events[$dayofdate][$slot2];
+    
+                if (!$found) {
+                    // If the slot is not found in the day's data
+                    $tableB->easyCell("", ';align:C;valign:M;paddingX:0.5;paddingY:0.5');
+                }
+            }
+        } else {
+            // If the day has no data in att_verify
+            foreach ($timeslot as $slot) {
                 $tableB->easyCell("", ';align:C;valign:M;paddingX:0.5;paddingY:0.5');
             }
         }
     }
+    
     $tableB->easyCell("Kiraan Peratus Kehadiran (%)\n(A-B)/A x 100%", 'rowspan:2;colspan:4 ;align:C;valign:M');
 
     $tableB->printRow();
