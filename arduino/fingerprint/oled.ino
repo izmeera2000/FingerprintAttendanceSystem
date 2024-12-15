@@ -24,17 +24,6 @@ void initOLED() {
 
 
 
-void OLEDwithFP(String message) {
-  display.clearDisplay();
-  display.setTextSize(1);
-  display.setTextColor(WHITE);
-  display.setCursor(0, 10);
-  // Display static text
-  display.println(message);
-  display.drawBitmap(20, 0, fplogo, 128, 64, WHITE);  // Adjust the size if needed
-
-  display.display();
-}
 
 
 
@@ -53,3 +42,17 @@ const unsigned char fplogo[] PROGMEM = {
   0x1d, 0xff, 0x9f, 0xfb, 0x80, 0x0f, 0xff, 0xff, 0xff, 0x00, 0x07, 0x9f, 0x67, 0xde, 0x00, 0x00,
   0x00, 0x00, 0x00, 0x00
 };
+
+
+void OLEDwithFP(String message) {
+  display.clearDisplay();
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  display.setCursor(0, 10);
+  // Display static text
+  display.println(message);
+  display.drawBitmap(20, 0, fplogo, 128, 64, WHITE);  // Adjust the size if needed
+
+  display.display();
+}
+
