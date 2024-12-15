@@ -110,7 +110,6 @@ void setup() {
 
   // Set the volume to a reasonable level (0-30)
   player.volume(20);
-  delay(1000);  // Small delay to debounce (adjust as needed)
 
   int fileCount = player.readFileCounts();  // Read number of files
   // Serial.print("Files found on SD card: ");
