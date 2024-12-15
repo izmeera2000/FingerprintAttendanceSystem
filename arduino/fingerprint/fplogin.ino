@@ -89,7 +89,7 @@ void loginFP() {
     bool userDetected = Check1UserDoor();
     if (userDetected) {
       logFingerprintID(fingerid, 1);
-      OLEDwithFP("FP Masuk");
+      // OLEDwithFP("FP Masuk");
 
       // Log the fingerprint ID with '1' (entry)
       //check selain user masuk
@@ -112,6 +112,7 @@ void loginFP() {
     bool userDetected = Check1UserDoor();
     if (userDetected) {
       logFingerprintID(fingerid2, 0);  // Log the fingerprint ID with '0' (exit)
+      // OLEDwithFP("FP Masuk");
 
       CloseDoor();  // Close the door if no user detected
 
