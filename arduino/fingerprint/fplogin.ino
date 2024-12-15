@@ -76,7 +76,7 @@ String logFingerprintID(int id, int ent) {
 
 
 void loginFP() {
-  simpleOLED("Please Place Finger");
+  OLEDwithFP("Please Place Finger");
 
   // First fingerprint sensor
   int fingerid = getFingerprintIDez();
