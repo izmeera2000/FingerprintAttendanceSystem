@@ -62,6 +62,8 @@ String logFingerprintID(int id, int ent) {
     if (httpResponseCode > 0) {
       String response = http.getString();
       Serial.println("Server response: " + response);
+      simpleOLED(response);
+
       return response;
     } else {
       Serial.print("Error in POST request, HTTP code: ");
@@ -110,9 +112,8 @@ void loginFP() {
     bool userDetected = Check1UserDoor();
     if (userDetected) {
       logFingerprintID(fingerid2, 0);  // Log the fingerprint ID with '0' (exit)
-      OLEDwithFP("FP  Keluar");
 
-      CloseDoor();                     // Close the door if no user detected
+      CloseDoor();  // Close the door if no user detected
 
     } else {
       CloseDoor();  // Close the door if no user detected
