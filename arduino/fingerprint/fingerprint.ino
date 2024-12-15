@@ -96,6 +96,10 @@ void setup() {
   }
   simpleOLED("all FP detected");
 
+    delay(1000);  // Wait 1 second before retrying
+  simpleOLED("Init Speaker");
+
+
   while (!player.begin(DFPSerial)) {
     Serial.println("Failed to connect to DFPlayer Mini. Retrying in 1 second...");
     delay(1000);  // Wait 1 second before retrying
