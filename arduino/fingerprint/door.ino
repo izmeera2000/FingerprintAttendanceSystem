@@ -1,7 +1,7 @@
 
 bool Check1UserDoor() {
   simpleOLED("Only 1 user allowed");
-  playSound(3, 30);
+  // playSound(3, 30);
 
   unsigned long startTime = millis();
   bool userPassed = false;

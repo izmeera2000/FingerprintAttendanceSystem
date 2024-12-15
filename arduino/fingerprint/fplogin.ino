@@ -81,12 +81,15 @@ void loginFP() {
   // First fingerprint sensor
   int fingerid = getFingerprintIDez();
   if (fingerid != -1) {  // Check if a valid ID was returned
-    OpenDoor();  // Open door for user entry
-    playSound(1,30);
+    OpenDoor();          // Open door for user entry
+    // playSound(1, 30);
 
     bool userDetected = Check1UserDoor();
     if (userDetected) {
-      logFingerprintID(fingerid, 1);  // Log the fingerprint ID with '1' (entry)
+      logFingerprintID(fingerid, 1);
+      OLEDwithFP("FP Masuk");
+
+      // Log the fingerprint ID with '1' (entry)
       //check selain user masuk
       CloseDoor();  // Close the door if no user detected
 
@@ -101,13 +104,15 @@ void loginFP() {
   // Second fingerprint sensor
   int fingerid2 = getFingerprintIDez2();
   if (fingerid2 != -1) {  // Check if a valid ID was returned
-    OpenDoor();  // Open door for user exit
-        playSound(2,30);
+    OpenDoor();           // Open door for user exit
+    // playSound(2, 30);
 
     bool userDetected = Check1UserDoor();
     if (userDetected) {
       logFingerprintID(fingerid2, 0);  // Log the fingerprint ID with '0' (exit)
-      CloseDoor();  // Close the door if no user detected
+      OLEDwithFP("FP  Keluar");
+
+      CloseDoor();                     // Close the door if no user detected
 
     } else {
       CloseDoor();  // Close the door if no user detected
