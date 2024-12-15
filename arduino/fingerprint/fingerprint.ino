@@ -118,7 +118,7 @@ void setup() {
   if (fileCount > 0) {
     simpleOLED("Playing Sound");
     Serial.println("Playing the first file...");
-    playSound(5);
+    playSound(5, 30);
   } else {
     Serial.println("No MP3 files found on SD card!");
     simpleOLED("No Files Detected");
