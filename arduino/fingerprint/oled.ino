@@ -51,7 +51,7 @@ void OLEDwithFP(String message) {
   display.setCursor(0, 10);
   // Display static text
   display.println(message);
-  display.drawBitmap(20, 20, fplogo, 36, 36, WHITE);  // Adjust the size if needed
+  display.drawBitmap(28, 20, fplogo, 36, 36, WHITE);  // Adjust the size if needed
 
   display.display();
 }
