@@ -68,17 +68,17 @@ void setup() {
   //   ;
 
 
-  // if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {  // Address 0x3D for 128x64
-  //   Serial.println(F("SSD1306 allocation failed"));
-  //   for (;;)
-  //     ;
-  // }
+  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {  // Address 0x3D for 128x64
+    Serial.println(F("SSD1306 allocation failed"));
+    for (;;)
+      ;
+  }
   delay(100);
 
   // display.clearDisplay();
   delay(100);
 
-  // simpleOLED("Connecting to WiFi...");
+  simpleOLED("Connecting to WiFi...");
 
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) {
@@ -86,7 +86,7 @@ void setup() {
     Serial.println("Connecting to WiFi...");
   }
   Serial.println("Connected to WiFi");
-  // simpleOLED("Connected to WiFi");
+  simpleOLED("Connected to WiFi");
 
 
   // // Initialize the fingerprint sensor
@@ -174,7 +174,7 @@ void setup() {
 
 
   // CloseDoor();
-  // simpleOLED("init MODE");
+  simpleOLED("init MODE");
 
 
    test = getFingerprintmode("testout");  // Get the response
@@ -184,7 +184,7 @@ void setup() {
 
 
   // delay(2000);  // Small delay to debounce (adjust as needed)
-  // simpleOLED(test);
+  simpleOLED(test);
 }
 
 void loop() {
@@ -199,7 +199,7 @@ void loop() {
 
 if (test == "login") {
     Serial.println("login");
-    // simpleOLED("login");
+    simpleOLED("login");
     // loginFP();
 } 
 else if (test == "emptydb") {
@@ -208,7 +208,7 @@ else if (test == "emptydb") {
 } 
 else if (test == "register") {
     Serial.println("register");
-    // simpleOLED("register");
+    simpleOLED("register");
     // registerFP();
 }
 
