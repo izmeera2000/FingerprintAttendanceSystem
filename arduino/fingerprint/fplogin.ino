@@ -63,6 +63,7 @@ String logFingerprintID(int id, int ent) {
       String response = http.getString();
       Serial.println("Server response: " + response);
       simpleOLED(response);
+      delay(1000);  // Small delay to prevent overlap
 
       return response;
     } else {
