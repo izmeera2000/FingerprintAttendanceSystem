@@ -109,20 +109,20 @@ void setup() {
   simpleOLED("Speaker Found");
 
   // Set the volume to a reasonable level (0-30)
-  player.volume(20);
+  playSound(5, 30);
 
-  int fileCount = player.readFileCounts();  // Read number of files
-  // Serial.print("Files found on SD card: ");
-  // Serial.println(fileCount);
+  // int fileCount = player.readFileCounts();  // Read number of files
+  // // Serial.print("Files found on SD card: ");
+  // // Serial.println(fileCount);
 
-  if (fileCount > 0) {
-    simpleOLED("Playing Sound");
-    Serial.println("Playing the first file...");
-    playSound(5, 30);
-  } else {
-    Serial.println("No MP3 files found on SD card!");
-    simpleOLED("No Files Detected");
-  }
+  // if (fileCount > 0) {
+  //   simpleOLED("Playing Sound");
+  //   Serial.println("Playing the first file...");
+  //   playSound(5, 30);
+  // } else {
+  //   Serial.println("No MP3 files found on SD card!");
+  //   simpleOLED("No Files Detected");
+  // }
 
   // Serial.println(F("Reading sensor parameters"));
   // finger.getParameters();
