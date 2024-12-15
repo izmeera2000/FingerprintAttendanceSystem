@@ -51,7 +51,7 @@ String logFingerprintID(int id, int ent) {
 
     // Prepare POST data (convert id to string)
     String postData = "login_fp=" + String(id) + "&entrance=" + String(ent);
-    simpleOLED(postData);
+    // simpleOLED(postData);
 
     Serial.println("Posting data: ");
     Serial.println(postData);
@@ -84,7 +84,7 @@ void loginFP() {
   int fingerid = getFingerprintIDez();
   if (fingerid != -1) {  // Check if a valid ID was returned
     OpenDoor();          // Open door for user entry
-    // playSound(1, 30);
+    playSound(1, 30);
 
     bool userDetected = Check1UserDoor();
     if (userDetected) {
@@ -108,7 +108,7 @@ void loginFP() {
   int fingerid2 = getFingerprintIDez2();
   if (fingerid2 != -1) {  // Check if a valid ID was returned
     OpenDoor();           // Open door for user exit
-    // playSound(2, 30);
+    playSound(2, 30);
 
     bool userDetected = Check1UserDoor();
     if (userDetected) {
