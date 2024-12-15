@@ -1,6 +1,7 @@
 
 bool Check1UserDoor() {
   simpleOLED("Only 1 user allowed");
+  playSound(3, 30);
 
   unsigned long startTime = millis();
   bool userPassed = false;
@@ -8,8 +9,8 @@ bool Check1UserDoor() {
   while (millis() - startTime < 10000) {  // 10 seconds timeout
     int state = digitalRead(IR_PIN);
 
-    if (state == LOW && !userPassed) {  // Detect start of user passing
-      delay(50);                        // Small debounce delay
+    if (state == LOW && !userPassed) {    // Detect start of user passing
+      delay(50);                          // Small debounce delay
       if (digitalRead(IR_PIN) == HIGH) {  // Confirm HIGH state persists
         userPassed = true;
         Serial.println("User Passed");

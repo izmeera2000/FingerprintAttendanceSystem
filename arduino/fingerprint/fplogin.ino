@@ -83,6 +83,7 @@ void loginFP() {
   if (fingerid != -1) {  // Check if a valid ID was returned
     OpenDoor();  // Open door for user entry
     playSound(1,30);
+
     bool userDetected = Check1UserDoor();
     if (userDetected) {
       logFingerprintID(fingerid, 1);  // Log the fingerprint ID with '1' (entry)
