@@ -96,7 +96,7 @@ void setup() {
   }
   simpleOLED("all FP detected");
 
-    delay(1000);  // Wait 1 second before retrying
+  delay(1000);  // Wait 1 second before retrying
   simpleOLED("Init Speaker");
 
 
@@ -106,19 +106,22 @@ void setup() {
   }
 
   Serial.println("Connected to DFPlayer Mini!");
+  simpleOLED("Speaker Found");
 
   // Set the volume to a reasonable level (0-30)
   player.volume(20);
 
   int fileCount = player.readFileCounts();  // Read number of files
-  Serial.print("Files found on SD card: ");
-  Serial.println(fileCount);
+  // Serial.print("Files found on SD card: ");
+  // Serial.println(fileCount);
 
   if (fileCount > 0) {
+    simpleOLED("Playing Sound");
     Serial.println("Playing the first file...");
-    player.play(1);  // Play the first MP3 file (0001.mp3)
+    player.play(5);  // Play the first MP3 file (0001.mp3)
   } else {
     Serial.println("No MP3 files found on SD card!");
+    simpleOLED("No Files Detected");
   }
 
   // Serial.println(F("Reading sensor parameters"));
@@ -139,29 +142,29 @@ void setup() {
   // Serial.println(finger.baud_rate);
 
 
-  finger2.getTemplateCount();
+  // finger2.getTemplateCount();
 
-  if (finger2.templateCount == 0) {
-    Serial.print("Sensor  2 doesn't contain any fingerprint data. Please run the 'enroll' example.");
-  } else {
-    Serial.println("Waiting for valid finger...");
-    Serial.print("Sensor 2 contains ");
-    Serial.print(finger2.templateCount);
-    Serial.println(" templates");
-  }
-  delay(100);  // Small delay to debounce (adjust as needed)
+  // if (finger2.templateCount == 0) {
+  //   Serial.print("Sensor  2 doesn't contain any fingerprint data. Please run the 'enroll' example.");
+  // } else {
+  //   Serial.println("Waiting for valid finger...");
+  //   Serial.print("Sensor 2 contains ");
+  //   Serial.print(finger2.templateCount);
+  //   Serial.println(" templates");
+  // }
+  // delay(100);  // Small delay to debounce (adjust as needed)
 
 
-  finger.getTemplateCount();
+  // finger.getTemplateCount();
 
-  if (finger.templateCount == 0) {
-    Serial.print("Sensor  1 doesn't contain any fingerprint data. Please run the 'enroll' example.");
-  } else {
-    Serial.println("Waiting for valid finger...");
-    Serial.print("Sensor 1 contains ");
-    Serial.print(finger.templateCount);
-    Serial.println(" templates");
-  }
+  // if (finger.templateCount == 0) {
+  //   Serial.print("Sensor  1 doesn't contain any fingerprint data. Please run the 'enroll' example.");
+  // } else {
+  //   Serial.println("Waiting for valid finger...");
+  //   Serial.print("Sensor 1 contains ");
+  //   Serial.print(finger.templateCount);
+  //   Serial.println(" templates");
+  // }
 
 
 
