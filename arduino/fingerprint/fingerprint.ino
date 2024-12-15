@@ -40,10 +40,10 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 // Create SoftwareSerial object
 HardwareSerial mySerialfp(2);  // Use UART2 (index 2)
 SoftwareSerial mySerial(RX_PIN, TX_PIN);
-// SoftwareSerial DFPSerial(RX2_PIN, TX2_PIN);
+SoftwareSerial DFPSerial(RX2_PIN, TX2_PIN);
 
 // Initialize the fingerprint sensor
-// DFRobotDFPlayerMini player;
+DFRobotDFPlayerMini player;
 
 Adafruit_Fingerprint finger2 = Adafruit_Fingerprint(&mySerial);
 Adafruit_Fingerprint finger = Adafruit_Fingerprint(&mySerialfp);
@@ -52,9 +52,9 @@ bool hasRun = false;  // Flag to ensure the block runs only once
 
 void setup() {
   Serial.begin(115200);
-  // mySerial.begin(57600);
+  mySerial.begin(57600);
   // DFPSerial.begin(9600);
-  // mySerialfp.begin(57600, SERIAL_8N1, RXfp1_PIN, TXfp1_PIN);
+  mySerialfp.begin(57600, SERIAL_8N1, RXfp1_PIN, TXfp1_PIN);
 
   pinMode(IR_PIN, INPUT);
   pinMode(RELAY_PIN, OUTPUT);
@@ -67,66 +67,55 @@ void setup() {
   // while (!Serial)
   //   ;
 
-
-  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {  // Address 0x3D for 128x64
-    Serial.println(F("SSD1306 allocation failed"));
-    for (;;)
-      ;
-  }
+  initOLED();
   delay(100);
 
-  // display.clearDisplay();
-  delay(100);
 
   simpleOLED("Connecting to WiFi...");
 
-  WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(1000);
-    Serial.println("Connecting to WiFi...");
-  }
+  initWIFI();
   Serial.println("Connected to WiFi");
   simpleOLED("Connected to WiFi");
 
 
-  // // Initialize the fingerprint sensor
-  // if (finger2.verifyPassword()) {
-  //   Serial.println("Fingerprint sftwr sensor detected!");
-  // } else {
-  //   Serial.println("Fingerprint sftwr sensor not detected!");
-  //   while (1)
-  //     ;
-  // }
+  // Initialize the fingerprint sensor
+  if (finger2.verifyPassword()) {
+    Serial.println("Fingerprint sftwr sensor detected!");
+  } else {
+    Serial.println("Fingerprint sftwr sensor not detected!");
+    while (1)
+      ;
+  }
 
-  // if (finger.verifyPassword()) {
-  //   Serial.println("Fingerprint hrdwr detected!");
-  // } else {
-  //   Serial.println("Fingerprint hrdwr sensor not detected!");
-  //   while (1)
-  //     ;
-  // }
-  // simpleOLED("all FP detected");
+  if (finger.verifyPassword()) {
+    Serial.println("Fingerprint hrdwr detected!");
+  } else {
+    Serial.println("Fingerprint hrdwr sensor not detected!");
+    while (1)
+      ;
+  }
+  simpleOLED("all FP detected");
 
-  // while (!player.begin(DFPSerial)) {
-  //   Serial.println("Failed to connect to DFPlayer Mini. Retrying in 1 second...");
-  //   delay(1000);  // Wait 1 second before retrying
-  // }
+  while (!player.begin(DFPSerial)) {
+    Serial.println("Failed to connect to DFPlayer Mini. Retrying in 1 second...");
+    delay(1000);  // Wait 1 second before retrying
+  }
 
-  // Serial.println("Connected to DFPlayer Mini!");
+  Serial.println("Connected to DFPlayer Mini!");
 
-  // // Set the volume to a reasonable level (0-30)
-  // player.volume(20);
+  // Set the volume to a reasonable level (0-30)
+  player.volume(20);
 
-  // int fileCount = player.readFileCounts();  // Read number of files
-  // Serial.print("Files found on SD card: ");
-  // Serial.println(fileCount);
+  int fileCount = player.readFileCounts();  // Read number of files
+  Serial.print("Files found on SD card: ");
+  Serial.println(fileCount);
 
-  // if (fileCount > 0) {
-  //   Serial.println("Playing the first file...");
-  //   player.play(1);  // Play the first MP3 file (0001.mp3)
-  // } else {
-  //   Serial.println("No MP3 files found on SD card!");
-  // }
+  if (fileCount > 0) {
+    Serial.println("Playing the first file...");
+    player.play(1);  // Play the first MP3 file (0001.mp3)
+  } else {
+    Serial.println("No MP3 files found on SD card!");
+  }
 
   // Serial.println(F("Reading sensor parameters"));
   // finger.getParameters();
@@ -146,29 +135,29 @@ void setup() {
   // Serial.println(finger.baud_rate);
 
 
-  // finger2.getTemplateCount();
+  finger2.getTemplateCount();
 
-  // if (finger2.templateCount == 0) {
-  //   Serial.print("Sensor  2 doesn't contain any fingerprint data. Please run the 'enroll' example.");
-  // } else {
-  //   Serial.println("Waiting for valid finger...");
-  //   Serial.print("Sensor 2 contains ");
-  //   Serial.print(finger2.templateCount);
-  //   Serial.println(" templates");
-  // }
+  if (finger2.templateCount == 0) {
+    Serial.print("Sensor  2 doesn't contain any fingerprint data. Please run the 'enroll' example.");
+  } else {
+    Serial.println("Waiting for valid finger...");
+    Serial.print("Sensor 2 contains ");
+    Serial.print(finger2.templateCount);
+    Serial.println(" templates");
+  }
   delay(100);  // Small delay to debounce (adjust as needed)
 
 
-  // finger.getTemplateCount();
+  finger.getTemplateCount();
 
-  // if (finger.templateCount == 0) {
-  //   Serial.print("Sensor  1 doesn't contain any fingerprint data. Please run the 'enroll' example.");
-  // } else {
-  //   Serial.println("Waiting for valid finger...");
-  //   Serial.print("Sensor 1 contains ");
-  //   Serial.print(finger.templateCount);
-  //   Serial.println(" templates");
-  // }
+  if (finger.templateCount == 0) {
+    Serial.print("Sensor  1 doesn't contain any fingerprint data. Please run the 'enroll' example.");
+  } else {
+    Serial.println("Waiting for valid finger...");
+    Serial.print("Sensor 1 contains ");
+    Serial.print(finger.templateCount);
+    Serial.println(" templates");
+  }
 
 
 
@@ -177,8 +166,8 @@ void setup() {
   simpleOLED("init MODE");
 
 
-   test = getFingerprintmode("testout");  // Get the response
-  test.trim();  // Trim leading and trailing whitespaces/newlines
+  test = getFingerprintmode("testout");  // Get the response
+  test.trim();                           // Trim leading and trailing whitespaces/newlines
   Serial.print("mode: ");
   Serial.println(test);
 
@@ -197,20 +186,18 @@ void loop() {
 
   // Serial.print("mode : z" + test + "z");
 
-if (test == "login") {
+  if (test == "login") {
     Serial.println("login");
     simpleOLED("login");
-    // loginFP();
-} 
-else if (test == "emptydb") {
+    loginFP();
+  } else if (test == "emptydb") {
     Serial.println("empty");
-    // emptyDBFP();
-} 
-else if (test == "register") {
+    emptyDBFP();
+  } else if (test == "register") {
     Serial.println("register");
     simpleOLED("register");
-    // registerFP();
-}
+    registerFP();
+  }
 
   delay(100);  // Small delay to debounce (adjust as needed)
 
