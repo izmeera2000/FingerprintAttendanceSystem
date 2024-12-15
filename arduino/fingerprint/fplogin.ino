@@ -63,7 +63,6 @@ String logFingerprintID(int id, int ent) {
       String response = http.getString();
       Serial.println("Server response: " + response);
       simpleOLED(response);
-      delay(1000);  // Small delay to prevent overlap
 
       return response;
     } else {
@@ -91,6 +90,7 @@ void loginFP() {
     if (userDetected) {
       logFingerprintID(fingerid, 1);
       // OLEDwithFP("FP Masuk");
+      delay(1000);  // Small delay to prevent overlap
 
       // Log the fingerprint ID with '1' (entry)
       //check selain user masuk
@@ -114,6 +114,7 @@ void loginFP() {
     if (userDetected) {
       logFingerprintID(fingerid2, 0);  // Log the fingerprint ID with '0' (exit)
       // OLEDwithFP("FP Masuk");
+      delay(1000);  // Small delay to prevent overlap
 
       CloseDoor();  // Close the door if no user detected
 
