@@ -286,6 +286,7 @@ if (isset($_POST['check_slot_email'])) {
                     $ndp = $row['ndp'];
                     $sem_start = $row['sem_start'];
                     $email = $row['email'];
+                    $bengkel_id = $row['bengkel_id'];
                     echo $email;
 
                     $sem = getSemesterByNumber($sem_start);
@@ -395,6 +396,19 @@ if (isset($_POST['check_slot_email'])) {
                     );
                     // echo "test2";
                     sendmail($email, "Aduan Disiplin Pelajar", 'jtp2.php', $var);
+
+                    $query5 = "SELECT  * FROM user WHERE bengkel_id= '$bengkel_id' AND role = '4' ";
+                    $results5 = mysqli_query($db, $query5);
+                    while ($row = $results5->fetch_assoc()) {
+                        sendmail($row['email'], "Aduan Disiplin Pelajar", 'jtp2.php', $var);
+
+                    }
+                    $query5 = "SELECT  * FROM user WHERE bengkel_id= '$bengkel_id' AND role = '2' ";
+                    $results5 = mysqli_query($db, $query5);
+                    while ($row = $results5->fetch_assoc()) {
+                        sendmail($row['email'], "Aduan Disiplin Pelajar", 'jtp2.php', $var);
+
+                    }
                     unlink('jtp2.pdf'); // Removes the file after sending the email
                 }
             } else if ($attslot['count'] >= 10) {
@@ -481,6 +495,20 @@ if (isset($_POST['check_slot_email'])) {
                     );
 
                     sendmail($email, "SURAT PERINGATAN TIDAK HADIR LATIHAN", 'amaran2.php', $var);
+
+                    
+                    $query5 = "SELECT  * FROM user WHERE bengkel_id= '$bengkel_id' AND role = '4' ";
+                    $results5 = mysqli_query($db, $query5);
+                    while ($row = $results5->fetch_assoc()) {
+                        sendmail($email, "SURAT PERINGATAN TIDAK HADIR LATIHAN", 'amaran2.php', $var);
+
+                    }
+                    $query5 = "SELECT  * FROM user WHERE bengkel_id= '$bengkel_id' AND role = '2' ";
+                    $results5 = mysqli_query($db, $query5);
+                    while ($row = $results5->fetch_assoc()) {
+                        sendmail($email, "SURAT PERINGATAN TIDAK HADIR LATIHAN", 'amaran2.php', $var);
+
+                    }
                     unlink('amaran2.pdf'); // Removes the file after sending the email
 
                 }
@@ -566,6 +594,19 @@ if (isset($_POST['check_slot_email'])) {
                         'alasan' => "test", // Example variable
                     );
                     sendmail($email, "SURAT PERINGATAN TIDAK HADIR LATIHAN", 'amaran1.php', $var);
+
+                    $query5 = "SELECT  * FROM user WHERE bengkel_id= '$bengkel_id' AND role = '4' ";
+                    $results5 = mysqli_query($db, $query5);
+                    while ($row = $results5->fetch_assoc()) {
+                        sendmail($email, "SURAT PERINGATAN TIDAK HADIR LATIHAN", 'amaran1.php', $var);
+
+                    }
+                    $query5 = "SELECT  * FROM user WHERE bengkel_id= '$bengkel_id' AND role = '2' ";
+                    $results5 = mysqli_query($db, $query5);
+                    while ($row = $results5->fetch_assoc()) {
+                        sendmail($email, "SURAT PERINGATAN TIDAK HADIR LATIHAN", 'amaran1.php', $var);
+
+                    }
                     unlink('amaran1.pdf'); // Removes the file after sending the email
 
                 }

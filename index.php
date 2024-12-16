@@ -120,6 +120,20 @@ function attendance_view2()
 
 }
 
+
+function attendance_view3()
+{
+	check_session($site_url);
+	$pagetitle = "Slot View";
+
+	$breadcrumbs = [
+		['label' => 'Home', 'url' => &$site_url, 'active' => false],
+		['label' => 'Slot View', 'url' => $site_url . '/slotview', 'active' => true],
+	];
+	require_once('views/attendance/timeline3.php');
+
+}
+
 function emasuk()
 {
 	check_session($site_url, 1);
@@ -405,9 +419,9 @@ switch (true) {
 		register();
 		break;
 
-		case ($request == 'register_admin'):
-			register_admin();
-			break;
+	case ($request == 'register_admin'):
+		register_admin();
+		break;
 	case ($request == 'profile'):
 		profile();
 		break;
@@ -432,6 +446,10 @@ switch (true) {
 		attendance_view2();
 		break;
 
+	case ($request == 'attendance/slotview2'):
+		attendance_view3();
+		break;
+
 	// case (str_contains($request, 'eventcheck')):
 	case (str_contains($request, 'fingerprintesp')):
 	case (str_contains($request, 'fetchresource')):
@@ -452,6 +470,9 @@ switch (true) {
 	case (str_contains($request, 'holiday_findall')):
 	case (str_contains($request, 'course_findall')):
 	case (str_contains($request, 'enroll_findall')):
+	case (str_contains($request, 'enroll_update')):
+
+
 	case (str_contains($request, 'kelas_findall')):
 	case (str_contains($request, 'kelas_insertfp')):
 	case (str_contains($request, 'kelas_deletefp')):

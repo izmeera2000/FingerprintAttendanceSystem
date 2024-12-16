@@ -208,7 +208,7 @@
             className: "text-center",
             responsivePriority: 1,
             render: function (data, type, row, meta) {
-              return '<button type="button" class="btn btn-primary edit-class" data-id="' + row.id + '"><i class="bi bi-pencil-square"></i></button>';
+              return '<button type="button" class="btn btn-primary edit-class mx-1" data-id="' + row.id + '" data-stat="2">Tangguh</button><button type="button" class="btn btn-primary edit-class mx-1" data-id="' + row.id + '" data-stat="3">Berhenti</button><button type="button" class="btn btn-primary edit-class mx-1" data-id="' + row.id + '" data-stat="4">Diberhentikan</button><button type="button" class="btn btn-primary edit-class mx-1" data-id="' + row.id + '" data-stat="1">Aktif</button>';
             }
           },
         ],
@@ -230,7 +230,42 @@
       document.getElementById("searchCol2").addEventListener("change", updateTableOnChange);
       document.getElementById("searchCol3").addEventListener("change", updateTableOnChange);
 
+
+      $(document).on('click', '.edit-class', function () {
+      var button = $(this); // Get the clicked button
+      var id = button.data('id'); // Get the id of the button
+      var stat = button.data('stat'); // Get the stat value of the button
+
+      // You can perform whatever action you need with `id` and `stat`
+      console.log("Button ID: " + id);
+      console.log("Status: " + stat);
+
+      $.ajax({
+        type: "POST",
+        url: "enroll_update",
+        data: {
+          enroll_update: {
+            id: id,
+            stat: stat,
+
+
+          },
+        },
+        success: function (response) {
+          console.log(response);
+          // // console.log(date);
+          // $('#btggroupslot').html(response);
+          // myModal2.show();
+          dt1.ajax.reload();  // Reload the table's data
+
+        },
+      });
     });
+
+    });
+
+
+
 
   </script>
 </body>

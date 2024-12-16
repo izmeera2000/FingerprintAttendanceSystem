@@ -208,6 +208,18 @@
 
         <?php } ?>
 
+        <?php if ($_SESSION['user_details']['role'] == 4) { ?>
+          <li class="nav-small-cap">
+            <i class="mdi mdi-dots-horizontal"></i>
+            <span class="hide-menu">Attendance</span>
+          </li>
+        <li class="sidebar-item">
+            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>attendance/slotview2"
+              aria-expanded="false"><i class="bi bi-calendar3-week"></i><span class="hide-menu">Slot
+                View</span></a>
+          </li>
+          <?php } ?>
+
         <li class="nav-small-cap">
           <i class="mdi mdi-dots-horizontal"></i>
           <span class="hide-menu">User</span>

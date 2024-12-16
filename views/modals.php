@@ -1003,7 +1003,58 @@
       </form>
     </div>
   </div>
-<?php }
+<?php }?>
 
 
-?>
+<?php if ($request == 'attendance/slotview2') { ?>
+
+
+  <div class="modal fade" id="UpdateAttStudent" tabindex="-1" aria-labelledby="EditSubjekModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+      <form method="POST">
+        <div class="modal-content">
+          <div class="modal-header d-flex align-items-center">
+            <h5 class="modal-title" id="EditSubjekModalLabel">
+              Update Attendance
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <input type="hidden" class="form-control" name="id" id="id" />
+
+              <div class="col-md-12">
+                <div class="">
+                  <label class="form-label">Nama</label>
+                  <input type="text" class="form-control" name="nama" id="nama" />
+                </div>
+              </div>
+              <div class="col-md-12 mt-2">
+                <div class="">
+                  <label class="form-label">Kod</label>
+                  <input type="text" class="form-control" name="kod" id="kod" />
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn" data-bs-dismiss="modal">
+              Close
+            </button>
+            <button type="submit" class="btn btn-danger" name="subjek_deletef">
+              Delete
+            </button>
+            <button type="submit" class="btn btn-primary btn-add-event" name="subjek_editf">
+              Save Changes
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <?php }?>
+
+ 
