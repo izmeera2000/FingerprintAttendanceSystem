@@ -33,18 +33,12 @@
           <div class="logo text-center">
             <span class="db"><img src="<?php echo $site_url ?>assets/images/logo-b.png" alt="logo" /></span>
             <span class="db"><img src="<?php echo $site_url ?>assets/images/logo-b-text.png" alt="logo" /></span>
-            <h5 class="font-weight-medium mb-3 mt-2">Sign Up Student</h5>
+            <h5 class="font-weight-medium mb-3 mt-2">Sign Up Admin</h5>
           </div>
           <!-- Form -->
           <div class="row">
             <div class="col-12">
-              <form method="POST" action="register" enctype="multipart/form-data">
-                <div class="form-group row mb-3  ">
-                  <div class="col-12 ">
-                    <input class="form-control  <?php formvalidatelabel("ndp", $errors) ?>" type="number"
-                      placeholder="NDP" name="ndp" required>
-                  </div>
-                </div>
+              <form method="POST" action="register_admin" enctype="multipart/form-data">
                 <div class="form-group row mb-3 ">
                   <div class="col-12 ">
                     <input class="form-control <?php formvalidatelabel("fullname", $errors) ?>" type="text"
@@ -69,6 +63,54 @@
                       placeholder="Nombor Kad Pengenalan" name="kp" required>
                   </div>
                 </div>
+                <div class="row">
+
+                  <div class="col-6 ">
+                    <div class="form-group row mb-3">
+                      <label for="FS_Jantina">Bengkel</label>
+
+                      <select class="form-control  <?php formvalidatelabel("bengkel", $errors) ?>" id="FS_Jantina"
+                        aria-label="Floating label select example" name="bengkel" required>
+
+                        <option selected disabled> Pilih Bengkel</option>
+                        <?php
+                        $query = "SELECT * FROM bengkel  ";
+                        $results = mysqli_query($db, $query);
+                        while ($row = $results->fetch_assoc()) {
+                          $id = $row['id'];
+                          $nama = $row['nama'];
+                          ?>
+                          <option value="<?php echo $id ?>"><?php echo ($nama) ?></option>
+
+                        <?php } ?>
+                      </select>
+
+                    </div>
+                  </div>
+                  <div class="col-5 mx-2 ">
+                    <div class="form-group row mb-3">
+                      <label for="FS_Jantina">Role</label>
+
+                      <select class="form-control  <?php formvalidatelabel("role", $errors) ?>" id="FS_Jantina"
+                        aria-label="Floating label select example" name="role" required>
+
+                        <option selected disabled> Pilih Role</option>
+                        <?php
+                        $query = "SELECT * FROM user_role  WHERE nama != 'STUDENT'";
+                        $results = mysqli_query($db, $query);
+                        while ($row = $results->fetch_assoc()) {
+                          $id = $row['id'];
+                          $nama = $row['nama'];
+                          ?>
+                          <option value="<?php echo $id ?>"><?php echo ($nama) ?></option>
+
+                        <?php } ?>
+                      </select>
+
+                    </div>
+                  </div>
+                </div>
+
                 <div class="col-12 ">
                   <div class="form-group row mb-3">
                     <label for="FS_Jantina">Jantina</label>
@@ -146,11 +188,10 @@
                   </div>
                 </div>
                 <div class="d-flex align-items-stretch">
-                    <button  type="submit"
-                    name="user_register" class="btn btn-info d-block w-100">
-                      Sign up
-                    </button>
-                  </div>
+                  <button type="submit" name="user_register2" class="btn btn-info d-block w-100">
+                    Sign up
+                  </button>
+                </div>
                 <div class="form-group m-b-0 m-t-10 ">
                   <div class="col-sm-12 text-center ">
                     Already have an account? <a href="<?php echo $site_url ?>login" class="text-info m-l-5 "><b>Sign

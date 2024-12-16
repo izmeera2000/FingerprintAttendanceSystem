@@ -43,7 +43,12 @@ function register()
 
 	require_once('views/register.php');
 }
+function register_admin()
+{
+	check_session2($site_url);
 
+	require_once('views/register2.php');
+}
 function profile()
 {
 	check_session($site_url);
@@ -399,6 +404,10 @@ switch (true) {
 	case ($request == 'register'):
 		register();
 		break;
+
+		case ($request == 'register_admin'):
+			register_admin();
+			break;
 	case ($request == 'profile'):
 		profile();
 		break;
