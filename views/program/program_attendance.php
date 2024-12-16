@@ -65,6 +65,32 @@
                 <div class="d-flex flex-row-reverse p-2 ">
                   <button type="button" class="btn waves-effect waves-light btn-rounded btn-primary "
                     id="buttonscanqr">Scan</button>
+                  <?php
+ 
+                  $query = "SELECT * FROM `program` WHERE uniq_id = '$program_id'  LIMIT 1";
+                  $results = mysqli_query($db, $query);
+
+                  if (mysqli_num_rows($results) == 1) {
+
+                    while ($row = mysqli_fetch_assoc($results)) {
+                      // $id2 = $row['id'];
+                      // $query = "UPDATE attendance SET masa_tamat = NOW()  WHERE id ='$id2' ";
+                      // $results2 = mysqli_query($db, $query);?>
+                      <input type="hidden" id="mula" value="<?php echo $row['tarikh_mula'] ?>">
+                      <input type="hidden" id="tamat" value="<?php echo $row['tarikh_tamat'] ?>">
+
+
+                      <?php
+                    }
+
+
+
+
+                  }  
+
+
+
+                  ?>
                   <!-- <button type="button"
                     class="btn waves-effect waves-light btn-rounded btn-secondary">Secondary</button>
                   <button type="button" class="btn waves-effect waves-light btn-rounded btn-success">Success</button>
@@ -226,166 +252,176 @@
         responsive: true,
       });
 
-      // Button to open "Create Class" modal
       document.getElementById('buttonscanqr').onclick = function () {
-        var myModal = new bootstrap.Modal(document.getElementById('ProgramScan'));
-        myModal.show(); // Show the modal
-        console.log("Create class button clicked");
+  var myModal = new bootstrap.Modal(document.getElementById('ProgramScan'));
+  myModal.show(); // Show the modal
+  console.log("Create class button clicked");
 
-        const videoElement = document.getElementById('video');
-        const qrResult = document.getElementById('qr-result');
-        const nextButton = document.getElementById('next-btn');
+  const videoElement = document.getElementById('video');
+  const qrResult = document.getElementById('qr-result');
+  const nextButton = document.getElementById('next-btn');
+  const mula = document.getElementById('mula');
+  const tamat = document.getElementById('tamat');
 
-        const imgel = document.getElementById('image');
-        const namael = document.getElementById('nama');
-        const ndpel = document.getElementById('ndp');
-        const student_id = document.getElementById('student_id');
-        const program_id = document.getElementById('program_id');
-        const scan_by = document.getElementById('scan_by');
+  const imgel = document.getElementById('image');
+  const namael = document.getElementById('nama');
+  const ndpel = document.getElementById('ndp');
+  const student_id = document.getElementById('student_id');
+  const program_id = document.getElementById('program_id');
+  const scan_by = document.getElementById('scan_by');
 
-        let videoStream = null;
-        let scanInterval = null;
-        let scanningActive = false; // To track if scanning is already active
+  let videoStream = null;
+  let scanInterval = null;
+  let scanningActive = false; // To track if scanning is already active
+  let isSubmitting = false;  // Track if the form is being submitted
 
-        videoElement.style.display = 'inline-block'; // Show the video element
+  videoElement.style.display = 'inline-block'; // Show the video element
 
-        // Start scanning for QR codes
-        async function startScanning() {
-          if (scanningActive) return; // Prevent starting scanning if already active
-          scanningActive = true;
+  // Start scanning for QR codes
+  async function startScanning() {
+    if (scanningActive) return; // Prevent starting scanning if already active
+    scanningActive = true;
 
-          try {
-            // Access the user's webcam
-            videoStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
-            videoElement.srcObject = videoStream;
+    try {
+      // Access the user's webcam
+      videoStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+      videoElement.srcObject = videoStream;
 
-            scanQRCode(); // Start scanning after video feed starts
-          } catch (error) {
-            console.error('Error accessing webcam:', error);
-            qrResult.textContent = 'Unable to access webcam.';
-          }
+      scanQRCode(); // Start scanning after video feed starts
+    } catch (error) {
+      console.error('Error accessing webcam:', error);
+      qrResult.textContent = 'Unable to access webcam.';
+    }
+  }
+
+  // Function to scan the QR code in the video feed
+  function scanQRCode() {
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    imgel.style.display = 'none';
+    namael.style.display = 'none';
+    ndpel.style.display = 'none';
+    videoElement.style.display = 'inline-block';
+
+    // Continuously scan the video feed
+    scanInterval = setInterval(function () {
+      if (videoElement.readyState === videoElement.HAVE_ENOUGH_DATA) {
+        canvas.height = videoElement.videoHeight;
+        canvas.width = videoElement.videoWidth;
+        context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+
+        const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+        const code = jsQR(imageData.data, canvas.width, canvas.height);
+
+        if (code) {
+          qrResult.textContent = 'QR Code Data: ' + code.data;
+
+          // Split the string by the delimiter "//"
+          let parts = code.data.split('//');
+          let ndp = parts[1];  // The first value after the first "//"
+          let id = parts[2];   // The second value after the second "//"
+          let nama = parts[3]; // The third value after the third "//"
+          let img = parts[4];  // The fourth value after the third "//"
+
+          // Display extracted data
+          ndpel.style.display = 'inline-block';
+          ndpel.value = ndp;
+
+          namael.style.display = 'inline-block';
+          namael.value = nama;
+
+          imgel.style.display = 'inline-block';
+          student_id.value = id;
+
+          // Set the image source based on the QR data
+          let dataSrc = (imgel.getAttribute('data-src')) + id + "/" + img;
+          imgel.setAttribute('src', dataSrc);  // Set the src attribute to the data-src value
+
+          stopVideo();
+          clearInterval(scanInterval); // Stop the scanning loop
+
+          // Show the "Next" button
+          nextButton.style.display = 'inline-block';
         }
+      }
+    }, 100); // Scan every 100ms
+  }
 
-        // Function to scan the QR code in the video feed
-        function scanQRCode() {
-          const canvas = document.createElement('canvas');
-          const context = canvas.getContext('2d');
-          imgel.style.display = 'none';
-          namael.style.display = 'none';
-          ndpel.style.display = 'none';
-          videoElement.style.display = 'inline-block';
+  // Stop the video stream
+  function stopVideo() {
+    if (videoStream) {
+      const tracks = videoStream.getTracks();
+      tracks.forEach(track => track.stop());
+    }
+    videoElement.style.display = 'none';
+    scanningActive = false;
+  }
 
-          // Continuously scan the video feed
-          scanInterval = setInterval(function () {
-            if (videoElement.readyState === videoElement.HAVE_ENOUGH_DATA) {
-              canvas.height = videoElement.videoHeight;
-              canvas.width = videoElement.videoWidth;
-              context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+  // Restart scanning when the "Next" button is pressed
+  nextButton.addEventListener('click', function () {
+    if (isSubmitting) return; // Prevent submitting multiple times
 
-              const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-              const code = jsQR(imageData.data, canvas.width, canvas.height);
+    isSubmitting = true;  // Mark as submitting
+    nextButton.disabled = true;  // Disable the button to prevent further clicks
+    qrResult.textContent = ''; // Clear the result
+    nextButton.style.display = 'none'; // Hide the "Next" button
 
-              if (code) {
-                qrResult.textContent = 'QR Code Data: ' + code.data;
+    // Reset inputs and image display
+    ndpel.style.display = 'none';
+    namael.style.display = 'none';
+    imgel.style.display = 'none';
 
-                // Split the string by the delimiter "//"
-                let parts = code.data.split('//');
-                let ndp = parts[1];  // The first value after the first "//"
-                let id = parts[2];   // The second value after the second "//"
-                let nama = parts[3]; // The third value after the third "//"
-                let img = parts[4];  // The fourth value after the third "//"
+    // Send AJAX request to update attendance
+    $.ajax({
+      type: "POST",
+      url: "updateattprogram",
+      data: {
+        updateattprogram: {
+          student_id: student_id.value,
+          program_id: program_id.value,
+          scan_by: scan_by.value,
+          mula: mula.value,
+          tamat: tamat.value,
+        },
+      },
+      success: function (response) {
+        console.log(response);
+        student_id.value = '';
+        program_id.value = '';
+        scan_by.value = '';
 
-                // Display extracted data
-                ndpel.style.display = 'inline-block';
-                ndpel.value = ndp;
+        // Re-enable button and allow scanning again
+        isSubmitting = false;  // Mark as done
+        nextButton.disabled = false;  // Re-enable the button
+        startScanning();  // Restart scanning after successful submission
+      },
+      error: function (xhr, status, error) {
+        console.error("Error occurred:", error); // Handle errors
+        isSubmitting = false;  // Mark as done even if there is an error
+        nextButton.disabled = false;  // Re-enable the button
+      }
+    });
+  });
 
-                namael.style.display = 'inline-block';
-                namael.value = nama;
+  // Start scanning when the modal is opened
+  startScanning();
 
-                imgel.style.display = 'inline-block';
-                student_id.value = id;
+  // When the modal is hidden, stop the video stream
+  var modalElement = document.getElementById('ProgramScan');
+  modalElement.addEventListener('hidden.bs.modal', function () {
+    stopVideo(); // Stop video when modal is closed
+    qrResult.textContent = ''; // Clear the result
+    nextButton.style.display = 'none'; // Hide the "Next" button
 
-                // Set the image source based on the QR data
-                let dataSrc = (imgel.getAttribute('data-src')) + id + "/" + img;
-                imgel.setAttribute('src', dataSrc);  // Set the src attribute to the data-src value
-
-                stopVideo();
-                clearInterval(scanInterval); // Stop the scanning loop
-
-                // Show the "Next" button
-                nextButton.style.display = 'inline-block';
-              }
-            }
-          }, 100); // Scan every 100ms
-        }
-
-        // Stop the video stream
-        function stopVideo() {
-          if (videoStream) {
-            const tracks = videoStream.getTracks();
-            tracks.forEach(track => track.stop());
-          }
-          videoElement.style.display = 'none';
-          scanningActive = false;
-        }
-
-        // Restart scanning when the "Next" button is pressed
-        nextButton.addEventListener('click', function () {
-          qrResult.textContent = ''; // Clear the result
-          nextButton.style.display = 'none'; // Hide the "Next" button
-
-          // Reset inputs and image display
-          ndpel.style.display = 'none';
-          namael.style.display = 'none';
-          imgel.style.display = 'none';
-
-
-
-          // Send AJAX request to update attendance
-          $.ajax({
-            type: "POST",
-            url: "updateattprogram",
-            data: {
-              updateattprogram: {
-                student_id: student_id.value,
-                program_id: program_id.value,
-                scan_by: scan_by.value
-              },
-            },
-            success: function (response) {
-              console.log(response);
-              student_id.value = '';
-              // program_id.value = '';
-              // scan_by.value = '';
-            },
-            error: function (xhr, status, error) {
-              console.error("Error occurred:", error); // Handle errors
-            }
-          });
-
-          // Restart the scanning process after sending the data
-          startScanning();
-        });
-
-        // Start scanning when the modal is opened
-        startScanning();
-
-        // When the modal is hidden, stop the video stream
-        var modalElement = document.getElementById('ProgramScan');
-        modalElement.addEventListener('hidden.bs.modal', function () {
-          stopVideo(); // Stop video when modal is closed
-          qrResult.textContent = ''; // Clear the result
-          nextButton.style.display = 'none'; // Hide the "Next" button
-
-          // Reset inputs and image display
-          ndpel.style.display = 'none';
-          namael.style.display = 'none';
-          imgel.style.display = 'none';
-          student_id.value = '';
-          program_id.value = '';
-          scan_by.value = '';
-        });
-      };
+    // Reset inputs and image display
+    ndpel.style.display = 'none';
+    namael.style.display = 'none';
+    imgel.style.display = 'none';
+    student_id.value = '';
+    program_id.value = '';
+    scan_by.value = '';
+  });
+};
 
     });
 

@@ -42,6 +42,7 @@
             </li>
           <?php } ?>
 
+          <?php if ($_SESSION['user_details']['role'] == 1) { ?>
 
           <li class="sidebar-item">
             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>attendance/pdf"
@@ -64,14 +65,15 @@
               </span></a>
           </li>
 
+          <?php } ?>
 
+          <?php if ($_SESSION['user_details']['role'] == 1) { ?>
 
           <li class="nav-small-cap">
             <i class="mdi mdi-dots-horizontal"></i>
             <span class="hide-menu">Manage</span>
           </li>
 
-          <?php if ($_SESSION['user_details']['role'] == 1) { ?>
 
  
 
@@ -170,13 +172,15 @@
                 aria-expanded="false"><i class="bi bi-archive"></i><span class="hide-menu">Semester</span></a>
             </li>
 
-          <?php } ?>
 
 
           <li class="sidebar-item">
             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>cuti/create"
               aria-expanded="false"><i class="bi bi-person-x"></i><span class="hide-menu">Cuti</span></a>
           </li>
+
+          <?php } ?>
+
           <?php if ($_SESSION['user_details']['role'] == 1) { ?>
 
  

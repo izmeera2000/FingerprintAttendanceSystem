@@ -306,8 +306,7 @@
           },
           
         ],
-        resourceGroupField: 'semester',
-        resources: getResources,
+         resources: getResources,
         lazyFetching: true,
         selectable: true,
         selectHelper: true,
@@ -348,6 +347,8 @@
       // successCallback((data));
     }
     function getResources(info, successCallback, failureCallback) {
+      var user_id = document.getElementById('user_id').innerHTML;
+
       $.ajax({
         type: "POST",
         url: "fetchresource2",
@@ -355,6 +356,7 @@
           fetchresource2: {
             start: "info.startStr",
             end: "info.endStr",
+            user_id: user_id,
           },
         },
         success: function (response) {

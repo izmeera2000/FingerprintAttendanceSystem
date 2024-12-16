@@ -26,6 +26,21 @@ if (isset($_POST['user_register'])) {
     $jantina = mysqli_real_escape_string($db, $_POST['jantina']);
 
   }
+  
+  
+  if (empty($_POST['waris_nama'])) {
+    $errors['waris_nama'] = "waris nama required";
+  } else {
+    $jantina = mysqli_real_escape_string($db, $_POST['waris_nama']);
+
+  }
+
+  if (empty($_POST['waris_tel'])) {
+    $errors['waris_tel'] = "waris tel required";
+  } else {
+    $jantina = mysqli_real_escape_string($db, $_POST['waris_tel']);
+
+  }
   if (empty($_POST['agama'])) {
     $errors['agama'] = "agama required";
   } else {
@@ -156,8 +171,8 @@ if (isset($_POST['user_register'])) {
     //encrypt password
     $password = md5($password1);
 
-    $query = "INSERT INTO user (role, ndp,password, nama,email,phone,kp,jantina,agama,status_kahwin,bangsa,bengkel_id) 
-                          VALUES('$role','$ndp','$password','$fullname','$email','$phone','$kp','$jantina','$agama','$statuskahwin','$bangsa','$bengkel')";
+    $query = "INSERT INTO user (role, ndp,password, nama,email,phone,kp,jantina,agama,status_kahwin,bangsa,bengkel_id,waris_nama,waris_phone) 
+                          VALUES('$role','$ndp','$password','$fullname','$email','$phone','$kp','$jantina','$agama','$statuskahwin','$bangsa','$bengkel','$waris_nama','$waris_tel')";
     mysqli_query($db, $query);
 
 

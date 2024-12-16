@@ -195,7 +195,10 @@ if (isset($_POST['updateattprogram'])) {
 
   $program_id = $_POST['updateattprogram']['program_id'];  // Records per page
   $student_id = $_POST['updateattprogram']['student_id'];  // Records per page
+  $tamat = $_POST['updateattprogram']['tamat'];  // Records per page
+  $mula = $_POST['updateattprogram']['mula'];  // Records per page
   $scan_by = $_POST['updateattprogram']['scan_by'];  // Records per page
+  
   // $nama = $_POST['nama'];  // Records per page
   // $location = $_POST['location'];  // Records per page
   // $fpin = $_POST['fpin'] ; // Assign null if 'fpin' is not set
@@ -207,8 +210,13 @@ if (isset($_POST['updateattprogram'])) {
   
     // debug_to_console($query);
     $results = mysqli_query($db, $query);
+
+
+    $query = "INSERT INTO attendance (user_id, event_status,masa_mula,masa_tamat)  VALUES ('$student_id','1','$mula','$tamat');";
+    $results = mysqli_query($db, $query);
+
     // header('location:' . $site_url . 'program/');
-  // die();
+  die();
  }
 
  

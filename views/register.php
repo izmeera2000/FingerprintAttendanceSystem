@@ -69,6 +69,18 @@
                       placeholder="Nombor Kad Pengenalan" name="kp" required>
                   </div>
                 </div>
+                <div class="form-group row mb-3">
+                  <div class="col-12 ">
+                    <input class="form-control <?php formvalidatelabel("waris_nama", $errors) ?>" type="text"
+                      placeholder="Nama Waris" name="waris_nama" required>
+                  </div>
+                </div>
+                <div class="form-group row mb-3">
+                  <div class="col-12 ">
+                    <input class="form-control <?php formvalidatelabel("waris_tel", $errors) ?>" type="text"
+                      placeholder="No Telefon Waris" name="waris_tel" required>
+                  </div>
+                </div>
                 <div class="col-12 ">
                   <div class="form-group row mb-3">
                     <label for="FS_Bengkel">Bengkel</label>

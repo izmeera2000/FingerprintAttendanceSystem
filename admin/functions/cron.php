@@ -237,7 +237,7 @@ if (isset($_POST['check_slot_email'])) {
     include(getcwd() . '/admin/vendor/setasign/fpdf/exfpdf.php');
     include(getcwd() . '/admin/vendor/setasign/fpdf/easyTable.php');
 
-    $enabled = 0;
+    $enabled = 1;
     if (!$enabled) {
         $query = "SELECT * 
     FROM `sem` 

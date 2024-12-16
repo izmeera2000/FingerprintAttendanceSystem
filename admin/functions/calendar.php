@@ -33,24 +33,15 @@ if (isset($_POST['fetchresource2'])) {
 
   // $course = $_POST['fetchresource']['course'];
   // $bengkel = $_POST['fetchresource']['bengkel'];
-  // $sem = $_POST['fetchresource']['sem'];
+  $user_id = $_POST['fetchresource2']['user_id'];
 
   $query =
     "SELECT 
-    c.nama AS course,
-    d.nama AS sem
+    a.*, b.nama as course 
  FROM 
-    user a
-INNER JOIN 
-    user_enroll b ON b.user_id = a.id
-INNER JOIN 
-    course c ON c.id = b.course_id
-INNER JOIN 
-    sem d ON d.id = b.sem_start
-WHERE 
-    a.bengkel_id = '1'
-GROUP BY 
-    c.nama, d.nama;";
+    user_subjek a
+    INNER JOIN course b ON b.id = a.course_id WHERE a.assign_to = '$user_id';
+ ";
 
   //  $query .= "  AND subjek='$subjek' ";
 
@@ -59,9 +50,9 @@ GROUP BY
 
   while ($row = $results->fetch_assoc()) {
     $resources[] = array(
-      'id' => $row['id'],       // Unique identifier for the resource
+      'id' => $row['course_id'],       // Unique identifier for the resource
       'title' => $row['course'],  // Name or title for the resource
-      'sem' => $row['sem'],  // Name or title for the resource
+      // 'sem' => $row['sem'],  // Name or title for the resource
     );
   }
 
@@ -303,21 +294,116 @@ if (isset($_POST['fetchevent3'])) {
       $current_date->modify('next ' . jddayofweek($day_of_week_php, 1));
     }
 
+    $tarikhmula = new DateTime($row['tarikh_mula']);
+    $tarikhtamat = new DateTime($row['tarikh_tamat']);
+
     while ($current_date <= $end_date) {
-      $start_datetime = clone $current_date;
-      $start_datetime->setTime((int) $start_time->format('H'), (int) $start_time->format('i'));
+      // Check if current_date is between 'tarikhmula' and 'tarikhtamat'
+      if ($current_date >= $tarikhmula && $current_date <= $tarikhtamat) {
+        $start_datetime = clone $current_date;
+        $start_datetime->setTime((int) $start_time->format('H'), (int) $start_time->format('i'));
 
-      $end_datetime = clone $current_date;
-      $end_datetime->setTime((int) $end_time->format('H'), (int) $end_time->format('i'));
+        $end_datetime = clone $current_date;
+        $end_datetime->setTime((int) $end_time->format('H'), (int) $end_time->format('i'));
 
-      // Add event to the array
-      $events[] = array(
-        'id' => $row['id'],                 // Unique identifier for the event
-        'resourceId' => $day_of_week,       // Day value (1=Sunday, 2=Monday, ...)
-        'title' => $row['subjek_nama'],     // Event title (subject name)
-        'start' => $start_datetime->format('Y-m-d H:i:s'), // Start date and time
-        'end' => $end_datetime->format('Y-m-d H:i:s'),     // End date and time
-      );
+        // Add event to the array
+        $events[] = array(
+          'id' => $row['id'],                 // Unique identifier for the event
+          'resourceId' => $row['course_id'],       // Day value (1=Sunday, 2=Monday, ...)
+          'title' => $row['subjek_nama'],     // Event title (subject name)
+          'start' => $start_datetime->format('Y-m-d H:i:s'), // Start date and time
+          'end' => $end_datetime->format('Y-m-d H:i:s'),     // End date and time
+        );
+      }
+
+      // Modify to the next week's occurrence only if the date range is > 7 days
+      if ($date_diff > 7) {
+        $current_date->modify('+1 week');
+      } else {
+        break;
+      }
+    }
+  }
+
+  // Return the events as a JSON response
+  echo json_encode($events);
+  die();
+}
+
+
+
+if (isset($_POST['fetchevent4'])) {
+
+  $user_id = $_POST['fetchevent4']['user_id'];
+  $start_date = new DateTime($_POST['fetchevent4']['start']);
+  $start_date2 = $start_date->format('Y-m-d');
+  $end_date = new DateTime($_POST['fetchevent4']['end']);
+  $end_date2 = $end_date->format('Y-m-d');
+
+  // Calculate the difference in days
+  $date_diff = $start_date->diff($end_date)->days;
+
+
+  $query = "SELECT * 
+  FROM `user_enroll` 
+  WHERE user_id = '$user_id' ";
+  $results = mysqli_query($db, $query);
+
+  while ($row = mysqli_fetch_assoc($results)) {
+    $course_id = $row['course_id'];
+  }
+
+  // Query to fetch events
+  $query = "SELECT a.*, b.nama as course, c.subjek_nama, c.subjek_kod, d.masa_mula, d.masa_tamat, d.masa_mula2, d.masa_tamat2, e.nama as sem, e.start_date, e.end_date 
+            FROM user_subjek a
+            INNER JOIN course b ON b.id = a.course_id
+            INNER JOIN subjek c ON c.id = a.subjek_id
+            INNER JOIN time_slot d ON d.id = a.slot_id
+            INNER JOIN sem e ON e.id = a.sem_id
+            WHERE b.id = $course_id
+            
+             ;
+            ";
+  $results = mysqli_query($db, $query);
+  $events = array();
+
+  // Loop through results
+  while ($row = $results->fetch_assoc()) {
+    $start_time = new DateTime($row['masa_mula']);  // Start time of the slot
+    $end_time = new DateTime($row['masa_tamat']);  // End time of the slot
+
+    // Get the day for recurrence (adjusting 1=Sunday, 2=Monday, ...)
+    $day_of_week = (int) $row['day'];  // Assuming `day` column uses 1=Sunday, 2=Monday, ...
+    $day_of_week_php = $day_of_week - 1; // Convert to PHP's day numbering (0=Sunday)
+
+    // Generate events for the specified day until the end_date
+    $current_date = clone $start_date;
+    // Find the first occurrence of the specified day on or after the start_date
+    if ((int) $current_date->format('w') !== $day_of_week_php) {
+      $current_date->modify('next ' . jddayofweek($day_of_week_php, 1));
+    }
+
+    $tarikhmula = new DateTime($row['tarikh_mula']);
+    $tarikhtamat = new DateTime($row['tarikh_tamat']);
+
+    while ($current_date <= $end_date) {
+      // Check if current_date is between 'tarikhmula' and 'tarikhtamat'
+      if ($current_date >= $tarikhmula && $current_date <= $tarikhtamat) {
+        $start_datetime = clone $current_date;
+        $start_datetime->setTime((int) $start_time->format('H'), (int) $start_time->format('i'));
+
+        $end_datetime = clone $current_date;
+        $end_datetime->setTime((int) $end_time->format('H'), (int) $end_time->format('i'));
+
+        // Add event to the array
+        $events[] = array(
+          'id' => $row['id'],                 // Unique identifier for the event
+          'resourceId' => $row['course_id'],       // Day value (1=Sunday, 2=Monday, ...)
+          'title' => $row['subjek_nama'],     // Event title (subject name)
+          'start' => $start_datetime->format('Y-m-d H:i:s'), // Start date and time
+          'end' => $end_datetime->format('Y-m-d H:i:s'),     // End date and time
+        );
+      }
 
       // Modify to the next week's occurrence only if the date range is > 7 days
       if ($date_diff > 7) {
@@ -407,7 +493,7 @@ if (isset($_POST['fetchevent3'])) {
 if (isset($_POST['fetchslot'])) {
   $user_id = $_POST['fetchslot']['user_id'];
   $date = date('Y-m-d', $_POST['fetchslot']['date']);
-  $dayOfWeek = date('w', strtotime($date));  
+  $dayOfWeek = date('w', strtotime($date));
   $day2 = $dayOfWeek + 1;
 
   $course = $_POST['fetchslot']['course'];

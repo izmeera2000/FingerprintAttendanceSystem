@@ -61,7 +61,7 @@
                 <div class="col-lg-12">
                   <div class="p-4 calender-sidebar app-calendar">
                     <div class="d-none" id="user_id"><?php echo $_SESSION['user_details']['id'] ?></div>
-                    <div id="calendar2"></div>
+                     <div id="calendar2"></div>
                   </div>
                 </div>
               </div>
@@ -175,7 +175,7 @@
       var calendarHeaderToolbar = {
         left: "prev next",
         center: "title",
-        right: "resourceTimelineDay,resourceTimelineWeek,resourceTimelineMonth",
+        right: "timeGridWeek,dayGridMonth,multiMonthYear",
       };
       // var calendarEventsList = [
       //   {
@@ -279,7 +279,7 @@
       var calendar = new FullCalendar.Calendar(calendarEl, {
         selectable: true,
         // height: checkWidowWidth() ? 900 : 1052,
-        initialView: "resourceTimelineDay",
+        initialView: "timeGridWeek",
         // initialDate: `${newDate.getFullYear()}-${getDynamicMonth()}-07`,
         headerToolbar: calendarHeaderToolbar,
         // events: calendarEventsList,
@@ -299,14 +299,14 @@
         slotDuration: "00:30:00",
         nowIndicator: true,
         events: getAllEvents,
-        resourceAreaColumns: [
-          {
-            field: 'title',
-            headerContent: 'Day'
-          },
+        // resourceAreaColumns: [
+        //   {
+        //     field: 'title',
+        //     headerContent: 'Day'
+        //   },
 
-        ],
-        resources: getResources,
+        // ],
+        // resources: getResources,
         lazyFetching: true,
         selectable: true,
         selectHelper: true,
@@ -329,9 +329,9 @@
       var user_id = document.getElementById('user_id').innerHTML;
       $.ajax({
         type: "POST",
-        url: "fetchevent3",
+        url: "fetchevent4",
         data: {
-          fetchevent3: {
+          fetchevent4: {
             start: info.startStr,
             end: info.endStr,
             user_id: user_id,
@@ -347,13 +347,16 @@
       // successCallback((data));
     }
     function getResources(info, successCallback, failureCallback) {
+      var user_id = document.getElementById('user_id').innerHTML;
+
       $.ajax({
         type: "POST",
-        url: "fetchresource2",
+        url: "fetchresource3",
         data: {
           fetchresource2: {
             start: "info.startStr",
             end: "info.endStr",
+            user_id: user_id,
           },
         },
         success: function (response) {

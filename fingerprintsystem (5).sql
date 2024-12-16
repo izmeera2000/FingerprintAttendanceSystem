@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 16, 2024 at 02:36 PM
+-- Generation Time: Dec 16, 2024 at 10:38 PM
 -- Server version: 8.3.0
 -- PHP Version: 8.2.18
 
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `attendance` (
   `time_edit` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `attendance`
@@ -267,7 +267,7 @@ CREATE TABLE IF NOT EXISTS `fp_settings` (
 --
 
 INSERT INTO `fp_settings` (`id`, `kelas_id`, `mode`, `time_add`, `time_edit`) VALUES
-(1, 1, 2, '2024-11-18 23:05:43', '2024-12-16 05:29:04');
+(1, 1, 2, '2024-11-18 23:05:43', '2024-12-17 05:28:22');
 
 -- --------------------------------------------------------
 
@@ -364,8 +364,8 @@ CREATE TABLE IF NOT EXISTS `program` (
 --
 
 INSERT INTO `program` (`id`, `created_by`, `course_id`, `sem_id`, `bengkel_id`, `nama`, `uniq_id`, `tarikh_mula`, `tarikh_tamat`, `time_add`, `time_edit`) VALUES
-(113, 7, 1, 2, NULL, 'test', '1', '2024-12-15 08:00:00', '2024-12-17 13:00:00', '2024-12-16 16:15:24', '2024-12-16 16:15:24'),
-(114, 7, 2, 2, NULL, 'test', '1', '2024-12-15 08:00:00', '2024-12-17 13:00:00', '2024-12-16 16:15:24', '2024-12-16 16:15:24');
+(113, 7, 1, 2, NULL, 'test', '1', '2024-12-15 08:00:00', '2024-12-15 13:00:00', '2024-12-16 16:15:24', '2024-12-16 16:15:24'),
+(114, 7, 2, 2, NULL, 'test', '1', '2024-12-15 08:00:00', '2024-12-15 13:00:00', '2024-12-16 16:15:24', '2024-12-16 16:15:24');
 
 -- --------------------------------------------------------
 
@@ -382,14 +382,26 @@ CREATE TABLE IF NOT EXISTS `program_attendance` (
   `time_add` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `time_edit` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `program_attendance`
 --
 
 INSERT INTO `program_attendance` (`id`, `program_id`, `student_id`, `scan_by`, `time_add`, `time_edit`) VALUES
-(6, 1, 21, 7, '2024-12-16 19:46:32', '2024-12-16 19:46:32');
+(6, 1, 21, 7, '2024-12-16 19:46:32', '2024-12-16 19:46:32'),
+(7, 1, 25, 7, '2024-12-17 06:33:46', '2024-12-17 06:33:46'),
+(8, 0, 25, 0, '2024-12-17 06:34:47', '2024-12-17 06:34:47'),
+(9, 0, 25, 0, '2024-12-17 06:34:47', '2024-12-17 06:34:47'),
+(10, 0, 25, 0, '2024-12-17 06:35:12', '2024-12-17 06:35:12'),
+(11, 0, 25, 0, '2024-12-17 06:35:12', '2024-12-17 06:35:12'),
+(12, 0, 25, 0, '2024-12-17 06:35:12', '2024-12-17 06:35:12'),
+(13, 0, 25, 0, '2024-12-17 06:35:46', '2024-12-17 06:35:46'),
+(14, 0, 25, 0, '2024-12-17 06:35:46', '2024-12-17 06:35:46'),
+(15, 0, 25, 0, '2024-12-17 06:35:46', '2024-12-17 06:35:46'),
+(16, 0, 25, 0, '2024-12-17 06:35:46', '2024-12-17 06:35:46'),
+(17, 1, 25, 7, '2024-12-17 06:37:29', '2024-12-17 06:37:29'),
+(18, 0, 25, 0, '2024-12-17 06:37:42', '2024-12-17 06:37:42');
 
 -- --------------------------------------------------------
 

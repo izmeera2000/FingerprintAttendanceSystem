@@ -976,7 +976,7 @@
             <div class="row">
               <div class="col-md-12">
                 <video id="video" width="600" height="400" autoplay style="display: none;" ></video>
-                <img id="image" data-src="<?php echo $site_url ?>assets/images/user/" width="600" height="400"   style="display: none;" ></img>
+                <img id="image" class="img-fluid" data-src="<?php echo $site_url ?>assets/images/user/" width="600" height="400"   style="display: none;" ></img>
                 <input id="ndp"   class="form-control" style="display: none;" value=""  />
                 <input id="nama"  class="form-control"  style="display: none;" value=""   />
                 <input id="student_id"  class="form-control"  style="display: none;"   value="" />

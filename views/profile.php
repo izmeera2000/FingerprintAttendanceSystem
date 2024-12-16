@@ -77,7 +77,7 @@
 
                   <div class="d-flex justify-content-center">
                     <?php
-                    $data = "//" . $_SESSION['user_details']['ndp']."//" . $_SESSION['user_details']['id']."//" . $_SESSION['user_details']['nama']."//" . $_SESSION['user_details']['image_url'];
+                    $data = "//" . $_SESSION['user_details']['ndp'] . "//" . $_SESSION['user_details']['id'] . "//" . $_SESSION['user_details']['nama'] . "//" . $_SESSION['user_details']['image_url'];
                     $logoPath = __DIR__ . '/../assets/images/logo-w.png'; // Path to your logo image
                   
                     $base64QRCode = generateQRCodeWithLogo($data, $logoPath);
@@ -116,10 +116,10 @@
                   <a class="nav-link active" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#last-month"
                     role="tab" aria-controls="pills-profile" aria-selected="false">Profile</a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                   <a class="nav-link" id="pills-setting-tab" data-bs-toggle="pill" data-bs-target="#previous-month"
                     role="tab" aria-controls="pills-setting" aria-selected="false">Setting</a>
-                </li>
+                </li> -->
               </ul>
               <!-- Tabs -->
               <div class="tab-content" id="pills-tabContent">
@@ -243,6 +243,23 @@
                       </div>
 
                     </div>
+
+                    <?php if ($_SESSION['user_details']['role'] == 4) { ?>
+                      <div class="row mt-3 mt-md-0">
+                      <div class="col-md-3 col-xs-6 b-r"> <strong>Nama Waris</strong>
+                        <br>
+                        <p class="text-muted"><?php echo $_SESSION['user_details']['waris_nama'] ?></p>
+                      </div>
+                      <div class="col-md-3 col-xs-6 b-r"> <strong>No Telefon Waris</strong>
+                        <br>
+                        <p class="text-muted"><?php echo $_SESSION['user_details']['waris_phone'] ?></p>
+                      </div>
+                      
+
+                    </div>
+
+                    <?php } ?>
+
                     <hr>
                     <!-- <p class="m-t-30">Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo,
                       rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.
