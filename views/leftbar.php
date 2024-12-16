@@ -73,17 +73,60 @@
 
           <?php if ($_SESSION['user_details']['role'] == 1) { ?>
 
+ 
+
             <li class="sidebar-item">
-              <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>subjek/create"
-                aria-expanded="false"><i class="bi bi-book"></i><span class="hide-menu">Subjek</span></a>
+              <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+              <i class="bi bi-book"></i>
+                <span class="hide-menu">Subjek </span>
+              </a>
+              <ul aria-expanded="false" class="collapse  first-level">
+
+                <li class="sidebar-item">
+                  <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>subjek/create"
+                    aria-expanded="false"><span class="hide-menu">Create</span></a>
+                </li>
+                <li class="sidebar-item">
+                  <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>subjek/assignlist"
+                    aria-expanded="false"><span class="hide-menu">Assign List</span></a>
+                </li>
+              </ul>
             </li>
 
 
+
+ 
+
+
             <li class="sidebar-item">
-              <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>course/create"
-                aria-expanded="false"><i class="bi bi-mortarboard"></i><span class="hide-menu">Course</span></a>
+              <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+              <i class="bi bi-mortarboard"></i>
+                <span class="hide-menu">Course </span>
+              </a>
+              <ul aria-expanded="false" class="collapse  first-level">
+
+                <li class="sidebar-item">
+                  <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>course/create"
+                    aria-expanded="false"><span class="hide-menu">Create</span></a>
+                </li>
+
+              </ul>
             </li>
 
+            <li class="sidebar-item">
+              <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+              <i class="bi bi-clipboard"></i>
+                <span class="hide-menu">Program </span>
+              </a>
+              <ul aria-expanded="false" class="collapse  first-level">
+
+                <li class="sidebar-item">
+                  <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>program/create"
+                    aria-expanded="false"><span class="hide-menu">Create</span></a>
+                </li>
+
+              </ul>
+            </li>
 
 
             <li class="sidebar-item">
@@ -118,12 +161,7 @@
                     <span class="hide-menu"> Enrollment </span>
                   </a>
                 </li>
-                <li class="sidebar-item">
-                  <a href="<?php echo $site_url ?>student/fingerprint" class="sidebar-link">
-                    <!-- <i class="mdi mdi-book-plus"></i> -->
-                    <span class="hide-menu"> Fingerprint </span>
-                  </a>
-                </li>
+ 
               </ul>
             </li>
 
@@ -141,11 +179,26 @@
           </li>
           <?php if ($_SESSION['user_details']['role'] == 1) { ?>
 
+ 
 
+            
             <li class="sidebar-item">
-              <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>fp/create"
-                aria-expanded="false"><i class="bi bi-fingerprint"></i><span class="hide-menu">Fingerprint
-                  Device</span></a>
+              <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+              <i class="bi bi-fingerprint"></i>
+                <span class="hide-menu">Fingerprint Device </span>
+              </a>
+              <ul aria-expanded="false" class="collapse  first-level">
+
+                <li class="sidebar-item">
+                  <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo $site_url ?>fp/create"
+                    aria-expanded="false"><span class="hide-menu">Create</span></a>
+                </li>
+                <li class="sidebar-item">
+                  <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                    href="<?php echo $site_url ?>fp/settings" aria-expanded="false"><span
+                      class="hide-menu">Settings</span></a>
+                </li>
+              </ul>
             </li>
           <?php } ?>
 

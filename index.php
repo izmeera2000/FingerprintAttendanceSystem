@@ -230,7 +230,18 @@ function fp_create()
 	];
 	require_once('views/fp/createfp.php');
 }
+function fp_settings()
+{
+	check_session($site_url, 1);
+	$pagetitle = "Fingerprint Device Settings";
 
+	$breadcrumbs = [
+		['label' => 'Home', 'url' => &$site_url, 'active' => false],
+		['label' => 'Fingerprint', 'url' => $site_url . '', 'active' => true],
+		['label' => 'Settings', 'url' => $site_url . '/fp/settings', 'active' => true],
+	];
+	require_once('views/fp/fpsetting.php');
+}
 function subjek_create()
 {
 	check_session($site_url, 1);
@@ -242,6 +253,19 @@ function subjek_create()
 		['label' => 'Create', 'url' => $site_url . '/subjek/create', 'active' => true],
 	];
 	require_once('views/subjek/createsubjek.php');
+}
+
+function subjek_assignlist()
+{
+	check_session($site_url, 1);
+	$pagetitle = "Subjek Assign List";
+
+	$breadcrumbs = [
+		['label' => 'Home', 'url' => &$site_url, 'active' => false],
+		['label' => 'Subjek', 'url' => $site_url . '', 'active' => true],
+		['label' => 'Assign List', 'url' => $site_url . '/subjek/assignlist', 'active' => true],
+	];
+	require_once('views/subjek/assignlist.php');
 }
 
 function sem_create()
@@ -282,6 +306,32 @@ function course_create()
 		['label' => 'Create', 'url' => $site_url . '/course/create', 'active' => true],
 	];
 	require_once('views/course/createcourse.php');
+}
+
+function program_create()
+{
+	check_session($site_url, 1);
+	$pagetitle = "Create Program";
+
+	$breadcrumbs = [
+		['label' => 'Home', 'url' => &$site_url, 'active' => false],
+		['label' => 'Program', 'url' => $site_url . '', 'active' => true],
+		['label' => 'Create', 'url' => $site_url . '/program/create', 'active' => true],
+	];
+	require_once('views/program/createprogram.php');
+}
+function program_attendance($request)
+{
+	check_session($site_url, 1);
+	$program_id = basename($request);
+	$pagetitle = "Attendance";
+
+	$breadcrumbs = [
+		['label' => 'Home', 'url' => &$site_url, 'active' => false],
+		['label' => 'Program', 'url' => $site_url . '', 'active' => true],
+		['label' => $program_id, 'url' => $site_url . '/program/attendance', 'active' => true],
+	];
+	require_once('views/program/program_attendance.php');
 }
 
 function jtp2()
@@ -383,7 +433,12 @@ switch (true) {
 	case (str_contains($request, 'slot_checktime')):
 	case (str_contains($request, 'class_findall')):
 	case (str_contains($request, 'fp_findall')):
+
+	case (str_contains($request, 'fp_settingedit')):
+
 	case (str_contains($request, 'subjek_findall')):
+	case (str_contains($request, 'subjek2_findall')):
+	case (str_contains($request, 'deleteassignslot')):
 	case (str_contains($request, 'sem_findall')):
 	case (str_contains($request, 'holiday_findall')):
 	case (str_contains($request, 'course_findall')):
@@ -392,6 +447,10 @@ switch (true) {
 	case (str_contains($request, 'kelas_insertfp')):
 	case (str_contains($request, 'kelas_deletefp')):
 	case (str_contains($request, 'fetchslot')):
+	case (str_contains($request, 'program_findall')):
+
+	case (str_contains($request, 'program_createf')):
+	case (str_contains($request, 'updateattprogram')):
 
 	case (str_contains($request, 'updateslot')):
 
@@ -445,11 +504,15 @@ switch (true) {
 	case ($request == 'fp/create'):
 		fp_create();
 		break;
-
+	case ($request == 'fp/settings'):
+		fp_settings();
+		break;
 	case ($request == 'subjek/create'):
 		subjek_create();
 		break;
-
+	case ($request == 'subjek/assignlist'):
+		subjek_assignlist();
+		break;
 	case ($request == 'sem/create'):
 		sem_create();
 		break;
@@ -460,7 +523,13 @@ switch (true) {
 	case ($request == 'course/create'):
 		course_create();
 		break;
+	case ($request == 'program/create'):
+		program_create();
+		break;
 
+	case (str_starts_with($request, 'program/')):
+		program_attendance($request);
+		break;
 	case ($request == 'email/jtp2'):
 		jtp2();
 		break;

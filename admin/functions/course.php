@@ -35,6 +35,7 @@ if (mysqli_num_rows($results) > 0) {
     $course[] = array(
       "a" => $row['nama'],
       "b" => date("d/m/Y", strtotime($row['time_add'])),
+      "id" => $row['id'],
       // "c" => $row['verify'],
     );
   }
@@ -77,17 +78,17 @@ if (isset($_POST['course_editf'])) {
 
 $id = $_POST['id'];  // Records per page
 $nama = $_POST['nama'];  // Records per page
-$mula = $_POST['mula'];  // Records per page
-$tamat = $_POST['tamat'];  // Records per page
+// $mula = $_POST['mula'];  // Records per page
+// $tamat = $_POST['tamat'];  // Records per page
 
 
 
-$query = "UPDATE  holiday SET nama='$nama', start_date='$mula' , end_date='$tamat'  WHERE id = '$id' ";
+$query = "UPDATE  course SET nama='$nama'   WHERE id = '$id' ";
 
 // debug_to_console($query);
 $results = mysqli_query($db, $query);
-header('location:' . $site_url . 'sem/create');
-
+header('location:' . $site_url . 'course/create');
+ 
 }
 
 
@@ -102,10 +103,10 @@ $id = $_POST['id'];  // Records per page
 // $fpout =  $_POST['fpout'] ; // Assign null if 'fpin' is not set
 
 
-$query = "DELETE FROM   sem   WHERE id = '$id' ";
+$query = "DELETE FROM   course   WHERE id = '$id' ";
 
 // debug_to_console($query);
 $results = mysqli_query($db, $query);
-header('location:' . $site_url . 'sem/create');
+header('location:' . $site_url . 'course/create');
 
 }

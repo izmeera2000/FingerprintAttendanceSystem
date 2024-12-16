@@ -577,25 +577,25 @@
               </div>
 
               <div class="col-6 mt-2">
-                    <label class="form-label">Semester</label>
+                <label class="form-label">Semester</label>
 
-                    <select class="form-control" id="select_sem" aria-label="Floating label select example">
+                <select class="form-control" id="select_sem" aria-label="Floating label select example" name="sem">
 
-                      <?php
-                      $query = "SELECT  b.id, b.nama FROM user_enroll a 
-INNER JOIN sem b ON b.id = a.sem_start GROUP BY b.nama; ";
-                      $results = mysqli_query($db, $query);
-                      while ($row = $results->fetch_assoc()) {
-                        $id = $row['id'];
-                        $nama = $row['nama'];
-                        ?>
-                        <option value="<?php echo $id ?>"><?php echo getSemesterByNumber($nama) ?></option>
+                  <?php
+                  $query = "SELECT  b.id, b.nama FROM user_enroll a 
+                INNER JOIN sem b ON b.id = a.sem_start GROUP BY b.nama; ";
+                  $results = mysqli_query($db, $query);
+                  while ($row = $results->fetch_assoc()) {
+                    $id = $row['id'];
+                    $nama = $row['nama'];
+                    ?>
+                    <option value="<?php echo $id ?>"><?php echo getSemesterByNumber($nama) ?></option>
 
-                      <?php } ?>
+                  <?php } ?>
 
-                    </select>
+                </select>
 
-                  </div>
+              </div>
 
               <div class="col-md-6 mt-2">
                 <div class="">
@@ -622,17 +622,32 @@ INNER JOIN sem b ON b.id = a.sem_start GROUP BY b.nama; ";
 
                     <option selected disabled> Pilih Slot</option>
                     <?php
-                    $query = "SELECT id, slot FROM time_slot WHERE slot != 'rehat1' AND slot != 'rehat2' ";
+                    $query = "SELECT id, slot, nama FROM time_slot WHERE slot != 'rehat1' AND slot != 'rehat2' ";
                     $results = mysqli_query($db, $query);
                     while ($row = $results->fetch_assoc()) {
                       $id = $row['id'];
-                      $nama = $row['slot'];
+                      $nama = $row['nama'];
                       ?>
-                      <option value="<?php echo $id ?>"><?php echo $nama ?></option>
+                      <option value="<?php echo $id ?>">Slot <?php echo $nama ?></option>
 
                     <?php } ?>
 
                   </select>
+                </div>
+              </div>
+
+
+              <div class="col-md-6 mt-2">
+                <div class="">
+                  <label class="form-label">Tarikh Mula</label>
+                  <input type="date" class="form-control" name="tarikh1" id="tarikh1" />
+                </div>
+              </div>
+
+              <div class="col-md-6 mt-2">
+                <div class="">
+                  <label class="form-label">Tarikh Tamat</label>
+                  <input type="date" class="form-control" name="tarikh2" id="tarikh2" />
                 </div>
               </div>
 
@@ -769,5 +784,226 @@ INNER JOIN sem b ON b.id = a.sem_start GROUP BY b.nama; ";
 
 
 
+<?php } ?>
+
+
+
+<?php if ($request == 'program/create') { ?>
+
+  <div class="modal fade" id="CreateProgramModal" tabindex="-1" aria-labelledby="CreateProgramModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+      <form method="POST">
+        <div class="modal-content">
+          <div class="modal-header d-flex align-items-center">
+            <h5 class="modal-title" id="CreateProgramModalLabel">
+              Create Program
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <input type="hidden" class="form-control" name="user_id"
+              value="<?php echo $_SESSION['user_details']['id'] ?>" />
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="">
+                  <label class="form-label">Nama</label>
+                  <input type="text" class="form-control" name="nama" required />
+                </div>
+              </div>
+
+              <!-- <div class="col-md-6 mt-2">
+                <div class="">
+                  <label class="form-label">Bengkel</label>
+                  <select class="form-control  " id="bengkel" aria-label="Floating label select example" name="bengkel[]"
+                    multiple required>
+
+
+                     <?php
+                     $query = "SELECT * FROM bengkel   ";
+                     $results = mysqli_query($db, $query);
+                     while ($row = $results->fetch_assoc()) {
+                       $id = $row['id'];
+                       $nama = $row['nama'];
+                       ?>
+                      <option value="<?php echo $id ?>"><?php echo $nama ?></option>
+
+                    <?php } ?>
+
+                  </select>
+                </div>
+              </div> -->
+
+              <div class="col-md-6 mt-2">
+                <div class="">
+                  <label class="form-label">Kursus</label>
+                  <select class="form-control  " id="course" aria-label="Floating label select example" name="course[]"
+                    multiple required>
+
+
+                    <!-- <option selected value="">Semua</option> -->
+                    <?php
+                    $query = "SELECT id, nama FROM course  ";
+                    $results = mysqli_query($db, $query);
+                    while ($row = $results->fetch_assoc()) {
+                      $id = $row['id'];
+                      $nama = $row['nama'];
+                      ?>
+                      <option value="<?php echo $id ?>"><?php echo $nama ?></option>
+
+                    <?php } ?>
+
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-6 mt-2">
+                <label class="form-label">Semester</label>
+
+                <select class="form-control" id="select_sem" aria-label="Floating label select example" name="sem[]"
+                  multiple required>
+                  <!-- <option selected value="">Semua</option> -->
+
+                  <?php
+                  $query = "SELECT  b.id, b.nama FROM user_enroll a 
+                INNER JOIN sem b ON b.id = a.sem_start GROUP BY b.nama; ";
+                  $results = mysqli_query($db, $query);
+                  while ($row = $results->fetch_assoc()) {
+                    $id = $row['id'];
+                    $nama = $row['nama'];
+                    ?>
+                    <option value="<?php echo $id ?>"><?php echo getSemesterByNumber($nama) ?></option>
+
+                  <?php } ?>
+
+                </select>
+
+              </div>
+              <div class="row mt-2">
+
+                <div class="col-md-6 ">
+                  <div class="">
+                    <label class="form-label">Tarikh Mula</label>
+                    <input type="date" class="form-control" name="mula" />
+                  </div>
+                </div>
+                <div class="col-md-6 ">
+                  <div class="">
+                    <label class="form-label">Tarikh Tamat</label>
+                    <input type="date" class="form-control" name="tamat" />
+                  </div>
+                </div>
+                <div class="col-md-6 mt-2">
+                  <div class="">
+                    <label class="form-label">Slot Mula</label>
+                    <select class="form-control" id="select_slot1" aria-label="Floating label select example" name="smula"
+                      required>
+                      <?php
+                      $query = "SELECT  * FROM time_slot  WHERE slot != 'rehat1' AND slot != 'rehat2' ";
+                      $results = mysqli_query($db, $query);
+                      while ($row = $results->fetch_assoc()) {
+                        $id = $row['id'];
+                        $nama = $row['nama'];
+                        ?>
+                        <option value="<?php echo $id ?>">Slot <?php echo $nama ?></option>
+
+                      <?php } ?>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6  mt-2">
+                  <div class="">
+                    <label class="form-label">Slot Tamat</label>
+                    <select class="form-control" id="select_slot2" aria-label="Floating label select example"
+                      name="stamat" required>
+
+                      <?php
+                      $query = "SELECT  * FROM time_slot  WHERE slot != 'rehat1' AND slot != 'rehat2' ";
+                      $results = mysqli_query($db, $query);
+                      while ($row = $results->fetch_assoc()) {
+                        $id = $row['id'];
+                        $nama = $row['nama'];
+                        ?>
+                        <option value="<?php echo $id ?>">Slot <?php echo $nama ?></option>
+
+                      <?php } ?>
+                    </select>
+
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn" data-bs-dismiss="modal">
+              Close
+            </button>
+            <!-- <button type="button" class="btn btn-success btn-update-event" data-fc-event-public-id="">
+        Update changes
+      </button> -->
+            <button type="submit" class="btn btn-primary btn-add-event" name="program_createf">
+              Create
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+<?php } ?>
+
+
+
+<?php if (str_starts_with($request, 'program/')) { ?>
+
+  <div class="modal fade" id="ProgramScan" tabindex="-1" aria-labelledby="CreateProgramModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+      <form method="POST">
+        <div class="modal-content">
+          <div class="modal-header d-flex align-items-center">
+            <h5 class="modal-title" id="CreateProgramModalLabel">
+              Scan QR
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <input type="hidden" class="form-control" name="user_id" id="scan_by" 
+              value="<?php echo $_SESSION['user_details']['id'] ?>" />
+              <input type="hidden" class="form-control"   id="program_id" 
+              value="<?php echo $program_id ?>" />
+            <div class="row">
+              <div class="col-md-12">
+                <video id="video" width="600" height="400" autoplay style="display: none;" ></video>
+                <img id="image" data-src="<?php echo $site_url ?>assets/images/user/" width="600" height="400"   style="display: none;" ></img>
+                <input id="ndp"   class="form-control" style="display: none;" value=""  />
+                <input id="nama"  class="form-control"  style="display: none;" value=""   />
+                <input id="student_id"  class="form-control"  style="display: none;"   value="" />
+                <p id="qr-result" style="display: none;"></p>
+ 
+              </div>
+            </div>
+
+
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn" data-bs-dismiss="modal">
+              Close
+            </button>
+            <!-- <button type="button" class="btn btn-success btn-update-event" data-fc-event-public-id="">
+        Update changes
+      </button> -->
+            <button   type="button" class="btn btn-primary btn-add-event"  style="display: none;" id="next-btn">
+              Confirm
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 <?php }
+
+
 ?>

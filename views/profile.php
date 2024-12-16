@@ -77,7 +77,7 @@
 
                   <div class="d-flex justify-content-center">
                     <?php
-                    $data = "ndp://" . $_SESSION['user_details']['ndp'];
+                    $data = "//" . $_SESSION['user_details']['ndp']."//" . $_SESSION['user_details']['id']."//" . $_SESSION['user_details']['nama']."//" . $_SESSION['user_details']['image_url'];
                     $logoPath = __DIR__ . '/../assets/images/logo-w.png'; // Path to your logo image
                   
                     $base64QRCode = generateQRCodeWithLogo($data, $logoPath);

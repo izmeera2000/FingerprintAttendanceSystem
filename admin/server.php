@@ -55,6 +55,7 @@ require  'admin/functions/subjek.php';
 require  'admin/functions/calendar.php';
 require  'admin/functions/pdf.php';
 require  'admin/functions/enroll.php';
+require  'admin/functions/program.php';
 
 
 
@@ -518,4 +519,21 @@ function renderBreadcrumb($pageTitle, $breadcrumbs = []) {
     </div>
     <?php
 }
+
+
+function generateIncrementalID($db) {
+  // Query to get the highest current ID
+  $sql = "SELECT MAX(uniq_id) FROM program";
+  $result = $db->query($sql);
+
+  if ($result) {
+      $row = $result->fetch_row();
+      // If no rows exist, start with 1, otherwise increment the highest ID by 1
+      return $row[0] ? $row[0] + 1 : 1;  // Increment the highest ID by 1, or start from 1 if no rows exist
+  } else {
+      // If there's an issue with the query, return false
+      return false;
+  }
+}
+
 ?>

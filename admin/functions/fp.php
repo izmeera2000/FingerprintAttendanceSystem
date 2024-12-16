@@ -307,5 +307,70 @@ if (isset($_POST['fp_mode'])) {
 }
 
 
+if (isset($_POST['fp_findall2'])) {
+
+    $fp = array();
+
+    $limit = $_POST['fp_findall2']['limit'];  // Records per page
+    $offset = $_POST['fp_findall2']['offset'];  // Record starting point
+    $draw = $_POST['fp_findall2']['draw'];
+    $searchTerm = isset($_POST['fp_findall2']['search']) ? $_POST['fp_findall2']['search'] : '';
+
+    // Query to get total number of records in the 'fp_device' table with search filter
+    $queryTotal = "SELECT COUNT(*) as total FROM fp_settings a  INNER JOIN kelas b ON a.kelas_id = b.id";
+    if (!empty($searchTerm)) {
+        $queryTotal .= " WHERE nama_kelas LIKE '%$searchTerm%'";
+    }
+
+    $resultTotal = mysqli_query($db, $queryTotal);
+    $rowTotal = mysqli_fetch_assoc($resultTotal);
+    $recordsTotal = $rowTotal['total'];
+
+    // Query to get paginated records with search filter
+    $query = "SELECT a.*,b.nama_kelas FROM fp_settings a  INNER JOIN kelas b ON a.kelas_id = b.id";
+    if (!empty($searchTerm)) {
+        $query .= " WHERE nama_kelas LIKE '%$searchTerm%'";
+    }
+    $query .= " LIMIT $limit OFFSET $offset";
+    $results = mysqli_query($db, $query);
+    $mode = [1 => 'Register', 2 => 'Login', 3 => 'Empty Database'];
+    if (mysqli_num_rows($results) > 0) {
+        while ($row = mysqli_fetch_assoc($results)) {
+
+            $fp[] = array(
+                "a" => $row['nama_kelas'],
+                "b" => $mode[$row["mode"] + 1],
+                "id" => $row['id'],
+            );
+        }
+    }
+
+    // Create the response with proper record counts
+    $response = [
+        "draw" => $draw,
+        "recordsTotal" => $recordsTotal,  // Total records in the table
+        "recordsFiltered" => $recordsTotal,  // Records filtered by search
+        "data" => $fp
+    ];
+
+    echo json_encode($response);
+    die();
+}
 
 
+if (isset($_POST['fp_settingedit'])) {
+    // echo "test";
+    // var_dump(($_POST));
+
+    $id = $_POST['fp_settingedit']['id'];  // Records per page
+    $mode = $_POST['fp_settingedit']['mode'];  // Records per page
+
+
+    $query = "UPDATE  fp_settings SET mode ='$mode' WHERE id = '$id' ";
+
+    // debug_to_console($query);
+    $results = mysqli_query($db, $query);
+    // header('location:' . $site_url . 'fp/settings');
+    die();
+
+}

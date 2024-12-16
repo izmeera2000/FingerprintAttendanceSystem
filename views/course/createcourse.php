@@ -164,7 +164,7 @@
           },
         },
         columns: [
-          { data: "a", className: "text-center" },
+          { data: "a", className: "text-center " },
           { data: "b", responsivePriority: 1 },
           {
             data: "id",
@@ -204,7 +204,7 @@
         $('#id').val(id);
         $('#nama').val(rowData.a);
         // $('#kod').val(rowData.b);
-        console.log(rowData.b);
+        console.log(id);
 
 
         // console.log("Row data:", rowData);
