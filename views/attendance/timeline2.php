@@ -298,7 +298,7 @@ INNER JOIN sem b ON b.id = a.sem_start GROUP BY b.nama; ";
         const status = document.getElementById("event-status");
         const sebab = document.getElementById("event-reason");
         const proof = document.getElementById("event-proof");
-        
+
         const sebab2 = document.getElementById("sebab");
 
         let starttime = new Date(info.event.start);
@@ -310,16 +310,18 @@ INNER JOIN sem b ON b.id = a.sem_start GROUP BY b.nama; ";
         tarikh.value = info.event.extendedProps.tarikh;
         masa.value = starttime2 + " - " + endtime2;
         status.value = info.event.extendedProps.status_description;
-          sebab2.value = info.event.extendedProps.reason;
 
         if (info.event.extendedProps.status == "0" || info.event.extendedProps.status == "5") {
           sebab.classList.remove("d-none");
+          sebab2.value = info.event.extendedProps.sebab;
 
           proof.classList.add("d-none");
 
         }
         else if (info.event.extendedProps.status == "3") {
           sebab.classList.remove("d-none");
+          sebab2.value = info.event.extendedProps.sebab;
+
           proof.classList.remove("d-none");
           let link = document.querySelector('#event-proof a');
           link.innerHTML = "test";
