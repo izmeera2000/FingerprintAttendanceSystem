@@ -1033,7 +1033,7 @@
               <div class="col-md-12">
                 <div class="">
                   <label class="form-label">Gambar / File</label>
-                  <input type="file" class="form-control" name="fileInput" id="fileInput" />
+                  <input type="file" class="form-control" name="file" id="fileInput" />
                 </div>
               </div>
 
