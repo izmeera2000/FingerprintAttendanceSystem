@@ -634,9 +634,39 @@ if (isset($_POST['updateslot'])) {
 if (isset($_POST['update_att_student'])) {
   $id = $_POST['id'];
   $alasan = $_POST['alasan'];
+ 
 
+  if (isset($_FILES['file']) && $_FILES['file']['error'] == UPLOAD_ERR_OK) {
+    $fileTmpName = $_FILES['file']['tmp_name'];
+    $fileName = $_FILES['file']['name'];
+    $fileSize = $_FILES['file']['size'];
+    $fileError = $_FILES['file']['error'];
+    $fileType = $_FILES['file']['type'];
 
-  $query = "UPDATE attendance_slot SET reason = '$alasan'  WHERE id ='$id' ";
-  $results2 = mysqli_query($db, $query);
+    // Validate file type and size (optional)
+    $allowedFileTypes = ['image/jpeg', 'image/png', 'doc/pdf'];  // Allowed file types
+    $maxFileSize = 2 * 1024 * 1024;  // Max file size (2MB)
+
+    if (in_array($fileType, $allowedFileTypes) && $fileSize <= $maxFileSize) {
+      // Set the file upload directory (ensure this folder exists and is writable)
+      $uploadDir = 'assets/uploads/';
+      $filePath = $uploadDir . basename($fileName);
+
+      // Move the uploaded file to the specified directory
+      if (move_uploaded_file($fileTmpName, $filePath)) {
+        // Update the query to save the file path in the database
+        $query = "UPDATE attendance_slot SET reason = '$alasan', file_path = '$filePath' WHERE id = '$id'";
+      } else {
+        echo "Error uploading the file.";
+        exit;
+      }
+    } else {
+      echo "Invalid file type or file size exceeded.";
+      exit;
+    }
+  } else {
+    // If no file is uploaded, update only the reason
+    $query = "UPDATE attendance_slot SET reason = '$alasan' WHERE id = '$id'";
+  }
 
 }

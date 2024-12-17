@@ -243,17 +243,17 @@
       /*=====================*/
       var calendarEventClick = function (info) {
         // var eventObj = info.event;
-        // console.log(info.event.end);
-        if (info.event.extendedProps.slot == 'slot1') {
+         // console.log(info.event.end);
+        if (info.event.extendedProps.slot == 'slot1'){
+
+        
+        $('#id').val(info.event.extendedProps.slot_id);
+
+        var myModal = new bootstrap.Modal(document.getElementById("UpdateAttStudent"));
 
 
-          $('#id').val(info.event.extendedProps.slot_id);
-
-          var myModal = new bootstrap.Modal(document.getElementById("UpdateAttStudent"));
-
-
-          myModal.show();
-        }
+        myModal.show();
+}
         // if (eventObj.url) {
         //   window.open(eventObj.url);
 
@@ -395,6 +395,7 @@
         // Add your custom functionality here
       });
       $('#updateverify').on('click', function () {
+
         var date = $('#date').val();
         var user_id = $('#user_id').val();
         var checkedSlotIds = $('#btggroupslot').find('input[type="checkbox"]:checked').map(function () {
@@ -404,44 +405,38 @@
           return this.id;
         }).get(); // Convert jQuery object to array
 
+        console.log(checkedSlotIds);
         var bengkel = $('#bengkel').val();
         var course = $('#course').val();
         var sem = $('#sem').val();
 
-        // Prepare FormData
-        var formData = new FormData();
-        formData.append('date', date);
-        formData.append('user_id', user_id);
-        formData.append('bengkel', bengkel);
-        formData.append('course', course);
-        formData.append('sem', sem);
-        formData.append('check', JSON.stringify(checkedSlotIds));  // Send as JSON string
-        formData.append('uncheck', JSON.stringify(uncheckedSlotIds));  // Send as JSON string
 
-        // Check if a file is selected and append it
-        var fileInput = $('#fileInput')[0].files[0];
-        if (fileInput) {
-          formData.append('file', fileInput);
-        }
-
-        // Perform the AJAX request with FormData
         $.ajax({
           type: "POST",
-          url: "updateslot",  // Server-side endpoint to handle the request
-          data: formData,
-          contentType: false,  // Important to set this to false for FormData
-          processData: false,  // Important to set this to false for FormData
+          url: "updateslot",
+          data: {
+            updateslot: {
+              date: date,
+              user_id: user_id,
+              bengkel: bengkel,
+              course: course,
+              sem: sem,
+              check: checkedSlotIds,
+              uncheck: uncheckedSlotIds,
+
+            },
+          },
           success: function (response) {
             console.log(response);
-            // Optionally hide modal or perform other actions
+            // console.log(date);
+            // $('#btggroupslot').html(response);
             myModal2.hide();
-          },
-          error: function (xhr, status, error) {
-            console.error("Error occurred: " + error);
-          }
-        });
-      });
 
+          },
+        });
+
+
+      });
 
 
     });
