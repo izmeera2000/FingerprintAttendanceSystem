@@ -199,7 +199,7 @@ if (isset($_POST['post_fp2'])) {
 
 if (isset($_POST['post_fp'])) {
 
-    $id = $_POST['post_fp'];
+    $fp_new = $_POST['post_fp'];
 
     $query = "SELECT id, fp_num FROM `user_fp` WHERE fp_status = 'R';";
     $results = mysqli_query($db, $query);
@@ -215,7 +215,7 @@ if (isset($_POST['post_fp'])) {
             echo "Updating user with ID: $id and fp_num: $fp_num<br>";
 
             // Update user record: set fp to 'D' for this user
-            $updateQuery = "UPDATE user_fp SET fp_status = 'D' WHERE id = '$id'";  // Be careful with raw queries
+            $updateQuery = "UPDATE user_fp SET fp_status = 'D' WHERE user_id = '$id'";  // Be careful with raw queries
             $updateResult = mysqli_query($db, $updateQuery);
 
             // Check if the update was successful
