@@ -1011,7 +1011,7 @@
 
   <div class="modal fade" id="UpdateAttStudent" tabindex="-1" aria-labelledby="EditSubjekModalLabel" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-      <form method="POST">
+      <form method="POST" enctype="multipart/form-data">
         <div class="modal-content">
           <div class="modal-header d-flex align-items-center">
             <h5 class="modal-title" id="EditSubjekModalLabel">
