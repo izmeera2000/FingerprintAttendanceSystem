@@ -239,6 +239,18 @@ if (isset($_POST['login_fp'])) {
 
     $id = $_POST['login_fp'];
     $ent = $_POST['entrance'];
+
+
+
+    $query = "SELECT user_id ,fp_num FROM `user_fp` WHERE fp_num ='$id';";
+    $results = mysqli_query($db, $query);
+    while ($row = mysqli_fetch_assoc($results)) {
+        $user_id = $row['user_id'];
+        echo $user_id;
+
+    }
+
+
     if ($ent) {
 
         $query = "SELECT * FROM attendance WHERE user_id = '$id' AND masa_tamat IS NULL  ORDER BY time_add DESC LIMIT 1;";
