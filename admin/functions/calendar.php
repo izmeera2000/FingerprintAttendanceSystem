@@ -651,6 +651,7 @@ if (isset($_POST['update_att_student'])) {
       // Set the file upload directory (ensure this folder exists and is writable)
       $uploadDir = 'assets/uploads/';
       $filePath = $uploadDir . basename($fileName);
+      $query = "UPDATE attendance_slot SET reason = '$alasan', file_path = '$filePath' WHERE id = '$id'";
 
       // Move the uploaded file to the specified directory
       if (move_uploaded_file($fileTmpName, $filePath)) {
