@@ -289,7 +289,7 @@ INNER JOIN sem b ON b.id = a.sem_start GROUP BY b.nama; ";
       /*=====================*/
       var calendarEventClick = function (info) {
         // var eventObj = info.event;
-        // console.log(info.event.start);
+        console.log(info.event);
         // console.log(info.event.end);
         var myModal = new bootstrap.Modal(document.getElementById("UpdateAttendance"));
 
@@ -312,6 +312,8 @@ INNER JOIN sem b ON b.id = a.sem_start GROUP BY b.nama; ";
 
         if (info.event.extendedProps.status == "0" || info.event.extendedProps.status == "5") {
           sebab.classList.remove("d-none");
+          sebab.value = info.event.extendedProps.reason;
+
           proof.classList.add("d-none");
 
         }
