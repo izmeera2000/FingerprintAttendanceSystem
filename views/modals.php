@@ -10,6 +10,8 @@
         </div>
         <div class="modal-body">
           <div class="row">
+          <input id="event_id" type="hidden" class="form-control" readonly />
+
             <div class="col-md-6">
               <div class="">
                 <label class="form-label">Tarikh</label>
@@ -99,11 +101,9 @@
             Close
           </button>
           <button type="button" class="btn btn-success btn-update-event" data-fc-event-public-id="">
-            Update changes
+            Verify
           </button>
-          <button type="button" class="btn btn-primary btn-add-event">
-            Add Event
-          </button>
+ 
         </div>
       </div>
     </div>
@@ -969,19 +969,19 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <input type="hidden" class="form-control" name="user_id" id="scan_by" 
+            <input type="hidden" class="form-control" name="user_id" id="scan_by"
               value="<?php echo $_SESSION['user_details']['id'] ?>" />
-              <input type="hidden" class="form-control"   id="program_id" 
-              value="<?php echo $program_id ?>" />
+            <input type="hidden" class="form-control" id="program_id" value="<?php echo $program_id ?>" />
             <div class="row">
               <div class="col-md-12">
-                <video id="video" width="600" height="400" autoplay style="display: none;" ></video>
-                <img id="image" class="img-fluid" data-src="<?php echo $site_url ?>assets/images/user/" width="600" height="400"   style="display: none;" ></img>
-                <input id="ndp"   class="form-control" style="display: none;" value=""  />
-                <input id="nama"  class="form-control"  style="display: none;" value=""   />
-                <input id="student_id"  class="form-control"  style="display: none;"   value="" />
+                <video id="video" width="600" height="400" autoplay style="display: none;"></video>
+                <img id="image" class="img-fluid" data-src="<?php echo $site_url ?>assets/images/user/" width="600"
+                  height="400" style="display: none;"></img>
+                <input id="ndp" class="form-control" style="display: none;" value="" />
+                <input id="nama" class="form-control" style="display: none;" value="" />
+                <input id="student_id" class="form-control" style="display: none;" value="" />
                 <p id="qr-result" style="display: none;"></p>
- 
+
               </div>
             </div>
 
@@ -995,7 +995,7 @@
             <!-- <button type="button" class="btn btn-success btn-update-event" data-fc-event-public-id="">
         Update changes
       </button> -->
-            <button   type="button" class="btn btn-primary btn-add-event"  style="display: none;" id="next-btn">
+            <button type="button" class="btn btn-primary btn-add-event" style="display: none;" id="next-btn">
               Confirm
             </button>
           </div>
@@ -1003,7 +1003,7 @@
       </form>
     </div>
   </div>
-<?php }?>
+<?php } ?>
 
 
 <?php if ($request == 'attendance/slotview2') { ?>
@@ -1029,7 +1029,7 @@
                   <input type="text" class="form-control" name="alasan" id="alasan" />
                 </div>
               </div>
-               
+
               <div class="col-md-12">
                 <div class="">
                   <label class="form-label">Gambar / File</label>
@@ -1043,7 +1043,7 @@
             <button type="button" class="btn" data-bs-dismiss="modal">
               Close
             </button>
- 
+
             <button type="submit" class="btn btn-primary btn-add-event" name="update_att_student">
               Save Changes
             </button>
@@ -1053,6 +1053,4 @@
     </div>
   </div>
 
-  <?php }?>
-
- 
+<?php } ?>
