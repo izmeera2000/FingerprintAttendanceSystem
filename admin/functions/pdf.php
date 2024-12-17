@@ -143,14 +143,14 @@ if (isset($_POST['get_pdf'])) {
     $dates_verify = getDatesFromRange($startDate, $endDate); // Array of dates
 
     $att_verify = []; // Initialize an empty array to store attendance verification data
-    
+
     foreach ($dates_verify as $date) {
         // Initialize the date with an empty array
         $att_verify[$date] = [];
 
-        $dayOfWeek = date('w', strtotime($date));  
+        $dayOfWeek = date('w', strtotime($date));
         $day2 = $dayOfWeek + 1;
-    
+
         $query = "SELECT a.slot_id, 
                    c.nama AS slot_nama, 
                    b.verify_att,
@@ -170,9 +170,9 @@ if (isset($_POST['get_pdf'])) {
               AND e.sem_start = '$sem_start'
             GROUP BY a.slot_id;
         ";
-    
+
         $results3 = mysqli_query($db, $query);
-    
+
         if ($results3 && mysqli_num_rows($results3) > 0) {
             // Fetch results if available
             while ($row3 = mysqli_fetch_assoc($results3)) {
@@ -226,7 +226,7 @@ if (isset($_POST['get_pdf'])) {
 
 
 
-    $user_status = ['BH', ' ', 'TG', 'DBH'];
+    $user_status = ['', '', 'TG', 'DBH', 'BH'];
 
 
     $students_attendance = [];
@@ -412,7 +412,7 @@ if (isset($_POST['get_pdf'])) {
 
 
             if ($pdf->GetY() > 140 || ($pelajartotal == $d + 1)) {
-                tablebfooter($tableB, $dates, $timeslot, $slottotal, $pdf,$att_verify);
+                tablebfooter($tableB, $dates, $timeslot, $slottotal, $pdf, $att_verify);
 
 
             }
@@ -500,7 +500,7 @@ function tablebheader($tableB, $dayslot, $timeslot, $dates, $month, $pdf)
     $tableB->printRow();
 }
 
-function tablebfooter($tableB, $days, $timeslot, $slottotal, $pdf , $att_verify)
+function tablebfooter($tableB, $days, $timeslot, $slottotal, $pdf, $att_verify)
 {
     $tableB->easyCell("", 'rowspan:2');
     $tableB->easyCell("Tanda-tanda yang digunakan dalam Senarai Kehadiran adalah seperti berikut:\n/ - Hadir\n0 - Tidak Hadir\nK - Cuti Dengan Kebenaran/Lain-lain aktiviti", 'rowspan:2;colspan:2');
@@ -510,13 +510,13 @@ function tablebfooter($tableB, $days, $timeslot, $slottotal, $pdf , $att_verify)
         if (isset($att_verify[$day])) {
             foreach ($timeslot as $slot) {
                 $slot2 = "slot" . $slot; // Construct the slot name
-    
+
                 $found = false; // Flag to check if the slot is found in the day's data
-    
+
                 foreach ($att_verify[$day] as $event) {
                     if ($event['slot'] == $slot) {
                         $found = true;
-    
+
                         // Check if all are verified (slot_status = 1)
                         if ($event['slot_status'] == 1) {
                             $id = $event['verified_by']; // Assuming 'verified_by' is the ID
@@ -527,11 +527,11 @@ function tablebfooter($tableB, $days, $timeslot, $slottotal, $pdf , $att_verify)
                         } else {
                             $tableB->easyCell("", ';align:C;valign:M;paddingX:0.5;paddingY:0.5');
                         }
-    
+
                         break; // Exit the loop since the slot is found
                     }
                 }
-    
+
                 if (!$found) {
                     // If the slot is not found in the day's data
                     $tableB->easyCell("", ';align:C;valign:M;paddingX:0.5;paddingY:0.5');
@@ -544,7 +544,7 @@ function tablebfooter($tableB, $days, $timeslot, $slottotal, $pdf , $att_verify)
             }
         }
     }
-    
+
     $tableB->easyCell("Kiraan Peratus Kehadiran (%)\n(A-B)/A x 100%", 'rowspan:2;colspan:4 ;align:C;valign:M');
 
     $tableB->printRow();

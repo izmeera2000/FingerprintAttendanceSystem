@@ -10,7 +10,7 @@
         </div>
         <div class="modal-body">
           <div class="row">
-          <input id="slot_id" type="hidden" class="form-control" readonly />
+            <input id="slot_id" type="hidden" class="form-control" readonly />
 
             <div class="col-md-6">
               <div class="">
@@ -31,14 +31,14 @@
               </div>
             </div>
 
-            <div class="col-md-12" id="event-reason">
+            <div class="col-md-12 d-none" id="event-reason">
               <div class="">
                 <label class="form-label">Sebab</label>
                 <input type="text" class="form-control" id="sebab" readonly />
               </div>
             </div>
 
-            <div class="col-md-12" id="event-proof">
+            <div class="col-md-12 d-none" id="event-proof">
               <div class="">
                 <label class="form-label">Bukti</label>
                 <a href="" id="file_bukti">bukti</a>
@@ -100,10 +100,11 @@
           <button type="button" class="btn" data-bs-dismiss="modal">
             Close
           </button>
-          <button type="button" class="btn btn-success btn-update-event" data-fc-event-public-id="">
+          <button type="button" id="btn-update-event" class="btn btn-success btn-update-event "
+            data-fc-event-public-id="">
             Verify
           </button>
- 
+
         </div>
       </div>
     </div>

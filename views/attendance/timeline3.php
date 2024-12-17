@@ -54,6 +54,7 @@
               <div>
                 <div class="row gx-0">
                   <input type="hidden" id="bengkel" value="<?php echo $_SESSION['user_details']['bengkel_id'] ?>">
+                  <input type="hidden" id="user_id" value="<?php echo $_SESSION['user_details']['id'] ?>">
 
 
 
@@ -243,17 +244,17 @@
       /*=====================*/
       var calendarEventClick = function (info) {
         // var eventObj = info.event;
-         // console.log(info.event.end);
-        if (info.event.extendedProps.slot == 'slot1'){
-
-        
-        $('#id').val(info.event.extendedProps.slot_id);
-
-        var myModal = new bootstrap.Modal(document.getElementById("UpdateAttStudent"));
+        // console.log(info.event.end);
+        if (info.event.extendedProps.slot == 'slot1') {
 
 
-        myModal.show();
-}
+          $('#id').val(info.event.extendedProps.slot_id);
+
+          var myModal = new bootstrap.Modal(document.getElementById("UpdateAttStudent"));
+
+
+          myModal.show();
+        }
         // if (eventObj.url) {
         //   window.open(eventObj.url);
 
@@ -322,11 +323,7 @@
         height: "auto",
         datesSet: function (info) {
           console.log('datesSet:', info.startStr); // Debug log
-          if (info.view.type === 'resourceTimelineDay') {
-            floatingButton.classList.remove('d-none');
-          } else {
-            floatingButton.classList.add('d-none');
-          }
+ 
           const timestamp = new Date(info.startStr).getTime() / 1000; // Divide by 1000 for PHP time
 
           $('#date').val(timestamp);
@@ -356,89 +353,7 @@
 
 
 
-
-      $('#floatingButton').on('click', function () {
-        // alert('Floating button clicked!');
-
-        var date = $('#date').val();
-        var user_id = $('#user_id').val();
-        // var checkedSlotIds = $('#btggroupslot').find('input[type="checkbox"]:checked').map(function() {
-        //     return this.id;
-        // }).get(); // Convert jQuery object to array
-        var bengkel = $('#select_bengkel').val();
-        var course = $('#select_course').val();
-        var sem = $('#select_sem').val();
-
-        $.ajax({
-          type: "POST",
-          url: "fetchslot",
-          data: {
-            fetchslot: {
-              date: date,
-              user_id: user_id,
-              bengkel: bengkel,
-              course: course,
-              sem: sem,
-              // check : checkedSlotIds,
-
-            },
-          },
-          success: function (response) {
-            console.log(response);
-            // console.log(date);
-            $('#btggroupslot').html(response);
-            myModal2.show();
-
-          },
-        });
-
-        // Add your custom functionality here
-      });
-      $('#updateverify').on('click', function () {
-
-        var date = $('#date').val();
-        var user_id = $('#user_id').val();
-        var checkedSlotIds = $('#btggroupslot').find('input[type="checkbox"]:checked').map(function () {
-          return this.id;
-        }).get(); // Convert jQuery object to array
-        var uncheckedSlotIds = $('#btggroupslot').find('input[type="checkbox"]:not(:checked)').map(function () {
-          return this.id;
-        }).get(); // Convert jQuery object to array
-
-        console.log(checkedSlotIds);
-        var bengkel = $('#bengkel').val();
-        var course = $('#course').val();
-        var sem = $('#sem').val();
-
-
-        $.ajax({
-          type: "POST",
-          url: "updateslot",
-          data: {
-            updateslot: {
-              date: date,
-              user_id: user_id,
-              bengkel: bengkel,
-              course: course,
-              sem: sem,
-              check: checkedSlotIds,
-              uncheck: uncheckedSlotIds,
-
-            },
-          },
-          success: function (response) {
-            console.log(response);
-            // console.log(date);
-            // $('#btggroupslot').html(response);
-            myModal2.hide();
-
-          },
-        });
-
-
-      });
-
-
+ 
     });
 
     function getAllEvents(info, successCallback, failureCallback) {
@@ -466,19 +381,21 @@
       // successCallback((data));
     }
     function getResources(info, successCallback, failureCallback) {
-      var bengkel = $('#bengkel').val();
-      var course = $('#course').val();
-      var sem = $('#sem').val();
+      // var bengkel = $('#bengkel').val();
+      // var course = $('#course').val();
+      // var sem = $('#sem').val();
+      var user_id = $('#user_id').val();
       $.ajax({
         type: "POST",
-        url: "fetchresource",
+        url: "fetchresource3",
         data: {
-          fetchresource: {
+          fetchresource3: {
             start: "info.startStr",
             end: "info.endStr",
-            bengkel: bengkel,
-            course: course,
-            sem: sem,
+            user_id : user_id,
+            // bengkel: bengkel,
+            // course: course,
+            // sem: sem,
           },
         },
         success: function (response) {

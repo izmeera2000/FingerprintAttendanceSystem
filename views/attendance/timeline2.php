@@ -299,8 +299,9 @@ INNER JOIN sem b ON b.id = a.sem_start GROUP BY b.nama; ";
         const sebab = document.getElementById("event-reason");
         const proof = document.getElementById("event-proof");
         const event_id = document.getElementById("slot_id");
+        const btn_update = document.getElementById("btn-update-event");
         event_id.value = info.event.extendedProps.slot_id;
-        
+
         const sebab2 = document.getElementById("sebab");
         const bukti = document.getElementById("file_bukti");
 
@@ -315,11 +316,13 @@ INNER JOIN sem b ON b.id = a.sem_start GROUP BY b.nama; ";
         status.value = info.event.extendedProps.status_description;
 
         if (info.event.extendedProps.status == "0" || info.event.extendedProps.status == "5") {
-          sebab.classList.remove("d-none");
-          sebab2.value = info.event.extendedProps.sebab;
+          // sebab.classList.remove("d-none");
+          // sebab2.value = info.event.extendedProps.sebab;
 
-          proof.classList.remove("d-none");
-          bukti.href = "../" + info.event.extendedProps.file_path;
+          // proof.classList.remove("d-none");
+          // bukti.href = "../" + info.event.extendedProps.file_path;
+          btn_update.classList.add("d-none");
+
         }
         else if (info.event.extendedProps.status == "3") {
           sebab.classList.remove("d-none");
@@ -327,6 +330,7 @@ INNER JOIN sem b ON b.id = a.sem_start GROUP BY b.nama; ";
           bukti.href = "../" + info.event.extendedProps.file_path;
 
           proof.classList.remove("d-none");
+          btn_update.classList.remove("d-none");
           let link = document.querySelector('#event-proof a');
           link.innerHTML = "test";
 
@@ -334,6 +338,7 @@ INNER JOIN sem b ON b.id = a.sem_start GROUP BY b.nama; ";
         else {
           sebab.classList.add("d-none");
           proof.classList.add("d-none");
+          btn_update.classList.add("d-none");
 
         }
 
@@ -516,6 +521,46 @@ INNER JOIN sem b ON b.id = a.sem_start GROUP BY b.nama; ";
             // console.log(date);
             // $('#btggroupslot').html(response);
             myModal2.hide();
+
+          },
+        });
+
+
+      });
+
+
+      $('#btn-update-event').on('click', function () {
+
+        // var date = $('#date').val();
+        var slot_id = $('#slot_id').val();
+        // var checkedSlotIds = $('#btggroupslot').find('input[type="checkbox"]:checked').map(function () {
+        //   return this.id;
+        // }).get(); // Convert jQuery object to array
+        // var uncheckedSlotIds = $('#btggroupslot').find('input[type="checkbox"]:not(:checked)').map(function () {
+        //   return this.id;
+        // }).get(); // Convert jQuery object to array
+
+        // console.log(checkedSlotIds);
+        // var bengkel = $('#select_bengkel').val();
+        // var course = $('#select_course').val();
+        // var sem = $('#select_sem').val();
+
+        var myModal = new bootstrap.Modal(document.getElementById("UpdateAttendance"));
+
+        $.ajax({
+          type: "POST",
+          url: "verifyslot",
+          data: {
+            verifyslot: {
+              slot_id : slot_id
+
+            },
+          },
+          success: function (response) {
+            console.log(response);
+            // console.log(date);
+            // $('#btggroupslot').html(response);
+            myModal.hide();
 
           },
         });

@@ -454,8 +454,11 @@ switch (true) {
 	case (str_contains($request, 'fingerprintesp')):
 	case (str_contains($request, 'fetchresource')):
 	case (str_contains($request, 'fetchresource2')):
+	case (str_contains($request, 'fetchresource3')):
 	case (str_contains($request, 'fetchevent')):
 	case (str_contains($request, 'fetchevent2')):
+	case (str_contains($request, 'fetchevent3')):
+	case (str_contains($request, 'fetchevent4')):
 	case (str_contains($request, 'arduino')):
 	case (str_contains($request, 'slot_checktime')):
 	case (str_contains($request, 'class_findall')):
@@ -484,6 +487,7 @@ switch (true) {
 	case (str_contains($request, 'update_att_student')):
 
 	case (str_contains($request, 'updateslot')):
+	case (str_contains($request, 'verifyslot')):
 
 	case (str_contains($request, 'post_fp')):
 	case (str_contains($request, 'login_fp')):

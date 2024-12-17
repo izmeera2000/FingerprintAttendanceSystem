@@ -32,7 +32,7 @@ if (isset($_POST['enroll_findall'])) {
     if ($col3 != '') {
         $sql .= " AND c.nama = '$col3' ";
     }
-    $user_status = ['as', 'Aktif', 'Tangguh',  'Diberhentikan','Berhenti'];
+    $user_status = ['as', 'Aktif', 'Tangguh', 'Diberhentikan', 'Berhenti'];
 
     // Append LIMIT and OFFSET for pagination
     $sql .= " LIMIT $limit OFFSET $offset";
@@ -134,7 +134,7 @@ if (isset($_POST['enroll_update'])) {
 
     $query = "UPDATE user_enroll SET user_status = $stat  WHERE user_id ='$id' ";
     $results = mysqli_query($db, $query);
-echo "test";
+    echo "test";
 
 }
 ?>

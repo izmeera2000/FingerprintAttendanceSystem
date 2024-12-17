@@ -677,8 +677,54 @@ if (isset($_POST['update_att_student'])) {
     }
   } else {
     // If no file is uploaded, update only the reason
-    $query = "UPDATE attendance_slot SET reason = '$alasan' WHERE id = '$id'";
+    $query = "UPDATE attendance_slot SET reason = '$alasan' , slot_status= '3' WHERE id = '$id'";
   }
+  $results2 = mysqli_query($db, $query);
+
+}
+
+
+
+
+if (isset($_POST['fetchresource3'])) {
+
+  // $course = $_POST['fetchresource']['course'];
+  // $bengkel = $_POST['fetchresource']['bengkel'];
+  $user_id = $_POST['fetchresource3']['user_id'];
+
+  $query =
+    "SELECT 
+    a.*
+ FROM 
+    user a
+     WHERE  a.id = '$user_id';
+ ";
+
+  //  $query .= "  AND subjek='$subjek' ";
+
+  $results = mysqli_query($db, $query);
+  $resources = array();
+
+  while ($row = $results->fetch_assoc()) {
+    $resources[] = array(
+      'id' => $row['id'],       // Unique identifier for the resource
+      'title' => $row['nama'],  // Name or title for the resource
+      // 'sem' => $row['sem'],  // Name or title for the resource
+    );
+  }
+
+  echo json_encode($resources);
+  die();
+}
+
+
+
+if (isset($_POST['verifyslot'])) {
+  $slot_id = $_POST['verifyslot']['slot_id'];
+
+
+  // If no file is uploaded, update only the reason
+  $query = "UPDATE attendance_slot SET  slot_status= '4' WHERE id = '$slot_id'";
   $results2 = mysqli_query($db, $query);
 
 }
