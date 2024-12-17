@@ -668,5 +668,6 @@ if (isset($_POST['update_att_student'])) {
     // If no file is uploaded, update only the reason
     $query = "UPDATE attendance_slot SET reason = '$alasan' WHERE id = '$id'";
   }
+  $results2 = mysqli_query($db, $query);
 
 }
