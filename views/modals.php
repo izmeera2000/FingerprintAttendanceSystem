@@ -32,7 +32,7 @@
             <div class="col-md-12" id="event-reason">
               <div class="">
                 <label class="form-label">Sebab</label>
-                <input type="text" class="form-control" readonly />
+                <input type="text" class="form-control" id="sebab" readonly />
               </div>
             </div>
 
