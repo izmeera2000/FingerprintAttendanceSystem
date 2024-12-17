@@ -317,12 +317,12 @@ INNER JOIN sem b ON b.id = a.sem_start GROUP BY b.nama; ";
           sebab2.value = info.event.extendedProps.sebab;
 
           proof.classList.remove("d-none");
-          bukti.href =  info.event.extendedProps.file_path;
+          bukti.href = "../" + info.event.extendedProps.file_path;
         }
         else if (info.event.extendedProps.status == "3") {
           sebab.classList.remove("d-none");
           sebab2.value = info.event.extendedProps.sebab;
-          bukti.href =  info.event.extendedProps.file_path;
+          bukti.href = "../" + info.event.extendedProps.file_path;
 
           proof.classList.remove("d-none");
           let link = document.querySelector('#event-proof a');
