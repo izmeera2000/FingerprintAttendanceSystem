@@ -298,7 +298,7 @@ INNER JOIN sem b ON b.id = a.sem_start GROUP BY b.nama; ";
         const status = document.getElementById("event-status");
         const sebab = document.getElementById("event-reason");
         const proof = document.getElementById("event-proof");
-        const event_id = document.getElementById("event-event_id");
+        const event_id = document.getElementById("slot_id");
         event_id.value = info.event.extendedProps.slot_id;
         
         const sebab2 = document.getElementById("sebab");

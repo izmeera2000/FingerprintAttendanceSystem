@@ -10,7 +10,7 @@
         </div>
         <div class="modal-body">
           <div class="row">
-          <input id="event_id" type="hidden" class="form-control" readonly />
+          <input id="slot_id" type="hidden" class="form-control" readonly />
 
             <div class="col-md-6">
               <div class="">
