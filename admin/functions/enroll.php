@@ -32,7 +32,7 @@ if (isset($_POST['enroll_findall'])) {
     if ($col3 != '') {
         $sql .= " AND c.nama = '$col3' ";
     }
-    $user_status = ['as', 'Aktif', 'Tangguh', 'Berhenti', 'Diberhentikan'];
+    $user_status = ['as', 'Aktif', 'Tangguh',  'Diberhentikan','Berhenti'];
 
     // Append LIMIT and OFFSET for pagination
     $sql .= " LIMIT $limit OFFSET $offset";

@@ -208,7 +208,7 @@
             className: "text-center",
             responsivePriority: 1,
             render: function (data, type, row, meta) {
-              return '<button type="button" class="btn btn-primary edit-class mx-1" data-id="' + row.id + '" data-stat="2">Tangguh</button><button type="button" class="btn btn-primary edit-class mx-1" data-id="' + row.id + '" data-stat="3">Berhenti</button><button type="button" class="btn btn-primary edit-class mx-1" data-id="' + row.id + '" data-stat="4">Diberhentikan</button><button type="button" class="btn btn-primary edit-class mx-1" data-id="' + row.id + '" data-stat="1">Aktif</button>';
+              return '<button type="button" class="btn btn-primary edit-class mx-1" data-id="' + row.id + '" data-stat="2">Tangguh</button><button type="button" class="btn btn-primary edit-class mx-1" data-id="' + row.id + '" data-stat="2">Diberhentikan</button><button type="button" class="btn btn-primary edit-class mx-1" data-id="' + row.id + '" data-stat="4">Berhenti</button><button type="button" class="btn btn-primary edit-class mx-1" data-id="' + row.id + '" data-stat="1">Aktif</button>';
             }
           },
         ],
