@@ -38,8 +38,8 @@
 
             <div class="col-md-12" id="event-proof">
               <div class="">
-                <label class="form-label">bukti</label>
-                <a href="asdasdsa">bukti</a>
+                <label class="form-label">Bukti</label>
+                <a href="" id="file_bukti">bukti</a>
               </div>
             </div>
 

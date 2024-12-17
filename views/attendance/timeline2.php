@@ -300,6 +300,7 @@ INNER JOIN sem b ON b.id = a.sem_start GROUP BY b.nama; ";
         const proof = document.getElementById("event-proof");
 
         const sebab2 = document.getElementById("sebab");
+        const bukti = document.getElementById("file_bukti");
 
         let starttime = new Date(info.event.start);
         let starttime2 = starttime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -315,12 +316,13 @@ INNER JOIN sem b ON b.id = a.sem_start GROUP BY b.nama; ";
           sebab.classList.remove("d-none");
           sebab2.value = info.event.extendedProps.sebab;
 
-          proof.classList.add("d-none");
-
+          proof.classList.remove("d-none");
+          bukti.href =  info.event.extendedProps.file_path;
         }
         else if (info.event.extendedProps.status == "3") {
           sebab.classList.remove("d-none");
           sebab2.value = info.event.extendedProps.sebab;
+          bukti.href =  info.event.extendedProps.file_path;
 
           proof.classList.remove("d-none");
           let link = document.querySelector('#event-proof a');
