@@ -185,7 +185,7 @@ if (isset($_POST['fingerprintregister'])) {
 if (isset($_POST['post_fp2'])) {
 
 
-    $query = "SELECT id ,fp_num FROM `user_enroll` WHERE fp='R';";
+    $query = "SELECT id ,fp_num FROM `user_fp` WHERE fp='R';";
     $results = mysqli_query($db, $query);
     while ($row = mysqli_fetch_assoc($results)) {
         $id = $row['fp_num'];
