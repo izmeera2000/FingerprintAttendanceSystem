@@ -146,13 +146,23 @@ AND subjek_id = '$subjek_id'
   AND DATE(a.tarikh) BETWEEN '$start_date2' AND '$end_date2'
  ";
   } else {
-    $query = "SELECT a.*, DAYOFWEEK(a.tarikh)  ,  b.masa_mula, b.masa_tamat, c.role , d.subjek_id
-  FROM attendance_slot a
-  INNER JOIN time_slot b ON a.slot = b.slot
-  INNER JOIN user c ON c.id = a.user_id
-  INNER JOIN user_subjek d ON DAYOFWEEK(a.tarikh) = d.day
+    $query = "SELECT a.*, 
+       DAYOFWEEK(a.tarikh) AS day_of_week, 
+       b.masa_mula, 
+       b.masa_tamat, 
+       c.role, 
+       d.subjek_id, 
+       d.slot_id,
+       ts.masa_mula AS ts_masa_mula, 
+       ts.masa_tamat AS ts_masa_tamat
+FROM attendance_slot a
+INNER JOIN time_slot b ON a.slot = b.slot   
+INNER JOIN user c ON c.id = a.user_id   
+INNER JOIN user_subjek d ON DAYOFWEEK(a.tarikh) = d.day   
+INNER JOIN time_slot ts ON d.slot_id = ts.id   
+WHERE a.slot = ts.slot 
  
-  WHERE DATE(a.tarikh) BETWEEN '$start_date2' AND '$end_date2'";
+  AND DATE(a.tarikh) BETWEEN '$start_date2' AND '$end_date2'";
   }
   $results = mysqli_query($db, $query);
   $events = array();
@@ -634,7 +644,7 @@ if (isset($_POST['updateslot'])) {
 if (isset($_POST['update_att_student'])) {
   $id = $_POST['id'];
   $alasan = $_POST['alasan'];
- 
+
 
   if (isset($_FILES['file']) && $_FILES['file']['error'] == UPLOAD_ERR_OK) {
     $fileTmpName = $_FILES['file']['tmp_name'];

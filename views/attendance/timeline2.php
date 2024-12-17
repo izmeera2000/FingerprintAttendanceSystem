@@ -289,7 +289,7 @@ INNER JOIN sem b ON b.id = a.sem_start GROUP BY b.nama; ";
       /*=====================*/
       var calendarEventClick = function (info) {
         // var eventObj = info.event;
-        console.log(info.event);
+        console.log(info.event.extendedProps.slot_id);
         // console.log(info.event.end);
         var myModal = new bootstrap.Modal(document.getElementById("UpdateAttendance"));
 
