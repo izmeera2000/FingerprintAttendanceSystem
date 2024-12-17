@@ -1025,16 +1025,11 @@
 
               <div class="col-md-12">
                 <div class="">
-                  <label class="form-label">Nama</label>
-                  <input type="text" class="form-control" name="nama" id="nama" />
+                  <label class="form-label">Alasan</label>
+                  <input type="text" class="form-control" name="alasan" id="alasan" />
                 </div>
               </div>
-              <div class="col-md-12 mt-2">
-                <div class="">
-                  <label class="form-label">Kod</label>
-                  <input type="text" class="form-control" name="kod" id="kod" />
-                </div>
-              </div>
+               
 
 
             </div>
@@ -1043,10 +1038,8 @@
             <button type="button" class="btn" data-bs-dismiss="modal">
               Close
             </button>
-            <button type="submit" class="btn btn-danger" name="subjek_deletef">
-              Delete
-            </button>
-            <button type="submit" class="btn btn-primary btn-add-event" name="subjek_editf">
+ 
+            <button type="submit" class="btn btn-primary btn-add-event" name="update_att_student">
               Save Changes
             </button>
           </div>

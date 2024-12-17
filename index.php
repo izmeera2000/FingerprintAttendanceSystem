@@ -481,6 +481,7 @@ switch (true) {
 
 	case (str_contains($request, 'program_createf')):
 	case (str_contains($request, 'updateattprogram')):
+	case (str_contains($request, 'update_att_student')):
 
 	case (str_contains($request, 'updateslot')):
 

@@ -243,13 +243,17 @@
       /*=====================*/
       var calendarEventClick = function (info) {
         // var eventObj = info.event;
-        console.log(info.event.start);
-        // console.log(info.event.end);
+         // console.log(info.event.end);
+        if (info.event.extendedProps.slot == 'slot1'){
+
+        
+        $('#id').val(info.event.extendedProps.slot_id);
+
         var myModal = new bootstrap.Modal(document.getElementById("UpdateAttStudent"));
 
 
         myModal.show();
-
+      }
         // if (eventObj.url) {
         //   window.open(eventObj.url);
 

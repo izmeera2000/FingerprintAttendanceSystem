@@ -244,6 +244,8 @@ AND subjek_id = '$subjek_id'
         'tarikh2' => $tarikh2,
         'verify' => $verify,
         'color' => $color,
+        'slot_id' => $row['id'],
+        'slot' => $row['slot'],
       );
     }
 
@@ -627,4 +629,14 @@ if (isset($_POST['updateslot'])) {
 
   // }
   die();
+}
+
+if (isset($_POST['update_att_student'])) {
+  $id = $_POST['id'];
+  $alasan = $_POST['alasan'];
+
+
+  $query = "UPDATE attendance_slot SET reason = '$alasan'  WHERE id ='$id' ";
+  $results2 = mysqli_query($db, $query);
+
 }
